@@ -27,7 +27,7 @@ export class RegistrationDataService {
   // });
 
   _userWithInitialValues: IUser = {
-    streamweb3_username: '',
+    streamvault_username: '',
     email: '',
     country: '',
     role: Role.Visitor,
@@ -39,28 +39,28 @@ export class RegistrationDataService {
   private registrations = [
     {
       pi_uid: 1,
-      streamweb3_username: 'rego_username1',
+      streamvault_username: 'rego_username1',
       email: 'usrrego101@gmail.com',
       country: 'Australia',
       city: 'Melbourne',
     },
     {
       pi_uid: 2,
-      streamweb3_username: 'rego_username2',
+      streamvault_username: 'rego_username2',
       email: 'usrrego102@gmail.com',
       country: 'Australia',
       city: 'Melbourne',
     },
     {
       pi_uid: 3,
-      streamweb3_username: 'rego_username3',
+      streamvault_username: 'rego_username3',
       email: 'usrrego103@gmail.com',
       country: 'Australia',
       city: 'Melbourne',
     },
     {
       pi_uid: 4,
-      streamweb3_username: 'rego_username4',
+      streamvault_username: 'rego_username4',
       email: 'usrrego104@gmail.com',
       country: 'Australia',
       city: 'Melbourne',

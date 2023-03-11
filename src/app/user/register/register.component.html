@@ -7,12 +7,13 @@
         fxLayoutGap="30px"
       >
         <span
-          >To register with StreamWeb3 application, please connect with Pi
+          >To register with StreamVault application, please connect with Pi
           Blockchain Network.</span
         >
 
         <button
           mat-stroked-button
+          [ngClass]="{ spinner: _isBusy }"
           (click)="connectWithPiNetwork()"
           matTooltip="Connect with Pi Network"
           aria-label="Connect"
@@ -44,12 +45,12 @@
               <input
                 matInput
                 placeholder="User Name"
-                formControlName="streamweb3_username"
+                formControlName="streamvault_username"
               />
               <mat-error
                 *ngIf="
                   _registrationForm
-                    .get('streamweb3_username')
+                    .get('streamvault_username')
                     ?.hasError('required')
                 "
               >
@@ -58,7 +59,7 @@
               <mat-error
                 *ngIf="
                   _registrationForm.getError('minLength', [
-                    'streamweb3_username'
+                    'streamvault_username'
                   ]) as error
                 "
               >
@@ -67,7 +68,7 @@
               <mat-error
                 *ngIf="
                   _registrationForm.getError('maxLength', [
-                    'streamweb3_username'
+                    'streamvault_username'
                   ]) as error
                 "
               >
@@ -170,7 +171,8 @@
         fxLayoutGap="30px"
       >
         <mat-card-content>
-          <span>Hi {{ _registeredUser.streamweb3_username }},</span><br /><br />
+          <span>Hi {{ _registeredUser.streamvault_username }},</span
+          ><br /><br />
           <span>You have already been registered.</span>
         </mat-card-content>
       </mat-card>

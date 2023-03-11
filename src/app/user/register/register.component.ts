@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
   _isAuthenticated: boolean = false;
   _windowRef = window as unknown as CustomWindow;
   _authResult: PiModel.AuthResult | null = null;
-
+  _isBusy: boolean = false;
   _notification: INotification = {
     message: '',
     type: 'none',
@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
     private _fb: FormBuilder,
     private _notificationService: NotificationService,
     private _router: Router,
-    private _tokenStorage: TokenStorageService,
+    private _tokenStorageService: TokenStorageService,
     private _regService: RegistrationDataService,
     private _piNetworkService: PiNetworkService
   ) {
@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
     });
 
     this._registrationForm = this._fb.group({
-      streamweb3_username: [
+      streamvault_username: [
         '',
         [
           Validators.required,
@@ -125,8 +125,8 @@ export class RegisterComponent implements OnInit {
       pichain_uid: this._authResult?.user.uid,
       pichain_username: this._authResult?.user.username,
 
-      streamweb3_username:
-        this._registrationForm.controls['streamweb3_username'].value,
+      streamvault_username:
+        this._registrationForm.controls['streamvault_username'].value,
       email: this._registrationForm.controls['email'].value,
       country: this._registrationForm.controls['country'].value,
       city: this._registrationForm.controls['city'].value,
@@ -174,43 +174,19 @@ export class RegisterComponent implements OnInit {
   }
 
   connectWithPiNetwork = () => {
-    // Pi_Authentication()
-    //   .then((result) => {
-    //     console.log(result.isConnected);
-    //     console.log(result.authResult);
-    //     const authResult = result.authResult;
-    //     this._authService.setIsAuthenticated(true);
-    //     this._authService.setAuthResult(authResult!);
-    //     this._regService
-    //       .getUser(
-    //         authResult!.accessToken,
-    //         authResult!.user.uid,
-    //         authResult!.user.username
-    //       )
-    //       .subscribe({
-    //         next: (registeredUser: IUser) => {
-    //           this._regService.setRegisteredUserSubject(registeredUser);
-    //         },
-    //         error: (error: Error) => {
-    //           this._regService.setRegisteredUserSubject({
-    //             streamweb3_username: '',
-    //             email: '',
-    //             country: '',
-    //             role: Role.None,
-    //             isProfileDisabled: false,
-    //           });
-    //         },
-    //       });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.isConnected);
-    //     console.log(error.authResult);
-    //     const notification = {
-    //       message: 'Connecting Pi Blockchain failed, Please try later!',
-    //       type: NotificationType.Error,
-    //       timestamp: new Date(),
-    //     };
-    //     this._notificationService.addNotification(notification);
-    //   });
+    this._isBusy = true;
+    Pi_Authentication(
+      this._authService,
+      this._tokenStorageService,
+      this._regService,
+      this._notificationService
+    )
+      .then((result) => {
+        this._isBusy = false;
+        console.log(result);
+      })
+      .catch((error) => {
+        this._isBusy = false;
+      });
   };
 }

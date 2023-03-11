@@ -33,7 +33,7 @@ interface CustomWindow extends Window {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  _title: string = 'streamweb3';
+  _title: string = 'streamvault';
   _existingAppMode: string = '';
   _isHomeRoute: boolean = false;
   _isAuthenticated: boolean = false;
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
     private _regService: RegistrationDataService
   ) {
     _iconRegistry.addSvgIcon(
-      'streamweb3',
+      'streamvault',
       _sanitizer.bypassSecurityTrustResourceUrl(
         'assets/img/icons/pi_stream_logo.svg'
       )

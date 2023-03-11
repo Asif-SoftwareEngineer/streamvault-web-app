@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'streamweb3'`, () => {
+  it(`should have as title 'streamvault'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app._title).toEqual('streamweb3');
+    expect(app._title).toEqual('streamvault');
   });
 
   // it('should render title', () => {
   //   const fixture = TestBed.createComponent(AppComponent);
   //   fixture.detectChanges();
   //   const compiled = fixture.nativeElement as HTMLElement;
-  //   expect(compiled.querySelector('.content span')?.textContent).toContain('streamweb3 app is running!');
+  //   expect(compiled.querySelector('.content span')?.textContent).toContain('streamvault app is running!');
   // });
 });

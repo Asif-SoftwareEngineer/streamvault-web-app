@@ -78,7 +78,7 @@ export class PiNetworkService {
               },
               error: (error) => {
                 this._regService.setRegisteredUserSubject({
-                  streamweb3_username: '',
+                  streamvault_username: '',
                   email: '',
                   country: '',
                   role: Role.None,
@@ -107,7 +107,7 @@ export class PiNetworkService {
 
   signOut = () => {
     this._regService.setRegisteredUserSubject({
-      streamweb3_username: '',
+      streamvault_username: '',
       email: '',
       country: '',
       role: Role.None,

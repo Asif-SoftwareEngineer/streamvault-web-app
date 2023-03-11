@@ -1,6 +1,6 @@
 FROM duluca/minimal-nginx-web-server:1-alpine
 
-COPY /dist/streamweb3 /var/www
+COPY /dist/streamvault /var/www
 
 CMD 'nginx'
 

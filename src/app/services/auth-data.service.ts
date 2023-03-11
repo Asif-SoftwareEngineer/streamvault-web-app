@@ -69,7 +69,7 @@ export class AuthDataService {
 
   signOut = () => {
     this._regService.setRegisteredUserSubject({
-      streamweb3_username: '',
+      streamvault_username: '',
       email: '',
       country: '',
       role: Role.None,

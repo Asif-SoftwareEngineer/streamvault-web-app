@@ -9,7 +9,7 @@
         To reconnect to the Network, please click the Connect button below.
         <div style="margin-top:30px">
           <span>
-            <button mat-stroked-button color="primary" (click)="connectWithPiNetwork()"
+            <button [ngClass]="{ spinner: _isBusy }" mat-stroked-button color="primary" (click)="connectWithPiNetwork()"
               matTooltip="Connect with Pi Network" aria-label="Connect">
               Connect
             </button>

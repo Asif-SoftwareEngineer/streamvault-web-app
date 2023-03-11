@@ -13,6 +13,7 @@ import { PiNetworkService } from 'src/app/services/PiNetwork.service';
 import { Pi_Authentication } from 'src/app/shared/pi-auth-payments';
 import { Role } from 'src/app/models/enums';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 interface CustomWindow extends Window {
   Pi: any;
@@ -27,6 +28,8 @@ export class LogOutComponent implements OnInit {
   _windowRef = window as unknown as CustomWindow;
   _isAuthenticated: boolean = false;
   _iSeconds: number = 3;
+  _isBusy: boolean = false
+
   counter = 3;
   timer: any;
 
@@ -40,7 +43,8 @@ export class LogOutComponent implements OnInit {
   constructor(
     private _authService: AuthDataService,
     private _router: Router,
-    private _notificationService: NotificationService
+    private _notificationService: NotificationService,
+    private _tokenStorageService: TokenStorageService
   ) {
     this._authService.setIsAuthenticated(false);
   }
@@ -61,43 +65,19 @@ export class LogOutComponent implements OnInit {
   }
 
   connectWithPiNetwork(): void {
-    // Pi_Authentication()
-    //   .then((result) => {
-    //     console.log(result.isConnected);
-    //     console.log(result.authResult);
-    //     const authResult = result.authResult;
-    //     this._authService.setIsAuthenticated(true);
-    //     this._authService.setAuthResult(authResult!);
-    //     this._regService
-    //       .getUser(
-    //         authResult!.accessToken,
-    //         authResult!.user.uid,
-    //         authResult!.user.username
-    //       )
-    //       .subscribe({
-    //         next: (registeredUser: IUser) => {
-    //           this._regService.setRegisteredUserSubject(registeredUser);
-    //         },
-    //         error: (error: Error) => {
-    //           this._regService.setRegisteredUserSubject({
-    //             streamweb3_username: '',
-    //             email: '',
-    //             country: '',
-    //             role: Role.None,
-    //             isProfileDisabled: false,
-    //           });
-    //         },
-    //       });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.isConnected);
-    //     console.log(error.authResult);
-    //     const notification = {
-    //       message: 'Connecting Pi Blockchain failed, Please try later!',
-    //       type: NotificationType.Error,
-    //       timestamp: new Date(),
-    //     };
-    //     this._notificationService.addNotification(notification);
-    //   });
+    this._isBusy = true;
+    Pi_Authentication(
+      this._authService,
+      this._tokenStorageService,
+      this._regService,
+      this._notificationService
+    )
+      .then((result) => {
+        this._isBusy = false;
+        console.log(result);
+      })
+      .catch((error) => {
+        this._isBusy = false;
+      });
   }
 }

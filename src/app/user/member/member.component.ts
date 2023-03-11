@@ -27,6 +27,7 @@ import { NotificationType } from 'src/app/shared/enums';
 import { PiNetworkService } from 'src/app/services/PiNetwork.service';
 import { RegistrationDataService } from 'src/app/services/registration.service';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { timeout } from 'rxjs';
 
 // import {
@@ -51,6 +52,7 @@ export class MemberComponent implements OnInit, AfterViewInit {
   _authResult: PiModel.AuthResult | null = null;
   _membershipTypeSelected: MembershipType | null = null;
   _userType: string = 'visitor';
+  _isBusy: boolean = false;
 
   _notification: INotification = {
     message: '',
@@ -69,7 +71,7 @@ export class MemberComponent implements OnInit, AfterViewInit {
     private _notificationService: NotificationService,
     private _router: Router,
     private _regService: RegistrationDataService,
-    private _renderer: Renderer2
+    private _tokenStorageService: TokenStorageService
   ) {
     this._authService.isAuthenticated$.subscribe((isAuthenticated) => {
       this._isAuthenticated = isAuthenticated;
@@ -147,7 +149,7 @@ export class MemberComponent implements OnInit, AfterViewInit {
     });
 
     this._membershipForm = this._fb.group({
-      streamweb3_username: [
+      streamvault_username: [
         '',
         // [
         //   Validators.required,
@@ -209,8 +211,8 @@ export class MemberComponent implements OnInit, AfterViewInit {
       console.log(this._registeredUser);
       const user = this._registeredUser;
       console.log(this._membershipForm);
-      this._membershipForm.controls['streamweb3_username'].setValue(
-        user?.streamweb3_username
+      this._membershipForm.controls['streamvault_username'].setValue(
+        user?.streamvault_username
       );
       this._membershipForm.controls['email'].setValue(user?.email);
       this._membershipForm.controls['country'].setValue(user?.country);
@@ -266,13 +268,13 @@ export class MemberComponent implements OnInit, AfterViewInit {
         pichain_uid: this._authResult?.user.uid,
         pichain_username: this._authResult?.user.username,
 
-        // streamweb3_username:
-        //   this._membershipForm.controls['streamweb3_username'].value,
+        // streamvault_username:
+        //   this._membershipForm.controls['streamvault_username'].value,
         // email: this._membershipForm.controls['email'].value,
         // country: this._membershipForm.controls['country'].value,
         // city: this._membershipForm.controls['city'].value,
 
-        streamweb3_username: 'NA',
+        streamvault_username: 'NA',
         email: 'NA',
         country: 'NA',
         city: 'NA',
@@ -297,43 +299,19 @@ export class MemberComponent implements OnInit, AfterViewInit {
   }
 
   connectWithPiNetwork = () => {
-    // Pi_Authentication()
-    //   .then((result) => {
-    //     console.log(result.isConnected);
-    //     console.log(result.authResult);
-    //     const authResult = result.authResult;
-    //     this._authService.setIsAuthenticated(true);
-    //     this._authService.setAuthResult(authResult!);
-    //     this._regService
-    //       .getUser(
-    //         authResult!.accessToken,
-    //         authResult!.user.uid,
-    //         authResult!.user.username
-    //       )
-    //       .subscribe({
-    //         next: (registeredUser: IUser) => {
-    //           this._regService.setRegisteredUserSubject(registeredUser);
-    //         },
-    //         error: (error: Error) => {
-    //           this._regService.setRegisteredUserSubject({
-    //             streamweb3_username: '',
-    //             email: '',
-    //             country: '',
-    //             role: Role.None,
-    //             isProfileDisabled: false,
-    //           });
-    //         },
-    //       });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.isConnected);
-    //     console.log(error.authResult);
-    //     const notification = {
-    //       message: 'Connecting Pi Blockchain failed, Please try later!',
-    //       type: NotificationType.Error,
-    //       timestamp: new Date(),
-    //     };
-    //     this._notificationService.addNotification(notification);
-    //   });
+    this._isBusy = true;
+    Pi_Authentication(
+      this._authService,
+      this._tokenStorageService,
+      this._regService,
+      this._notificationService
+    )
+      .then((result) => {
+        this._isBusy = false;
+        console.log(result);
+      })
+      .catch((error) => {
+        this._isBusy = false;
+      });
   };
 }

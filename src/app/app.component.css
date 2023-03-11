@@ -65,7 +65,7 @@
   height: 1em;
   border-radius: 50%;
   border: 0.2em solid #ffffff;
-  border-top-color: #000000;
+  border-top-color: var(--primary-color);
   animation: spin 0.8s linear infinite;
 }
 

@@ -8,7 +8,7 @@ export interface IUser {
   pichain_uid?: string;
   pichain_username?: string;
   userId?: string;
-  streamweb3_username: string;
+  streamvault_username: string;
   email: string;
   country: string;
   city?: string;

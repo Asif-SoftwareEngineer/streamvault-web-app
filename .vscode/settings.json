@@ -1,0 +1,48 @@
+{
+  "debug.openExplorerOnEnd": true,
+  "editor.tabSize": 2,
+  "editor.rulers": [90],
+  "editor.autoIndent": "full",
+  "editor.cursorBlinking": "solid",
+  "editor.formatOnType": false,
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": true,
+  "editor.minimap.enabled": false,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": false,
+    "source.fixAll.tslint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "explorer.openEditors.visible": 0,
+  "files.trimTrailingWhitespace": true,
+  "files.autoSave": "onFocusChange",
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "workbench.iconTheme": "material-icon-theme",
+  "auto-close-tag.SublimeText3Mode": true,
+  "html.autoClosingTags": false,
+  "peacock.affectActivityBar": true,
+  "peacock.affectStatusBar": true,
+  "peacock.affectTitleBar": false,
+  "peacock.color": "#2946f8",
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#5a71fa",
+    "activityBar.activeBackground": "#5a71fa",
+    "activityBar.activeBorder": "#fca2af",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#fca2af",
+    "activityBarBadge.foreground": "#15202b",
+    "statusBar.background": "#2946f8",
+    "statusBarItem.hoverBackground": "#5a71fa",
+    "statusBar.foreground": "#e7e7e7",
+    "sash.hoverBorder": "#5a71fa",
+    "statusBarItem.remoteBackground": "#2946f8",
+    "statusBarItem.remoteForeground": "#e7e7e7"
+  },
+  "gitlens.menus": {
+    "editorGroup": false
+  },
+  "ng-evergreen.upgradeChannel": "Latest"
+}

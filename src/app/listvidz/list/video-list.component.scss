@@ -1,0 +1,50 @@
+.videos-container {
+  flex-wrap: wrap;
+}
+
+.videos-container > div {
+  text-align: left;
+  color: var(--primary-color);
+}
+
+@media (min-width: 599px) {
+  .videos-container > div {
+    width: 600px;
+    height: 550px;
+    margin: 20px;
+    padding-bottom: 5px;
+  }
+}
+
+@media (max-width: 599px) {
+  //for smartphones
+  .videos-container > div {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    width: 100%;
+    height: 400px;
+  }
+}
+
+.imgParent {
+  display: block;
+  width: 100%;
+  height: 80%;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: contain;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.imgParent img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.imgParent:hover {
+  transform: scale(1.1);
+}

@@ -1,0 +1,257 @@
+<section style="margin-top: 10px; margin-bottom: 10px">
+  <div *ngIf="!_isAuthenticated; else regFormView">
+    <div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="10px">
+      <mat-card
+        fxLayout="column"
+        fxLayoutAlign="center start"
+        fxLayoutGap="30px"
+      >
+        <span
+          >To register with streamweb3 application, please connect with Pi
+          Blockchain Network.</span
+        >
+
+        <button
+          mat-stroked-button
+          (click)="connectWithPiNetwork()"
+          matTooltip="Connect with Pi Network"
+          aria-label="Connect"
+        >
+          Connect
+        </button>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+<ng-template #regFormView>
+  <div
+    *ngIf="_userType == 'visitor' || _userType == 'user' || _userType == 'none'"
+  >
+    <section style="margin-top: 10px; margin-bottom: 10px">
+      <form [formGroup]="_membershipForm" (ngSubmit)="onSubmit()">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center space-around"
+          fxLayoutGap="10px"
+        >
+          <mat-card
+            fxLayout="column"
+            fxLayoutAlign="space-around center"
+            fxLayoutGap="15px"
+          >
+            <mat-card-title class="mat-card-title"
+              >Become Premium Member</mat-card-title
+            >
+
+            <mat-form-field *ngIf="_showInputControl">
+              <input
+                matInput
+                placeholder=" User Name"
+                formControlName="streamweb3_username"
+                [ngClass]="{
+                  'disabled-input': _membershipForm.get('streamweb3_username')
+                    ?.disabled
+                }"
+              />
+              <mat-error
+                *ngIf="
+                  _membershipForm
+                    .get('streamweb3_username')
+                    ?.hasError('required')
+                "
+              >
+                User Name is <strong>required</strong>
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  _membershipForm.getError('minLength', [
+                    'streamweb3_username'
+                  ]) as error
+                "
+              >
+                {{ error.value }}
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  _membershipForm.getError('maxLength', [
+                    'streamweb3_username'
+                  ]) as error
+                "
+              >
+                {{ error.value }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="_showInputControl">
+              <input
+                matInput
+                placeholder="Email"
+                formControlName="email"
+                [ngClass]="{
+                  'disabled-input': _membershipForm.get('email')?.disabled
+                }"
+              />
+              <mat-error
+                *ngIf="_membershipForm.get('email')?.hasError('required')"
+              >
+                Email is required
+              </mat-error>
+              <mat-error
+                *ngIf="_membershipForm.get('email')?.hasError('email')"
+              >
+                Provide a valid email address
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="_showInputControl">
+              <input
+                matInput
+                placeholder="Country"
+                formControlName="country"
+                [ngClass]="{
+                  'disabled-input': _membershipForm.get('country')?.disabled
+                }"
+              />
+              <mat-error
+                *ngIf="_membershipForm.get('country')?.hasError('required')"
+              >
+                Country is required
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  _membershipForm.getError('minLength', ['country']) as error
+                "
+              >
+                {{ error.value }}
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  _membershipForm.getError('maxLength', ['country']) as error
+                "
+              >
+                {{ error.value }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="_showInputControl">
+              <input
+                matInput
+                placeholder="City"
+                formControlName="city"
+                [ngClass]="{
+                  'disabled-input': _membershipForm.get('city')?.disabled
+                }"
+              />
+              <mat-error
+                *ngIf="_membershipForm.get('city')?.hasError('required')"
+              >
+                City is required
+              </mat-error>
+              <mat-error
+                *ngIf="_membershipForm.getError('minLength', ['city']) as error"
+              >
+                {{ error.value }}
+              </mat-error>
+              <mat-error
+                *ngIf="_membershipForm.getError('maxLength', ['city']) as error"
+              >
+                {{ error.value }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-radio-group
+              formControlName="membershipType"
+              aria-label="Select an option"
+            >
+              <div class="radio">
+                <mat-radio-button value="1"
+                  >Monthly - 0.1 &#8508;</mat-radio-button
+                >
+              </div>
+
+              <div class="radio">
+                <mat-radio-button value="2" selected
+                  >Three Months - 0.25 &#8508;</mat-radio-button
+                >
+              </div>
+
+              <div class="radio">
+                <mat-radio-button value="3"
+                  >Six Months - 0.49 &#8508;</mat-radio-button
+                >
+              </div>
+
+              <div class="radio">
+                <mat-radio-button value="4"
+                  >Yearly - 0.90 &#8508;</mat-radio-button
+                >
+              </div>
+            </mat-radio-group>
+
+            <mat-toolbar fxLayoutGap="8px">
+              <button
+                #publishButton
+                type="submit"
+                mat-raised-button
+                color="primary"
+                class="push-right"
+              >
+                Join
+              </button>
+              <button
+                type="button"
+                #cancelButton
+                mat-raised-button
+                color="primary"
+                (click)="goBack()"
+              >
+                Cancel
+              </button>
+            </mat-toolbar>
+          </mat-card>
+        </div>
+      </form>
+    </section>
+  </div>
+</ng-template>
+
+<section
+  *ngIf="_userType == 'member'"
+  style="margin-top: 10px; margin-bottom: 10px"
+>
+  <div fxLayout="row" fxLayoutAlign="center space-around" fxLayoutGap="10px">
+    <mat-card
+      fxLayout="column"
+      fxLayoutAlign="space-around center"
+      fxLayoutGap="15px"
+    >
+      <mat-card-content>
+        <span>Hi {{ _registeredUser?.pichain_username }},</span><br /><br />
+        <span>You have already been registered as a premium member.</span>
+      </mat-card-content>
+
+      <mat-toolbar fxLayoutGap="8px">
+        <button
+          #publishButton
+          type="button"
+          mat-raised-button
+          color="primary"
+          class="push-right"
+          routerLink="/studio"
+        >
+          Studio
+        </button>
+        <button
+          type="button"
+          #cancelButton
+          mat-raised-button
+          color="primary"
+          (click)="goBack()"
+        >
+          Home
+        </button>
+      </mat-toolbar>
+    </mat-card>
+  </div>
+</section>

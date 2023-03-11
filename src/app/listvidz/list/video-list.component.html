@@ -1,0 +1,27 @@
+<section style="margin-top:10px; margin-bottom:10px">
+
+  <mat-card fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around center" fxLayoutGap="20px">
+
+    <div class="videos-container" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center start">
+      <div *ngFor="let video of videos$ | async; let i = index">
+        <div id="imgParent-{{i}}" class="imgParent" (click)="openVideoDialog(video)">
+          <img src="{{ video.thumbnail }}" alt="{{ video.title }}">
+        </div>
+        <div style="padding: 5px 5px 0px 0px; font:bold; margin-top:-20px">
+          <span class="mat-h2">
+            <p>{{ video.title }}</p>
+          </span>
+        </div>
+        <div style="padding: 0px 5px 0px 0px; font:bold">
+          <span class="mat-body">
+            <p>{{ video.description }}</p>
+          </span>
+        </div>
+        <mat-divider fxHide.gt-md></mat-divider>
+      </div>
+
+    </div>
+
+  </mat-card>
+
+</section>

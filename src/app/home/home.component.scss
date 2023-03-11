@@ -1,0 +1,56 @@
+.parent-div {
+  /* Set default styles for the parent div */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  /* Apply styles for desktop screens */
+  .parent-div {
+    width: 70%;
+  }
+}
+
+.page-Title {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.my-para-text {
+  font-family: "Montserrat";
+  text-align: justify;
+  padding-top: 10px;
+  line-height: vw;
+}
+
+.features {
+  margin-left: -10px !important;
+
+  font-family: "Montserrat";
+  font-size: small;
+  list-style-type: disc;
+}
+
+.features li {
+  padding-top: 10px;
+}
+
+.banner {
+  position: relative;
+}
+
+.banner-text {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 3rem; /* Adjust the font size as per your requirement */
+  line-height: 1.2; /* Adjust the line-height as per your requirement */
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional text shadow */
+}
+
+

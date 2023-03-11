@@ -1,0 +1,146 @@
+<section style="margin-top: 10px; margin-bottom: 10px">
+  <form [formGroup]="_channelForm" (ngSubmit)="onSubmit()">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <mat-card
+        fxLayout="column"
+        fxLayoutAlign="space-around center"
+        fxLayoutGap="30px"
+      >
+        <mat-card-title class="mat-card-title">Create Channel</mat-card-title>
+
+        <mat-form-field>
+          <input matInput placeholder="Name" formControlName="name" />
+          <mat-error *ngIf="_channelForm.get('name')?.hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="_channelForm.getError('minLength', ['name']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+          <mat-error
+            *ngIf="_channelForm.getError('maxLength', ['name']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Description"
+            formControlName="description"
+          />
+          <mat-error
+            *ngIf="_channelForm.get('description')?.hasError('required')"
+          >
+            Name is <strong>required</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="_channelForm.getError('minLength', ['description']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+          <mat-error
+            *ngIf="_channelForm.getError('maxLength', ['description']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Category" formControlName="category" />
+          <mat-error *ngIf="_channelForm.get('category')?.hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="_channelForm.getError('minLength', ['category']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+          <mat-error
+            *ngIf="_channelForm.getError('maxLength', ['category']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Handle" formControlName="handle" />
+          <mat-error *ngIf="_channelForm.get('handle')?.hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="_channelForm.getError('minLength', ['handle']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+          <mat-error
+            *ngIf="_channelForm.getError('maxLength', ['handle']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Tags" formControlName="tags" />
+          <mat-error *ngIf="_channelForm.get('tags')?.hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="_channelForm.getError('minLength', ['tags']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+          <mat-error
+            *ngIf="_channelForm.getError('maxLength', ['tags']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+        </mat-form-field>
+        <mat-toolbar fxLayoutGap="8px">
+          <mat-checkbox formControlName="privacySubscribers"
+            ><small>Privacy for Subscribers</small></mat-checkbox
+          >
+          <button
+            class="push-right"
+            #saveButton
+            mat-raised-button
+            color="primary"
+            [disabled]="_channelForm.invalid"
+          >
+            Save
+          </button>
+          <button
+            #cancelButton
+            type="button"
+            mat-raised-button
+            color="primary"
+            (click)="goBack()"
+          >
+            Cancel
+          </button>
+        </mat-toolbar>
+        <div
+          fxLayout="column"
+          fxLayoutAlign="space-around center"
+          fxLayoutGap="50px"
+        >
+          <!-- <p>
+            To add a video to this channel,
+            <a mat-button routerLink="/studio/video" target="_self"
+              >Click here</a
+            >
+          </p>
+          <p></p>
+          <p>
+            If you want to visit studio,
+            <a mat-button routerLink="/studio/home" target="_self"
+              >Click here</a
+            >
+          </p> -->
+        </div>
+      </mat-card>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,179 @@
+<section style="margin-top: 10px; margin-bottom: 10px">
+  <div *ngIf="!_isAuthenticated; else regFormView">
+    <div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="10px">
+      <mat-card
+        fxLayout="column"
+        fxLayoutAlign="center start"
+        fxLayoutGap="30px"
+      >
+        <span
+          >To register with StreamWeb3 application, please connect with Pi
+          Blockchain Network.</span
+        >
+
+        <button
+          mat-stroked-button
+          (click)="connectWithPiNetwork()"
+          matTooltip="Connect with Pi Network"
+          aria-label="Connect"
+        >
+          Connect
+        </button>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+<ng-template #regFormView>
+  <div *ngIf="_registeredUser == null">
+    <section #regFormView style="margin-top: 10px; margin-bottom: 10px">
+      <form
+        #myRegForm="ngForm"
+        [formGroup]="_registrationForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+          <mat-card
+            fxLayout="column"
+            fxLayoutAlign="space-around center"
+            fxLayoutGap="30px"
+          >
+            <mat-card-title class="mat-card-title">Register</mat-card-title>
+
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="User Name"
+                formControlName="streamweb3_username"
+              />
+              <mat-error
+                *ngIf="
+                  _registrationForm
+                    .get('streamweb3_username')
+                    ?.hasError('required')
+                "
+              >
+                User Name is <strong>required</strong>
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  _registrationForm.getError('minLength', [
+                    'streamweb3_username'
+                  ]) as error
+                "
+              >
+                {{ error.value }}
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  _registrationForm.getError('maxLength', [
+                    'streamweb3_username'
+                  ]) as error
+                "
+              >
+                {{ error.value }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Email" formControlName="email" />
+              <mat-error
+                *ngIf="_registrationForm.get('email')?.hasError('required')"
+              >
+                Email is required
+              </mat-error>
+              <mat-error
+                *ngIf="_registrationForm.get('email')?.hasError('email')"
+              >
+                Provide a valid email address
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Country" formControlName="country" />
+              <mat-error
+                *ngIf="_registrationForm.get('country')?.hasError('required')"
+              >
+                Country is required
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  _registrationForm.getError('minLength', ['country']) as error
+                "
+              >
+                {{ error.value }}
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  _registrationForm.getError('maxLength', ['country']) as error
+                "
+              >
+                {{ error.value }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="City" formControlName="city" />
+              <mat-error
+                *ngIf="_registrationForm.get('city')?.hasError('required')"
+              >
+                City is required
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  _registrationForm.getError('minLength', ['city']) as error
+                "
+              >
+                {{ error.value }}
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  _registrationForm.getError('maxLength', ['city']) as error
+                "
+              >
+                {{ error.value }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-toolbar fxLayoutGap="8px">
+              <button
+                #registerButton
+                type="submit"
+                mat-raised-button
+                color="primary"
+                [disabled]="_registrationForm.invalid"
+                class="push-right"
+              >
+                Register
+              </button>
+              <button
+                type="button"
+                #cancelButton
+                mat-raised-button
+                color="primary"
+                (click)="goBack()"
+              >
+                Cancel
+              </button>
+            </mat-toolbar>
+          </mat-card>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <div *ngIf="_registeredUser !== null">
+    <section #regFormView style="margin-top: 10px; margin-bottom: 10px">
+      <mat-card
+        fxLayout="column"
+        fxLayoutAlign="space-around start"
+        fxLayoutGap="30px"
+      >
+        <mat-card-content>
+          <span>Hi {{ _registeredUser.streamweb3_username }},</span><br /><br />
+          <span>You have already been registered.</span>
+        </mat-card-content>
+      </mat-card>
+    </section>
+  </div>
+</ng-template>

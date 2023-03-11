@@ -1,0 +1,35 @@
+<mat-card fxLayout="column" fxLayoutGap="20px">
+  <video #videoPlayer id="my_video_1" class="video-js vjs-default-skin" controls preload="none"
+    data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>
+    <!-- <source src="https://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' /> -->
+
+    <source src={{_videoUrl}} type='video/mp4' />
+    <!-- <source src="https://vjs.zencdn.net/v/oceans.webm" type='video/webm' /> -->
+  </video>
+
+  <span>{{_videoTitle}}</span>
+  <p>{{_videoDescription}}</p>
+  <!--
+  <mat-toolbar fxLayoutGap="2px">
+
+    <button mat-icon-button color="primary" aria-label="Play/Pause" (click)="playPause()">
+      <mat-icon *ngIf="_isPlay==true">play_circle_filled</mat-icon>
+      <mat-icon *ngIf="_isPlay==false">pause_circle_filled</mat-icon>
+    </button>
+
+    <button mat-icon-button color="primary" aria-label="Rewind 10s" (click)="skip(-10)">
+      <mat-icon>replay_10</mat-icon>
+    </button>
+
+
+    <button mat-icon-button color="primary" aria-label="Forward 10s" (click)="skip(10)">
+      <mat-icon>forward_10</mat-icon>
+    </button>
+
+    <button mat-icon-button color="primary" aria-label="Example icon button with a home icon" (click)="muteSound()">
+      <mat-icon>volume_off</mat-icon>
+    </button>
+
+  </mat-toolbar> -->
+
+</mat-card>

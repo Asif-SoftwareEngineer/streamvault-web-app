@@ -1,0 +1,127 @@
+<section style="margin-top: 10px; margin-bottom: 10px">
+  <form [formGroup]="_videoForm" (ngSubmit)="onSubmit()">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <mat-card
+        fxLayout="column"
+        fxLayoutAlign="space-around center"
+        fxLayoutGap="30px"
+      >
+        <mat-card-title class="mat-card-title">Create Video</mat-card-title>
+
+        <mat-form-field>
+          <input matInput placeholder="Title" formControlName="title" />
+          <mat-error *ngIf="_videoForm.get('title')?.hasError('required')">
+            Title is <strong>required</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="_videoForm.getError('minLength', ['title']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+          <mat-error
+            *ngIf="_videoForm.getError('maxLength', ['title']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Description"
+            formControlName="description"
+          />
+          <mat-error
+            *ngIf="_videoForm.get('description')?.hasError('required')"
+          >
+            Description is required
+          </mat-error>
+          <mat-error
+            *ngIf="_videoForm.getError('minLength', ['description']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+          <mat-error
+            *ngIf="_videoForm.getError('maxLength', ['description']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Channel</mat-label>
+
+          <mat-select formControlName="channel">
+            <mat-option
+              *ngFor="let channel of _channelIdAndNameArray"
+              [value]="channel.channelId"
+            >
+              {{ channel.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Category" formControlName="category" />
+          <mat-error *ngIf="_videoForm.get('category')?.hasError('required')">
+            Category is required
+          </mat-error>
+          <mat-error
+            *ngIf="_videoForm.getError('minLength', ['category']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+          <mat-error
+            *ngIf="_videoForm.getError('maxLength', ['category']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Tags" formControlName="tags" />
+          <mat-error *ngIf="_videoForm.get('tags')?.hasError('required')">
+            Tags are required
+          </mat-error>
+          <mat-error
+            *ngIf="_videoForm.getError('minLength', ['tags']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+          <mat-error
+            *ngIf="_videoForm.getError('maxLength', ['tags']) as error"
+          >
+            {{ error.value }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-toolbar fxLayoutGap="8px">
+          <app-file-upload #fileUploadRef></app-file-upload>
+          <button
+            #publishButton
+            type="submit"
+            mat-raised-button
+            color="primary"
+            [disabled]="_videoForm.invalid"
+            class="push-right"
+          >
+            Publish
+          </button>
+          <button
+            #cancelButton
+            type="button"
+            mat-raised-button
+            color="primary"
+            (click)="goBack()"
+          >
+            Cancel
+          </button>
+        </mat-toolbar>
+        <mat-progress-bar
+          *ngIf="_uploadFileProgress > 0"
+          [value]="_uploadFileProgress"
+        ></mat-progress-bar>
+      </mat-card>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{_title}}</h1>
+<div mat-dialog-content>
+  <p>{{_keyMessage}}</p>
+  <ul>
+    <li *ngFor="let p of _pointsMessage">{{p}}</li>
+  </ul>
+</div>
+<div mat-dialog-actions>
+  <button mat-stroked-button color="primary" (click)="declineAuth()">Decline</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Allow</button>
+</div>

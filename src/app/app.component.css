@@ -1,0 +1,76 @@
+.app-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.toolbarButton {
+  width: 48px;
+  height: 48px;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.btnColor {
+  color: red;
+}
+
+.textColorBrand {
+  color: var(--primary-color);
+}
+
+.separator {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--primary-color);
+  margin-top: 5px;
+  padding: 1px;
+  height: 2px;
+  max-height: 2px;
+}
+
+.push-right {
+  margin-left: auto;
+}
+
+.image-cropper {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-top: -8px;
+}
+
+.spinner {
+  position: relative;
+}
+
+.spinner::after {
+  content: "";
+  position: absolute;
+  top: calc(50% - 0.5em);
+  left: calc(50% - 0.5em);
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  border: 0.2em solid #ffffff;
+  border-top-color: #000000;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -15,12 +15,13 @@ import { VideoPlayerComponent } from 'src/app/shared/video-player/video-player.c
   styleUrls: ['./video-list.component.scss'],
 })
 export class VideoListComponent implements OnInit {
-  public videos$!: Observable<any>;
+  public _videosList$!: Observable<any>;
   protected _videoUrl: string = '';
 
-  @ViewChild('videoPlayer', { static: false }) videoplayer: ElementRef | null = null;
+  @ViewChild('videoPlayer', { static: false }) videoplayer: ElementRef | null =
+    null;
   isPlay: boolean = false;
-  videoUrl: string = "";
+  videoUrl: string = '';
 
   constructor(
     private _videoDataService: VideoDataService,
@@ -28,7 +29,11 @@ export class VideoListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.videos$ = this._videoDataService.getVideos();
+    console.log('about to call  vidz list');
+
+    this._videosList$ = this._videoDataService.getVideosByUserId(
+      '2fb08ca8-5b69-4fe7-914e-0201da98e543'
+    );
   }
 
   openVideoDialog($event: any) {

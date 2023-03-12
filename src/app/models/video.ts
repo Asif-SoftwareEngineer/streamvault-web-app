@@ -13,3 +13,16 @@ export interface IVideo {
   duration?: number;
   url?: string;
 }
+
+export interface IVideoView {
+  videoId: string;
+  userName: string;
+  channelName: string;
+  title: string;
+  description: string;
+  url: string;
+  thumbnail: string;
+  likes: number;
+  dislikes: number;
+  comments: string;
+}

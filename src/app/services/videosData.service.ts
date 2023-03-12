@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { IVideo, IVideoView } from '../models/video';
+import { Observable, map, of } from 'rxjs';
 
-import { IVideo } from '../models/video';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -81,6 +81,15 @@ export class VideoDataService {
 
   getVideos(): Observable<any> {
     return of(this.videos);
+  }
+
+  getVideosByUserId(userId: string): Observable<IVideoView[]> {
+    const url = `${apiConfig.baseUrl}video/${userId}`;
+    return this.http.get<{ videosList: IVideoView[] }>(url).pipe(
+      map((response) => {
+        return response.videosList;
+      })
+    );
   }
 
   addVideo(videoData: IVideo): Observable<any> {

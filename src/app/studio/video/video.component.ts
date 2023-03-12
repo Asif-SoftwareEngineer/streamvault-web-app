@@ -136,8 +136,8 @@ export class VideoComponent implements OnInit {
     this.videoFileAndDataUploadFunctions(
       userId,
       this._selectedChannelId
-    )?.subscribe(
-      (responseSuccess) => {
+    )?.subscribe({
+      next: (responseSuccess) => {
         if (responseSuccess.status == 200) {
           this._isFormSaved = true;
           this._notification = {
@@ -154,7 +154,7 @@ export class VideoComponent implements OnInit {
 
         this._notificationService.addNotification(this._notification);
       },
-      (responseError) => {
+      error: (responseError) => {
         this._isFormSaved = false;
         this._notification = {
           message: '',
@@ -177,8 +177,8 @@ export class VideoComponent implements OnInit {
             this._notification.message = 'Failed to publish video.';
         }
         this._notificationService.addNotification(this._notification);
-      }
-    );
+      },
+    });
   }
 
   videoFileAndDataUploadFunctions(userId: string, channelId: string) {
@@ -187,7 +187,11 @@ export class VideoComponent implements OnInit {
         this._uploadFileProgress = progress.progress;
       }),
       filter(
-        (progress) => progress.progress === 100 && progress.fileHandle !== null
+        (progress) =>
+          progress.progress === 100 &&
+          progress.fileHandle !== '' &&
+          progress.fileHandle !== null &&
+          progress.fileHandle !== undefined
       ),
       take(1),
       map((progress) => {
@@ -206,7 +210,6 @@ export class VideoComponent implements OnInit {
       }),
       take(1),
       switchMap((videoFormData) => {
-        console.log('Calling the videoService.addVideo method');
         return this._videoService.addVideo(videoFormData);
       })
     );

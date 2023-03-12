@@ -1,14 +1,22 @@
-<mat-card fxLayout="column" fxLayoutGap="20px">
-  <video #videoPlayer id="my_video_1" class="video-js vjs-default-skin" controls preload="none"
-    data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>
+<div fxLayout="column" fxLayoutGap="5px">
+  <video
+    #videoPlayer
+    id="my_video_1"
+    class="video-js vjs-default-skin videoLayout"
+    controls
+    preload="none"
+    data-setup='{ "aspectRatio":"800:600", "playbackRates": [1, 1.5, 2] }'
+  >
     <!-- <source src="https://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' /> -->
 
-    <source src={{_videoUrl}} type='video/mp4' />
+    <source src="{{ _videoUrl }}" type="video/mp4" />
     <!-- <source src="https://vjs.zencdn.net/v/oceans.webm" type='video/webm' /> -->
   </video>
+  <div>
+    <span>{{ _videoTitle }}</span>
+    <p>{{ _videoDescription }}</p>
+  </div>
 
-  <span>{{_videoTitle}}</span>
-  <p>{{_videoDescription}}</p>
   <!--
   <mat-toolbar fxLayoutGap="2px">
 
@@ -31,5 +39,4 @@
     </button>
 
   </mat-toolbar> -->
-
-</mat-card>
+</div>

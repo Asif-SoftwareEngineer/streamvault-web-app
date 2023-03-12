@@ -38,8 +38,8 @@ export class VideoListComponent implements OnInit {
 
   openVideoDialog($event: any) {
     const dialogRef = this._dialog.open(VideoPlayerComponent, {
-      width: '95%',
-      height: '95%',
+      width: '99%',
+      height: '60%',
       data: $event,
     });
 

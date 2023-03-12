@@ -30,8 +30,11 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     var myVideo: any = document.getElementById('my_video_1');
-    myVideo.play();
     this._isPlay = true;
+    myVideo.pause();
+    setTimeout(() => {
+      myVideo.play();
+    }, 500);
   }
 
   ngAfterViewInit(): void {}
@@ -42,11 +45,11 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit {
   playPause() {
     var myVideo: any = document.getElementById('my_video_1');
     if (myVideo.paused) {
-      myVideo.play();
       this._isPlay = true;
+      myVideo.play();
     } else {
-      myVideo.pause();
       this._isPlay = false;
+      myVideo.pause();
     }
   }
 

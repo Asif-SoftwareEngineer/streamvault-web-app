@@ -1,10 +1,23 @@
-<form [formGroup]="_uploadForm" >
+<form [formGroup]="_uploadForm">
+  <input
+    style="display: none"
+    class="file-input"
+    type="file"
+    accept="video/*"
+    (change)="onFileChanged($event)"
+    #fileInput
+  />
+  <button
+    type="button"
+    (click)="fileInput.click()"
+    mat-raised-button
+    color="primary"
+    [disabled]="true"
+  >
+    Select Video File
+  </button>
 
-  <input style="display:none" class="file-input" type="file" accept="video/*" (change)="onFileChanged($event)" #fileInput>
-  <button type="button" (click)="fileInput.click()" mat-raised-button color="primary" >Select Video File</button>
-
-
-<!-- <mat-card *ngIf="_fileName.length > 0">
+  <!-- <mat-card *ngIf="_fileName.length > 0">
   <span>{{ _fileName.length > 40 ? _fileName.substring(0, 40) + '...' + _fileName.substring(_fileName.length - 4) : _fileName }}</span>
   &nbsp;&nbsp;&nbsp;
     <span >

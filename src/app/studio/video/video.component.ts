@@ -121,6 +121,7 @@ export class VideoComponent implements OnInit {
       ],
       channel: ['', [Validators.required]],
     });
+    this._videoForm.disable();
 
     this._videoForm.controls['channel'].valueChanges.subscribe((value) => {
       console.log('Selected channel:', value);

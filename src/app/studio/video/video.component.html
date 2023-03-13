@@ -94,6 +94,20 @@
             {{ error.value }}
           </mat-error>
         </mat-form-field>
+        <mat-card-content>
+          <div>
+            <p>
+              Our team is currently working on the file storage feature that
+              utilizes a decentralized architecture, while also leveraging other
+              centralized storage services. We kindly ask for your patience
+              while we finalize and fully functionalize this feature. Rest
+              assured, we prioritize your data privacy and ownership, and
+              guarantee that your information will always remain solely under
+              your control without being subjected to the influence of a
+              centralized system.
+            </p>
+          </div>
+        </mat-card-content>
 
         <mat-toolbar fxLayoutGap="8px">
           <app-file-upload #fileUploadRef></app-file-upload>
@@ -102,7 +116,7 @@
             type="submit"
             mat-raised-button
             color="primary"
-            [disabled]="_videoForm.invalid"
+            [disabled]="true"
             class="push-right"
           >
             Publish

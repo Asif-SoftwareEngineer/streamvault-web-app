@@ -1,77 +1,75 @@
-<div>
-  <div class="app-toolbar">
-    <mat-toolbar fxLayoutGap="8px">
-      <a mat-icon-button routerLink="/index">
-        <mat-icon
-          svgIcon="streamvault"
-          style="width: 40px; height: 40px"
-        ></mat-icon>
-        <span fxHide fxShow.gt-sm class="mat-h1 textColorBrand"
-          >&nbsp;streamvault</span
-        >
-      </a>
-
-      <button
-        mat-stroked-button
-        color="primary"
-        *ngIf="_isHomeRoute"
-        class="push-right"
-        routerLink="/list"
-        matTooltip="Stream"
-        aria-label="Video Stream"
+<div class="app-toolbar">
+  <mat-toolbar fxLayoutGap="8px">
+    <a mat-icon-button routerLink="/index">
+      <mat-icon
+        svgIcon="streamvault"
+        style="width: 40px; height: 40px"
+      ></mat-icon>
+      <span fxHide fxShow.gt-sm class="mat-h1 textColorBrand"
+        >&nbsp;streamvault</span
       >
-        Stream
-      </button>
+    </a>
 
-      <div *ngIf="!_isHomeRoute && _isAuthenticated" class="push-right">
-        <span
-          [ngStyle]="{ color: 'var(--primary-color)' }"
-          style="padding-right: 3px; font-size: medium"
-          >{{ _existingAppMode }}</span
-        >
-        <mat-slide-toggle [color]="'primary'" (change)="onToggleChange($event)">
-        </mat-slide-toggle>
-      </div>
+    <button
+      mat-stroked-button
+      color="primary"
+      *ngIf="_isHomeRoute"
+      class="push-right"
+      routerLink="/list"
+      matTooltip="Stream"
+      aria-label="Video Stream"
+    >
+      Stream
+    </button>
 
-      <button
-        *ngIf="_isAuthenticated"
-        class="toolbarButton"
-        mat-fab
-        color="primary"
-        routerLink="/profile"
-        matTooltip="Profile"
-        aria-label="User Profile"
+    <div *ngIf="!_isHomeRoute && _isAuthenticated" class="push-right">
+      <span
+        [ngStyle]="{ color: 'var(--primary-color)' }"
+        style="padding-right: 3px; font-size: medium"
+        >{{ _existingAppMode }}</span
       >
-        <mat-icon style="margin-top: -7px">account_circle</mat-icon>
-      </button>
+      <mat-slide-toggle [color]="'primary'" (change)="onToggleChange($event)">
+      </mat-slide-toggle>
+    </div>
 
-      <button
-        *ngIf="_isAuthenticated"
-        class="toolbarButton"
-        mat-fab
-        color="primary"
-        matTooltip="Logout"
-        aria-label="Logout"
-        (click)="signOut()"
-      >
-        <mat-icon style="margin-top: -7px">logout</mat-icon>
-      </button>
+    <button
+      *ngIf="_isAuthenticated"
+      class="toolbarButton"
+      mat-fab
+      color="primary"
+      routerLink="/profile"
+      matTooltip="Profile"
+      aria-label="User Profile"
+    >
+      <mat-icon style="margin-top: -7px">account_circle</mat-icon>
+    </button>
 
-      <button
-        mat-stroked-button
-        [ngClass]="{ spinner: isBusy }"
-        color="primary"
-        *ngIf="!_isAuthenticated"
-        (click)="connect()"
-        matTooltip="Connect with Pi Network"
-        [class.push-right]="!_isHomeRoute && !_isAuthenticated"
-        aria-label="Connect"
-      >
-        Connect
-      </button>
-    </mat-toolbar>
-  </div>
-  <div class="separator"></div>
-  <app-notification></app-notification>
-  <router-outlet></router-outlet>
+    <button
+      *ngIf="_isAuthenticated"
+      class="toolbarButton"
+      mat-fab
+      color="primary"
+      matTooltip="Logout"
+      aria-label="Logout"
+      (click)="signOut()"
+    >
+      <mat-icon style="margin-top: -7px">logout</mat-icon>
+    </button>
+
+    <button
+      mat-stroked-button
+      [ngClass]="{ spinner: isBusy }"
+      color="primary"
+      *ngIf="!_isAuthenticated"
+      (click)="connect()"
+      matTooltip="Connect with Pi Network"
+      [class.push-right]="!_isHomeRoute && !_isAuthenticated"
+      aria-label="Connect"
+    >
+      Connect
+    </button>
+  </mat-toolbar>
 </div>
+<div class="separator"></div>
+<app-notification></app-notification>
+<router-outlet></router-outlet>

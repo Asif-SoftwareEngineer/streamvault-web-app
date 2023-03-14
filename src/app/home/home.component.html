@@ -112,55 +112,54 @@
 </div>
 
 <ng-template #mobileView>
-  <div style="padding: 20px">
-    <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center center">
-      <div fxFlex.gt-xs="70% wrap" fxLayoutAlign="center center">
-        <h2
-          class="page-Title"
-          style="text-align: center; color: var(--primary-color)"
-        >
-          Discover the Future of Video Streaming with Web 3.0
-        </h2>
-      </div>
-      <div
-        *ngIf="_userType !== 'member'"
-        class="banner"
-        fxLayoutAlign="center center"
+  <div
+    fxLayout="column"
+    fxLayoutGap="20px"
+    fxLayoutAlign="center center"
+    style="padding: 20px 10px 10px 10px"
+  >
+    <div fxFlex.gt-xs="70% wrap" fxLayoutAlign="center center">
+      <h2
+        class="page-Title"
+        style="text-align: center; color: var(--primary-color)"
       >
-        <img
-          src="../../assets/img/photos/home_page_photo1.png"
-          style="
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-            margin-left: auto;
-            margin-right: auto;
-          "
-          alt="Banner Image"
-        />
-        <h1>
-          <a class="banner-text" routerLink="/user/member">Join Today</a>
-        </h1>
-      </div>
+        Discover the Future of Video Streaming with Web 3.0
+      </h2>
+    </div>
+    <div
+      *ngIf="_userType !== 'member'"
+      class="banner"
+      fxLayoutAlign="center center"
+    >
+      <img
+        src="../../assets/img/photos/home_page_photo1.png"
+        style="
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+          margin-left: auto;
+          margin-right: auto;
+        "
+        alt="Banner Image"
+      />
+      <h1>
+        <a class="banner-text" routerLink="/user/member">Join Today</a>
+      </h1>
+    </div>
 
-      <div fxLayoutAlign="center center">
-        <iframe
-          width="400px"
-          height="300px"
-          src="https://www.youtube.com/embed/8ROC8k1SfYo"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-        ></iframe>
-      </div>
+    <div>
+      <iframe
+        width="100%"
+        height="100%"
+        src="https://www.youtube.com/embed/8ROC8k1SfYo"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+    </div>
 
-      <!-- <div fxLayoutAlign="center center">
-        <iframe width="100%" height="215" src="https://www.youtube.com/embed/your-presentation-video"
-          title="Presentation Video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-      </div> -->
-
-      <!-- <div fxLayoutAlign="center start">
+    <!-- <div fxLayoutAlign="center start">
         <div *ngIf="_userType=='none' || _userType == ''">
           <p class="my-para-text">To start creating digital content in the Web3 space on Pi Network, which boasts a
             community of 50 million users, become a creator today!</p>
@@ -170,54 +169,53 @@
         </div>
       </div> -->
 
-      <div fxLayoutAlign="center start">
-        <div *ngIf="_userType !== 'member'">
-          <p class="my-para-text">
-            If you want to earn Pi while sharing your video content with the Pi
-            community, consider becoming a premium member today.
-          </p>
-          <div fxLayoutAlign="center start">
-            <button
-              type="button"
-              mat-raised-button
-              mat-stroked-button
-              routerLink="/user/member"
-              color="accent"
-            >
-              Join
-            </button>
-          </div>
+    <div fxLayoutAlign="center start">
+      <div *ngIf="_userType !== 'member'">
+        <p class="my-para-text">
+          If you want to earn Pi while sharing your video content with the Pi
+          community, consider becoming a premium member today.
+        </p>
+        <div fxLayoutAlign="center start">
+          <button
+            type="button"
+            mat-raised-button
+            mat-stroked-button
+            routerLink="/user/member"
+            color="accent"
+          >
+            Join
+          </button>
         </div>
       </div>
+    </div>
 
-      <div fxLayoutAlign="center start">
-        <div>
-          <p class="my-para-text">
-            Our platform is built on the foundation of peer-to-peer shared
-            economy, utilizing a transparent, frictionless, secure, and scalable
-            decentralized Pi platform. Our robust and efficient web-based
-            software application enables real-time and highly interactive
-            communication between members of the Pi community. With the help of
-            cutting-edge AI technology, our platform ensures a safe, ethical,
-            and enjoyable content sharing experience. Create and share your
-            video content, shoot live streams, and engage with like-minded
-            pioneers on streamvault - the ultimate video streaming solution.
-          </p>
-        </div>
+    <div fxLayoutAlign="center start">
+      <div>
+        <p class="my-para-text">
+          Our platform is built on the foundation of peer-to-peer shared
+          economy, utilizing a transparent, frictionless, secure, and scalable
+          decentralized Pi platform. Our robust and efficient web-based software
+          application enables real-time and highly interactive communication
+          between members of the Pi community. With the help of cutting-edge AI
+          technology, our platform ensures a safe, ethical, and enjoyable
+          content sharing experience. Create and share your video content, shoot
+          live streams, and engage with like-minded pioneers on streamvault -
+          the ultimate video streaming solution.
+        </p>
       </div>
-      <div fxLayoutAlign=" start start">
-        <ul class="features">
-          <li>
-            streamvault ensures content safety through community verification.
-          </li>
-          <li>As a content creator, you retain ownership of your material.</li>
-          <li>Earn Pi coins from advertising and premium memberships.</li>
-          <li>
-            Advertise your business to a vast network of 35 million Pi users.
-          </li>
-          <li>Your content is secured with NFT ownership.</li>
-        </ul>
-      </div>
+    </div>
+    <div fxLayoutAlign=" start start">
+      <ul class="features">
+        <li>
+          streamvault ensures content safety through community verification.
+        </li>
+        <li>As a content creator, you retain ownership of your material.</li>
+        <li>Earn Pi coins from advertising and premium memberships.</li>
+        <li>
+          Advertise your business to a vast network of 35 million Pi users.
+        </li>
+        <li>Your content is secured with NFT ownership.</li>
+      </ul>
     </div>
   </div>
 </ng-template>

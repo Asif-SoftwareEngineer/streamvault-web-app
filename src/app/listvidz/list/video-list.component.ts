@@ -5,9 +5,12 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 
+import { IVideoView } from 'src/app/models/video';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { VideoDataService } from 'src/app/services/videosData.service';
-import { VideoPlayerComponent } from 'src/app/shared/video-player/video-player.component';
+import { VideoPlayerComponent } from 'src/app/studio/video-player/video-player.component';
+import { VideoStreamingService } from 'src/app/services/videoStreaming.service';
 
 @Component({
   selector: 'app-video-list',
@@ -25,7 +28,9 @@ export class VideoListComponent implements OnInit {
 
   constructor(
     private _videoDataService: VideoDataService,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _router: Router,
+    private _videoService: VideoStreamingService
   ) {}
 
   ngOnInit() {
@@ -36,13 +41,8 @@ export class VideoListComponent implements OnInit {
     );
   }
 
-  openVideoDialog($event: any) {
-    const dialogRef = this._dialog.open(VideoPlayerComponent, {
-      width: '99%',
-      height: '60%',
-      data: $event,
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {});
+  openVideoDialog(video: IVideoView) {
+    this._videoService.setVideo(video);
+    this._router.navigateByUrl('studio/player');
   }
 }

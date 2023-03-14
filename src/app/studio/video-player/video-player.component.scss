@@ -1,0 +1,18 @@
+.videoLayout {
+  height: 110%;
+  width: 116%;
+  margin-left: -22px;
+  margin-right: -10px;
+}
+
+.description {
+  background-color: #fff5e6; /* very light orange color */
+  border-radius: 10px; /* rounded edges */
+  padding-left: 10px; /* add some padding for spacing */
+  padding-right: 10px;
+}
+
+.description span {
+  padding: 10px;
+  justify-content: center;
+}

@@ -35,7 +35,6 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit {
       .pipe(take(1))
       .subscribe((video) => {
         this._video = video;
-        console.log(this._video);
       });
   }
 

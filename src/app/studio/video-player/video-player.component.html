@@ -1,70 +1,116 @@
-<div
-  *ngIf="_video !== null; else noVidToPlay"
-  stle="padding-left:5px; padding-right:5px"
-  fxLayout="column"
-  fxLayoutGap="5px"
->
-  <mat-toolbar fxLayoutGap="2px">
-    <button
-      mat-fab
-      color="primary"
-      class="push-right"
-      matTooltip="Back"
-      aria-label="Back"
-      (click)="goBack()"
+<div fxLayout="column" fxLayoutGap="10px">
+  <div fxLayout="row">
+    <div fxFlex="80" style="flex: 0 0 80%; min-width: 80%"></div>
+    <div
+      fxFlexOffset="auto"
+      fxFlex="20"
+      fxLayoutAlign="flex-end"
+      style="flex: 0 0 20%; max-width: 20%"
     >
-      <mat-icon>chevron_left</mat-icon>
-    </button>
-  </mat-toolbar>
-  <video
-    #videoPlayer
-    id="vidElement"
-    class="video-js vjs-default-skin"
-    controls
-    preload="none"
-    data-setup='{ "aspectRatio":"800:600", "playbackRates": [1, 1.5, 2] }'
-  >
-    <source src="{{ _video.url }}" type="video/mp4" />
-  </video>
+      <button
+        mat-stroked-button
+        color="primary"
+        class="push-right"
+        matTooltip="Back"
+        aria-label="Back"
+        (click)="goBack()"
+      >
+        <span class="material-symbols-rounded">arrow_back_ios</span>
+      </button>
+    </div>
+  </div>
 
-  <div style="padding-left: 10px">
-    <p style="padding-top: 10px">
+  <div
+    *ngIf="_video !== null; else noVidToPlay"
+    fxLayout="row"
+    fxLayoutAlign="center"
+  >
+    <video
+      #videoPlayer
+      id="vidElement"
+      class="video-js vjs-default-skin videoLayout"
+      preload="none"
+      controls
+      data-setup='{ "aspectRatio":"800:600", "playbackRates": [1, 1.5, 2] }'
+    >
+      <source src="{{ _video.url }}" type="video/mp4" />
+    </video>
+  </div>
+  <div *ngIf="_video !== null" fxLayout="row" fxLayoutAlign="center">
+    <mat-toolbar fxLayoutGap="2px">
+      <button
+        mat-icon-button
+        color="primary"
+        aria-label="Play/Pause"
+        (click)="playPause()"
+      >
+        <mat-icon *ngIf="_isPlay == true">play_circle_filled</mat-icon>
+        <mat-icon *ngIf="_isPlay == false">pause_circle_filled</mat-icon>
+      </button>
+
+      <button
+        mat-icon-button
+        color="primary"
+        aria-label="Rewind 10s"
+        (click)="skip(-10)"
+      >
+        <mat-icon>replay_10</mat-icon>
+      </button>
+
+      <button
+        mat-icon-button
+        color="primary"
+        aria-label="Forward 10s"
+        (click)="skip(10)"
+      >
+        <mat-icon>forward_10</mat-icon>
+      </button>
+
+      <!-- <button
+        mat-icon-button
+        color="primary"
+        aria-label="Example icon button with a home icon"
+        (click)="muteSound()"
+      >
+        <mat-icon>volume_off</mat-icon>
+      </button> -->
+    </mat-toolbar>
+  </div>
+  <div
+    *ngIf="_video !== null"
+    fxLayout="row wrap"
+    fxLayoutAlign="center"
+    style="border: solid red"
+  >
+    <div
+      fxFlex="90%"
+      fxLayoutAlign="flex-start"
+      style="flex: 0 0 80%; min-width: 80%"
+    >
       <span
         ><strong>{{ _video.title }}</strong></span
       >
-    </p>
-    <p style="padding-left: 10px">
+    </div>
+
+    <div
+      fxFlex="90%"
+      fxLayoutAlign="flex-start"
+      style="flex: 0 0 90%; min-width: 90%"
+    >
       <span>
         <strong><small>Channel:</small></strong> {{ _video.channelName }}
       </span>
-    </p>
-    <p class="description">
+    </div>
+
+    <div
+      fxFlex="90%"
+      fxLayoutAlign="flex-start"
+      class="description"
+      style="flex: 0 0 90%; min-width: 90%"
+    >
       <span>{{ _video.description }}</span>
-    </p>
+    </div>
   </div>
-
-  <!--
-  <mat-toolbar fxLayoutGap="2px">
-
-    <button mat-icon-button color="primary" aria-label="Play/Pause" (click)="playPause()">
-      <mat-icon *ngIf="_isPlay==true">play_circle_filled</mat-icon>
-      <mat-icon *ngIf="_isPlay==false">pause_circle_filled</mat-icon>
-    </button>
-
-    <button mat-icon-button color="primary" aria-label="Rewind 10s" (click)="skip(-10)">
-      <mat-icon>replay_10</mat-icon>
-    </button>
-
-
-    <button mat-icon-button color="primary" aria-label="Forward 10s" (click)="skip(10)">
-      <mat-icon>forward_10</mat-icon>
-    </button>
-
-    <button mat-icon-button color="primary" aria-label="Example icon button with a home icon" (click)="muteSound()">
-      <mat-icon>volume_off</mat-icon>
-    </button>
-
-  </mat-toolbar> -->
 </div>
 
 <ng-template #noVidToPlay>

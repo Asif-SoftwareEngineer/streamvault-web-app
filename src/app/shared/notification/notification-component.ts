@@ -22,7 +22,7 @@ import { NotificationType } from '../enums';
   styles: [
     `
       div {
-        width: 98%;
+        width: 90%;
         padding: 10px;
         border-radius: 5px;
         fxlayoutalign: space-around center;

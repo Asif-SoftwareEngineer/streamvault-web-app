@@ -17,12 +17,15 @@
 .page-Title {
   padding-left: 50px;
   padding-right: 50px;
+  text-align: center;
+  color: var(--primary-color);
+  line-height: 1.5;
 }
 .my-para-text {
   font-family: "Montserrat";
   text-align: justify;
-  padding-top: 10px;
-  line-height: vw;
+  padding-top: 15px;
+  line-height: 2;
 }
 
 .features {
@@ -39,18 +42,21 @@
 
 .banner {
   position: relative;
+  opacity: 0.5;
 }
 
 .banner-text {
   position: absolute;
   top: 20%;
   left: 50%;
+  border: solid;
+  background-color: rgba(255, 255, 255, 0.4); /* transparent white background */
+  border-color: white;
   transform: translate(-50%, -50%);
   text-align: center;
-  font-size: 3rem; /* Adjust the font size as per your requirement */
-  line-height: 1.2; /* Adjust the line-height as per your requirement */
-  color: #fff;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional text shadow */
+  font-size: 3rem;
+  line-height: 1.2;
+  color: red; /* clear text color */
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-decoration: none; /* no underline */
 }
-
-

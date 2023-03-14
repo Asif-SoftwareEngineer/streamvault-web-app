@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class VideoStreamingService {
   private _videoSubject = new BehaviorSubject<IVideoView | null>(null);
 
-  setVideo(video: IVideoView) {
+  setVideo(video: IVideoView | null) {
     this._videoSubject.next(video);
   }
 

@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Inject,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -18,7 +19,7 @@ import { take } from 'rxjs';
   templateUrl: './video-player.component.html',
   styleUrls: ['./video-player.component.scss'],
 })
-export class VideoPlayerComponent implements OnInit, AfterViewInit {
+export class VideoPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('videoPlayer', { static: false }) videoplayer: ElementRef | null =
     null;
   _isPlay: boolean = false;
@@ -76,6 +77,16 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit {
   }
 
   goBack() {
+    this._videoService.setVideo(null);
     this._router.navigateByUrl('/list/home');
+  }
+
+  ngOnDestroy(): void {
+    var myVideo: any = document.getElementById('vidElement');
+    if (this._isPlay === true) {
+      this._isPlay = false;
+      myVideo.pause();
+      this._videoService.setVideo(null);
+    }
   }
 }

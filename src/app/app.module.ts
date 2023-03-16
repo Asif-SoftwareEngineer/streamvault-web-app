@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { StudioModule } from './studio/studio.module';
 import { UserModule } from './user/user.module';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { UserModule } from './user/user.module';
     HomeComponent,
     AuthModalDialogComponent,
     PageNotFoundComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [
     BrowserModule,

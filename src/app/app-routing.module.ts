@@ -32,14 +32,6 @@ const routes: Routes = [
     //canLoad: [AuthGuard],
   },
   {
-    path: 'subscription',
-    loadChildren: () =>
-      import('./subscription/subscription.module').then(
-        (m) => m.SubscrptionModule
-      ),
-    //canLoad: [AuthGuard],
-  },
-  {
     path: 'user',
     loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
     //canLoad: [AuthGuard],

@@ -11,15 +11,18 @@
       fxLayout.lt-sm="column"
       fxLayoutAlign="start start"
     >
-      <div *ngFor="let video of _videosList$ | async; let i = index">
-        <div
+      <div
+        style="display: flex; flex-direction: column; align-items: flex-start"
+        *ngFor="let video of _videosList$ | async; let i = index"
+      >
+        <!-- <div
           id="imgParent-{{ i }}"
           class="imgParent"
           (click)="openVideoDialog(video)"
         >
           <img src="{{ video.thumbnail }}" alt="{{ video.title }}" />
         </div>
-        <div style="padding: 5px 5px 0px 0px; font: bold; margin-top: 10px">
+        <div style="padding: 5px 5px 0px 0px; font: bold">
           <span class="mat-h2">
             <p>{{ video.title }}</p>
           </span>
@@ -28,8 +31,30 @@
           <span class="mat-body">
             <p>{{ video.description }}</p>
           </span>
+        </div> -->
+
+        <div style="margin-bottom: 40px">
+          <div
+            id="imgParent-{{ i }}"
+            class="imgParent"
+            (click)="openVideoDialog(video)"
+          >
+            <img src="{{ video.thumbnail }}" alt="{{ video.title }}" />
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start">
+            <div style="padding: 5px 5px 0px 10px; font: bold">
+              <span class="mat-h2">
+                <p>{{ video.title }}</p>
+              </span>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start">
+            <span style="padding-left: 10px; padding-bottom: 5px">
+              <small>{{ video.channelName }}</small>
+            </span>
+          </div>
+          <mat-divider fxHide.gt-md></mat-divider>
         </div>
-        <mat-divider fxHide.gt-md></mat-divider>
       </div>
     </div>
   </mat-card>

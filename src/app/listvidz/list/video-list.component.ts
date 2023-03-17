@@ -1,15 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 import { IVideoView } from 'src/app/models/video';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { VideoDataService } from 'src/app/services/videosData.service';
-import { VideoPlayerComponent } from 'src/app/studio/video-player/video-player.component';
 import { VideoStreamingService } from 'src/app/services/videoStreaming.service';
 
 @Component({
@@ -28,7 +23,6 @@ export class VideoListComponent implements OnInit {
 
   constructor(
     private _videoDataService: VideoDataService,
-    private _dialog: MatDialog,
     private _router: Router,
     private _videoService: VideoStreamingService
   ) {}

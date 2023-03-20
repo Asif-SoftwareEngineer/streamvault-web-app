@@ -30,12 +30,11 @@ export class VideoListComponent implements OnInit {
   ngOnInit() {
     console.log('about to call  vidz list');
 
-    this._videosList$ = this._videoDataService.getVideosByUserId(
-      '2fb08ca8-5b69-4fe7-914e-0201da98e543'
-    );
+    this._videosList$ = this._videoDataService.getAllVideos();
   }
 
   openVideoDialog(video: IVideoView) {
+    console.log(video);
     this._videoService.setVideo(video);
     this._router.navigateByUrl('studio/player');
   }

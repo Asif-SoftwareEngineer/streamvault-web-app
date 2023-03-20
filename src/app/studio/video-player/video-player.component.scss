@@ -13,3 +13,14 @@
   padding: 10px;
   justify-content: center;
 }
+
+.separatorWithValues {
+  padding-left: 5px;
+  padding-top: 2px;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+.separatorWithOutValues {
+  color: var(--primary-color);
+  font-weight: bold;
+}

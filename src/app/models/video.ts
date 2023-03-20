@@ -16,6 +16,8 @@ export interface IVideo {
 
 export interface IVideoView {
   videoId: string;
+  userId: string;
+  channelId: string;
   userName: string;
   channelName: string;
   title: string;

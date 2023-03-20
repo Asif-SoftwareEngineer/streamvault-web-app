@@ -1,5 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs';
 
 import { AuthResult } from '../models/pi-model';
 import { RegistrationDataService } from '../services/registration.service';
@@ -24,15 +25,18 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._regService.getRegisteredUserSubject().subscribe((registeredUser) => {
-      console.log('calling the registered user subject');
-      console.log(registeredUser);
-      if (registeredUser) {
+    this._regService
+      .getRegisteredUserSubject()
+      .pipe(take(1))
+      .subscribe((registeredUser) => {
+        console.log('calling the registered user subject');
         console.log(registeredUser);
-        this._userType = registeredUser?.role;
-      } else {
-        this._userType = '';
-      }
-    });
+        if (registeredUser) {
+          console.log(registeredUser);
+          this._userType = registeredUser?.role;
+        } else {
+          this._userType = '';
+        }
+      });
   }
 }

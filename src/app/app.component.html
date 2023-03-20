@@ -22,7 +22,7 @@
       Stream
     </button>
 
-    <div *ngIf="!_isHomeRoute && _isAuthenticated" class="push-right">
+    <div *ngIf="!_isHomeRoute && isAuthenticated" class="push-right">
       <span
         [ngStyle]="{ color: 'var(--primary-color)' }"
         style="padding-right: 3px; font-size: medium"
@@ -33,7 +33,7 @@
     </div>
 
     <button
-      *ngIf="_isAuthenticated"
+      *ngIf="isAuthenticated"
       class="toolbarButton"
       mat-fab
       color="primary"
@@ -45,7 +45,7 @@
     </button>
 
     <button
-      *ngIf="_isAuthenticated"
+      *ngIf="isAuthenticated"
       class="toolbarButton"
       mat-fab
       color="primary"
@@ -60,10 +60,10 @@
       mat-stroked-button
       [ngClass]="{ spinner: isBusy }"
       color="primary"
-      *ngIf="!_isAuthenticated"
+      *ngIf="!isAuthenticated"
       (click)="connect()"
       matTooltip="Connect with Pi Network"
-      [class.push-right]="!_isHomeRoute && !_isAuthenticated"
+      [class.push-right]="!_isHomeRoute && !isAuthenticated"
       aria-label="Connect"
     >
       Connect

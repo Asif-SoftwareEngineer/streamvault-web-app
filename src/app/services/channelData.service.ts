@@ -55,9 +55,7 @@ export class ChannelDataService {
   constructor(private http: HttpClient) {}
 
   getChannelsByUserId(userId: string): Observable<IChannel[]> {
-    console.log('about to call getChannels api');
     const url = `${apiConfig.baseUrl}channels/${userId}`;
-    console.log(url);
     return this.http.get<{ channels: IChannel[] }>(url).pipe(
       map((response) => {
         return response.channels;

@@ -7,7 +7,7 @@ import {
   MatDialog,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { Observable, filter, map } from 'rxjs';
+import { Observable, filter, map, tap } from 'rxjs';
 
 import { AuthDataService } from 'src/app/services/auth-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
   _title: string = 'streamvault';
   _existingAppMode: string = '';
   _isHomeRoute: boolean = false;
-  _isAuthenticated: boolean = false;
+  private _isAuthenticated: boolean = false;
   _accessToken: string = '';
   _regUserData$!: Observable<{ user: IUser; userType: string }>;
   _isLoggedIn: boolean = false;
@@ -75,9 +75,17 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this._isLoggedIn = !!this._tokenStorageService.getToken();
 
-    this._authService.isAuthenticated$.subscribe((isAuthenticated) => {
-      this._isAuthenticated = isAuthenticated;
-    });
+    if (this._isLoggedIn) {
+      this._authService.setIsAuthenticated(true);
+    }
+
+    this._authService.isAuthenticated$
+      .pipe(
+        tap((isAuthenticated) => {
+          this._isAuthenticated = isAuthenticated;
+        })
+      )
+      .subscribe();
 
     this._existingAppMode = this.$appModeArr[0].toString();
 
@@ -98,6 +106,10 @@ export class AppComponent implements OnInit {
         // Update the variable to show/hide the button
         this._isHomeRoute = path === 'index';
       });
+  }
+
+  get isAuthenticated() {
+    return this._isAuthenticated;
   }
 
   onToggleChange($event: any) {
@@ -126,7 +138,6 @@ export class AppComponent implements OnInit {
     )
       .then((result) => {
         this.isBusy = false;
-        console.log(result);
       })
       .catch((error) => {
         this.isBusy = false;

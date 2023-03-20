@@ -10,7 +10,7 @@ import { TokenStorageService } from '../services/token-storage.service';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
 import { NotificationType } from './enums';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
 
 const apiConfig = environment.api;
 
@@ -125,8 +125,8 @@ export const Pi_Authentication = async (
     const token = auth?.accessToken ?? '';
 
     if (token) {
-      const response = await authService.signIn(token).toPromise();
-      console.log('line128-' + response);
+      const response = await lastValueFrom(authService.signIn(token));
+
       if (response.status === 200) {
         tokenStorageService.saveToken(auth!.accessToken);
         tokenStorageService.saveUser(auth!.user);

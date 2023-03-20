@@ -11,80 +11,10 @@ const apiConfig = environment.api;
   providedIn: 'root',
 })
 export class VideoDataService {
-  private videos = [
-    {
-      id: 1,
-      title: 'Angular Fundamentals',
-      description:
-        'Learn the basics of Angular and start building amazing web applications',
-      thumbnail: 'https://i.ytimg.com/vi/pXbEcGUtHgo/maxresdefault.jpg',
-      url: 'http://localhost:3000/vidz/1st.mp4',
-    },
-    {
-      id: 2,
-      title: 'React Native',
-      description:
-        'Build cross-platform mobile applications using React Native',
-      thumbnail: 'https://i.ytimg.com/vi/pXbEcGUtHgo/maxresdefault.jpg',
-      url: 'http://localhost:3000/vidz/2nd.mp4',
-    },
-    {
-      id: 3,
-      title: 'Node.js',
-      description:
-        'Learn how to build scalable and efficient server-side applications with Node.js',
-      thumbnail: 'https://i.ytimg.com/vi/RLtyhwFtXQA/maxresdefault.jpg',
-      url: 'http://localhost:3000/vidz/3rd.mp4',
-    },
-    {
-      id: 4,
-      title: 'Vue.js',
-      description: 'Get started with Vue.js and build amazing web applications',
-      thumbnail: 'https://i.ytimg.com/vi/Wy9q22isx3U/maxresdefault.jpg',
-      url: 'http://localhost:3000/vidz/4th.mp4',
-    },
-    {
-      id: 5,
-      title: 'JavaScript',
-      description:
-        'Learn the fundamentals of JavaScript and start building amazing web applications',
-      thumbnail: 'https://i.ytimg.com/vi/PkZNo7MFNFg/maxresdefault.jpg',
-      url: 'http://localhost:3000/vidz/5th.mp4',
-    },
-    {
-      id: 6,
-      title: 'CSS',
-      description:
-        'Learn how to style your web applications and make them look amazing',
-      thumbnail: 'https://i.ytimg.com/vi/yfoY53QXEnI/maxresdefault.jpg',
-      url: 'http://localhost:3000/vidz/1st.mp4',
-    },
-    {
-      id: 7,
-      title: 'HTML',
-      description:
-        'Learn the basics of HTML and start building amazing web applications',
-      thumbnail: 'https://i.ytimg.com/vi/9cKsq14Kfsw/maxresdefault.jpg',
-      url: 'http://localhost:3000/vidz/2nd.mp4',
-    },
-    {
-      id: 8,
-      title: 'Bootstrap',
-      description:
-        'Learn how to build responsive and beautiful web applications using Bootstrap',
-      thumbnail: 'https://i.ytimg.com/vi/9cKsq14Kfsw/maxresdefault.jpg',
-      url: 'http://localhost:3000/vidz/2nd.mp4',
-    },
-  ];
-
   constructor(private http: HttpClient) {}
 
-  getVideos(): Observable<any> {
-    return of(this.videos);
-  }
-
-  getVideosByUserId(userId: string): Observable<IVideoView[]> {
-    const url = `${apiConfig.baseUrl}video/${userId}`;
+  getAllVideos(): Observable<IVideoView[]> {
+    const url = `${apiConfig.baseUrl}video/`;
     return this.http.get<{ videosList: IVideoView[] }>(url).pipe(
       map((response) => {
         return response.videosList;
@@ -93,10 +23,29 @@ export class VideoDataService {
   }
 
   addVideo(videoData: IVideo): Observable<any> {
-    return this.http.post<any>(
-      `${apiConfig.baseUrl}video/add/${videoData.userId}/${videoData.channelId}`,
-      videoData,
-      apiConfig.httpOptions
-    );
+    const url = `${apiConfig.baseUrl}video/add/${videoData.userId}/${videoData.channelId}`;
+    return this.http.post<any>(url, videoData, apiConfig.httpOptions);
+  }
+
+  addReactionToVideo(
+    userId: string,
+    channelId: string,
+    videoId: string,
+    reActingUserId: string,
+    reactionType: string
+  ) {
+    const url = `${apiConfig.baseUrl}video/submitReaction/${userId}/${channelId}/${videoId}/${reActingUserId}/${reactionType}`;
+    return this.http.post<any>(url, apiConfig.httpOptions);
+  }
+
+  withdrawReactionToVideo(
+    userId: string,
+    channelId: string,
+    videoId: string,
+    reActingUserId: string,
+    reactionType: string
+  ) {
+    const url = `${apiConfig.baseUrl}video/withdrawReaction/${userId}/${channelId}/${videoId}/${reActingUserId}/${reactionType}`;
+    return this.http.post<any>(url, apiConfig.httpOptions);
   }
 }

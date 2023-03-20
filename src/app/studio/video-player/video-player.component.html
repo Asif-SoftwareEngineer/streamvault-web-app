@@ -4,13 +4,12 @@
     <div
       fxFlexOffset="auto"
       fxFlex="20"
-      fxLayoutAlign="flex-end"
+      fxLayoutAlign="flex-start"
       style="flex: 0 0 20%; max-width: 20%"
     >
       <button
         mat-stroked-button
         color="primary"
-        class="push-right"
         matTooltip="Back"
         aria-label="Back"
         (click)="goBack()"
@@ -45,47 +44,57 @@
       <button
         mat-icon-button
         color="primary"
-        aria-label="Play/Pause"
-        (click)="playPause()"
+        aria-label="like"
+        (click)="expressLike()"
       >
-        <mat-icon *ngIf="_isPlay == true">play_circle_filled</mat-icon>
-        <mat-icon *ngIf="_isPlay == false">pause_circle_filled</mat-icon>
+        <mat-icon *ngIf="_liked == false">thumb_up_off_alt</mat-icon>
+        <mat-icon *ngIf="_liked == true">thumb_up_alt</mat-icon>
       </button>
-
+      <span style="color: var(--accent-color)">
+        <small>{{ _totalLikes && _totalLikes > 0 ? _totalLikes : "" }}</small>
+      </span>
+      <span
+        [ngClass]="{
+          separatorWithValues: _totalLikes && _totalLikes > 0,
+          separatorWithOutValues: _totalLikes === 0
+        }"
+        >|</span
+      >
       <button
         mat-icon-button
         color="primary"
-        aria-label="Rewind 10s"
-        (click)="skip(-10)"
+        aria-label="dislike"
+        (click)="expressDisLike()"
       >
-        <mat-icon>replay_10</mat-icon>
+        <mat-icon *ngIf="_disliked == false">thumb_down_off_alt</mat-icon>
+        <mat-icon *ngIf="_disliked == true">thumb_down_alt</mat-icon>
       </button>
-
+      <span style="color: var(--accent-color)">
+        <small>{{
+          _totalDislikes && _totalDislikes > 0 ? _totalDislikes : ""
+        }}</small>
+      </span>
       <button
         mat-icon-button
         color="primary"
-        aria-label="Forward 10s"
-        (click)="skip(10)"
+        aria-label="share"
+        [disabled]="true"
+        (click)="shareVideo()"
       >
-        <mat-icon>forward_10</mat-icon>
+        <mat-icon>share</mat-icon>
       </button>
-
-      <!-- <button
+      <button
         mat-icon-button
         color="primary"
-        aria-label="Example icon button with a home icon"
-        (click)="muteSound()"
+        [disabled]="true"
+        aria-label="report"
+        (click)="reportVideo()"
       >
-        <mat-icon>volume_off</mat-icon>
-      </button> -->
+        <mat-icon>flag</mat-icon>
+      </button>
     </mat-toolbar>
   </div>
-  <div
-    *ngIf="_video !== null"
-    fxLayout="row wrap"
-    fxLayoutAlign="center"
-    style="border: solid red"
-  >
+  <div *ngIf="_video !== null" fxLayout="row wrap" fxLayoutAlign="center">
     <div
       fxFlex="90%"
       fxLayoutAlign="flex-start"

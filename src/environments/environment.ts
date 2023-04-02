@@ -7,6 +7,7 @@ import { HttpHeaders } from '@angular/common/http';
 export const environment = {
   production: false,
   api: {
+    authUrl: 'http://localhost:3000/v1/',
     baseUrl: 'http://localhost:3000/v2/',
     serverUrl: 'http://localhost:3000/',
     httpOptions: {

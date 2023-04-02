@@ -24,7 +24,6 @@ import {
 import { AuthDataService } from 'src/app/services/auth-data.service';
 import { IUser } from 'src/app/models/user';
 import { NotificationType } from 'src/app/shared/enums';
-import { PiNetworkService } from 'src/app/services/PiNetwork.service';
 import { RegistrationDataService } from 'src/app/services/registration.service';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';

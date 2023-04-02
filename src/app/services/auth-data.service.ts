@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, lastValueFrom, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AuthResult } from '../models/pi-model';
@@ -41,6 +41,9 @@ export class AuthDataService {
 
   setIsAuthenticated(value: boolean) {
     this._isAuthenticated.next(value);
+    if (!value) {
+      this.clearAuthResult();
+    }
   }
 
   setAuthResult(value: AuthResult) {
@@ -51,7 +54,7 @@ export class AuthDataService {
     return this._authResult;
   }
 
-  clearAuthResult() {
+  private clearAuthResult() {
     const emptyAuthResult = {
       accessToken: '',
       user: {
@@ -63,11 +66,16 @@ export class AuthDataService {
   }
 
   signIn = (token: string): Observable<any> => {
-    const url = `${apiConfig.baseUrl}signin/${token}`;
+    const url = `${apiConfig.authUrl}auth/signin/${token}`;
     return this.http.post<any>(url, apiConfig.httpOptions);
   };
 
-  signOut = () => {
+  signOut = async (userId?: string) => {
+    if (userId) {
+      const url = `${apiConfig.authUrl}auth/signout/${userId}`;
+      await lastValueFrom(this.http.post<any>(url, apiConfig.httpOptions));
+    }
+
     this._regService.setRegisteredUserSubject({
       streamvault_username: '',
       email: '',
@@ -75,8 +83,9 @@ export class AuthDataService {
       role: Role.None,
       isProfileDisabled: false,
     });
-    this._tokenStorage.signOut();
+    console.log('about to clear token storage service');
+
+    this._tokenStorage.clear();
     this.setIsAuthenticated(false);
-    this.clearAuthResult();
   };
 }

@@ -16,7 +16,7 @@ import { IUser } from './models/user';
 import { MatIconRegistry } from '@angular/material/icon';
 import { NotificationService } from './services/notification.service';
 import { NotificationType } from './shared/enums';
-import { PiNetworkService } from './services/PiNetwork.service';
+
 import { Pi_Authentication } from './shared/pi-auth-payments';
 import { RegistrationDataService } from './services/registration.service';
 import { Role } from './models/enums';
@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._isLoggedIn = !!this._tokenStorageService.getToken();
+    this._isLoggedIn = !!this._tokenStorageService.getPiToken();
 
     if (this._isLoggedIn) {
       this._authService.setIsAuthenticated(true);
@@ -145,7 +145,9 @@ export class AppComponent implements OnInit {
   }
 
   signOut = () => {
-    this._authService.signOut();
+    const currentUser: any = this._tokenStorageService.getPiUser();
+
+    this._authService.signOut(currentUser.uid);
     this._router.navigateByUrl('/user/logout');
   };
 }

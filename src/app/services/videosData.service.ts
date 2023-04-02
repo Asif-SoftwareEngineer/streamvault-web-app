@@ -13,8 +13,8 @@ const apiConfig = environment.api;
 export class VideoDataService {
   constructor(private http: HttpClient) {}
 
-  getAllVideos(): Observable<IVideoView[]> {
-    const url = `${apiConfig.baseUrl}video/`;
+  getAllVideos(userId: string): Observable<IVideoView[]> {
+    const url = `${apiConfig.baseUrl}video/${userId}`;
     return this.http.get<{ videosList: IVideoView[] }>(url).pipe(
       map((response) => {
         return response.videosList;

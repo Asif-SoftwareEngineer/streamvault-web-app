@@ -1,16 +1,17 @@
 import * as PiModel from 'src/app/models/pi-model';
 
+import { firstValueFrom, lastValueFrom } from 'rxjs';
+
 import { AuthDataService } from '../services/auth-data.service';
 import { EventEmitter } from '@angular/core';
 import { IUser } from '../models/user';
 import { NotificationService } from '../services/notification.service';
+import { NotificationType } from './enums';
 import { RegistrationDataService } from '../services/registration.service';
 import { Role } from '../models/enums';
 import { TokenStorageService } from '../services/token-storage.service';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
-import { NotificationType } from './enums';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
 
 const apiConfig = environment.api;
 
@@ -117,31 +118,34 @@ export const Pi_Authentication = async (
   const windowRef = window as unknown as CustomWindow;
 
   try {
-    const auth = await windowRef.Pi.authenticate(
+    const piAuth = await windowRef.Pi.authenticate(
       scopes,
       onIncompletePaymentFound
     );
 
-    const token = auth?.accessToken ?? '';
+    const piToken = piAuth?.accessToken ?? '';
 
-    if (token) {
-      const response = await lastValueFrom(authService.signIn(token));
+    if (piToken) {
+      const response = await lastValueFrom(authService.signIn(piToken));
+
+      console.log(response);
 
       if (response.status === 200) {
-        tokenStorageService.saveToken(auth!.accessToken);
-        tokenStorageService.saveUser(auth!.user);
+        tokenStorageService.savePiToken(piAuth!.accessToken);
+        tokenStorageService.savePiUser(piAuth!.user);
+        tokenStorageService.saveAppToken(response.appAccessToken);
         authService.setIsAuthenticated(true);
-        authService.setAuthResult(auth!);
+        authService.setAuthResult(piAuth!);
 
         try {
           const registeredUser = await firstValueFrom(
             regService.getUser(
-              auth!.accessToken,
-              auth!.user.uid,
-              auth!.user.username
+              piAuth!.accessToken,
+              piAuth!.user.uid,
+              piAuth!.user.username
             )
           );
-          console.log(registeredUser);
+
           regService.setRegisteredUserSubject(registeredUser!);
         } catch (error) {
           console.log('signing user is not a registered user of stream vault!');
@@ -150,18 +154,16 @@ export const Pi_Authentication = async (
         return { isConnected: true };
       } else {
         authService.signOut();
-        console.log('line144-' + response);
         updateNotificationService(notificationService);
         return { isConnected: false };
       }
     } else {
       authService.signOut();
-      console.log('line150-' + 'no token');
       updateNotificationService(notificationService);
       return { isConnected: false };
     }
   } catch (error) {
-    console.log('line153-' + error);
+    console.log(error);
 
     console.error(error);
 

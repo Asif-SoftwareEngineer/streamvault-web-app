@@ -16,7 +16,6 @@ import { IUser } from 'src/app/models/user';
 import { NgForm } from '@angular/forms';
 import { NotificationType } from 'src/app/shared/enums';
 import { Observable } from 'rxjs';
-import { PiNetworkService } from 'src/app/services/PiNetwork.service';
 import { Pi_Authentication } from 'src/app/shared/pi-auth-payments';
 import { RegistrationDataService } from 'src/app/services/registration.service';
 import { Role } from 'src/app/models/enums';
@@ -57,7 +56,6 @@ export class RegisterComponent implements OnInit {
     private _router: Router,
     private _tokenStorageService: TokenStorageService,
     private _regService: RegistrationDataService,
-    private _piNetworkService: PiNetworkService
   ) {
     this._authService.isAuthenticated$.subscribe((isAuthenticated) => {
       this._isAuthenticated = isAuthenticated;

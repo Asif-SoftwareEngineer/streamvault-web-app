@@ -26,7 +26,7 @@ export class StudioHomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const userId: string = this._tokenStorage.getUser().uid;
+    const userId: string = this._tokenStorage.getPiUser().uid;
 
     this._channels$ = this._channelDataService.getChannelsByUserId(userId);
     this._channels$.subscribe((data) => {

@@ -58,12 +58,12 @@ export class VideoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const userId: string = this._tokenStorage.getUser().uid;
+    const userId: string = this._tokenStorage.getPiUser().uid;
 
     this._channelDataService
       .getChannelsByUserId(userId)
       .subscribe((channelsData: IChannel[]) => {
-        //const channelList = channelsData['channels'];
+
         console.log(channelsData);
 
         this._channelIdAndNameArray = channelsData.map((channel) => {
@@ -131,7 +131,7 @@ export class VideoComponent implements OnInit {
   }
 
   onSubmit() {
-    const currentUser: any = this._tokenStorage.getUser();
+    const currentUser: any = this._tokenStorage.getPiUser();
     const userId = currentUser.uid;
 
     this.videoFileAndDataUploadFunctions(

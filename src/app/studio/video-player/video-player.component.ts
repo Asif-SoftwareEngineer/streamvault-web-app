@@ -138,7 +138,7 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     const { userId, channelId, videoId } = this._video;
-    const currentUser: any = this._tokenStorageService.getUser() || {};
+    const currentUser: any = this._tokenStorageService.getPiUser() || {};
 
     if (!currentUser?.uid) {
       currentUser.uid = 'visitor';
@@ -172,7 +172,7 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     const { userId, channelId, videoId } = this._video;
-    const currentUser: any = this._tokenStorageService.getUser() || {};
+    const currentUser: any = this._tokenStorageService.getPiUser() || {};
 
     if (!currentUser?.uid) {
       currentUser.uid = 'visitor';

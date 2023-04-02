@@ -9,7 +9,6 @@ import {
 import { AuthDataService } from 'src/app/services/auth-data.service';
 import { IUser } from 'src/app/models/user';
 import { NotificationType } from 'src/app/shared/enums';
-import { PiNetworkService } from 'src/app/services/PiNetwork.service';
 import { Pi_Authentication } from 'src/app/shared/pi-auth-payments';
 import { Role } from 'src/app/models/enums';
 import { Router } from '@angular/router';
@@ -28,7 +27,7 @@ export class LogOutComponent implements OnInit {
   _windowRef = window as unknown as CustomWindow;
   _isAuthenticated: boolean = false;
   _iSeconds: number = 3;
-  _isBusy: boolean = false
+  _isBusy: boolean = false;
 
   counter = 3;
   timer: any;

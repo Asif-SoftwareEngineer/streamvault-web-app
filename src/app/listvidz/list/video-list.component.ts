@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { VideoDataService } from 'src/app/services/videosData.service';
 import { VideoStreamingService } from 'src/app/services/videoStreaming.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-video-list',
@@ -24,13 +25,20 @@ export class VideoListComponent implements OnInit {
   constructor(
     private _videoDataService: VideoDataService,
     private _router: Router,
-    private _videoService: VideoStreamingService
+    private _videoService: VideoStreamingService,
+    private _tokenStorageService: TokenStorageService
   ) {}
 
   ngOnInit() {
-    console.log('about to call  vidz list');
+    const currentUser: any = this._tokenStorageService.getPiUser() || {};
 
-    this._videosList$ = this._videoDataService.getAllVideos();
+    if (!currentUser?.uid) {
+      currentUser.uid = 'visitor';
+    }
+
+    console.log(currentUser.uid);
+
+    this._videosList$ = this._videoDataService.getAllVideos(currentUser.uid);
   }
 
   openVideoDialog(video: IVideoView) {

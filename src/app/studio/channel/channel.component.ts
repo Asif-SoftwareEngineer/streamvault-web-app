@@ -106,7 +106,7 @@ export class ChannelComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {}
 
   onSubmit() {
-    const currentUser: any = this._tokenStorage.getUser();
+    const currentUser: any = this._tokenStorage.getPiUser();
     const userId = currentUser.uid;
 
     const channelFormData = this._channelForm.value;

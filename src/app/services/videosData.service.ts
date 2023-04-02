@@ -17,6 +17,7 @@ export class VideoDataService {
     const url = `${apiConfig.baseUrl}video/${userId}`;
     return this.http.get<{ videosList: IVideoView[] }>(url).pipe(
       map((response) => {
+        console.log(response);
         return response.videosList;
       })
     );

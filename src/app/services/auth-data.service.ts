@@ -66,13 +66,13 @@ export class AuthDataService {
   }
 
   signIn = (token: string): Observable<any> => {
-    const url = `${apiConfig.authUrl}auth/signin/${token}`;
+    const url = `${apiConfig.authApiUrl}auth/signin/${token}`;
     return this.http.post<any>(url, apiConfig.httpOptions);
   };
 
   signOut = async (userId?: string) => {
     if (userId) {
-      const url = `${apiConfig.authUrl}auth/signout/${userId}`;
+      const url = `${apiConfig.authApiUrl}auth/signout/${userId}`;
       await lastValueFrom(this.http.post<any>(url, apiConfig.httpOptions));
     }
 

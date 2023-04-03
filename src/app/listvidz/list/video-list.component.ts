@@ -1,12 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 
 import { IVideoView } from 'src/app/models/video';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { VideoDataService } from 'src/app/services/videosData.service';
 import { VideoStreamingService } from 'src/app/services/videoStreaming.service';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-video-list',
@@ -35,8 +34,6 @@ export class VideoListComponent implements OnInit {
     if (!currentUser?.uid) {
       currentUser.uid = 'visitor';
     }
-
-    console.log(currentUser.uid);
 
     this._videosList$ = this._videoDataService.getAllVideos(currentUser.uid);
   }

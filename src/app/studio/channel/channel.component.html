@@ -4,7 +4,7 @@
       <mat-card
         fxLayout="column"
         fxLayoutAlign="space-around center"
-        fxLayoutGap="30px"
+        fxLayoutGap="20px"
       >
         <mat-card-title class="mat-card-title">Create Channel</mat-card-title>
 
@@ -98,9 +98,13 @@
             {{ error.value }}
           </mat-error>
         </mat-form-field>
-        <mat-toolbar fxLayoutGap="8px">
+        <mat-toolbar fxLayoutGap="5px">
           <mat-checkbox formControlName="privacySubscribers"
-            ><small>Privacy for Subscribers</small></mat-checkbox
+            ><small
+              ><span style="font-size: x-small"
+                >Keep subscribers private</span
+              ></small
+            ></mat-checkbox
           >
           <button
             class="push-right"
@@ -121,25 +125,6 @@
             Cancel
           </button>
         </mat-toolbar>
-        <div
-          fxLayout="column"
-          fxLayoutAlign="space-around center"
-          fxLayoutGap="50px"
-        >
-          <!-- <p>
-            To add a video to this channel,
-            <a mat-button routerLink="/studio/video" target="_self"
-              >Click here</a
-            >
-          </p>
-          <p></p>
-          <p>
-            If you want to visit studio,
-            <a mat-button routerLink="/studio/home" target="_self"
-              >Click here</a
-            >
-          </p> -->
-        </div>
       </mat-card>
     </div>
   </form>

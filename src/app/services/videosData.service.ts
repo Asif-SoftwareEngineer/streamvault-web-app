@@ -35,7 +35,7 @@ export class VideoDataService {
     reActingUserId: string,
     reactionType: string
   ) {
-    const url = `${apiConfig.baseUrl}video/submitReaction/${userId}/${channelId}/${videoId}/${reActingUserId}/${reactionType}`;
+    const url = `${apiConfig.baseUrl}reactions/submit/${userId}/${channelId}/${videoId}/${reActingUserId}/${reactionType}`;
     return this.http.post<any>(url, apiConfig.httpOptions);
   }
 
@@ -46,7 +46,7 @@ export class VideoDataService {
     reActingUserId: string,
     reactionType: string
   ) {
-    const url = `${apiConfig.baseUrl}video/withdrawReaction/${userId}/${channelId}/${videoId}/${reActingUserId}/${reactionType}`;
+    const url = `${apiConfig.baseUrl}reactions/withdraw/${userId}/${channelId}/${videoId}/${reActingUserId}/${reactionType}`;
     return this.http.post<any>(url, apiConfig.httpOptions);
   }
 }

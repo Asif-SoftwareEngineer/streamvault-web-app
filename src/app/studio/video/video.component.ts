@@ -63,9 +63,6 @@ export class VideoComponent implements OnInit {
     this._channelDataService
       .getChannelsByUserId(userId)
       .subscribe((channelsData: IChannel[]) => {
-
-        console.log(channelsData);
-
         this._channelIdAndNameArray = channelsData.map((channel) => {
           return {
             channelId: channel.channelId,

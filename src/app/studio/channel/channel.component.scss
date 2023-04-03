@@ -1,9 +1,6 @@
 .mat-card-title {
   color: var(--primary-color);
 }
-mat-card > mat-form-field {
-  width: 500px;
-}
 
 @media (min-width: 599px) {
   mat-card > mat-form-field {

@@ -47,8 +47,7 @@
         aria-label="like"
         (click)="expressLike()"
       >
-        <mat-icon *ngIf="_liked == false">thumb_up_off_alt</mat-icon>
-        <mat-icon *ngIf="_liked == true">thumb_up_alt</mat-icon>
+        <mat-icon>{{ _thumbup }}</mat-icon>
       </button>
       <span style="color: var(--accent-color)">
         <small>{{ _totalLikes && _totalLikes > 0 ? _totalLikes : "" }}</small>
@@ -66,8 +65,7 @@
         aria-label="dislike"
         (click)="expressDisLike()"
       >
-        <mat-icon *ngIf="_disliked == false">thumb_down_off_alt</mat-icon>
-        <mat-icon *ngIf="_disliked == true">thumb_down_alt</mat-icon>
+        <mat-icon>{{ _thumbdown }}</mat-icon>
       </button>
       <span style="color: var(--accent-color)">
         <small>{{

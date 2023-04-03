@@ -2,10 +2,6 @@
   color: var(--primary-color);
 }
 
-mat-card > mat-form-field {
-  width: 500px;
-}
-
 @media (min-width: 599px) {
   mat-card > mat-form-field {
     width: 500px;
@@ -21,4 +17,8 @@ mat-card > mat-form-field {
 
 .push-right {
   margin-left: auto;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 40;
 }

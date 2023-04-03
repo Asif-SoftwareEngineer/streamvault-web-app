@@ -27,4 +27,10 @@ export interface IVideoView {
   likes: number;
   dislikes: number;
   comments: string;
+  yourReaction: IReacion;
+}
+
+export interface IReacion {
+  reactionType: string;
+  reactingUserId: string;
 }

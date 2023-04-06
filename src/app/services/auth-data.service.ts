@@ -1,8 +1,6 @@
 import { BehaviorSubject, Observable, lastValueFrom, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { AuthResult } from '../models/pi-model';
-import { IUser } from '../models/user';
 import { Injectable } from '@angular/core';
 import { RegistrationDataService } from './registration.service';
 import { Role } from '../models/enums';
@@ -24,16 +22,8 @@ export class AuthDataService {
   constructor(
     private http: HttpClient,
     private _regService: RegistrationDataService,
-    private _tokenStorage: TokenStorageService
+    private _tokenStorageService: TokenStorageService
   ) {}
-
-  private _authResult = new BehaviorSubject<AuthResult>({
-    accessToken: '',
-    user: {
-      uid: '',
-      username: '',
-    },
-  });
 
   get isAuthenticated$() {
     return this._isAuthenticated.asObservable();
@@ -42,27 +32,8 @@ export class AuthDataService {
   setIsAuthenticated(value: boolean) {
     this._isAuthenticated.next(value);
     if (!value) {
-      this.clearAuthResult();
+      this._tokenStorageService.clear();
     }
-  }
-
-  setAuthResult(value: AuthResult) {
-    this._authResult.next(value);
-  }
-
-  getAuthResult() {
-    return this._authResult;
-  }
-
-  private clearAuthResult() {
-    const emptyAuthResult = {
-      accessToken: '',
-      user: {
-        uid: '',
-        username: '',
-      },
-    };
-    this._authResult.next(emptyAuthResult);
   }
 
   signIn = (token: string): Observable<any> => {
@@ -83,9 +54,6 @@ export class AuthDataService {
       role: Role.None,
       isProfileDisabled: false,
     });
-    console.log('about to clear token storage service');
-
-    this._tokenStorage.clear();
     this.setIsAuthenticated(false);
   };
 }

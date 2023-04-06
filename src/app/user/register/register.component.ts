@@ -41,7 +41,6 @@ export class RegisterComponent implements OnInit {
   _registrationForm: FormGroup = this._fb.group({});
   _isAuthenticated: boolean = false;
   _windowRef = window as unknown as CustomWindow;
-  _authResult: PiModel.AuthResult | null = null;
   _isBusy: boolean = false;
   _notification: INotification = {
     message: '',
@@ -55,7 +54,7 @@ export class RegisterComponent implements OnInit {
     private _notificationService: NotificationService,
     private _router: Router,
     private _tokenStorageService: TokenStorageService,
-    private _regService: RegistrationDataService,
+    private _regService: RegistrationDataService
   ) {
     this._authService.isAuthenticated$.subscribe((isAuthenticated) => {
       this._isAuthenticated = isAuthenticated;
@@ -110,18 +109,19 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     this.regForm?.form.enable();
 
-    this._authService.getAuthResult().subscribe((data) => {
-      this._authResult = data;
-    });
+    const userId: string = this._tokenStorageService.getPiUser().uid;
+    const userName: string = this._tokenStorageService.getPiUser().username;
+    const accessCode: string = this._tokenStorageService.getPiToken()!;
 
-    if (this._authResult?.accessToken.length == 0) {
+    if (!userId || !userName || !accessCode) {
+      console.log('Token storage with invalid values');
       return;
     }
 
     const registrationDTO: IUser = {
-      accessCode: this._authResult?.accessToken,
-      pichain_uid: this._authResult?.user.uid,
-      pichain_username: this._authResult?.user.username,
+      accessCode: accessCode,
+      pichain_uid: userId,
+      pichain_username: userName,
 
       streamvault_username:
         this._registrationForm.controls['streamvault_username'].value,

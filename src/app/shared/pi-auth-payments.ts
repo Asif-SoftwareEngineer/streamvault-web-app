@@ -133,7 +133,6 @@ export const Pi_Authentication = async (
         tokenStorageService.savePiUser(piAuth!.user);
         tokenStorageService.saveAppToken(response.appAccessToken);
         authService.setIsAuthenticated(true);
-        authService.setAuthResult(piAuth!);
 
         try {
           const registeredUser = await firstValueFrom(
@@ -161,8 +160,6 @@ export const Pi_Authentication = async (
       return { isConnected: false };
     }
   } catch (error) {
-    console.log(error);
-
     console.error(error);
 
     updateNotificationService(notificationService);
@@ -179,8 +176,6 @@ export const PI_Payments = async (
   const windowRef = window as unknown as CustomWindow;
 
   const paymentData = { amount, memo, metadata };
-
-  console.log(JSON.stringify(paymentData));
 
   const callbacks = {
     onReadyForServerApproval,

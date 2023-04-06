@@ -1,9 +1,8 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { take } from 'rxjs';
 
-import { AuthResult } from '../models/pi-model';
 import { RegistrationDataService } from '../services/registration.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +11,6 @@ import { RegistrationDataService } from '../services/registration.service';
 })
 export class HomeComponent implements OnInit {
   _isDesktop: boolean = false;
-  _authResult: AuthResult | null = null;
   protected _userType: string = 'none';
 
   constructor(

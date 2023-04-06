@@ -48,7 +48,6 @@ export class MemberComponent implements OnInit, AfterViewInit {
   _isAuthenticated: boolean = false;
   _windowRef = window as unknown as CustomWindow;
 
-  _authResult: PiModel.AuthResult | null = null;
   _membershipTypeSelected: MembershipType | null = null;
   _userType: string = 'visitor';
   _isBusy: boolean = false;

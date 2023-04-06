@@ -15,8 +15,6 @@ import { environment } from 'src/environments/environment';
 
 const apiConfig = environment.api;
 
-const scopes = ['username', 'payments'];
-
 export const approvalEvent = new EventEmitter<any>();
 export const completionEvent = new EventEmitter<any>();
 export const cancelEvent = new EventEmitter<any>();
@@ -173,7 +171,7 @@ export const Pi_Authentication = async (
   }
 };
 
-export const PI_Payments = (
+export const PI_Payments = async (
   amount: number,
   memo: string,
   metadata: PiModel.MyPaymentMetadata
@@ -182,6 +180,8 @@ export const PI_Payments = (
 
   const paymentData = { amount, memo, metadata };
 
+  console.log(JSON.stringify(paymentData));
+
   const callbacks = {
     onReadyForServerApproval,
     onReadyForServerCompletion,
@@ -189,5 +189,26 @@ export const PI_Payments = (
     onError,
   };
 
-  const paymentDTO = windowRef.Pi.createPayment(paymentData, callbacks);
+  try {
+    const paymentDTO = windowRef.Pi.createPayment(paymentData, callbacks);
+  } catch (error) {
+    console.log('About to initiate the Payment Api in second attempt');
+
+    const scopes = ['username', 'payments'];
+
+    // This means the payment call has failed and it is expecting the payment scope to be redefined. Hence we re-authenticate with PI Network
+    const piAuth = await windowRef.Pi.authenticate(
+      scopes,
+      onIncompletePaymentFound
+    );
+
+    const piToken = piAuth?.accessToken ?? '';
+
+    if (piToken) {
+      //Second Attempt to initiate payments through the Pi Network.
+      const paymentDTO = windowRef.Pi.createPayment(paymentData, callbacks);
+    }
+
+    //console.log(JSON.stringify(error));
+  }
 };

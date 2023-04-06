@@ -126,8 +126,6 @@ export class MemberComponent implements OnInit, AfterViewInit {
     });
 
     this._regService.getRegisteredUserSubject().subscribe((registeredUser) => {
-      console.log('calling the registered user subject');
-      console.log(registeredUser);
       this._showInputControl = false;
       if (registeredUser && registeredUser.role == Role.User) {
         this._registeredUser = registeredUser;
@@ -249,23 +247,23 @@ export class MemberComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit(): void {
-    this._authService.getAuthResult().subscribe((data) => {
-      console.log(data);
-      this._authResult = data;
-    });
+    const userId: string = this._tokenStorageService.getPiUser().uid;
+    const userName: string = this._tokenStorageService.getPiUser().username;
+    const accessCode: string = this._tokenStorageService.getPiToken()!;
 
-    if (!this._authResult || this._authResult?.accessToken.length == 0) {
+    if (!userId || !userName || !accessCode) {
+      console.log('Token storage with invalid values');
       return;
     }
 
     let membershipDTO: IUser;
 
-    if (this._authResult?.user.uid.length > 0) {
+    if (userId && accessCode) {
       membershipDTO = {
-        userId: this._authResult.user.uid,
-        accessCode: this._authResult?.accessToken,
-        pichain_uid: this._authResult?.user.uid,
-        pichain_username: this._authResult?.user.username,
+        userId: userId,
+        accessCode: accessCode,
+        pichain_uid: userId,
+        pichain_username: userName,
 
         // streamvault_username:
         //   this._membershipForm.controls['streamvault_username'].value,

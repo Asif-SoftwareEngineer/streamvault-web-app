@@ -1,8 +1,9 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import { lastValueFrom, take } from 'rxjs';
 
+import { AuthDataService } from '../services/auth-data.service';
 import { RegistrationDataService } from '../services/registration.service';
-import { take } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -15,14 +16,19 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private _breakpointObserver: BreakpointObserver,
-    private _regService: RegistrationDataService
+    private _regService: RegistrationDataService,
+    private _authService: AuthDataService
   ) {
     this._breakpointObserver.observe([Breakpoints.Web]).subscribe((result) => {
       this._isDesktop = result.matches;
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const response = await lastValueFrom(this._authService.logAppVisitor());
+
+    console.log(response);
+
     this._regService
       .getRegisteredUserSubject()
       .pipe(take(1))

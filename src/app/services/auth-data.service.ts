@@ -36,6 +36,11 @@ export class AuthDataService {
     }
   }
 
+  logAppVisitor = (): Observable<any> => {
+    const url = `${apiConfig.authApiUrl}auth/appVisitor`;
+    return this.http.post(url, apiConfig.httpOptions);
+  };
+
   signIn = (token: string): Observable<any> => {
     const url = `${apiConfig.authApiUrl}auth/signin/${token}`;
     return this.http.post<any>(url, apiConfig.httpOptions);

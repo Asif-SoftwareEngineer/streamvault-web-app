@@ -25,9 +25,9 @@ export class HomeComponent implements OnInit {
   }
 
   async ngOnInit() {
-    const response = await lastValueFrom(this._authService.logAppVisitor());
+    //const response = await lastValueFrom(this._authService.logAppVisitor());
 
-    console.log(response);
+    //console.log(response);
 
     this._regService
       .getRegisteredUserSubject()

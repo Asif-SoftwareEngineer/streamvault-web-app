@@ -1,0 +1,136 @@
+
+/* Style sheet defined inside the telePort HQ */
+/* -------------------------------------------------- */
+:root {
+  --dl-size-size-large: 144px;
+  --dl-size-size-small: 48px;
+  --dl-color-accent-100: #bacbceff;
+  --dl-color-accent-300: #53797dff;
+  --dl-color-accent-500: #325b60ff;
+  --dl-color-accent-700: #1d555cff;
+  --dl-color-accent-900: #135058ff;
+  --dl-color-danger-300: #A22020;
+  --dl-color-danger-500: #BF2626;
+  --dl-color-danger-700: #E14747;
+  --dl-size-size-medium: 96px;
+  --dl-size-size-xlarge: 192px;
+  --dl-size-size-xsmall: 16px;
+  --dl-space-space-unit: 16px;
+  --dl-color-primary-300: #f9d4cfff;
+  --dl-color-primary-500: #eca49aff;
+  --dl-color-primary-700: #f18f81ff;
+  --dl-color-primary-900: #ee7c6cff;
+  --dl-color-success-300: #199033;
+  --dl-color-success-500: #32A94C;
+  --dl-color-success-700: #4CC366;
+  --dl-size-size-xxlarge: 288px;
+  --dl-color-accent-white: #FFFFFF;
+  --dl-size-size-maxwidth: 1400px;
+  --dl-radius-radius-round: 50%;
+  --dl-space-space-halfunit: 8px;
+  --dl-space-space-sixunits: 96px;
+  --dl-space-space-twounits: 32px;
+  --dl-radius-radius-radius2: 2px;
+  --dl-radius-radius-radius4: 4px;
+  --dl-radius-radius-radius6: 6px;
+  --dl-radius-radius-radius8: 8px;
+  --dl-space-space-fiveunits: 80px;
+  --dl-space-space-fourunits: 64px;
+  --dl-space-space-threeunits: 48px;
+  --dl-space-space-oneandhalfunits: 24px;
+}
+.button {
+  font-size: 14px;
+  font-family: Arial;
+  font-weight: 700;
+  text-transform: none;
+  text-decoration: none;
+}
+.input {
+  color: var(--dl-color-accent-900);
+  cursor: auto;
+  padding: 0.5rem 1rem;
+  border-color: var(--dl-color-accent-900);
+  border-width: 1px;
+  border-radius: 4px;
+  background-color: var(--dl-color-accent-white);
+}
+.textarea {
+  color: var(--dl-color-accent-900);
+  cursor: auto;
+  padding: 0.5rem;
+  border-color: var(--dl-color-accent-900);
+  border-width: 1px;
+  border-radius: 4px;
+  background-color: var(--dl-color-accent-white);
+}
+.list {
+  width: 100%;
+  margin: 1em 0px 1em 0px;
+  display: block;
+  padding: 0px 0px 0px 1.5rem;
+  list-style-type: none;
+  list-style-position: outside;
+}
+.list-item {
+  display: list-item;
+}
+.teleport-show {
+  display: flex !important;
+  transform: none !important;
+}
+.Content {
+  font-size: 14px;
+  font-family: Montserrat;
+  font-weight: 400;
+  line-height: 1.15;
+  text-transform: none;
+  text-decoration: none;
+}
+.Field-Label {
+  font-size: 18px;
+  font-family: Montserrat;
+  font-weight: 500;
+  line-height: 1.15;
+  text-transform: none;
+  text-decoration: none;
+}
+.page-Title {
+  font-size: 36px;
+  font-family: Work Sans;
+  font-weight: 400;
+  text-transform: none;
+  text-decoration: none;
+}
+.Heading-2 {
+  font-size: 36px;
+  font-family: Montserrat;
+  font-weight: 700;
+  line-height: 1.15;
+  text-transform: none;
+  text-decoration: none;
+}
+.Heading-1 {
+  font-size: 72px;
+  font-family: Montserrat;
+  font-weight: 800;
+  line-height: 1.15;
+  text-transform: none;
+  text-decoration: none;
+}
+.Heading-3 {
+  font-size: 20px;
+  font-family: Montserrat;
+  font-weight: 600;
+  line-height: 1.15;
+  text-transform: none;
+  text-decoration: none;
+}
+.Content-2 {
+  font-size: 16px;
+  font-family: Montserrat;
+  font-weight: 400;
+  line-height: 1.15;
+  text-transform: none;
+  text-decoration: none;
+}

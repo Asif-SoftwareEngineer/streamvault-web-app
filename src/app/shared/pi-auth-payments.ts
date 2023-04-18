@@ -19,6 +19,7 @@ export const approvalEvent = new EventEmitter<any>();
 export const completionEvent = new EventEmitter<any>();
 export const cancelEvent = new EventEmitter<any>();
 export const incompleteEvent = new EventEmitter<any>();
+export const errorEvent = new EventEmitter<any>();
 
 const onReadyForServerApproval = (paymentId: string) => {
   console.log('onReadyForServerApproval', paymentId);
@@ -75,7 +76,6 @@ const onCancel = (paymentId: string) => {
       { paymentId }
     );
     response.then((res) => {
-      console.log(res);
       cancelEvent.emit(res.data);
     });
   } catch (error) {
@@ -86,8 +86,17 @@ const onCancel = (paymentId: string) => {
 const onError = (error: Error, payment?: PiModel.PaymentDTO) => {
   console.log('onError', error);
   if (payment) {
-    console.log(payment);
-    // handle the error accordingly
+    try {
+      const response = axios.post(`${apiConfig.baseUrl}payments/handle_error`, {
+        error,
+        payment,
+      });
+      response.then((res) => {
+        errorEvent.emit(res.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 

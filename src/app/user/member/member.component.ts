@@ -18,6 +18,7 @@ import {
   approvalEvent,
   cancelEvent,
   completionEvent,
+  errorEvent,
   incompleteEvent,
 } from 'src/app/shared/pi-auth-payments';
 
@@ -103,6 +104,19 @@ export class MemberComponent implements OnInit, AfterViewInit {
         const notification = {
           message: data.message,
           type: NotificationType.Warn,
+          timestamp: new Date(),
+        };
+        this._notificationService.addNotification(notification);
+      }
+    });
+
+    errorEvent.subscribe((data) => {
+      // Handle the UI based on the trigger of the event
+      console.log(data);
+      if (data.status == 200) {
+        const notification = {
+          message: data.message,
+          type: NotificationType.Error,
           timestamp: new Date(),
         };
         this._notificationService.addNotification(notification);

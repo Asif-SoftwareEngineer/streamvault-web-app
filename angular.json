@@ -30,7 +30,10 @@
               "src/assets",
               "src/validation-key.txt"
             ],
-            "styles": ["src/styles/sleak_design.scss"],
+            "styles": [
+              "src/styles/sleak_design.scss",
+              "src/styles/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {

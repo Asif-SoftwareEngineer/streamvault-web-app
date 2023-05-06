@@ -12,4 +12,10 @@ $typography: mat-typography-config(
   $display-1: mat-typography-level(34px, $font-family: $heading-font-family),
   $headline: mat-typography-level(24px, $font-family: $heading-font-family),
   $title: mat-typography-level(20px, $font-family: $heading-font-family),
+  $subheading-2: mat-typography-level(18px, $font-family: $heading-font-family),
+  $subheading-1: mat-typography-level(16px, $font-family: $heading-font-family),
+  $body-2: mat-typography-level(14px, $font-family: $heading-font-family),
+  $body-1: mat-typography-level(14px, $font-family: $heading-font-family),
+  $button: mat-typography-level(14px, $font-family: $heading-font-family),
+  $caption: mat-typography-level(12px, $font-family: $heading-font-family),
 );

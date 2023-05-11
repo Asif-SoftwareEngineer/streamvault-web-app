@@ -14,6 +14,7 @@ import { SharedModule } from './shared/shared.module';
 import { StudioModule } from './studio/studio.module';
 import { UserModule } from './user/user.module';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     AuthModalDialogComponent,
     PageNotFoundComponent,
     PrivacyPolicyComponent,
+    TermsOfServiceComponent,
   ],
   imports: [
     BrowserModule,

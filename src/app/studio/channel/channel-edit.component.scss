@@ -1,0 +1,269 @@
+:host {
+  display: contents;
+}
+.channel-edit-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+.channel-edit-main-column {
+  flex: 0 0 auto;
+  width: 200px;
+  display: none;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.channel-edit-edit-channel-header {
+  flex: 0 0 auto;
+  width: 100%;
+  height: var(--dl-size-size-small);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.channel-edit-channel-logo {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.channel-edit-container1 {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+.channel-edit-container2 {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.channel-edit-icon {
+  width: 24px;
+  height: 24px;
+}
+.channel-edit-container3 {
+  flex: 0 0 auto;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.channel-edit-channel-logo-container {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.channel-edit-icon2 {
+  width: 24px;
+  height: 24px;
+}
+.channel-edit-container4 {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.channel-edit-container5 {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.channel-edit-container6 {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.channel-edit-col-mob-view-only {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--dl-color-accent-300);
+}
+.channel-edit-message-prompt-row {
+  flex: 0 0 auto;
+  width: 80%;
+  height: 100px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.mob-view-prompt-text {
+  color: var(--dl-color-accent-900);
+  line-height: 2;
+}
+
+.channel-edit-button {
+  width: 376px;
+  height: var(--dl-size-size-small);
+}
+
+@media (max-width: 991px) {
+  .channel-edit-main-column {
+    display: none;
+  }
+  .channel-edit-col-mob-view-only {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dl-color-accent-300);
+  }
+  .channel-edit-message-prompt-row {
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+  }
+  .mob-view-prompt-text {
+    color: var(--dl-color-accent-900);
+    line-height: 2;
+  }
+}
+@media (max-width: 767px) {
+  .channel-edit-main-column {
+    display: none;
+  }
+  .channel-edit-col-mob-view-only {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dl-color-accent-300);
+  }
+  .channel-edit-message-prompt-row {
+    width: 70%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mob-view-prompt-text {
+    color: var(--dl-color-accent-900);
+    line-height: 2;
+  }
+}
+@media (max-width: 479px) {
+  .channel-edit-main-column {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-color: var(--dl-color-primary-900);
+    border-width: 1px;
+    background-image: linear-gradient(
+      135deg,
+      rgb(189, 195, 199) 0%,
+      rgb(219, 147, 137) 100%
+    );
+  }
+  .channel-edit-edit-channel-header {
+    height: var(--dl-size-size-small);
+    background-color: var(--dl-color-accent-900);
+  }
+  .channel-edit-channel-logo {
+    height: var(--dl-size-size-medium);
+    margin-top: var(--dl-space-space-unit);
+    justify-content: center;
+  }
+  .channel-edit-container1 {
+    width: 429px;
+    height: var(--dl-size-size-medium);
+    align-items: center;
+    border-color: var(--dl-color-primary-700);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius6);
+    justify-content: center;
+    background-color: var(--dl-color-accent-500);
+    border-top-left-radius: var(--dl-radius-radius-radius6);
+    border-top-right-radius: var(--dl-radius-radius-radius6);
+    border-bottom-left-radius: var(--dl-radius-radius-radius6);
+    border-bottom-right-radius: var(--dl-radius-radius-radius6);
+  }
+  .channel-edit-container2 {
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+    border-color: var(--dl-color-primary-700);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius6);
+  }
+  .channel-edit-icon {
+    fill: #d9d9d9;
+  }
+  .channel-edit-container3 {
+    height: var(--dl-size-size-medium);
+  }
+  .channel-edit-channel-logo-container {
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+    margin: var(--dl-space-space-twounits);
+    padding: var(--dl-space-space-halfunit);
+    border-color: var(--dl-color-primary-700);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius6);
+    background-color: var(--dl-color-accent-500);
+  }
+  .channel-edit-icon2 {
+    fill: #d9d9d9;
+  }
+  .channel-edit-textinput {
+    width: 341px;
+    height: var(--dl-size-size-small);
+  }
+  .channel-edit-container4 {
+    height: 76px;
+    justify-content: center;
+  }
+  .channel-edit-textinput1 {
+    width: 90%;
+    height: var(--dl-size-size-small);
+    align-self: flex-start;
+  }
+  .channel-edit-container5 {
+    height: 235px;
+    margin-bottom: 0px;
+    justify-content: center;
+  }
+  .channel-edit-textarea {
+    width: 90%;
+    height: var(--dl-size-size-xlarge);
+    align-self: flex-start;
+  }
+  .channel-edit-container6 {
+    align-items: center;
+    justify-content: center;
+  }
+  .channel-edit-button {
+    width: 80%;
+    height: var(--dl-size-size-small);
+  }
+
+  .channel-edit-col-mob-view-only {
+    display: none;
+  }
+}

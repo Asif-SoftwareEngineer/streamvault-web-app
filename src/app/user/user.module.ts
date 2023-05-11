@@ -9,6 +9,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { SharedModule } from '../shared/shared.module';
 import { UserRoutingModule } from './user-routing.module';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { MemberRegistrationComponent } from './member-registration/member-registration.component';
+import { MemberHomeComponent } from './member-home/member-home.component';
+import { UserHomeComponent } from './user-home/user-home.component';
+import { ManagementComponent } from './management/management.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +21,11 @@ import { UserRoutingModule } from './user-routing.module';
     LogOutComponent,
     RegisterComponent,
     MemberComponent,
+    MyProfileComponent,
+    MemberRegistrationComponent,
+    MemberHomeComponent,
+    UserHomeComponent,
+    ManagementComponent,
   ],
   imports: [
     CommonModule,

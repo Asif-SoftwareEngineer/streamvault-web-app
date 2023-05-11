@@ -59,10 +59,6 @@
 }
 .stream-vault-connect-button {
   width: 376px;
-  height: var(--dl-size-size-small);
-  align-self: center;
-  text-align: center;
-  color: var(--dl-color-accent-50) !important;
 }
 .stream-vault-signup-row {
   color: var(--dl-color-accent-50);
@@ -99,10 +95,6 @@
 
 .stream-vault-signup-btn {
   width: 376px;
-  height: var(--dl-size-size-small);
-  align-self: center;
-  text-align: center;
-  color: var(--dl-color-primary-50) !important;
 }
 @media (max-width: 991px) {
   .stream-vault-main-column {
@@ -248,8 +240,8 @@
   }
   .stream-vault-main-title-row {
     flex: 0;
-    width: 90%;
-    height: var(--dl-size-size-xlarge);
+    width: 80%;
+    height: auto;
     margin-top: var(--dl-space-space-threeunits);
     align-items: flex-start;
     border-width: 0px;
@@ -257,13 +249,13 @@
     justify-content: center;
   }
   .stream-vault-page-title {
-    width: 80%;
-    font-size: 22px;
+    width: 100%;
+    font-size: larger;
     margin-top: var(--dl-space-space-twounits);
     text-align: center;
     line-height: 1.6;
-    margin-left: var(--dl-space-space-unit);
-    margin-right: var(--dl-space-space-unit);
+    margin-left: var(--dl-space-space-halfunit);
+    margin-right: var(--dl-space-space-halfunit);
     margin-bottom: var(--dl-space-space-twounits);
   }
   .stream-vault-connect-row {
@@ -276,11 +268,12 @@
   }
   .stream-vault-connect-button {
     width: 80%;
+    height: var(--dl-size-size-small);
   }
   .stream-vault-signup-row {
     flex: 0;
     width: 100%;
-    height: var(--dl-size-size-large);
+    height: auto;
     margin-top: var(--dl-space-space-halfunit);
     margin-left: 0px;
     margin-right: 0px;
@@ -289,7 +282,7 @@
   }
   .stream-vault-container-col {
     width: 80%;
-    height: var(--dl-size-size-large);
+    height: auto;
     border-color: var(--dl-color-primary-700);
     border-width: 1px;
     border-top-width: 1px;
@@ -311,7 +304,6 @@
   }
   .stream-vault-signup-btn {
     width: 100%;
-    // margin-top: var(--dl-space-space-unit);
-    // margin-bottom: var(--dl-space-space-unit);
+    height: var(--dl-size-size-small);
   }
 }

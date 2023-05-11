@@ -1,0 +1,1292 @@
+:host {
+  display: contents;
+}
+.membership-registration-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.membership-registration-main-column {
+  flex: 0 0 auto;
+  width: 60%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  border-color: var(--dl-color-primary-900);
+  border-width: 1px;
+  flex-direction: column;
+  background-image: linear-gradient(
+    135deg,
+    rgb(189, 195, 199) 0%,
+    rgb(219, 147, 137) 100%
+  );
+}
+
+.membership-registration-title {
+  color: var(--dl-color-accent-100);
+}
+.membership-registration-page-header-2 {
+  flex: 0 0 auto;
+  width: 100%;
+  height: var(--dl-size-size-large);
+  display: flex;
+  padding: var(--dl-space-space-twounits);
+  align-items: center;
+  justify-content: space-between;
+}
+.membership-registration-image {
+  width: var(--dl-size-size-medium);
+  height: var(--dl-size-size-medium);
+  object-fit: cover;
+}
+.membership-registration-back-icon {
+  fill: var(--dl-color-accent-900);
+  width: var(--dl-size-size-medium);
+  height: var(--dl-size-size-medium);
+  transition: 0.3s;
+  padding-left: var(--dl-space-space-unit);
+}
+.membership-registration-back-icon:hover {
+  border-color: var(--dl-color-accent-500);
+  border-width: 1px;
+}
+.membership-registration-page-description {
+  flex: 0 0 auto;
+  width: 80%;
+  height: var(--dl-size-size-small);
+  display: flex;
+  padding: var(--dl-space-space-unit);
+  align-self: center;
+  transition: 0.3s;
+  align-items: flex-start;
+  margin-bottom: var(--dl-space-space-twounits);
+  justify-content: flex-start;
+}
+
+.membership-registration-text {
+  color: var(--dl-color-accent-900);
+  width: 100%;
+}
+.membership-registration-text-name-container {
+  flex: 0 0 auto;
+  width: 80%;
+  height: var(--dl-size-size-medium);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.membership-registration-name {
+  width: 90%;
+  height: var(--dl-size-size-small);
+  margin-left: auto;
+  margin-right: auto;
+}
+.membership-registration-text-email-container {
+  flex: 0 0 auto;
+  width: 80%;
+  height: var(--dl-size-size-medium);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.membership-registration-name1 {
+  width: 90%;
+  height: var(--dl-size-size-small);
+}
+.membership-registration-select-coutry-container {
+  flex: 0 0 auto;
+  width: 80%;
+  height: var(--dl-size-size-medium);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.membership-registration-select {
+  width: 90%;
+  height: var(--dl-size-size-small);
+}
+.membership-registration-select-city-container {
+  flex: 0 0 auto;
+  width: 80%;
+  height: var(--dl-size-size-medium);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.membership-registration-select1 {
+  width: 90%;
+  height: var(--dl-size-size-small);
+}
+.membership-registration-age-greater-than18-container {
+  flex: 0 0 auto;
+  width: 80%;
+  height: var(--dl-size-size-medium);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.membership-registration-text01 {
+  color: var(--dl-color-accent-900);
+  margin-left: auto;
+  margin-right: auto;
+}
+.membership-registration-checkbox {
+  width: var(--dl-size-size-small);
+  height: var(--dl-size-size-small);
+  margin-left: auto;
+  margin-right: auto;
+}
+.membership-registration-list-item1-montly-item-container {
+  flex: 0 0 auto;
+  width: 60%;
+  height: 72px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.membership-registration-li {
+  width: 100%;
+  height: var(--dl-size-size-small);
+  transition: 0.3s;
+  border-color: var(--dl-color-accent-300);
+  border-width: 1px;
+  border-radius: var(--dl-radius-radius-radius6);
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+}
+.membership-registration-li:hover {
+  border-color: var(--dl-color-primary-900);
+  border-width: 1px;
+  background-color: var(--dl-color-primary-500);
+}
+.membership-registration-container1 {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+.membership-registration-container2 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transition: 0.3s;
+  align-items: flex-start;
+  border-radius: var(--dl-radius-radius-radius6);
+}
+.membership-registration-container2:hover {
+  border-color: var(--dl-color-primary-500);
+  border-width: 1px;
+}
+.membership-registration-text02 {
+  color: var(--dl-color-accent-900);
+  width: var(--dl-size-size-xxlarge);
+  height: 100%;
+  padding: var(--dl-space-space-unit);
+}
+.membership-registration-text03 {
+  color: var(--dl-color-accent-900);
+  height: 100%;
+  padding-top: var(--dl-space-space-unit);
+  padding-left: var(--dl-space-space-unit);
+  padding-bottom: var(--dl-space-space-unit);
+}
+.membership-registration-icon1 {
+  width: var(--dl-size-size-small);
+  height: var(--dl-size-size-small);
+}
+.membership-registration-lstitem2-quarterly-container {
+  flex: 0 0 auto;
+  width: 60%;
+  height: 72px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.membership-registration-li1 {
+  width: 100%;
+  height: var(--dl-size-size-small);
+  transition: 0.3s;
+  border-color: var(--dl-color-accent-300);
+  border-width: 1px;
+  border-radius: var(--dl-radius-radius-radius6);
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+}
+.membership-registration-li1:hover {
+  border-color: var(--dl-color-primary-900);
+  border-width: 1px;
+  background-color: var(--dl-color-primary-500);
+}
+.membership-registration-container3 {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  border-radius: var(--dl-radius-radius-radius6);
+}
+.membership-registration-container4 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+.membership-registration-text04 {
+  color: var(--dl-color-accent-900);
+  width: var(--dl-size-size-xxlarge);
+  height: 100%;
+  padding: var(--dl-space-space-unit);
+}
+.membership-registration-text05 {
+  color: var(--dl-color-accent-900);
+  height: 100%;
+  padding-top: var(--dl-space-space-unit);
+  padding-left: var(--dl-space-space-unit);
+  padding-right: 0px;
+  padding-bottom: var(--dl-space-space-unit);
+}
+.membership-registration-icon3 {
+  width: var(--dl-size-size-small);
+  height: var(--dl-size-size-small);
+}
+.membership-registration-list-item3-halfyearly-container {
+  flex: 0 0 auto;
+  width: 60%;
+  height: 72px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.membership-registration-li2 {
+  width: 100%;
+  height: var(--dl-size-size-small);
+  transition: 0.3s;
+  border-color: var(--dl-color-accent-300);
+  border-width: 1px;
+  border-radius: var(--dl-radius-radius-radius6);
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+}
+.membership-registration-li2:hover {
+  border-color: var(--dl-color-primary-900);
+  border-width: 1px;
+  background-color: var(--dl-color-primary-500);
+}
+.membership-registration-container5 {
+  flex: 0 0 auto;
+  width: 100%;
+  height: var(--dl-size-size-small);
+  display: flex;
+  align-items: flex-start;
+}
+.membership-registration-container6 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  border-radius: var(--dl-radius-radius-radius6);
+}
+.membership-registration-text06 {
+  color: var(--dl-color-accent-900);
+  width: var(--dl-size-size-xxlarge);
+  height: 100%;
+  padding: var(--dl-space-space-unit);
+}
+.membership-registration-text07 {
+  color: var(--dl-color-accent-900);
+  height: 100%;
+  padding-top: var(--dl-space-space-unit);
+  padding-left: var(--dl-space-space-unit);
+  padding-bottom: var(--dl-space-space-unit);
+}
+.membership-registration-icon5 {
+  width: var(--dl-size-size-small);
+  height: var(--dl-size-size-small);
+}
+.membership-registration-list-item4-yearly-container {
+  flex: 0 0 auto;
+  width: 60%;
+  height: 72px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.membership-registration-li3 {
+  width: 100%;
+  height: var(--dl-size-size-small);
+  transition: 0.3s;
+  border-color: var(--dl-color-accent-300);
+  border-width: 1px;
+  border-radius: var(--dl-radius-radius-radius6);
+  list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+}
+.membership-registration-li3:hover {
+  border-color: var(--dl-color-primary-900);
+  border-width: 1px;
+  background-color: var(--dl-color-primary-500);
+}
+.membership-registration-container7 {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+.membership-registration-container8 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  border-radius: var(--dl-radius-radius-radius6);
+}
+.membership-registration-text08 {
+  color: var(--dl-color-accent-900);
+  width: var(--dl-size-size-xxlarge);
+  height: 100%;
+  padding: var(--dl-space-space-unit);
+}
+.membership-registration-text09 {
+  color: var(--dl-color-accent-900);
+  width: auto;
+  padding-top: var(--dl-space-space-unit);
+  padding-left: var(--dl-space-space-unit);
+  padding-bottom: var(--dl-space-space-unit);
+}
+.membership-registration-icon7 {
+  width: var(--dl-size-size-small);
+  height: var(--dl-size-size-small);
+}
+.membership-registration-register-button-container {
+  flex: 0 0 auto;
+  width: 100%;
+  height: var(--dl-size-size-medium);
+  display: flex;
+  margin-top: var(--dl-space-space-twounits);
+  align-items: center;
+  justify-content: center;
+}
+.membership-registration-button {
+  color: var(--dl-color-accent-100);
+  width: var(--dl-size-size-xxlarge);
+  height: var(--dl-size-size-small);
+}
+.membership-registration-col-mob-view-only {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--dl-color-accent-300);
+}
+.mob-view-prompt-text {
+  color: var(--dl-color-accent-900);
+  line-height: 2;
+}
+.membership-registration-message-prompt-row {
+  flex: 0 0 auto;
+  width: 80%;
+  height: 100px;
+  display: flex;
+  align-items: flex-start;
+}
+@media (max-width: 991px) {
+  .membership-registration-container {
+    align-items: center;
+    border-color: var(--dl-color-accent-100);
+    border-width: 1px;
+  }
+  .membership-registration-main-column {
+    border-color: var(--dl-color-primary-900);
+    border-width: 1px;
+  }
+
+  .membership-registration-page-header-2 {
+    padding: var(--dl-space-space-unit);
+    justify-content: space-between;
+  }
+  .membership-registration-image {
+    width: var(--dl-size-size-medium);
+    height: var(--dl-size-size-medium);
+    margin: 0px;
+  }
+  .membership-registration-back-icon {
+    fill: var(--dl-color-accent-900);
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+    border-color: var(--dl-color-accent-500);
+    border-width: 0px;
+    margin-right: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-unit);
+  }
+  .membership-registration-page-description {
+    height: auto;
+    justify-content: flex-start;
+  }
+  .membership-registration-text {
+    text-align: justify;
+  }
+  .membership-registration-text-name-container {
+    height: 72px;
+  }
+  .membership-registration-name {
+    width: 90%;
+    height: var(--dl-size-size-small);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .membership-registration-text-email-container {
+    height: 72px;
+  }
+  .membership-registration-name1 {
+    width: 90%;
+    height: var(--dl-size-size-small);
+  }
+  .membership-registration-select-coutry-container {
+    height: 72px;
+  }
+  .membership-registration-select {
+    width: 90%;
+    height: var(--dl-size-size-small);
+  }
+  .membership-registration-select-city-container {
+    height: 72px;
+  }
+  .membership-registration-select1 {
+    width: 90%;
+    height: var(--dl-size-size-small);
+  }
+  .membership-registration-age-greater-than18-container {
+    height: 72px;
+    align-items: center;
+    justify-content: center;
+  }
+  .membership-registration-text01 {
+    color: var(--dl-color-accent-900);
+    margin: auto;
+    align-self: center;
+  }
+  .membership-registration-checkbox {
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+    margin: auto;
+  }
+  .membership-registration-list-item1-montly-item-container {
+    width: 70%;
+    height: 72px;
+    margin-top: var(--dl-space-space-unit);
+    justify-content: center;
+  }
+  .membership-registration-li {
+    width: 90%;
+    height: var(--dl-size-size-small);
+    align-self: flex-start;
+    border-color: var(--dl-color-accent-300);
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius6);
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+  }
+  .membership-registration-container1 {
+    width: 100%;
+    height: 100%;
+  }
+  .membership-registration-container2 {
+    width: 100%;
+    height: auto;
+    align-self: center;
+  }
+  .membership-registration-text02 {
+    color: var(--dl-color-accent-900);
+    width: var(--dl-size-size-xxlarge);
+    height: auto;
+    padding: var(--dl-space-space-unit);
+  }
+  .membership-registration-text03 {
+    color: var(--dl-color-accent-900);
+    height: 100%;
+    padding-top: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-unit);
+    padding-right: 0px;
+    padding-bottom: var(--dl-space-space-unit);
+  }
+  .membership-registration-icon1 {
+    fill: var(--dl-color-accent-900);
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+  }
+  .membership-registration-lstitem2-quarterly-container {
+    width: 70%;
+    height: 72px;
+    justify-content: center;
+  }
+  .membership-registration-li1 {
+    width: 90%;
+    height: var(--dl-size-size-small);
+    border-color: var(--dl-color-accent-300);
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius6);
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+  }
+  .membership-registration-container3 {
+    width: 100%;
+    height: 100%;
+  }
+  .membership-registration-container4 {
+    width: 100%;
+    height: auto;
+  }
+  .membership-registration-text04 {
+    color: var(--dl-color-accent-900);
+    width: var(--dl-size-size-xxlarge);
+    height: auto;
+    padding: var(--dl-space-space-unit);
+  }
+  .membership-registration-text05 {
+    color: var(--dl-color-accent-900);
+    height: 100%;
+    padding-top: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-unit);
+    padding-right: 0px;
+    padding-bottom: var(--dl-space-space-unit);
+  }
+  .membership-registration-icon3 {
+    fill: var(--dl-color-accent-900);
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+  }
+  .membership-registration-list-item3-halfyearly-container {
+    width: 70%;
+    height: 72px;
+    justify-content: center;
+  }
+  .membership-registration-li2 {
+    width: 90%;
+    height: var(--dl-size-size-small);
+    border-color: var(--dl-color-accent-300);
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius6);
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+  }
+  .membership-registration-container5 {
+    width: 100%;
+    height: 100%;
+  }
+  .membership-registration-container6 {
+    width: 100%;
+    height: auto;
+  }
+  .membership-registration-text06 {
+    color: var(--dl-color-accent-900);
+    width: var(--dl-size-size-xxlarge);
+    height: auto;
+    padding: var(--dl-space-space-unit);
+  }
+  .membership-registration-text07 {
+    color: var(--dl-color-accent-900);
+    height: 100%;
+    padding-top: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-unit);
+    padding-right: 0px;
+    padding-bottom: var(--dl-space-space-unit);
+  }
+  .membership-registration-icon5 {
+    fill: var(--dl-color-accent-900);
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+  }
+  .membership-registration-list-item4-yearly-container {
+    width: 70%;
+    height: 72px;
+    justify-content: center;
+  }
+  .membership-registration-li3 {
+    width: 90%;
+    height: var(--dl-size-size-small);
+    border-color: var(--dl-color-accent-300);
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius6);
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+  }
+  .membership-registration-container7 {
+    width: 100%;
+    height: 100%;
+  }
+  .membership-registration-container8 {
+    width: 100%;
+    height: auto;
+  }
+  .membership-registration-text08 {
+    color: var(--dl-color-accent-900);
+    width: var(--dl-size-size-xxlarge);
+    height: auto;
+    padding: var(--dl-space-space-unit);
+  }
+  .membership-registration-text09 {
+    color: var(--dl-color-accent-900);
+    height: 100%;
+    padding-top: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-unit);
+    padding-right: 0px;
+    padding-bottom: var(--dl-space-space-unit);
+  }
+  .membership-registration-icon7 {
+    fill: var(--dl-color-accent-900);
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+  }
+  .membership-registration-register-button-container {
+    width: 100%;
+    margin-top: var(--dl-space-space-twounits);
+    align-items: flex-start;
+    border-radius: var(--dl-radius-radius-radius4);
+    justify-content: center;
+  }
+  .membership-registration-col-mob-view-only {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dl-color-accent-300);
+  }
+  .mob-view-prompt-text {
+    color: var(--dl-color-accent-900);
+    line-height: 2;
+  }
+  .membership-registration-message-prompt-row {
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media (max-width: 767px) {
+  .membership-registration-container {
+    border-color: var(--dl-color-primary-900);
+    border-width: 1px;
+    background-color: var(--dl-color-accent-100);
+  }
+  .membership-registration-main-column {
+    width: 80%;
+  }
+
+  .membership-registration-page-header-2 {
+    padding: var(--dl-space-space-unit);
+    justify-content: space-between;
+  }
+  .membership-registration-image {
+    width: var(--dl-size-size-medium);
+    height: var(--dl-size-size-medium);
+    margin: 0px;
+  }
+  .membership-registration-back-icon {
+    fill: var(--dl-color-accent-900);
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+    padding-top: 0px;
+    border-width: 0px;
+    margin-right: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-halfunit);
+    padding-right: 0px;
+    padding-bottom: 0px;
+  }
+  .membership-registration-page-description {
+    align-items: center;
+    border-color: var(--dl-color-accent-700);
+    border-width: 0px;
+    margin-bottom: var(--dl-space-space-unit);
+  }
+  .membership-registration-text-name-container {
+    height: 72px;
+  }
+  .membership-registration-name {
+    width: 90%;
+    height: var(--dl-size-size-small);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .membership-registration-text-email-container {
+    height: 72px;
+  }
+  .membership-registration-name1 {
+    width: 90%;
+    height: var(--dl-size-size-small);
+  }
+  .membership-registration-select-coutry-container {
+    height: 72px;
+  }
+  .membership-registration-select {
+    width: 90%;
+    height: var(--dl-size-size-small);
+  }
+  .membership-registration-select-city-container {
+    height: 72px;
+  }
+  .membership-registration-select1 {
+    width: 90%;
+    height: var(--dl-size-size-small);
+  }
+  .membership-registration-age-greater-than18-container {
+    height: 72px;
+    position: relative;
+  }
+  .membership-registration-text01 {
+    color: var(--dl-color-accent-900);
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .membership-registration-checkbox {
+    width: 36px;
+    height: 36px;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .membership-registration-list-item1-montly-item-container {
+    height: 72px;
+    margin: 0px;
+    border-width: 0px;
+    justify-content: center;
+  }
+  .membership-registration-li {
+    width: 90%;
+    height: var(--dl-size-size-small);
+    align-self: flex-start;
+    border-color: var(--dl-color-accent-900);
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius4);
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+    border-top-left-radius: var(--dl-radius-radius-radius6);
+    border-top-right-radius: var(--dl-radius-radius-radius6);
+    border-bottom-left-radius: var(--dl-radius-radius-radius6);
+    border-bottom-right-radius: var(--dl-radius-radius-radius6);
+  }
+  .membership-registration-container1 {
+    width: 100%;
+    height: 100%;
+  }
+  .membership-registration-container2 {
+    width: 100%;
+    height: auto;
+    align-self: center;
+    justify-content: flex-start;
+  }
+  .membership-registration-text02 {
+    color: var(--dl-color-accent-900);
+    width: var(--dl-size-size-xlarge);
+    align-self: flex-start;
+    padding-top: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-twounits);
+    padding-right: var(--dl-space-space-unit);
+    padding-bottom: var(--dl-space-space-unit);
+  }
+  .membership-registration-text03 {
+    color: var(--dl-color-accent-900);
+    padding-top: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-unit);
+    padding-right: 0px;
+    padding-bottom: var(--dl-space-space-unit);
+  }
+  .membership-registration-icon1 {
+    fill: var(--dl-color-accent-900);
+    align-self: center;
+  }
+  .membership-registration-lstitem2-quarterly-container {
+    height: 72px;
+    justify-content: center;
+  }
+  .membership-registration-li1 {
+    width: 90%;
+    align-self: flex-start;
+    border-color: var(--dl-color-accent-900);
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius6);
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+  }
+  .membership-registration-container3 {
+    width: 100%;
+    height: 100%;
+  }
+  .membership-registration-container4 {
+    width: 100%;
+    height: auto;
+    align-self: center;
+  }
+  .membership-registration-text04 {
+    color: var(--dl-color-accent-900);
+    width: var(--dl-size-size-xlarge);
+    align-self: flex-start;
+    padding-top: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-twounits);
+    padding-right: var(--dl-space-space-unit);
+    padding-bottom: var(--dl-space-space-unit);
+  }
+  .membership-registration-text05 {
+    color: var(--dl-color-accent-900);
+    padding: var(--dl-space-space-unit);
+    padding-right: 0px;
+  }
+  .membership-registration-icon3 {
+    fill: var(--dl-color-accent-900);
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+    align-self: center;
+  }
+  .membership-registration-list-item3-halfyearly-container {
+    height: 72px;
+    border-width: 0px;
+    justify-content: center;
+  }
+  .membership-registration-li2 {
+    width: 90%;
+    align-self: flex-start;
+    border-color: var(--dl-color-accent-900);
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius6);
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+  }
+  .membership-registration-container5 {
+    width: 100%;
+    height: 100%;
+  }
+  .membership-registration-container6 {
+    width: 100%;
+    height: auto;
+    align-self: center;
+  }
+  .membership-registration-text06 {
+    color: var(--dl-color-accent-900);
+    width: var(--dl-size-size-xlarge);
+    align-self: flex-start;
+    padding-top: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-twounits);
+    padding-right: var(--dl-space-space-unit);
+    padding-bottom: var(--dl-space-space-unit);
+  }
+  .membership-registration-text07 {
+    color: var(--dl-color-accent-900);
+    padding: var(--dl-space-space-unit);
+    padding-right: 0px;
+  }
+  .membership-registration-icon5 {
+    fill: var(--dl-color-accent-900);
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+    align-self: center;
+  }
+  .membership-registration-list-item4-yearly-container {
+    height: 72px;
+    border-width: 0px;
+    justify-content: center;
+  }
+  .membership-registration-li3 {
+    width: 90%;
+    align-self: flex-start;
+    border-color: var(--dl-color-accent-900);
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius6);
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+  }
+  .membership-registration-container7 {
+    width: 100%;
+    height: 100%;
+  }
+  .membership-registration-container8 {
+    width: 100%;
+    height: auto;
+    align-self: center;
+  }
+  .membership-registration-text08 {
+    color: var(--dl-color-accent-900);
+    width: var(--dl-size-size-xlarge);
+    align-self: flex-start;
+    padding-top: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-twounits);
+    padding-right: var(--dl-space-space-unit);
+    padding-bottom: var(--dl-space-space-unit);
+  }
+  .membership-registration-text09 {
+    color: var(--dl-color-accent-900);
+    padding: var(--dl-space-space-unit);
+    padding-right: 0px;
+  }
+  .membership-registration-icon7 {
+    fill: var(--dl-color-accent-900);
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+    align-self: center;
+  }
+  .membership-registration-register-button-container {
+    justify-content: center;
+  }
+  .membership-registration-col-mob-view-only {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dl-color-accent-300);
+  }
+  .mob-view-prompt-text {
+    color: var(--dl-color-accent-900);
+    line-height: 2;
+  }
+  .membership-registration-message-prompt-row {
+    width: 70%;
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media (max-width: 479px) {
+  .membership-registration-container {
+    border-width: 0px;
+  }
+  .membership-registration-main-column {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+  }
+
+  .membership-registration-page-header-2 {
+    padding: var(--dl-space-space-unit);
+    justify-content: space-between;
+  }
+  .membership-registration-image {
+    width: var(--dl-size-size-medium);
+    height: var(--dl-size-size-medium);
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+  }
+  .membership-registration-back-icon {
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+    padding: var(--dl-space-space-halfunit);
+    border-width: 0px;
+  }
+  .membership-registration-page-description {
+    height: auto;
+    border-width: 0px;
+    margin-bottom: var(--dl-space-space-unit);
+  }
+  .membership-registration-text-name-container {
+    height: 72px;
+    align-items: center;
+    justify-content: center;
+  }
+  .membership-registration-name {
+    width: 90%;
+    height: var(--dl-size-size-small);
+    align-self: flex-start;
+  }
+  .membership-registration-text-email-container {
+    height: 72px;
+  }
+  .membership-registration-name1 {
+    width: 90%;
+    height: var(--dl-size-size-small);
+    align-self: flex-start;
+  }
+  .membership-registration-select-coutry-container {
+    height: 72px;
+  }
+  .membership-registration-select {
+    width: 90%;
+    height: var(--dl-size-size-small);
+    align-self: flex-start;
+  }
+  .membership-registration-select-city-container {
+    height: 72px;
+  }
+  .membership-registration-select1 {
+    width: 90%;
+    height: var(--dl-size-size-small);
+    align-self: flex-start;
+  }
+  .membership-registration-age-greater-than18-container {
+    width: 70%;
+    height: 72px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .membership-registration-text01 {
+    color: var(--dl-color-accent-900);
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    margin-bottom: 0px;
+  }
+  .membership-registration-checkbox {
+    width: var(--dl-size-size-small);
+    height: 32px;
+    margin: var(--dl-space-space-halfunit);
+  }
+  .membership-registration-list-item1-montly-item-container {
+    height: 72px;
+    position: relative;
+    margin-top: var(--dl-space-space-unit);
+    margin-bottom: 0px;
+  }
+  .membership-registration-li {
+    top: 0px;
+    left: 0px;
+    color: var(--dl-color-accent-900);
+    right: 0px;
+    width: 90%;
+    height: var(--dl-size-size-small);
+    margin: auto;
+    position: absolute;
+    text-align: left;
+    border-color: var(--dl-color-accent-900);
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius4);
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+  }
+  .membership-registration-container1 {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    padding-top: 0px;
+    margin-right: 0px;
+    padding-bottom: 0px;
+    justify-content: flex-start;
+  }
+  .membership-registration-container2 {
+    width: 100%;
+    height: auto;
+    margin-right: 0px;
+  }
+  .membership-registration-text02 {
+    width: var(--dl-size-size-xlarge);
+    height: auto;
+    align-self: flex-start;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-left: var(--dl-space-space-twounits);
+    padding-right: var(--dl-space-space-unit);
+    padding-bottom: var(--dl-space-space-halfunit);
+  }
+  .membership-registration-text03 {
+    height: auto;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-bottom: var(--dl-space-space-halfunit);
+  }
+  .membership-registration-icon1 {
+    fill: var(--dl-color-accent-900);
+    height: 36px;
+    align-self: flex-start;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .membership-registration-lstitem2-quarterly-container {
+    height: 72px;
+    position: relative;
+    margin-bottom: 0px;
+  }
+  .membership-registration-li1 {
+    top: 0px;
+    left: 0px;
+    color: var(--dl-color-accent-900);
+    right: 0px;
+    width: 90%;
+    margin: auto;
+    position: absolute;
+    text-align: left;
+    border-color: var(--dl-color-accent-900);
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius4);
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+  }
+  .membership-registration-container3 {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    padding-top: 0px;
+    margin-right: 0px;
+    padding-bottom: 0px;
+    justify-content: flex-start;
+  }
+  .membership-registration-container4 {
+    height: auto;
+    border-width: 0px;
+    margin-right: 0px;
+  }
+  .membership-registration-text04 {
+    width: var(--dl-size-size-xlarge);
+    height: auto;
+    align-self: flex-start;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-left: var(--dl-space-space-twounits);
+    padding-right: var(--dl-space-space-unit);
+    padding-bottom: var(--dl-space-space-halfunit);
+  }
+  .membership-registration-text05 {
+    height: auto;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-bottom: var(--dl-space-space-halfunit);
+  }
+  .membership-registration-icon3 {
+    fill: var(--dl-color-accent-900);
+    height: 36px;
+    align-self: flex-start;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .membership-registration-list-item3-halfyearly-container {
+    height: 72px;
+    position: relative;
+    margin-bottom: 0px;
+  }
+  .membership-registration-li2 {
+    top: 0px;
+    left: 0px;
+    color: var(--dl-color-accent-900);
+    right: 0px;
+    width: 90%;
+    margin: auto;
+    position: absolute;
+    text-align: left;
+    border-color: var(--dl-color-accent-900);
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius4);
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+  }
+  .membership-registration-container5 {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    padding-top: 0px;
+    margin-right: 0px;
+    padding-bottom: 0px;
+    justify-content: flex-start;
+  }
+  .membership-registration-container6 {
+    width: 100%;
+    height: auto;
+    margin-right: 0px;
+  }
+  .membership-registration-text06 {
+    width: var(--dl-size-size-xlarge);
+    height: auto;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-left: var(--dl-space-space-twounits);
+    padding-right: var(--dl-space-space-unit);
+    padding-bottom: var(--dl-space-space-halfunit);
+  }
+  .membership-registration-text07 {
+    height: auto;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-bottom: var(--dl-space-space-halfunit);
+  }
+  .membership-registration-icon5 {
+    fill: var(--dl-color-accent-900);
+    height: 36px;
+    align-self: flex-start;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .membership-registration-list-item4-yearly-container {
+    height: 72px;
+    position: relative;
+    margin-bottom: 0px;
+  }
+  .membership-registration-li3 {
+    top: 0px;
+    left: 0px;
+    color: var(--dl-color-accent-900);
+    right: 0px;
+    width: 90%;
+    margin: auto;
+    position: absolute;
+    text-align: left;
+    border-color: var(--dl-color-accent-900);
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius4);
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+  }
+  .membership-registration-container7 {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    padding-top: 0px;
+    margin-right: 0px;
+    padding-bottom: 0px;
+    justify-content: flex-start;
+  }
+  .membership-registration-container8 {
+    height: auto;
+    margin-right: 0px;
+  }
+  .membership-registration-text08 {
+    width: var(--dl-size-size-xlarge);
+    height: auto;
+    align-self: flex-start;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-left: var(--dl-space-space-twounits);
+    padding-right: var(--dl-space-space-unit);
+    padding-bottom: var(--dl-space-space-halfunit);
+  }
+  .membership-registration-text09 {
+    height: auto;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-bottom: var(--dl-space-space-halfunit);
+  }
+  .membership-registration-icon7 {
+    fill: var(--dl-color-accent-900);
+    height: 36px;
+    align-self: flex-start;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .membership-registration-register-button-container {
+    height: 72px;
+    position: relative;
+    align-items: center;
+    margin-bottom: var(--dl-space-space-twounits);
+    justify-content: center;
+  }
+  .membership-registration-button {
+    width: var(--dl-size-size-xxlarge);
+    height: var(--dl-size-size-small);
+  }
+  .membership-registration-col-mob-view-only {
+    display: none;
+  }
+}

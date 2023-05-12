@@ -1,83 +1,97 @@
 :host {
   display: contents;
 }
-.stream-vault-main-page {
+.landing-page-container {
   width: 100%;
-  height: 100%;
   display: flex;
   overflow: auto;
   min-height: 100vh;
   align-items: center;
   flex-direction: column;
-  background-color: var(--dl-color-accent-50);
+  justify-content: center;
+  background-image: url("../../assets/img/images/pattern_background.png");
+  background-repeat: repeat;
 }
-.stream-vault-main-column {
+.landing-page-main-column-page {
   flex: 0 0 auto;
   width: 60%;
   height: 100%;
   display: flex;
-  min-height: 100vh;
+  box-shadow: 5px 5px 10px 1px #964343;
   align-items: center;
-  flex-direction: column;
-  justify-content: flex-start;
   border-color: var(--dl-color-primary-900);
-  border-width: 1px;
+  border-width: 2px;
+  flex-direction: column;
   background-image: linear-gradient(
     270deg,
     rgb(232, 130, 115) 0%,
     rgba(19, 80, 88, 0.94) 89%
   );
 }
-.stream-vault-main-title-row {
-  flex: 0 0 auto;
-  width: 80%;
-  height: auto;
-  display: flex;
-  padding: var(--dl-space-space-unit);
-  margin-top: var(--dl-space-space-fiveunits);
-  align-items: center;
-  margin-bottom: var(--dl-space-space-threeunits);
-  justify-content: center;
-}
-.stream-vault-page-title {
-  color: var(--dl-color-accent-50);
-  width: 100%;
-  height: auto;
-  font-size: 36px;
-  align-self: auto;
-  font-style: Regular;
-  text-align: center;
-  line-height: 2;
-}
-.stream-vault-connect-row {
-  flex: 0 0 auto;
-  width: 100%;
-  height: 100px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
-.stream-vault-connect-button {
-  width: 376px;
-}
-.stream-vault-signup-row {
-  color: var(--dl-color-accent-50);
+.landing-page-main-title-row {
   flex: 0 0 auto;
   width: 100%;
   height: var(--dl-size-size-large);
   display: flex;
+  padding: var(--dl-space-space-unit);
+  margin-top: var(--dl-space-space-fourunits);
   align-items: center;
+  margin-bottom: var(--dl-space-space-twounits);
   justify-content: center;
 }
-.stream-vault-container-col {
+.landing-page-page-titledesktop {
+  color: var(--dl-color-accent-100);
+  width: 80%;
+  height: auto;
+  align-self: auto;
+  font-weight: 600;
+  text-align: center;
+  font-stretch: normal;
+  line-height: 1.7;
+}
+.landing-page-page-titlemobile {
+  display: none;
+}
+.landing-page-connect-row {
+  flex: 0 0 auto;
+  width: 100%;
+  height: var(--dl-size-size-large);
+  display: flex;
+  margin-top: var(--dl-space-space-fiveunits);
+  align-items: flex-start;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: var(--dl-space-space-unit);
+  justify-content: center;
+}
+.landing-page-connect-button {
+  width: 376px;
+  height: var(--dl-size-size-small);
+  align-self: center;
+  text-align: center;
+}
+.landing-page-signup-row {
+  flex: 0 0 auto;
+  width: 100%;
+  height: var(--dl-size-size-large);
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: var(--dl-space-space-fourunits);
+  align-items: center;
+  margin-bottom: var(--dl-space-space-twounits);
+  justify-content: center;
+}
+.landing-page-container-col {
   flex: 0 0 auto;
   width: 80%;
+  height: auto;
   display: flex;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
   flex-direction: column;
 }
 
-.stream-vault-text4 {
+.landing-page-signup-text {
   width: 100%;
   font-size: 16px;
   text-align: center;
@@ -86,51 +100,64 @@
   padding-right: var(--dl-space-space-twounits);
   padding-bottom: var(--dl-space-space-halfunit);
 }
-.stream-vault-text6 {
+
+.landing-page-member-text {
   color: var(--dl-color-accent-900);
   font-weight: bold;
   background-color: var(--dl-color-accent-50);
   cursor: pointer;
 }
 
-.stream-vault-signup-btn {
+.landing-page-signup-btn {
+  color: var(--dl-color-accent-100);
   width: 376px;
+  height: var(--dl-size-size-small);
+  align-self: center;
+  text-align: center;
 }
 @media (max-width: 991px) {
-  .stream-vault-main-column {
+  .landing-page-container {
+    background-color: var(--dl-color-accent-100);
+  }
+  .landing-page-main-column-page {
     flex: 1;
     width: 60%;
-    height: 100%;
-    min-height: 100vh;
+    height: auto;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    border-color: var(--dl-color-primary-900);
+    border-width: 1px;
     justify-content: flex-start;
-    background-image: linear-gradient(
-      270deg,
-      rgb(232, 130, 115) 0%,
-      rgba(19, 80, 88, 0.94) 89%
-    );
   }
-  .stream-vault-main-title-row {
-    width: 80%;
-  }
-  .stream-vault-page-title {
-    margin: var(--dl-space-space-unit);
-    font-size: 30px;
+
+  .landing-page-main-title-row {
     width: 100%;
-    line-height: 1.5;
+    height: auto;
+    padding: var(--dl-space-space-halfunit);
+    margin-top: var(--dl-space-space-threeunits);
+    margin-bottom: var(--dl-space-space-twounits);
   }
-  .stream-vault-connect-row {
+  .landing-page-page-titlemobile {
+    display: none;
+  }
+  .landing-page-connect-row {
     height: var(--dl-size-size-large);
+    margin-top: var(--dl-space-space-twounits);
     align-items: center;
     justify-content: center;
   }
-  .stream-vault-signup-row {
+
+  .landing-page-signup-row {
+    flex-wrap: wrap;
     height: var(--dl-size-size-large);
     align-items: center;
+    margin-bottom: var(--dl-space-space-twounits);
     justify-content: center;
   }
-  .stream-vault-container-col {
+  .landing-page-container-col {
     width: 80%;
-    height: 100%;
+    height: auto;
+    flex-wrap: wrap;
     margin-top: var(--dl-space-space-unit);
     align-items: center;
     border-color: var(--dl-color-primary-700);
@@ -141,8 +168,8 @@
     border-right-width: 0px;
     border-bottom-width: 0px;
   }
-
-  .stream-vault-text4 {
+  .landing-page-signup-text {
+    width: 100%;
     text-align: justify;
     font-family: Montserrat;
     font-weight: 400;
@@ -152,55 +179,63 @@
     text-transform: none;
     text-decoration: none;
   }
-  .stream-vault-text6 {
-    color: var(--dl-color-accent-900);
-    font-weight: bold;
-    background-color: var(--dl-color-accent-50);
-    cursor: pointer;
+
+  .landing-page-signup-btn {
+    border-color: var(--dl-color-primary-700);
   }
 }
 @media (max-width: 767px) {
-  .stream-vault-main-column {
-    width: 60%;
-    height: auto;
-    min-height: 100vh;
-    margin-top: 0px;
-    flex-direction: column;
-    justify-content: flex-start;
-    background-image: linear-gradient(
-      270deg,
-      rgb(232, 130, 115) 0%,
-      rgba(19, 80, 88, 0.94) 89%
-    );
+  .landing-page-container {
+    background-color: var(--dl-color-accent-100);
   }
-  .stream-vault-main-title-row {
+  .landing-page-main-column-page {
+    flex: 1;
     width: 80%;
     height: auto;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    border-color: var(--dl-color-primary-900);
+    border-width: 1px;
+    justify-content: flex-start;
+  }
+  .landing-page-main-title-row {
+    flex: 0;
+    width: 100%;
+    height: auto;
+    padding: 0px;
+    margin-top: var(--dl-space-space-unit);
     align-items: center;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: var(--dl-space-space-unit);
     justify-content: center;
   }
-  .stream-vault-page-title {
-    height: var(--dl-size-size-large);
-    font-size: 28px;
-    margin-top: var(--dl-space-space-twounits);
-    line-height: 1.5;
-    margin-bottom: var(--dl-space-space-twounits);
-  }
-  .stream-vault-connect-row {
-    height: var(--dl-size-size-large);
-    margin: var(--dl-space-space-unit);
-    align-items: center;
-    justify-content: center;
-  }
-  .stream-vault-signup-row {
+  .landing-page-page-titledesktop {
     width: 90%;
+  }
+  .landing-page-page-titlemobile {
+    display: none;
+  }
+  .landing-page-connect-row {
+    width: 100%;
     height: var(--dl-size-size-large);
-    margin: var(--dl-space-space-unit);
+    margin: 0px;
     align-items: center;
     justify-content: center;
   }
-  .stream-vault-container-col {
-    width: min-content;
+  .landing-page-signup-row {
+    flex-wrap: wrap;
+    height: auto;
+    margin-top: 0px;
+    align-items: center;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: var(--dl-space-space-twounits);
+    justify-content: center;
+  }
+  .landing-page-container-col {
+    height: auto;
+    flex-wrap: wrap;
     border-color: var(--dl-color-primary-700);
     border-width: 1px;
     border-top-width: 1px;
@@ -208,7 +243,8 @@
     border-right-width: 0px;
     border-bottom-width: 0px;
   }
-  .stream-vault-text4 {
+  .landing-page-signup-text {
+    width: 100%;
     text-align: justify;
     font-family: Montserrat;
     font-weight: 400;
@@ -218,19 +254,18 @@
     padding-right: var(--dl-space-space-halfunit);
     padding-bottom: var(--dl-space-space-unit);
   }
-  .stream-vault-text6 {
-    color: var(--dl-color-accent-900);
-    font-weight: bold;
-    background-color: var(--dl-color-accent-50);
-    cursor: pointer;
-  }
 }
 @media (max-width: 479px) {
-  .stream-vault-main-column {
-    min-height: 100vh;
+  .landing-page-container {
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .landing-page-main-column-page {
     width: 100%;
     height: 100%;
+    flex-wrap: wrap;
     align-items: center;
+    border-width: 1px;
     justify-content: flex-start;
     background-image: linear-gradient(
       270deg,
@@ -238,72 +273,81 @@
       rgba(19, 80, 88, 0.94) 89%
     );
   }
-  .stream-vault-main-title-row {
+  .landing-page-main-title-row {
     flex: 0;
-    width: 80%;
-    height: auto;
-    margin-top: var(--dl-space-space-threeunits);
-    align-items: flex-start;
-    border-width: 0px;
-    margin-bottom: var(--dl-space-space-twounits);
-    justify-content: center;
-  }
-  .stream-vault-page-title {
     width: 100%;
-    font-size: larger;
-    margin-top: var(--dl-space-space-twounits);
+    height: var(--dl-size-size-xlarge);
+    padding: var(--dl-space-space-unit);
+    margin-top: var(--dl-space-space-fiveunits);
+    align-items: center;
+    margin-left: 0px;
+    border-width: 0px;
+    margin-right: 0px;
+    margin-bottom: var(--dl-space-space-twounits);
+    justify-content: flex-start;
+  }
+  .landing-page-page-titledesktop {
+    display: none;
+  }
+  .landing-page-page-titlemobile {
+    color: var(--dl-color-accent-100);
+    width: 100%;
+    display: flex;
+    font-size: 24px;
+    align-self: center;
     text-align: center;
-    line-height: 1.6;
-    margin-left: var(--dl-space-space-halfunit);
-    margin-right: var(--dl-space-space-halfunit);
-    margin-bottom: var(--dl-space-space-twounits);
+    line-height: 2;
   }
-  .stream-vault-connect-row {
+  .landing-page-connect-row {
+    width: 100%;
     height: var(--dl-size-size-medium);
-    margin-top: var(--dl-space-space-halfunit);
-    align-items: flex-start;
+    margin-top: var(--dl-space-space-twounits);
+    align-items: center;
+    margin-left: 0px;
     border-width: 0px;
-    margin-bottom: var(--dl-space-space-halfunit);
+    margin-right: 0px;
+    margin-bottom: var(--dl-space-space-twounits);
     justify-content: center;
   }
-  .stream-vault-connect-button {
+  .landing-page-connect-button {
     width: 80%;
-    height: var(--dl-size-size-small);
   }
-  .stream-vault-signup-row {
+  .landing-page-signup-row {
     flex: 0;
     width: 100%;
     height: auto;
-    margin-top: var(--dl-space-space-halfunit);
+    margin-top: var(--dl-space-space-unit);
     margin-left: 0px;
     margin-right: 0px;
-    margin-bottom: var(--dl-space-space-halfunit);
+    padding-left: 0px;
+    margin-bottom: var(--dl-space-space-fourunits);
+    padding-right: 0px;
     flex-direction: row;
+    justify-content: center;
   }
-  .stream-vault-container-col {
+  .landing-page-container-col {
     width: 80%;
     height: auto;
+    flex-wrap: wrap;
+    margin-left: 0px;
     border-color: var(--dl-color-primary-700);
     border-width: 1px;
+    margin-right: 0px;
     border-top-width: 1px;
     border-left-width: 0px;
     border-right-width: 0px;
     border-bottom-width: 0px;
   }
-  .stream-vault-text4 {
+  .landing-page-signup-text {
+    width: 100%;
     font-size: 14px;
     text-align: center;
     padding-top: var(--dl-space-space-twounits);
     padding-bottom: var(--dl-space-space-unit);
   }
-  .stream-vault-text6 {
-    color: var(--dl-color-accent-900);
-    font-weight: bold;
-    background-color: var(--dl-color-accent-50);
-    cursor: pointer;
-  }
-  .stream-vault-signup-btn {
+  .landing-page-signup-btn {
     width: 100%;
-    height: var(--dl-size-size-small);
+    margin-top: var(--dl-space-space-unit);
+    margin-bottom: var(--dl-space-space-unit);
   }
 }

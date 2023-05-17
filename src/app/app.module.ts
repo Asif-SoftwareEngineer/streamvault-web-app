@@ -15,6 +15,8 @@ import { StudioModule } from './studio/studio.module';
 import { UserModule } from './user/user.module';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
+import { EarningsModule } from './earnings/earnings.module';
+import { ValidationModule } from './validation/validation.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.com
     UserModule,
     StudioModule,
     SharedModule,
+    EarningsModule,
+    ValidationModule,
   ],
   providers: [
   ],

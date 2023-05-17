@@ -1,14 +1,23 @@
-<section style="margin-top: 10px; margin-bottom: 10px">
-  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-    <mat-card
-      fxLayout="column"
-      fxLayoutAlign="space-around center"
-      fxLayoutGap="30px"
-    >
-      <mat-icon class="icon">sentiment_very_dissatisfied</mat-icon>
-      <h1 class="heading">Page Not Found</h1>
-      <p class="message">The page you are looking for could not be found.</p>
-      <a mat-raised-button color="accent" routerLink="/">Go Back Home</a>
-    </mat-card>
+<div class="page-not-found-container">
+  <div class="page-not-found-col-mob-view-only">
+    <div class="page-not-found-message-prompt-row">
+      <span class="Field-Label">
+        Oops! It seems you&apos;re not viewing this on a mobile device. Please
+        switch to a mobile view for the best experience. Thank you!
+      </span>
+    </div>
   </div>
-</section>
+  <div class="page-not-found-main-page-column">
+    <div class="page-not-found-pagenotfound-header"></div>
+    <div class="page-not-found-message-row">
+      <img
+        alt="image"
+        src="../../assets/img/images/page-not-found-image.png"
+        class="page-not-found-image"
+      />
+    </div>
+    <div class="page-not-found-home-button-row">
+      <label class="page-not-found-text">Home</label>
+    </div>
+  </div>
+</div>

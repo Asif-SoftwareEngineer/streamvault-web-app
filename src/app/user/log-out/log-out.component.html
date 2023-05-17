@@ -1,25 +1,28 @@
-<section style="margin-top:10px; margin-bottom:10px">
-  <div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="10px">
-
-    <mat-card fxLayout="column" fxLayoutGap="30px">
-      <mat-card-content color="primary">
-        You have been logged out of the Pi Blockchain Network.
-      </mat-card-content>
-      <mat-card-content>
-        To reconnect to the Network, please click the Connect button below.
-        <div style="margin-top:30px">
-          <span>
-            <button [ngClass]="{ spinner: _isBusy }" mat-stroked-button color="primary" (click)="connectWithPiNetwork()"
-              matTooltip="Connect with Pi Network" aria-label="Connect">
-              Connect
-            </button>
-          </span>
-        </div>
-      </mat-card-content>
-      <mat-card-footer>
-        <span style="padding-left:15px; color:var(--primary-color)">You will be redirect to the Home page within
-          {{counter}} seconds.</span>
-      </mat-card-footer>
-    </mat-card>
+<div class="log-out-container">
+  <div class="log-out-col-mob-view-only">
+    <div class="log-out-message-prompt-row">
+      <span class="Field-Label">
+        Oops! It seems you&apos;re not viewing this on a mobile device. Please
+        switch to a mobile view for the best experience. Thank you!
+      </span>
+    </div>
   </div>
-</section>
+  <div class="log-out-main-page-column">
+    <div class="log-out-logout-header">
+      <label class="Heading-3">You are Logged Out!</label>
+    </div>
+    <div class="log-out-signin-message-row">
+      <label class="log-out-text">
+        To Login again, please click the button below.
+      </label>
+    </div>
+    <div class="log-out-signin-message-row1">
+      <label class="log-out-text1">Button</label>
+      <svg viewBox="0 0 1024 1024" class="log-out-icon">
+        <path
+          d="M384 512h-320v-128h320v-128l192 192-192 192zM1024 0v832l-384 192v-192h-384v-256h64v192h320v-576l256-128h-576v256h-64v-320z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+</div>

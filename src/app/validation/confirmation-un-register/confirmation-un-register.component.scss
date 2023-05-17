@@ -1,7 +1,7 @@
 :host {
   display: contents;
 }
-.page-not-found-container {
+.confirmation-vid-validator-withdrawl-container {
   width: 100%;
   display: flex;
   overflow: auto;
@@ -9,7 +9,7 @@
   align-items: center;
   flex-direction: column;
 }
-.page-not-found-col-mob-view-only {
+.confirmation-vid-validator-withdrawl-col-mob-view-only {
   flex: 1;
   width: 100%;
   height: 100%;
@@ -19,14 +19,14 @@
   justify-content: center;
   background-color: var(--dl-color-accent-300);
 }
-.page-not-found-message-prompt-row {
+.confirmation-vid-validator-withdrawl-message-prompt-row {
   flex: 0 0 auto;
   width: 80%;
   height: 100px;
   display: flex;
   align-items: flex-start;
 }
-.page-not-found-main-page-column {
+.confirmation-vid-validator-withdrawl-main-page-column {
   flex: 1;
   width: 60%;
   height: 100%;
@@ -41,10 +41,9 @@
     rgb(219, 147, 137) 100%
   );
 }
-.page-not-found-pagenotfound-header {
+.confirmation-vid-validator-withdrawl-register-validation-withdrawl-header {
   flex: 0 0 auto;
   width: 100%;
-  border: 2px dashed rgba(120, 120, 120, 0.4);
   height: var(--dl-size-size-medium);
   display: flex;
   align-items: center;
@@ -52,27 +51,16 @@
   justify-content: center;
   background-color: var(--dl-color-accent-900);
 }
-.page-not-found-message-row {
-  flex: 0 0 auto;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.page-not-found-image {
-  width: 100px;
-  object-fit: cover;
-}
-.page-not-found-home-button-row {
+.confirmation-vid-validator-withdrawl-registeration-message {
   flex: 0 0 auto;
   width: 100%;
   height: 100px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 @media (max-width: 991px) {
-  .page-not-found-col-mob-view-only {
+  .confirmation-vid-validator-withdrawl-col-mob-view-only {
     flex: 1;
     width: 100%;
     height: 100%;
@@ -80,22 +68,22 @@
     justify-content: center;
     background-color: var(--dl-color-accent-300);
   }
-  .page-not-found-message-prompt-row {
+  .confirmation-vid-validator-withdrawl-message-prompt-row {
     width: 80%;
     align-items: center;
     justify-content: center;
   }
-  .page-not-found-main-page-column {
+  .confirmation-vid-validator-withdrawl-main-page-column {
     width: 60%;
     border-color: var(--dl-color-primary-900);
     border-width: 1px;
   }
-  .page-not-found-pagenotfound-header {
+  .confirmation-vid-validator-withdrawl-register-validation-withdrawl-header {
     height: var(--dl-size-size-medium);
   }
 }
 @media (max-width: 767px) {
-  .page-not-found-col-mob-view-only {
+  .confirmation-vid-validator-withdrawl-col-mob-view-only {
     flex: 1;
     width: 100%;
     height: 100%;
@@ -103,25 +91,25 @@
     justify-content: center;
     background-color: var(--dl-color-accent-300);
   }
-  .page-not-found-message-prompt-row {
+  .confirmation-vid-validator-withdrawl-message-prompt-row {
     width: 70%;
     align-items: center;
     justify-content: center;
   }
-  .page-not-found-main-page-column {
+  .confirmation-vid-validator-withdrawl-main-page-column {
     width: 80%;
     height: 100%;
   }
-  .page-not-found-pagenotfound-header {
+  .confirmation-vid-validator-withdrawl-register-validation-withdrawl-header {
     height: var(--dl-size-size-small);
     background-color: var(--dl-color-accent-900);
   }
 }
 @media (max-width: 479px) {
-  .page-not-found-col-mob-view-only {
+  .confirmation-vid-validator-withdrawl-col-mob-view-only {
     display: none;
   }
-  .page-not-found-main-page-column {
+  .confirmation-vid-validator-withdrawl-main-page-column {
     flex: 1;
     width: 100%;
     height: 100%;
@@ -133,27 +121,23 @@
       rgb(219, 147, 137) 100%
     );
   }
-  .page-not-found-pagenotfound-header {
+  .confirmation-vid-validator-withdrawl-register-validation-withdrawl-header {
     height: var(--dl-size-size-small);
     background-color: var(--dl-color-accent-900);
   }
-  .page-not-found-message-row {
-    flex: 0;
-    width: auto;
+  .confirmation-vid-validator-withdrawl-registeration-message {
+    height: auto;
     padding: var(--dl-space-space-unit);
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
   }
-  .page-not-found-image {
+  .confirmation-vid-validator-withdrawl-text1 {
+    color: var(--dl-color-accent-900);
     width: 100%;
-    height: 243px;
+    margin-top: var(--dl-space-space-halfunit);
+    text-align: justify;
+    margin-bottom: var(--dl-space-space-halfunit);
   }
-  .page-not-found-home-button-row {
-    padding: var(--dl-space-space-unit);
-    border-width: 0px;
-  }
-  .page-not-found-text {
+  .confirmation-vid-validator-withdrawl-text3 {
     color: var(--dl-color-accent-900);
   }
 }

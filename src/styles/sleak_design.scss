@@ -1,33 +1,41 @@
 /* Style sheet defined inside the telePort HQ */
 /* -------------------------------------------------- */
 :root {
-  --dl-size-size-large: 144px;
+  --dl-size-size-xxxsmall: 8px;
+  --dl-size-size-xxsmall: 16px;
+  --dl-size-size-xsmall: 32px;
   --dl-size-size-small: 48px;
-  --dl-size-size-smaller: 32px;
-  --dl-size-size-smallest: 16px;
+
+  --dl-size-size-medium-1: 72px;
+  --dl-size-size-medium: 96px;
+
+  --dl-size-size-large: 144px;
+  --dl-size-size-xlarge: 192px;
+  --dl-size-size-xxlarge: 288px;
+
   --dl-color-accent-50: #e0f2f1;
   --dl-color-accent-100: #b2dfdb;
   --dl-color-accent-300: #4db6ac;
   --dl-color-accent-500: #009688;
   --dl-color-accent-700: #00796b;
   --dl-color-accent-900: #004d40;
+
   --dl-color-danger-300: #a22020;
   --dl-color-danger-500: #bf2626;
   --dl-color-danger-700: #e14747;
-  --dl-size-size-medium: 96px;
-  --dl-size-size-xlarge: 192px;
-  --dl-size-size-xsmall: 16px;
-  --dl-space-space-unit: 16px;
+
   --dl-color-primary-100: #ffccbc;
   --dl-color-primary-300: #ff8a65;
   --dl-color-primary-500: #ff5722;
   --dl-color-primary-700: #e64a19;
   --dl-color-primary-900: #bf360c;
+
   --dl-color-success-300: #199033;
   --dl-color-success-500: #32a94c;
   --dl-color-success-700: #4cc366;
-  --dl-size-size-xxlarge: 288px;
   --dl-color-accent-white: #ffffff;
+
+  --dl-space-space-unit: 16px;
   --dl-size-size-maxwidth: 1400px;
   --dl-radius-radius-round: 50%;
   --dl-space-space-halfunit: 8px;
@@ -47,7 +55,7 @@
   color: var(--dl-color-accent-900);
   cursor: auto;
   padding: 0.5rem 1rem;
-  border-color: var(--dl-color-accent-900);
+  border-color: var(--dl-color-accent-700);
   border-width: 1px;
   border-radius: 4px;
   background-color: var(--dl-color-accent-white);
@@ -73,22 +81,6 @@
   display: list-item;
 }
 
-.Field-Label {
-  font-size: 18px;
-  font-family: Montserrat;
-  font-weight: 500;
-  line-height: 1.15;
-  text-transform: none;
-  text-decoration: none;
-}
-
-.page-Title {
-  font-size: 36px;
-  font-family: Montserrat;
-  font-weight: 400;
-  text-transform: none;
-  text-decoration: none;
-}
 
 .page-Title-Header {
   flex: 0 0 auto;
@@ -98,9 +90,10 @@
   align-items: center;
   justify-content: center;
   background-color: var(--dl-color-accent-900);
+  color: var(--dl-color-accent-50);
 }
 
-.Content {
+.Content-3 {
   font-size: 16px;
   font-family: Montserrat;
   font-weight: 400;
@@ -116,7 +109,7 @@
   text-transform: none;
   text-decoration: none;
 }
-.Content-3 {
+.Content-1 {
   font-size: 12px;
   font-family: Montserrat;
   font-weight: 400;

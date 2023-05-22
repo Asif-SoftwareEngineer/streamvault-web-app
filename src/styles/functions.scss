@@ -21,7 +21,9 @@
   $secondary-text: mat-color($foreground-palette, secondary-text);
   $icon: mat-color($foreground-palette, icon);
   $icons: mat-color($foreground-palette, icons);
-  $text: mat-color($foreground-palette, text);
+  //$text: mat-color($foreground-palette, text);
+  $text: var(--dl-color-primary-900);
+
   $slider-off: mat-color($foreground-palette, slider-off);
   $slider-off-active: mat-color($foreground-palette, slider-off-active);
 
@@ -35,13 +37,18 @@
   $raised-button: mat-color($background-palette, raised-button);
   $focused-button: mat-color($background-palette, focused-button);
   $selected-button: mat-color($background-palette, selected-button);
-  $selected-disabled-button: mat-color($background-palette, selected-disabled-button);
-  $disabled-button-toggle: mat-color($background-palette, disabled-button-toggle);
+  $selected-disabled-button: mat-color(
+    $background-palette,
+    selected-disabled-button
+  );
+  $disabled-button-toggle: mat-color(
+    $background-palette,
+    disabled-button-toggle
+  );
 
   /////////////////////////////////////////////////
   // CSS VARS
   /////////////////////////////////////////////////
-
 
   --primary-color: #{$primary};
   --accent-color: #{$accent};

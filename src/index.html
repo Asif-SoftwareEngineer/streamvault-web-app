@@ -35,27 +35,33 @@
         margin: 0;
         padding: 0;
       }
+
+      input,
+      optgroup,
+      select,
+      textarea {
+        font-family: Montserrat;
+        color: var(--dl-color-accent-700) !important;
+        border-color: var(--dl-color-accent-500) !important;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 0;
+      }
+
       button {
+        font-family: Montserrat;
         background-color: transparent;
         width: 376px;
         height: var(--dl-size-size-small);
         align-self: center;
         text-align: center;
         letter-spacing: 1.5px;
-        color: var(--dl-color-primary-50) !important;
+        color: var(--dl-color-accent-50) !important;
       }
 
-      button,
-      input,
-      optgroup,
-      select,
-      textarea {
-        font-family: inherit;
-        font-size: 100%;
-        line-height: 1.15;
-        margin: 0;
+      .mat-form-field-infix {
+        min-width: 250px !important;
       }
-
       a {
         color: inherit;
         text-decoration: inherit;
@@ -78,12 +84,12 @@
 
       body {
         font-weight: 400;
-        font-style: normal;
+        font-style: "Montserrat";
         text-decoration: none;
         text-transform: none;
         letter-spacing: normal;
         line-height: 1.4;
-        color: var(--dl-color-accent-100);
+        color: var(--dl-color-accent-900);
         background-color: var(--dl-color-accent-50);
       }
     </style>

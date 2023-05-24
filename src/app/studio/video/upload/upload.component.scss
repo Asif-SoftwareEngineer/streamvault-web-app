@@ -1,0 +1,186 @@
+:host {
+  display: contents;
+}
+.video-upload-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.video-upload-main-column {
+  flex: 0 0 auto;
+  width: 200px;
+  display: none;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.video-upload-back-row {
+  flex: 0 0 auto;
+  width: 100%;
+  height: var(--dl-size-size-large);
+  display: flex;
+  padding: var(--dl-space-space-twounits);
+  align-items: center;
+  justify-content: space-between;
+}
+.video-upload-back-icon {
+  fill: var(--dl-color-accent-900);
+  width: var(--dl-size-size-medium);
+  height: var(--dl-size-size-medium);
+  transition: 0.3s;
+  padding-left: var(--dl-space-space-unit);
+}
+.video-upload-back-icon:hover {
+  border-color: var(--dl-color-accent-500);
+  border-width: 1px;
+}
+.video-upload-player-container {
+  flex: 0 0 auto;
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: flex-start;
+}
+.video-upload-button-container {
+  flex: 0 0 auto;
+  width: 100%;
+  height: var(--dl-size-size-medium);
+  display: flex;
+  margin-top: var(--dl-space-space-twounits);
+  align-items: center;
+  justify-content: center;
+}
+.video-upload-button {
+  color: var(--dl-color-accent-100);
+  width: 376px;
+  height: var(--dl-size-size-small);
+  align-self: center;
+  text-align: center;
+}
+.video-upload-col-mob-view-only {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--dl-color-accent-300);
+}
+.video-upload-message-prompt-row {
+  flex: 0 0 auto;
+  width: 80%;
+  height: 100px;
+  display: flex;
+  align-items: flex-start;
+}
+@media (max-width: 991px) {
+  .video-upload-main-column {
+    display: none;
+  }
+  .video-upload-back-row {
+    padding: var(--dl-space-space-unit);
+    justify-content: space-between;
+  }
+  .video-upload-back-icon {
+    fill: var(--dl-color-accent-900);
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+    border-color: var(--dl-color-accent-500);
+    border-width: 0px;
+    margin-right: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-unit);
+  }
+  .video-upload-col-mob-view-only {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dl-color-accent-300);
+  }
+  .video-upload-message-prompt-row {
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media (max-width: 767px) {
+  .video-upload-main-column {
+    display: none;
+  }
+  .video-upload-back-row {
+    padding: var(--dl-space-space-unit);
+    justify-content: space-between;
+  }
+  .video-upload-back-icon {
+    fill: var(--dl-color-accent-900);
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+    padding-top: 0px;
+    border-width: 0px;
+    margin-right: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-halfunit);
+    padding-right: 0px;
+    padding-bottom: 0px;
+  }
+  .video-upload-col-mob-view-only {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dl-color-accent-300);
+  }
+  .video-upload-message-prompt-row {
+    width: 70%;
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media (max-width: 479px) {
+  .video-upload-main-column {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-width: 0px;
+    justify-content: space-between;
+    background-color: var(--dl-color-accent-900);
+  }
+  .video-upload-back-row {
+    height: auto;
+    padding: var(--dl-space-space-unit);
+    justify-content: space-between;
+  }
+  .video-upload-back-icon {
+    fill: var(--dl-color-accent-100);
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+    padding: var(--dl-space-space-halfunit);
+    border-width: 0px;
+  }
+  .video-upload-player-container {
+    height: var(--dl-size-size-xxlarge);
+    background-color: var(--dl-color-accent-100);
+  }
+  .video-upload-button-container {
+    height: var(--dl-size-size-medium-1);
+    position: relative;
+    align-items: center;
+    margin-bottom: var(--dl-space-space-unit);
+    justify-content: center;
+  }
+
+  .video-upload-button {
+    width: var(--dl-size-size-xxlarge);
+    height: var(--dl-size-size-small);
+  }
+
+  .video-upload-col-mob-view-only {
+    display: none;
+  }
+}

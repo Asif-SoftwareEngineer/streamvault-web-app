@@ -1,14 +1,14 @@
 <div class="channel-edit-container">
   <div class="channel-edit-col-mob-view-only">
     <div class="channel-edit-message-prompt-row">
-      <span class="mat-title mob-view-prompt-text">
+      <span class="Field-Label">
         Oops! It seems you&apos;re not viewing this on a mobile device. Please
         switch to a mobile view for the best experience. Thank you!
       </span>
     </div>
   </div>
   <div class="channel-edit-main-column">
-    <div class="channel-edit-edit-channel-header">
+    <div class="mat-title page-Title-Header">
       <label>Edit Channel</label>
     </div>
     <div class="channel-edit-channel-logo">
@@ -30,26 +30,35 @@
           ></path>
         </svg>
       </div>
-      <input
-        type="text"
-        placeholder="Name"
-        class="input channel-edit-textinput"
-      />
+      <span class="channel-edit-text1">Change thumbnail image</span>
     </div>
-    <div class="channel-edit-container4">
-      <input
-        type="text"
-        placeholder="Handle"
-        class="input channel-edit-textinput1"
-      />
+    <div class="channel-edit-channel-name-row">
+      <mat-form-field>
+        <mat-label>Channel Name</mat-label>
+        <input
+          matInput
+          placeholder="Channel Name"
+          class="channel-edit-channel-name"
+        />
+      </mat-form-field>
     </div>
-    <div class="channel-edit-container5">
-      <textarea
-        placeholder="Description"
-        class="textarea channel-edit-textarea"
-      ></textarea>
+    <div class="channel-edit-containerHandle">
+      <mat-form-field>
+        <mat-label>Handle</mat-label>
+        <input matInput placeholder="Handle" class="channel-edit-textHandle" />
+      </mat-form-field>
     </div>
-    <div class="channel-edit-container6">
+    <div class="channel-edit-containerDescription">
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea
+          class="channel-edit-textarea"
+          matInput
+          placeholder="Description"
+        ></textarea>
+      </mat-form-field>
+    </div>
+    <div class="channel-edit-button-container">
       <button
         mat-raised-button
         color="accent"

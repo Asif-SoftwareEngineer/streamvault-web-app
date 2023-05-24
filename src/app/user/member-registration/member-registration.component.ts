@@ -13,4 +13,7 @@ export class MemberRegistrationComponent implements OnInit {
 
   ngOnInit(): void {}
   onSubmit(): void {}
+  toggleSelection(){
+
+  }
 }

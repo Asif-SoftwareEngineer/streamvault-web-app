@@ -14,6 +14,8 @@ import { MemberRegistrationComponent } from './member-registration/member-regist
 import { MemberHomeComponent } from './member-home/member-home.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { ManagementComponent } from './management/management.component';
+import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { MembershipOptionsComponent } from './membership-options/membership-options.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { ManagementComponent } from './management/management.component';
     MemberHomeComponent,
     UserHomeComponent,
     ManagementComponent,
+    EmailVerificationComponent,
+    MembershipOptionsComponent,
   ],
   imports: [
     CommonModule,

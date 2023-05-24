@@ -25,7 +25,15 @@
     rgb(219, 147, 137) 100%
   );
 }
-
+.membership-registration-page-header {
+  flex: 0 0 auto;
+  width: 100%;
+  height: var(--dl-size-size-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dl-color-accent-900);
+}
 .membership-registration-title {
   color: var(--dl-color-accent-100);
 }
@@ -73,7 +81,7 @@
 }
 .membership-registration-text-name-container {
   flex: 0 0 auto;
-  width: 90%;
+  width: 80%;
   height: var(--dl-size-size-medium);
   display: flex;
   align-items: flex-start;
@@ -138,7 +146,49 @@
   margin-left: auto;
   margin-right: auto;
 }
+.membership-registration-monthly-container {
+  flex: 0 0 auto;
+  width: 80%;
+  height: var(--dl-size-size-medium);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.membership-registration-text02 {
+  color: var(--dl-color-accent-900);
+  margin-left: auto;
+  margin-right: auto;
+}
+.membership-registration-text03 {
+  margin-left: auto;
+  margin-right: auto;
+}
 
+.membership-registration-yearly-container {
+  flex: 0 0 auto;
+  width: 80%;
+  height: var(--dl-size-size-medium);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.membership-registration-text07 {
+  color: var(--dl-color-accent-900);
+  margin-left: auto;
+  margin-right: auto;
+}
+.membership-registration-text08 {
+  margin-left: auto;
+  margin-right: auto;
+}
+.membership-registration-textMonthly {
+  margin-left: auto;
+  margin-right: auto;
+}
+.membership-registration-textYearly {
+  margin-left: auto;
+  margin-right: auto;
+}
 .membership-registration-register-button-container {
   flex: 0 0 auto;
   width: 100%;
@@ -257,6 +307,44 @@
 //     height: var(--dl-size-size-small);
 //     margin: auto;
 //   }
+.membership-registration-monthly-container {
+  height: 72px;
+  align-items: center;
+  justify-content: center;
+}
+.membership-registration-text03 {
+  font-weight: 700;
+  margin: auto;
+  align-self: center;
+}
+
+.membership-registration-yearly-container {
+  height: var(--dl-size-size-medium-1);
+  align-items: center;
+  justify-content: center;
+}
+.membership-registration-text07 {
+  color: var(--dl-color-accent-900);
+  margin: auto;
+  align-self: center;
+}
+.membership-registration-text08 {
+  color: var(--dl-color-accent-900);
+  font-weight: 700;
+  margin: auto;
+  align-self: center;
+}
+
+.membership-registration-textMonthly {
+  //color: var(--dl-color-accent-900);
+  margin: auto;
+  align-self: center;
+}
+.membership-registration-textYearly {
+  color: var(--dl-color-accent-900);
+  margin: auto;
+  align-self: center;
+}
 //   .membership-registration-register-button-container {
 //     width: 100%;
 //     margin-top: var(--dl-space-space-twounits);
@@ -365,9 +453,48 @@
 //     margin-left: auto;
 //     margin-right: auto;
 //   }
-//   .membership-registration-register-button-container {
-//     justify-content: center;
-//   }
+.membership-registration-monthly-container {
+  height: var(--dl-size-size-medium-1);
+  position: relative;
+}
+.membership-registration-text03 {
+  font-weight: 700;
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.membership-registration-yearly-container {
+  height: var(--dl-size-size-medium-1);
+  position: relative;
+}
+.membership-registration-text07 {
+  color: var(--dl-color-accent-900);
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.membership-registration-text08 {
+  color: var(--dl-color-accent-900);
+  font-weight: 700;
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.membership-registration-textMonthly {
+  //color: var(--dl-color-accent-900);
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.membership-registration-textYearly {
+  color: var(--dl-color-accent-900);
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 //   .membership-registration-col-mob-view-only {
 //     flex: 1;
 //     width: 100%;
@@ -472,6 +599,88 @@
     height: 32px;
     margin: var(--dl-space-space-halfunit);
   }
+  .membership-registration-monthly-container {
+    width: 80%;
+    height: auto;
+    padding: var(--dl-space-space-unit);
+    margin-top: var(--dl-space-space-unit);
+    align-items: center;
+    border-color: var(--dl-color-accent-900);
+    border-width: 1px;
+    justify-content: space-between;
+  }
+  .option-selected {
+    border-color: var(--dl-color-primary-900);
+    border-width: 3px;
+    background-color: var(--dl-color-accent-700);
+  }
+
+  .option-selected-text {
+    color: var(--dl-color-accent-50);
+  }
+
+  .membership-registration-text02 {
+    color: var(--dl-color-accent-900);
+    text-align: justify;
+    font-family: Montserrat;
+    line-height: 1.5;
+    text-transform: none;
+    text-decoration: none;
+  }
+  .membership-registration-text03 {
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    margin-bottom: 0px;
+  }
+
+  .membership-registration-yearly-container {
+    width: 80%;
+    height: auto;
+    margin-top: var(--dl-space-space-twounits);
+    align-items: center;
+    padding-top: var(--dl-space-space-unit);
+    border-color: var(--dl-color-accent-700);
+    border-width: 1px;
+    padding-left: var(--dl-space-space-unit);
+    padding-right: var(--dl-space-space-unit);
+    padding-bottom: var(--dl-space-space-unit);
+    justify-content: space-between;
+  }
+  .membership-registration-text07 {
+    color: var(--dl-color-accent-900);
+    margin-top: 0px;
+    text-align: justify;
+    line-height: 1.5;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    margin-bottom: 0px;
+  }
+  .membership-registration-text08 {
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    margin-bottom: 0px;
+  }
+
+  .membership-registration-textMonthly {
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    margin-bottom: 0px;
+  }
+  .membership-registration-textYearly {
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    margin-bottom: 0px;
+  }
+
   .membership-registration-register-button-container {
     height: var(--dl-size-size-medium-1);
     position: relative;
@@ -479,7 +688,7 @@
     margin-bottom: var(--dl-space-space-twounits);
     justify-content: center;
   }
-  .membership-registration-button {
+  .membership-registration-button-Next {
     width: var(--dl-size-size-xxlarge);
     height: var(--dl-size-size-small);
   }

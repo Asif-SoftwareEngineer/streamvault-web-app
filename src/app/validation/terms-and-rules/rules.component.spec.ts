@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TermsAndRulesComponent } from './terms-and-rules.component';
+import { TermsAndRulesComponent } from './rules.component';
 
 describe('TermsAndRulesComponent', () => {
   let component: TermsAndRulesComponent;
@@ -8,9 +8,8 @@ describe('TermsAndRulesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TermsAndRulesComponent ]
-    })
-    .compileComponents();
+      declarations: [TermsAndRulesComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TermsAndRulesComponent);
     component = fixture.componentInstance;

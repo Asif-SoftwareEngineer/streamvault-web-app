@@ -38,6 +38,11 @@ const routes: Routes = [
     loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
     //canLoad: [AuthGuard],
   },
+  {
+    path: 'validation',
+    loadChildren: () =>
+      import('./validation/validation.module').then((m) => m.ValidationModule),
+  },
   { path: '**', component: PageNotFoundComponent },
 ];
 

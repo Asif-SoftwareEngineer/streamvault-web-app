@@ -24,8 +24,8 @@
   flex-direction: column;
   background-image: linear-gradient(
     270deg,
-    rgb(232, 130, 115) 0%,
-    rgba(19, 80, 88, 0.94) 89%
+    rgb(249, 162, 149) 2%,
+    rgba(65, 145, 155, 0.94) 93%
   );
 }
 .landing-page-main-title-row {
@@ -40,7 +40,7 @@
   justify-content: center;
 }
 .landing-page-page-titledesktop {
-  color: var(--dl-color-accent-100);
+  color: var(--dl-color-accent-900);
   width: 80%;
   height: auto;
   align-self: auto;
@@ -106,6 +106,7 @@
   font-weight: bold;
   background-color: var(--dl-color-accent-50);
   cursor: pointer;
+  border-radius: var(--dl-radius-radius-radius4);
 }
 
 .landing-page-signup-btn {
@@ -269,8 +270,8 @@
     justify-content: flex-start;
     background-image: linear-gradient(
       270deg,
-      rgb(232, 130, 115) 0%,
-      rgba(19, 80, 88, 0.94) 89%
+      rgb(249, 162, 149) 2%,
+      rgba(65, 145, 155, 0.94) 93%
     );
   }
   .landing-page-main-title-row {
@@ -290,10 +291,11 @@
     display: none;
   }
   .landing-page-page-titlemobile {
-    color: var(--dl-color-accent-100);
+    color: var(--dl-color-accent-900);
     width: 100%;
     display: flex;
-    font-size: 24px;
+    font-size: 28px;
+    font-weight: 500;
     align-self: center;
     text-align: center;
     line-height: 2;
@@ -347,7 +349,8 @@
   }
   .landing-page-signup-btn {
     width: 100%;
-    margin-top: var(--dl-space-space-unit);
-    margin-bottom: var(--dl-space-space-unit);
+    // height: var(--dl-size-size-small);
+    // margin-top: var(--dl-space-space-halfunit);
+    // margin-bottom: var(--dl-space-space-halfunit);
   }
 }

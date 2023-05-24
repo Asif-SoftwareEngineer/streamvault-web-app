@@ -1,4 +1,12 @@
 <div class="new-channel-container">
+  <div class="new-channel-col-mob-view-only">
+    <div class="new-channel-message-prompt-row">
+      <span class="Field-Label">
+        Oops! It seems you&apos;re not viewing this on a mobile device. Please
+        switch to a mobile view for the best experience. Thank you!
+      </span>
+    </div>
+  </div>
   <div class="new-channel-main-column">
     <div class="mat-title page-Title-Header">
       <label>New Channel</label>
@@ -22,42 +30,42 @@
           ></path>
         </svg>
       </div>
-      <input
-        type="text"
-        placeholder="Name"
-        class="input new-channel-textinput"
-      />
+      <span class="new-channel-text1">Provide a new thumbnail image</span>
     </div>
-    <div class="new-channel-container4">
-      <input
-        type="text"
-        placeholder="Handle"
-        class="input new-channel-textinput1"
-      />
+    <div class="new-channel-channel-name-row">
+      <mat-form-field>
+        <mat-label>Channel Name</mat-label>
+        <input
+          matInput
+          placeholder="Channel Name"
+          class="new-channel-channel-name"
+        />
+      </mat-form-field>
     </div>
-    <div class="new-channel-container5">
-      <textarea
-        placeholder="Description"
-        class="textarea new-channel-textarea"
-      ></textarea>
+    <div class="new-channel-containerHandle">
+      <mat-form-field>
+        <mat-label>Handle</mat-label>
+        <input matInput placeholder="Handle" class="new-channel-textHandle" />
+      </mat-form-field>
     </div>
-    <div class="new-channel-container6">
+    <div class="new-channel-containerDescription">
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea
+          class="new-channel-textarea"
+          matInput
+          placeholder="Description"
+        ></textarea>
+      </mat-form-field>
+    </div>
+    <div class="new-channel-button-container">
       <button
         mat-raised-button
         color="accent"
         class="button new-channel-button"
       >
-        Create
+        Done
       </button>
-    </div>
-  </div>
-  <div class="new-channel-col-mob-view-only">
-    <div class="new-channel-message-prompt-row">
-      <span class="mat-title mob-view-prompt-text">
-        Oops! It seems you&apos;re not viewing this on a mobile device. Please
-        switch to a mobile view for the best experience. <br /><br />
-        Thank you!
-      </span>
     </div>
   </div>
 </div>

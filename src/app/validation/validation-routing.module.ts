@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { NgModule } from '@angular/core';
+import { RulesComponent } from './terms-and-rules/rules.component';
+
+const routes: Routes = [{ path: 'rules', component: RulesComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ValidationRoutingModule { }
+export class ValidationRoutingModule {}

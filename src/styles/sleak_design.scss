@@ -81,7 +81,6 @@
   display: list-item;
 }
 
-
 .page-Title-Header {
   flex: 0 0 auto;
   width: 100%;
@@ -91,6 +90,7 @@
   justify-content: center;
   background-color: var(--dl-color-accent-900);
   color: var(--dl-color-accent-50);
+  letter-spacing: 0.2rem;
 }
 
 .Content-3 {

@@ -8,75 +8,90 @@
     </div>
   </div>
   <div class="validate-video-main-page-column">
-    <div class="validate-video-validate-vid-header">
+    <div class="Content-3 page-Title-Header">
       <label>Validate Video</label>
     </div>
     <div class="validate-video-vid-clip-row"></div>
     <div class="validate-video-checklist-row">
       <div class="validate-video-container01">
         <div class="validate-video-container02">
-          <span class="validate-video-text">
+          <span class="Content-3 validate-video-text">
             Only video content that successfully fulfills all the following
             checks will be eligible for publication.
           </span>
         </div>
         <div class="validate-video-container03">
-          <span class="validate-video-text01">Select All</span>
-          <input
-            type="checkbox"
-            checked="true"
-            class="validate-video-checkbox"
-          />
+          <span class="Content-2 validate-video-text01">Select All</span>
+          <mat-checkbox class="example-margin" [checked]="false">
+          </mat-checkbox>
         </div>
       </div>
       <div class="validate-video-container04">
-        <span class="validate-video-text02">Genuine and truthful content</span>
-        <input type="checkbox" checked="true" />
+        <span class="Content-2 validate-video-text02"
+          >Genuine and truthful content</span
+        >
+        <mat-checkbox class="example-margin" [checked]="false"> </mat-checkbox>
       </div>
       <div class="validate-video-container05">
-        <span class="validate-video-text03">No explicit or adult content</span>
-        <input type="checkbox" checked="true" />
+        <span class="Content-2 validate-video-text03"
+          >No explicit or adult content</span
+        >
+        <mat-checkbox class="example-margin" [checked]="false"> </mat-checkbox>
       </div>
       <div class="validate-video-container06">
-        <span class="validate-video-text04">
+        <span class="Content-2 validate-video-text04">
           Respectful language and behavior
         </span>
-        <input type="checkbox" checked="true" />
+        <mat-checkbox class="example-margin" [checked]="false"> </mat-checkbox>
       </div>
       <div class="validate-video-container07">
-        <span class="validate-video-text05">
+        <span class="Content-2 validate-video-text05">
           No hate speech or discrimination
         </span>
-        <input type="checkbox" checked="true" />
+        <mat-checkbox class="example-margin" [checked]="false"> </mat-checkbox>
       </div>
       <div class="validate-video-container08">
-        <span class="validate-video-text06">
+        <span class="Content-2 validate-video-text06">
           No graphic or disturbing content
         </span>
-        <input type="checkbox" checked="true" />
+        <mat-checkbox class="example-margin" [checked]="false"> </mat-checkbox>
       </div>
       <div class="validate-video-container09">
-        <span class="validate-video-text07">Intellectual property rights</span>
-        <input type="checkbox" checked="true" />
+        <span class="Content-2 validate-video-text07"
+          >Intellectual property rights</span
+        >
+        <mat-checkbox class="example-margin" [checked]="false"> </mat-checkbox>
       </div>
       <div class="validate-video-container10">
-        <span class="validate-video-text08">
+        <span class="Content-2 validate-video-text08">
           Age-appropriate content
           <span></span>
         </span>
-        <input type="checkbox" checked="true" />
+        <mat-checkbox class="example-margin" [checked]="false"> </mat-checkbox>
       </div>
       <div class="validate-video-container11">
-        <span class="validate-video-text09">
+        <span class="Content-2 validate-video-text09">
           No bullying or harassment
           <span></span>
         </span>
-        <input type="checkbox" checked="true" />
+        <mat-checkbox class="example-margin" [checked]="false"> </mat-checkbox>
       </div>
     </div>
     <div class="validate-video-buttons-row">
-      <button class="button">Validate</button>
-      <button class="button validate-video-button1">Cancel</button>
+      <button
+        mat-raised-button
+        color="accent"
+        class="button validate-video-button-Back"
+      >
+        Validate
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        class="button validate-video-button-Back"
+      >
+        Back
+      </button>
     </div>
   </div>
 </div>

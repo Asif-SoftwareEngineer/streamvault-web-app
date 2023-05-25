@@ -41,16 +41,7 @@
     rgb(219, 147, 137) 100%
   );
 }
-.confirmation-vid-validator-registration-register-validation-confirmation-header {
-  flex: 0 0 auto;
-  width: 100%;
-  height: var(--dl-size-size-medium);
-  display: flex;
-  align-items: center;
-  margin-left: 0px;
-  justify-content: center;
-  background-color: var(--dl-color-accent-900);
-}
+
 .confirmation-vid-validator-registration-registeration-message {
   flex: 0 0 auto;
   width: 100%;
@@ -78,9 +69,6 @@
     border-color: var(--dl-color-primary-900);
     border-width: 1px;
   }
-  .confirmation-vid-validator-registration-register-validation-confirmation-header {
-    height: var(--dl-size-size-medium);
-  }
 }
 @media (max-width: 767px) {
   .confirmation-vid-validator-registration-col-mob-view-only {
@@ -100,10 +88,6 @@
     width: 80%;
     height: 100%;
   }
-  .confirmation-vid-validator-registration-register-validation-confirmation-header {
-    height: var(--dl-size-size-small);
-    background-color: var(--dl-color-accent-900);
-  }
 }
 @media (max-width: 479px) {
   .confirmation-vid-validator-registration-col-mob-view-only {
@@ -121,13 +105,10 @@
       rgb(219, 147, 137) 100%
     );
   }
-  .confirmation-vid-validator-registration-register-validation-confirmation-header {
-    height: var(--dl-size-size-small);
-    background-color: var(--dl-color-accent-900);
-  }
+
   .confirmation-vid-validator-registration-registeration-message {
     height: auto;
-    padding: var(--dl-space-space-unit);
+    padding: var(--dl-space-space-twounits);
     flex-wrap: wrap;
   }
   .confirmation-vid-validator-registration-text1 {

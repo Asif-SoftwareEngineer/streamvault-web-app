@@ -32,7 +32,7 @@
             ],
             "styles": [
               "src/styles/styles.scss",
-              "src/styles/sleak_design.scss"
+              "src/styles/teleportHQ_design.scss"
             ],
             "scripts": []
           },

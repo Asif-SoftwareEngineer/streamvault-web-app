@@ -64,8 +64,8 @@
 }
 .membership-registration-page-description {
   flex: 0 0 auto;
-  width: 80%;
-  height: var(--dl-size-size-small);
+  width: 90%;
+  height: var(--dl-size-size-medium-1);
   display: flex;
   padding: var(--dl-space-space-unit);
   align-self: center;
@@ -523,6 +523,13 @@
     display: flex;
     align-items: center;
   }
+  .mat-form-field-infix {
+    min-width: 400px !important;
+  }
+
+  ::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+    width: 280px;
+  }
 
   .membership-registration-page-header-2 {
     padding: var(--dl-space-space-unit);
@@ -548,8 +555,8 @@
     margin-bottom: var(--dl-space-space-unit);
   }
   .membership-registration-text-name-container {
-    width: 90%;
-    height: var(--dl-size-size-medium-1);
+    width: 100%;
+    height: auto;
     align-items: center;
     justify-content: center;
   }
@@ -557,6 +564,7 @@
     flex: 1;
   }
   .membership-registration-text-email-container {
+    margin-top: 20px;
     height: var(--dl-size-size-medium-1);
   }
   .membership-registration-email {

@@ -1,7 +1,7 @@
 <div class="membership-registration-container">
-  <form [formGroup]="_membershipForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <div class="membership-registration-main-column">
-      <div class="mat-title page-Title-Header">
+      <div class="Content-3 page-Title-Header">
         <label> Become Member </label>
       </div>
       <div class="membership-registration-page-header-2">
@@ -21,19 +21,34 @@
         </span>
       </div>
 
-      <mat-form-field class="membership-registration-text-name-container">
+      <!-- <mat-form-field class="membership-registration-text-name-container">
         <mat-label>Your Name</mat-label>
         <input
+          formControlName="name"
           matInput
           placeholder="Name"
-          class="membership-registration-name .mat-form-field-infix"
+          class="membership-registration-name"
         />
+      </mat-form-field> -->
+
+      <app-name-input
+        [initialData]="nameInitialData$ | async"
+        (formReady)="registerForm('name', $event)"
+      >
+      </app-name-input>
+
+      <!-- <mat-form-field appearance="outline" fxFlex="50%">
+        <mat-label>E-mail</mat-label>
+        <input matInput aria-label="E-mail" formControlName="email" #email />
+        <mat-hint>Only your manager can update your e-mail.</mat-hint>
+        <mat-error [input]="email" [group]="formGroup" appFieldError="invalid">
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="membership-registration-text-email-container">
         <mat-label>Email</mat-label>
-        <input matInput placeholder="Email" />
-      </mat-form-field>
+        <input matInput placeholder="Email" required />
+      </mat-form-field> -->
 
       <mat-form-field class="membership-registration-select-coutry-container">
         <mat-label>Country</mat-label>

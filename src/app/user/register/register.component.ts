@@ -123,8 +123,7 @@ export class RegisterComponent implements OnInit {
       pichain_uid: userId,
       pichain_username: userName,
 
-      streamvault_username:
-        this._registrationForm.controls['streamvault_username'].value,
+      name: this._registrationForm.controls['streamvault_username'].value,
       email: this._registrationForm.controls['email'].value,
       country: this._registrationForm.controls['country'].value,
       city: this._registrationForm.controls['city'].value,

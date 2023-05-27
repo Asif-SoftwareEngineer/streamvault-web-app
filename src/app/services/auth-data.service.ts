@@ -53,7 +53,7 @@ export class AuthDataService {
     }
 
     this._regService.setRegisteredUserSubject({
-      streamvault_username: '',
+      name: { first: '', last: '' },
       email: '',
       country: '',
       role: Role.None,

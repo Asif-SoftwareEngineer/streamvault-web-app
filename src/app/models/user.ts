@@ -8,7 +8,7 @@ export interface IUser {
   pichain_uid?: string;
   pichain_username?: string;
   userId?: string;
-  streamvault_username: string;
+  name: IName;
   email: string;
   country: string;
   city?: string;
@@ -22,4 +22,10 @@ export interface IUser {
   watchList?: string[];
   settings?: ISetting;
   channels?: IChannel[];
+}
+
+export interface IName {
+  first: string;
+  //middle?: string;
+  last: string;
 }

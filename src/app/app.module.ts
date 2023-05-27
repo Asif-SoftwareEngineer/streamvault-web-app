@@ -12,6 +12,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
+import { SimpleDialogComponent } from './common/simple-dialog.component';
 import { StudioModule } from './studio/studio.module';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { UserModule } from './user/user.module';
@@ -24,6 +25,7 @@ import { ValidationModule } from './validation/validation.module';
     PageNotFoundComponent,
     PrivacyPolicyComponent,
     TermsOfServiceComponent,
+    SimpleDialogComponent,
   ],
   imports: [
     BrowserModule,

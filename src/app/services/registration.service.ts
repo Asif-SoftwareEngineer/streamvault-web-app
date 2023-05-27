@@ -27,7 +27,7 @@ export class RegistrationDataService {
   // });
 
   _userWithInitialValues: IUser = {
-    streamvault_username: '',
+    name: { first: '', last: '' },
     email: '',
     country: '',
     role: Role.Visitor,

@@ -1,0 +1,19 @@
+@media (max-width: 479px) {
+  .mat-form-field-class {
+    margin-top: var(--dl-space-space-unit);
+    width: 280px;
+  }
+
+  .mat-vertical-stepper-header {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 379px) {
+  .mat-form-field-class {
+    margin-top: var(--dl-space-space-halfunit);
+    max-width: 240px;
+  }
+}

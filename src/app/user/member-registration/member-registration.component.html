@@ -1,93 +1,239 @@
 <div class="membership-registration-container">
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-    <div class="membership-registration-main-column">
-      <div class="Content-3 page-Title-Header">
-        <label> Become Member </label>
-      </div>
-      <div class="membership-registration-page-header-2">
-        <img
-          alt="image"
-          src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixid=Mnw5MTMyMXwwfDF8c2VhcmNofDF8fG1lbWJlcnxlbnwwfHx8fDE2ODEyNzg4Njc&amp;ixlib=rb-4.0.3&amp;w=200"
-          class="membership-registration-image"
-        />
-        <svg viewBox="0 0 1024 1024" class="membership-registration-back-icon">
-          <path d="M498 166l-346 346 346 346-76 76-422-422 422-422z"></path>
-        </svg>
-      </div>
-      <div class="membership-registration-page-description">
-        <span class="membership-registration-text Content-2">
-          All these subscriptions are based  on Test Pi (but not real Pi). As
-          this system is running in Pi Testnet.
-        </span>
-      </div>
-
-      <!-- <mat-form-field class="membership-registration-text-name-container">
-        <mat-label>Your Name</mat-label>
-        <input
-          formControlName="name"
-          matInput
-          placeholder="Name"
-          class="membership-registration-name"
-        />
-      </mat-form-field> -->
-
-      <app-name-input
-        [initialData]="nameInitialData$ | async"
-        (formReady)="registerForm('name', $event)"
-      >
-      </app-name-input>
-
-      <!-- <mat-form-field appearance="outline" fxFlex="50%">
-        <mat-label>E-mail</mat-label>
-        <input matInput aria-label="E-mail" formControlName="email" #email />
-        <mat-hint>Only your manager can update your e-mail.</mat-hint>
-        <mat-error [input]="email" [group]="formGroup" appFieldError="invalid">
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="membership-registration-text-email-container">
-        <mat-label>Email</mat-label>
-        <input matInput placeholder="Email" required />
-      </mat-form-field> -->
-
-      <mat-form-field class="membership-registration-select-coutry-container">
-        <mat-label>Country</mat-label>
-        <select matNativeControl required>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-        </select>
-      </mat-form-field>
-
-      <mat-form-field class="membership-registration-select-city-container">
-        <mat-label>City</mat-label>
-        <select matNativeControl required>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-        </select>
-      </mat-form-field>
-
-      <div class="membership-registration-age-greater-than18-container">
-        <span class="membership-registration-text01 mat-subheading-1">
-          Age greater than 18
-        </span>
-        <mat-checkbox color="accent" checked="true"></mat-checkbox>
-      </div>
-
-      <div class="membership-registration-register-button-container">
-        <button
-          mat-raised-button
-          color="accent"
-          class="button membership-registration-button-Next"
-        >
-          Next
-        </button>
-      </div>
+  <div class="membership-registration-main-column">
+    <div class="Content-3 page-Title-Header">
+      <label> Become Member </label>
     </div>
-  </form>
+    <div class="membership-registration-image-header">
+      <img
+        alt="image"
+        src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixid=Mnw5MTMyMXwwfDF8c2VhcmNofDF8fG1lbWJlcnxlbnwwfHx8fDE2ODEyNzg4Njc&amp;ixlib=rb-4.0.3&amp;w=200"
+        class="membership-registration-image"
+      />
+      <svg viewBox="0 0 1024 1024" class="membership-registration-back-icon">
+        <path d="M498 166l-346 346 346 346-76 76-422-422 422-422z"></path>
+      </svg>
+    </div>
+    <div class="membership-registration-page-description">
+      <span class="membership-registration-text Content-2">
+        All these subscriptions are based  on Test Pi (but not real Pi). As this
+        system is running in Pi Testnet.
+      </span>
+    </div>
+
+    <mat-stepper orientation="vertical" [linear]="true" #stepper>
+      <mat-step [stepControl]="_basicInfoFormGroup">
+        <form [formGroup]="_basicInfoFormGroup">
+          <ng-template matStepLabel>Basic Information</ng-template>
+          <mat-form-field class="mat-form-field-class">
+            <mat-label>First Name</mat-label>
+            <input
+              matInput
+              aria-label="First Name"
+              placeholder="Your First Name"
+              formControlName="first"
+              #firstName
+            />
+            <mat-error
+              [input]="firstName"
+              [group]="_basicInfoFormGroup"
+              [appFieldError]="ErrorSets['RequiredText']"
+            >
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="mat-form-field-class">
+            <mat-label>Last Name</mat-label>
+            <input
+              matInput
+              aria-label="Last Name"
+              placeholder="Your Last Name"
+              formControlName="last"
+              #lastName
+            />
+            <mat-error
+              [input]="lastName"
+              [group]="_basicInfoFormGroup"
+              [appFieldError]="ErrorSets['RequiredText']"
+            >
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="mat-form-field-class">
+            <mat-label>Country</mat-label>
+            <select matNativeControl required>
+              <option value="volvo">Volvo</option>
+            </select>
+          </mat-form-field>
+
+          <mat-form-field class="mat-form-field-class">
+            <mat-label>City</mat-label>
+            <select matNativeControl required>
+              <option value="volvo">Volvo</option>
+            </select>
+          </mat-form-field>
+
+          <mat-form-field class="mat-form-field-class">
+            <mat-label>Your Primary Language</mat-label>
+            <select matNativeControl required>
+              <option value="volvo">English</option>
+            </select>
+          </mat-form-field>
+
+          <div class="membership-registration-age-greater-than18-container">
+            <span class="membership-registration-text01 Content-2">
+              Age greater than 18
+            </span>
+            <mat-checkbox
+              color="accent"
+              checked="true"
+              class="membership-registration-checkbox"
+            ></mat-checkbox>
+          </div>
+
+          <div class="membership-registration-basic-info-button-container">
+            <button
+              id="btnNextBasicInfo"
+              mat-raised-button
+              color="accent"
+              class="button mat-body-1 basic-info-button-Next"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="_emailOrPhoneFormGroup">
+        <form [formGroup]="_emailOrPhoneFormGroup">
+          <ng-template matStepLabel>Fill out your Email</ng-template>
+          <mat-form-field class="mat-form-field-class">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              aria-label="Email Address"
+              placeholder="Email"
+              formControlName="email"
+              #email
+            />
+            <mat-error
+              [input]="email"
+              [group]="_emailOrPhoneFormGroup"
+              appFieldError="invalid"
+            >
+            </mat-error>
+          </mat-form-field>
+
+          <div class="membership-registration-emailphone-button-container">
+            <button
+              id="btnBackEmail"
+              mat-raised-button
+              color="accent"
+              class="button mat-body-1 basic-info-emailphone-button-Back"
+              matStepperPrevious
+            >
+              Back
+            </button>
+            <button
+              id="btnNextEmail"
+              mat-raised-button
+              color="accent"
+              class="button mat-body-1 basic-info-emailphone-button-Next"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="_codeVerificationFormGroup">
+        <form [formGroup]="_codeVerificationFormGroup">
+          <ng-template matStepLabel>Verification</ng-template>
+          <mat-form-field class="mat-form-field-class">
+            <mat-label>Six Digit Code</mat-label>
+            <input
+              matInput
+              aria-label="Verification-Code"
+              placeholder="Code"
+              formControlName="code"
+              minlength="6"
+              maxlength="6"
+              #code
+            />
+            <mat-error
+              [input]="code"
+              [group]="_codeVerificationFormGroup"
+              [appFieldError]="ErrorSets['RequiredText']"
+            >
+            </mat-error>
+          </mat-form-field>
+          <div class="membership-registration-emailphone-button-container">
+            <button
+              id="btnBackEmail"
+              mat-raised-button
+              color="accent"
+              class="button mat-body-1 basic-info-emailphone-button-Back"
+              matStepperPrevious
+            >
+              Back
+            </button>
+            <button
+              id="btnNextEmail"
+              mat-raised-button
+              color="accent"
+              class="button mat-body-1 basic-info-emailphone-button-Next"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="_membershipPaymentWithPi">
+        <form [formGroup]="_membershipPaymentWithPi">
+          <ng-template matStepLabel>Choose Membership Options</ng-template>
+          <mat-form-field class="mat-form-field-class">
+            <mat-label>Six Digit Code</mat-label>
+            <input
+              matInput
+              aria-label="Membership-Options"
+              placeholder="Option"
+              formControlName="option"
+              #option
+            />
+            <mat-error
+              [input]="option"
+              [group]="_membershipPaymentWithPi"
+              [appFieldError]="ErrorSets['RequiredText']"
+            >
+            </mat-error>
+          </mat-form-field>
+          <div class="membership-registration-emailphone-button-container">
+            <button
+              id="btnBackEmail"
+              mat-raised-button
+              color="accent"
+              class="button mat-body-1 basic-info-emailphone-button-Back"
+              matStepperPrevious
+            >
+              Back
+            </button>
+            <button
+              id="btnNextEmail"
+              mat-raised-button
+              color="accent"
+              class="button mat-body-1 basic-info-emailphone-button-Next"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-stepper>
+  </div>
+
   <div class="membership-registration-col-mob-view-only">
     <div class="membership-registration-message-prompt-row">
       <span class="mat-title mob-view-prompt-text">

@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   EmailValidation,
-  RangeTextValidation,
+  OptionalEmailValidation,
   RequiredTextValidation,
 } from '../../common/validations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IName, IUser } from 'src/app/models/user';
 
 import { ActivatedRoute } from '@angular/router';
-import { BaseFormDirective } from 'src/app/common/base-form.class';
+//import { BaseFormDirective } from 'src/app/common/base-form.class';
 import { BehaviorSubject } from 'rxjs';
 import { ErrorSets } from '../../user-controls/field-error/field-error.directive';
 import { RegistrationDataService } from 'src/app/services/registration.service';
@@ -21,60 +21,68 @@ import { UiService } from 'src/app/common/ui.service';
   templateUrl: './member-registration.component.html',
   styleUrls: ['./member-registration.component.scss'],
 })
-export class MemberRegistrationComponent
-  extends BaseFormDirective<IUser>
-  implements OnInit, OnDestroy
-{
+export class MemberRegistrationComponent implements OnInit, OnDestroy {
   constructor(
-    private formBuilder: FormBuilder,
+    private _fb: FormBuilder,
     private regService: RegistrationDataService,
     //private authService: AuthService,
     //private uiService: UiService,
     private route: ActivatedRoute
-  ) {
-    super();
-  }
+  ) {}
 
   userError = '';
-  readonly nameInitialData$ = new BehaviorSubject<IName>({
-    first: '',
-    last: '',
-  });
 
   ErrorSets = ErrorSets;
   Role = Role;
   private subs = new SubSink();
 
+  _basicInfoFormGroup: FormGroup = this._fb.group({});
+  _emailOrPhoneFormGroup!: FormGroup;
+  _codeVerificationFormGroup!: FormGroup;
+  _membershipPaymentWithPi!: FormGroup;
+
   ngOnDestroy() {
     this.subs.unsubscribe();
-    this.deregisterAllForms();
+    //this.deregisterAllForms();
   }
 
   ngOnInit(): void {
-    this.formGroup = this.buildForm();
+    this.buildBasicInfoForm();
+    this.buildEmailOrPhoneForm();
+    this.buildCodeVerificationForm();
+    this.buildMembershipPaymentWithPiForm();
   }
 
   onSubmit(): void {}
   toggleSelection() {}
 
-  buildForm(initialData?: IUser): FormGroup {
-    console.log('about to build the form');
+  buildBasicInfoForm(initialData?: IUser) {
+    //const user = initialData;
 
-    const user = initialData;
-
-    const form = this.formBuilder.group({
-      email: [user?.email || 'HI@GMAIL.COM', EmailValidation],
-      name: [
-        user?.name || 'ASIF JAVED',
-        [
-          RequiredTextValidation,
-          Validators.minLength(2),
-          Validators.maxLength(30),
-        ],
-      ],
-      //phone: this.formBuilder.array(this.buildPhoneArray(user?.phones || [])),
+    this._basicInfoFormGroup = this._fb.group({
+      first: ['asif', RequiredTextValidation],
+      last: ['javed', RequiredTextValidation],
     });
+  }
 
-    return form;
+  buildEmailOrPhoneForm() {
+    this._emailOrPhoneFormGroup = this._fb.group({
+      email: ['hi@hi.com', EmailValidation],
+    });
+  }
+
+  buildCodeVerificationForm() {
+    this._codeVerificationFormGroup = this._fb.group({
+      code: ['526314', RequiredTextValidation],
+    });
+  }
+
+  buildMembershipPaymentWithPiForm() {
+    this._membershipPaymentWithPi = this._fb.group({
+      option: [
+        '526314',
+        RequiredTextValidation,
+      ],
+    });
   }
 }

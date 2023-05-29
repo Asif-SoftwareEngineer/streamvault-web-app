@@ -89,12 +89,12 @@
             ></mat-checkbox>
           </div>
 
-          <div class="membership-registration-basic-info-button-container">
+          <div class="membership-registration-button-container">
             <button
               id="btnNextBasicInfo"
               mat-raised-button
               color="accent"
-              class="button mat-body-1 basic-info-button-Next"
+              class="button mat-body-1 button-Next"
               matStepperNext
             >
               Next
@@ -106,6 +106,7 @@
       <mat-step [stepControl]="_emailOrPhoneFormGroup">
         <form [formGroup]="_emailOrPhoneFormGroup">
           <ng-template matStepLabel>Fill out your Email</ng-template>
+
           <mat-form-field class="mat-form-field-class">
             <mat-label>Email</mat-label>
             <input
@@ -123,12 +124,12 @@
             </mat-error>
           </mat-form-field>
 
-          <div class="membership-registration-emailphone-button-container">
+          <div class="membership-registration-button-container">
             <button
               id="btnBackEmail"
               mat-raised-button
               color="accent"
-              class="button mat-body-1 basic-info-emailphone-button-Back"
+              class="button mat-body-1 button-Back"
               matStepperPrevious
             >
               Back
@@ -137,7 +138,7 @@
               id="btnNextEmail"
               mat-raised-button
               color="accent"
-              class="button mat-body-1 basic-info-emailphone-button-Next"
+              class="button mat-body-1 button-Next"
               matStepperNext
             >
               Next
@@ -167,12 +168,13 @@
             >
             </mat-error>
           </mat-form-field>
-          <div class="membership-registration-emailphone-button-container">
+
+          <div class="membership-registration-button-container">
             <button
               id="btnBackEmail"
               mat-raised-button
               color="accent"
-              class="button mat-body-1 basic-info-emailphone-button-Back"
+              class="button mat-body-1 button-Back"
               matStepperPrevious
             >
               Back
@@ -181,7 +183,7 @@
               id="btnNextEmail"
               mat-raised-button
               color="accent"
-              class="button mat-body-1 basic-info-emailphone-button-Next"
+              class="button mat-body-1 button-Next"
               matStepperNext
             >
               Next
@@ -193,43 +195,75 @@
       <mat-step [stepControl]="_membershipPaymentWithPi">
         <form [formGroup]="_membershipPaymentWithPi">
           <ng-template matStepLabel>Choose Membership Options</ng-template>
-          <mat-form-field class="mat-form-field-class">
-            <mat-label>Six Digit Code</mat-label>
-            <input
-              matInput
-              aria-label="Membership-Options"
-              placeholder="Option"
-              formControlName="option"
-              #option
-            />
-            <mat-error
-              [input]="option"
-              [group]="_membershipPaymentWithPi"
-              [appFieldError]="ErrorSets['RequiredText']"
-            >
-            </mat-error>
-          </mat-form-field>
-          <div class="membership-registration-emailphone-button-container">
-            <button
-              id="btnBackEmail"
-              mat-raised-button
-              color="accent"
-              class="button mat-body-1 basic-info-emailphone-button-Back"
-              matStepperPrevious
-            >
-              Back
-            </button>
+          <app-membership-options></app-membership-options>
+
+          <div class="membership-registration-button-container">
             <button
               id="btnNextEmail"
               mat-raised-button
               color="accent"
-              class="button mat-body-1 basic-info-emailphone-button-Next"
+              class="button mat-body-1 button-Next"
               matStepperNext
             >
               Next
             </button>
           </div>
         </form>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Review and Submit</ng-template>
+        <p>
+          Before initiating any payment action, please ensure that you have the
+          necessary Test Pi coins.
+        </p>
+
+        <div class="membership-registration-button-container">
+          <button
+            id="btnBackEmail"
+            mat-raised-button
+            color="accent"
+            class="button mat-body-1 button-Back"
+            matStepperPrevious
+          >
+            Back
+          </button>
+          <button
+            id="btnNextEmail"
+            mat-raised-button
+            color="accent"
+            class="button mat-body-1 button-Next"
+            matStepperNext
+          >
+            Next
+          </button>
+        </div>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+
+        <div class="membership-registration-button-container">
+          <button
+            id="btnBackEmail"
+            mat-raised-button
+            color="accent"
+            class="button mat-body-1 button-Back"
+            matStepperPrevious
+          >
+            Back
+          </button>
+          <button
+            id="btnNextEmail"
+            mat-raised-button
+            color="accent"
+            class="button mat-body-1 button-Next"
+            matStepperNext
+          >
+            Next
+          </button>
+        </div>
       </mat-step>
     </mat-stepper>
   </div>

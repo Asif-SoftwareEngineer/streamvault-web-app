@@ -70,19 +70,10 @@
   width: 100%;
 }
 
-.membership-registration-basic-info-button-container {
+.membership-registration-button-container {
   flex: 0 0 auto;
   width: 100%;
-  height: var(--dl-size-size-medium-1);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.membership-registration-emailphone-button-container {
-  flex: 0 0 auto;
-  width: 100%;
-  height: var(--dl-size-size-medium-1);
+  height: var(--dl-size-size-small);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -151,6 +142,7 @@
   display: flex;
   align-items: flex-start;
 }
+
 // @media (max-width: 991px) {
 //   .membership-registration-container {
 //     align-items: center;
@@ -376,41 +368,24 @@
     //flex-wrap: wrap;
   }
 
-  .membership-registration-basic-info-button-container {
-    margin-top: var(--dl-space-space-unit);
-    height: var(--dl-size-size-medium-1);
+  .membership-registration-button-container {
+    margin-top: var(--dl-space-space-halfunit);
+    height: var(--dl-size-size-small);
     padding: var(--dl-space-space-halfunit);
-    padding: var(--dl-space-space-unit);
     width: 100%;
     justify-content: flex-end;
     flex-wrap: wrap;
   }
 
-  .basic-info-button-Next {
+  .button-Back {
     width: 30%;
     height: var(--dl-size-size-xsmall);
   }
 
-  .membership-registration-emailphone-button-container {
-    margin-top: var(--dl-space-space-unit);
-    height: var(--dl-size-size-medium-1);
-    padding: var(--dl-space-space-halfunit);
-    padding: var(--dl-space-space-unit);
-    width: 100%;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-  }
-
-  .basic-info-emailphone-button-Back {
+  .button-Next {
     width: 30%;
+    margin-left: var(--dl-space-space-halfunit);
     height: var(--dl-size-size-xsmall);
-    margin-left: var(--dl-space-space-unit);
-  }
-
-  .basic-info-emailphone-button-Next {
-    width: 30%;
-    height: var(--dl-size-size-xsmall);
-    margin-left: var(--dl-space-space-unit);
   }
 
   .membership-registration-age-greater-than18-container {
@@ -443,16 +418,12 @@
     text-decoration: none;
   }
 
-  .membership-registration-register-button-container {
-    height: var(--dl-size-size-medium-1);
-    position: relative;
-    align-items: center;
-    justify-content: center;
-  }
-  .membership-registration-button-Next {
-    width: var(--dl-size-size-xxlarge);
-    height: var(--dl-size-size-small);
-  }
+  /*
+  Membership Option Classes
+
+  */
+
+  /* ---------------- */
 
   .membership-registration-col-mob-view-only {
     display: none;

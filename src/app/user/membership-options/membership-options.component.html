@@ -1,84 +1,52 @@
-<div class="membership-options-container">
-  <div class="membership-options-col-mob-view-only">
-    <div class="membership-options-message-prompt-row">
-      <span class="Field-Label">
-        Oops! It seems you&apos;re not viewing this on a mobile device. Please
-        switch to a mobile view for the best experience. Thank you!
-      </span>
-    </div>
-  </div>
-  <div class="membership-options-main-column">
-    <div class="membership-options-page-header">
-      <label class="membership-options-title Heading-3">Become Member</label>
-    </div>
-    <div class="membership-options-page-header-2">
-      <img
-        alt="image"
-        src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixid=Mnw5MTMyMXwwfDF8c2VhcmNofDF8fG1lbWJlcnxlbnwwfHx8fDE2ODEyNzg4Njc&amp;ixlib=rb-4.0.3&amp;w=200"
-        class="membership-options-image"
-      />
-      <svg viewBox="0 0 1024 1024" class="membership-options-back-icon">
-        <path d="M498 166l-346 346 346 346-76 76-422-422 422-422z"></path>
-      </svg>
-    </div>
-    <div class="membership-options-membership-options-row">
-      <label class="Heading-4 membership-options-lbl-options">
-        Choose either of the Membership Options:
-      </label>
-    </div>
-    <div class="membership-options-trial-row">
-      <span class="membership-options-text">
-        <span class="membership-options-text01 Field-Label">
-          Option 1: Free
-        </span>
-        <br class="Content" />
-        <br class="Field-Label membership-options-text03" />
-        <span class="membership-options-text04 Field-Label">
-          You can try all the features except the withdrawl of your earned
-          coins, upload of any video content, place any business advertisement
-          and becoming content validator.
-        </span>
-      </span>
-    </div>
-    <div class="membership-options-monthly-row">
-      <span class="membership-options-text05">
-        <span class="membership-options-text06 Field-Label">
-          Option 2: Monthly Registration
-        </span>
-        <br class="Content" />
-        <br class="Field-Label membership-options-text08" />
-        <span class="membership-options-text09 Field-Label">
-          For only 9 Pi per month, you&apos;ll enjoy unlimited access to our
-          exclusive membership benefits. Dive into our vast collection of
-          resources, connect with like-minded individuals, and unlock exciting
-          features.
-        </span>
-      </span>
-    </div>
-    <div class="membership-options-yearly-row">
-      <span class="membership-options-text10">
-        <span class="membership-options-text11 Field-Label">
-          Option 3: Yearly Registration
-        </span>
-        <br class="membership-options-text12" />
-        <br class="Field-Label membership-options-text13" />
-        <span class="membership-options-text14 Field-Label">
-          For a discounted rate of 95 Pi per year, you can take full advantage
-          of our membership benefits for a whole year. With this option, you not
-          only save money but also gain uninterrupted access to all our premium
-          features, including exclusive content, staking and earning coins,
-          validating content, member events, and much more. Make a commitment to
-          your growth and make the most of our platform for the entire year.
-        </span>
-      </span>
-    </div>
-    <div class="membership-options-button-container">
-      <button id="btnBack" class="membership-options-button Heading-3">
-        Back
-      </button>
-      <button id="btnNext" class="membership-options-button1 Heading-3">
-        Register
-      </button>
-    </div>
-  </div>
+<div
+  class="membership-options-free-row"
+  [ngClass]="{ active: isFreeOptionActive }"
+  (touchstart)="setOptionActive('f', true)"
+>
+  <span class="membership-options-text">
+    <span class="membership-options-text01"> #1: Free </span>
+    <br class="Content" />
+    <br class="membership-options-text03" />
+    <span class="Content-2 membership-options-text04">
+      You can try all the features except the withdrawl of your earned coins,
+      upload of any video content, place any business advertisement and becoming
+      content validator.
+    </span>
+  </span>
+</div>
+<div
+  class="membership-options-monthly-row"
+  [ngClass]="{ active: isMonthlyOptionActive }"
+  (touchstart)="setOptionActive('m', true)"
+>
+  <span class="membership-options-text05">
+    <span class="membership-options-text06"> #2: Monthly</span>
+    <br class="Content" />
+    <br class="membership-options-text08" />
+    <span class="Content-2 membership-options-text09">
+      For only 9 Pi per month, you&apos;ll enjoy unlimited access to our
+      exclusive membership benefits. Dive into our vast collection of resources,
+      connect with like-minded individuals, and unlock exciting features.
+    </span>
+  </span>
+</div>
+
+<div
+  class="membership-options-yearly-row"
+  [ngClass]="{ active: isYearlyOptionActive }"
+  (touchstart)="setOptionActive('y', true)"
+>
+  <span class="membership-options-text10">
+    <span class="membership-options-text11"> #3: Yearly</span>
+    <br class="membership-options-text12" />
+    <br class="Field-Label membership-options-text13" />
+    <span class="Content-2 membership-options-text14">
+      For a discounted rate of 95 Pi per year, you can take full advantage of
+      our membership benefits for a whole year. With this option, you not only
+      save money but also gain uninterrupted access to all our premium features,
+      including exclusive content, staking and earning coins, validating
+      content, member events, and much more. Make a commitment to your growth
+      and make the most of our platform for the entire year.
+    </span>
+  </span>
 </div>

@@ -1,96 +1,6 @@
-:host {
-  display: contents;
-}
-.membership-options-container {
-  width: 100%;
-  display: flex;
-  overflow: auto;
-  min-height: 100vh;
-  align-items: center;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-.membership-options-col-mob-view-only {
-  flex: 1;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  background-color: var(--dl-color-accent-300);
-}
-.membership-options-message-prompt-row {
-  flex: 0 0 auto;
-  width: 80%;
-  height: 100px;
-  display: flex;
-  align-items: flex-start;
-}
-.membership-options-main-column {
-  flex: 0 0 auto;
-  width: 60%;
-  height: 100%;
-  display: none;
-  align-items: center;
-  border-color: var(--dl-color-primary-900);
-  border-width: 1px;
-  flex-direction: column;
-  background-image: linear-gradient(
-    135deg,
-    rgb(189, 195, 199) 0%,
-    rgb(219, 147, 137) 100%
-  );
-}
-.membership-options-page-header {
+.membership-options-free-row {
   flex: 0 0 auto;
   width: 100%;
-  height: var(--dl-size-size-medium);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--dl-color-accent-900);
-}
-.membership-options-title {
-  color: var(--dl-color-accent-100);
-}
-.membership-options-page-header-2 {
-  flex: 0 0 auto;
-  width: 100%;
-  height: var(--dl-size-size-large);
-  display: flex;
-  padding: var(--dl-space-space-twounits);
-  align-items: center;
-  justify-content: space-between;
-}
-.membership-options-image {
-  width: var(--dl-size-size-medium);
-  height: var(--dl-size-size-medium);
-  object-fit: cover;
-}
-.membership-options-back-icon {
-  fill: var(--dl-color-accent-900);
-  width: var(--dl-size-size-medium);
-  height: var(--dl-size-size-medium);
-  transition: 0.3s;
-  padding-left: var(--dl-space-space-unit);
-}
-.membership-options-back-icon:hover {
-  border-color: var(--dl-color-accent-500);
-  border-width: 1px;
-}
-.membership-options-membership-options-row {
-  flex: 0 0 auto;
-  width: 100%;
-  height: var(--dl-size-size-large);
-  display: flex;
-  padding: var(--dl-space-space-twounits);
-  align-items: center;
-  justify-content: flex-start;
-}
-.membership-options-trial-row {
-  flex: 0 0 auto;
-  width: 80%;
   height: var(--dl-size-size-medium);
   display: flex;
   align-items: flex-start;
@@ -151,87 +61,9 @@
   margin-left: auto;
   margin-right: auto;
 }
-.membership-options-button-container {
-  flex: 0 0 auto;
-  width: 100%;
-  height: var(--dl-size-size-medium);
-  display: flex;
-  margin-top: var(--dl-space-space-twounits);
-  align-items: center;
-  justify-content: center;
-}
-.membership-options-button {
-  color: var(--dl-color-accent-100);
-  width: var(--dl-size-size-xxlarge);
-  height: var(--dl-size-size-small);
-  padding: var(--dl-space-space-unit);
-  text-align: center;
-  transition: 0.3s;
-  border-color: var(--dl-color-accent-300);
-  border-radius: var(--dl-radius-radius-radius6);
-  background-color: var(--dl-color-accent-500);
-}
-.membership-options-button1 {
-  color: var(--dl-color-accent-100);
-  width: var(--dl-size-size-xxlarge);
-  height: var(--dl-size-size-small);
-  padding: var(--dl-space-space-unit);
-  text-align: center;
-  transition: 0.3s;
-  border-color: var(--dl-color-accent-300);
-  border-radius: var(--dl-radius-radius-radius6);
-  background-color: var(--dl-color-accent-500);
-}
+
 @media (max-width: 991px) {
-  .membership-options-container {
-    align-items: center;
-    border-color: var(--dl-color-accent-100);
-    border-width: 1px;
-  }
-  .membership-options-col-mob-view-only {
-    flex: 1;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--dl-color-accent-300);
-  }
-  .membership-options-message-prompt-row {
-    width: 80%;
-    align-items: center;
-    justify-content: center;
-  }
-  .membership-options-main-column {
-    border-color: var(--dl-color-primary-900);
-    border-width: 1px;
-  }
-  .membership-options-page-header {
-    height: var(--dl-size-size-medium);
-    background-color: var(--dl-color-accent-900);
-  }
-  .membership-options-page-header-2 {
-    padding: var(--dl-space-space-unit);
-    justify-content: space-between;
-  }
-  .membership-options-image {
-    width: var(--dl-size-size-medium);
-    height: var(--dl-size-size-medium);
-    margin: 0px;
-  }
-  .membership-options-back-icon {
-    fill: var(--dl-color-accent-900);
-    width: var(--dl-size-size-small);
-    height: var(--dl-size-size-small);
-    border-color: var(--dl-color-accent-500);
-    border-width: 0px;
-    margin-right: var(--dl-space-space-unit);
-    padding-left: var(--dl-space-space-unit);
-  }
-  .membership-options-membership-options-row {
-    padding: var(--dl-space-space-unit);
-    justify-content: space-between;
-  }
-  .membership-options-trial-row {
+  .membership-options-free-row {
     height: 72px;
     align-items: center;
     justify-content: center;
@@ -295,68 +127,11 @@
     color: var(--dl-color-accent-900);
     margin: auto;
     align-self: center;
-  }
-  .membership-options-button-container {
-    width: 100%;
-    margin-top: var(--dl-space-space-twounits);
-    align-items: flex-start;
-    border-radius: var(--dl-radius-radius-radius4);
-    justify-content: center;
   }
 }
 @media (max-width: 767px) {
-  .membership-options-container {
-    border-color: var(--dl-color-primary-900);
-    border-width: 1px;
-    background-color: var(--dl-color-accent-100);
-  }
-  .membership-options-col-mob-view-only {
-    flex: 1;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--dl-color-accent-300);
-  }
-  .membership-options-message-prompt-row {
-    width: 70%;
-    align-items: center;
-    justify-content: center;
-  }
-  .membership-options-main-column {
-    width: 80%;
-  }
-  .membership-options-page-header {
-    height: var(--dl-size-size-small);
-    display: flex;
-    background-color: var(--dl-color-accent-900);
-  }
-  .membership-options-page-header-2 {
-    padding: var(--dl-space-space-unit);
-    justify-content: space-between;
-  }
-  .membership-options-image {
-    width: var(--dl-size-size-medium);
-    height: var(--dl-size-size-medium);
-    margin: 0px;
-  }
-  .membership-options-back-icon {
-    fill: var(--dl-color-accent-900);
-    width: var(--dl-size-size-small);
-    height: var(--dl-size-size-small);
-    padding-top: 0px;
-    border-width: 0px;
-    margin-right: var(--dl-space-space-unit);
-    padding-left: var(--dl-space-space-halfunit);
-    padding-right: 0px;
-    padding-bottom: 0px;
-  }
-  .membership-options-membership-options-row {
-    padding: var(--dl-space-space-unit);
-    justify-content: space-between;
-  }
-  .membership-options-trial-row {
-    height: 72px;
+  .membership-options-free-row {
+    height: var(--dl-size-size-medium-1);
     position: relative;
   }
   .membership-options-text01 {
@@ -378,7 +153,7 @@
     margin-right: auto;
   }
   .membership-options-monthly-row {
-    height: 72px;
+    height: var(--dl-size-size-medium-1);
     position: relative;
   }
   .membership-options-text06 {
@@ -400,7 +175,7 @@
     margin-right: auto;
   }
   .membership-options-yearly-row {
-    height: 72px;
+    height: var(--dl-size-size-medium-1);
     position: relative;
   }
   .membership-options-text10 {
@@ -427,68 +202,21 @@
     margin-left: auto;
     margin-right: auto;
   }
-  .membership-options-button-container {
-    justify-content: center;
-  }
 }
 @media (max-width: 479px) {
-  .membership-options-container {
-    border-width: 0px;
-  }
-  .membership-options-col-mob-view-only {
-    display: none;
-  }
-  .membership-options-main-column {
-    flex: 1;
+  .membership-options-free-row {
     width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-  }
-  .membership-options-page-header {
-    height: var(--dl-size-size-small);
-    background-color: var(--dl-color-accent-900);
-  }
-  .membership-options-page-header-2 {
-    padding: var(--dl-space-space-unit);
-    justify-content: space-between;
-  }
-  .membership-options-image {
-    width: var(--dl-size-size-medium);
-    height: var(--dl-size-size-medium);
-    margin-top: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-    margin-bottom: 0px;
-  }
-  .membership-options-back-icon {
-    width: var(--dl-size-size-small);
-    height: var(--dl-size-size-small);
-    padding: var(--dl-space-space-halfunit);
-    border-width: 0px;
-  }
-  .membership-options-membership-options-row {
-    width: 90%;
-    height: var(--dl-size-size-small);
-    padding: var(--dl-space-space-halfunit);
-    justify-content: flex-start;
-  }
-  .membership-options-lbl-options {
-    color: var(--dl-color-accent-900);
-    width: auto;
-  }
-  .membership-options-trial-row {
-    width: 80%;
     height: auto;
     padding: var(--dl-space-space-unit);
     margin-top: var(--dl-space-space-unit);
     align-items: center;
-    border-color: var(--dl-color-accent-700);
+    border-color: var(--dl-color-primary-700);
     border-width: 1px;
     border-radius: var(--dl-radius-radius-radius6);
     margin-bottom: var(--dl-space-space-unit);
     justify-content: space-between;
   }
+
   .membership-options-text {
     color: var(--dl-color-accent-900);
     text-align: justify;
@@ -498,6 +226,7 @@
     text-decoration: none;
   }
   .membership-options-text01 {
+    font-weight: 700;
     margin-top: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -519,12 +248,12 @@
     margin-bottom: 0px;
   }
   .membership-options-monthly-row {
-    width: 80%;
+    width: 100%;
     height: auto;
     padding: var(--dl-space-space-unit);
     margin-top: var(--dl-space-space-unit);
     align-items: center;
-    border-color: var(--dl-color-accent-700);
+    border-color: var(--dl-color-primary-700);
     border-width: 1px;
     border-radius: var(--dl-radius-radius-radius6);
     margin-bottom: var(--dl-space-space-unit);
@@ -539,6 +268,7 @@
     text-decoration: none;
   }
   .membership-options-text06 {
+    font-weight: 700;
     margin-top: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -560,12 +290,12 @@
     margin-bottom: 0px;
   }
   .membership-options-yearly-row {
-    width: 80%;
+    width: 100%;
     height: auto;
     margin-top: var(--dl-space-space-unit);
     align-items: center;
     padding-top: var(--dl-space-space-unit);
-    border-color: var(--dl-color-accent-700);
+    border-color: var(--dl-color-primary-700);
     border-width: 1px;
     padding-left: var(--dl-space-space-unit);
     border-radius: var(--dl-radius-radius-radius6);
@@ -585,6 +315,7 @@
     margin-bottom: 0px;
   }
   .membership-options-text11 {
+    font-weight: 700;
     margin-top: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -608,34 +339,9 @@
     padding-left: 0px;
     margin-bottom: 0px;
   }
-  .membership-options-button-container {
-    width: 80%;
-    height: 72px;
-    position: relative;
-    margin-top: var(--dl-space-space-twounits);
-    align-items: center;
-    margin-bottom: var(--dl-space-space-twounits);
-    justify-content: space-between;
-  }
-  .membership-options-button {
-    width: auto;
-    height: auto;
-    margin-left: var(--dl-space-space-unit);
-    padding-top: 0px;
-    border-color: var(--dl-color-primary-700);
-    border-width: 1px;
-    margin-right: var(--dl-space-space-unit);
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px;
-  }
-  .membership-options-button1 {
-    width: auto;
-    height: auto;
-    padding: 0px;
-    margin-left: var(--dl-space-space-unit);
-    border-color: var(--dl-color-primary-700);
-    border-width: 1px;
-    margin-right: var(--dl-space-space-unit);
+  .active {
+    border: 3px solid var(--dl-color-primary-700) !important;
+    background-color: var(--dl-color-primary-100) !important;
+    transition: border-color 0.3s ease-in-out;
   }
 }

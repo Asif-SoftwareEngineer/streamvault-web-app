@@ -79,10 +79,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
 
   buildMembershipPaymentWithPiForm() {
     this._membershipPaymentWithPi = this._fb.group({
-      option: [
-        '526314',
-        RequiredTextValidation,
-      ],
+      option: ['526314', RequiredTextValidation],
     });
   }
 }

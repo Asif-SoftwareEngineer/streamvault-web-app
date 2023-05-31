@@ -15,67 +15,87 @@
     </div>
     <div class="membership-registration-page-description">
       <span class="membership-registration-text Content-2">
-        All these subscriptions are based  on Test Pi (but not real Pi). As this
-        system is running in Pi Testnet.
+        "All of these subscriptions are built on Test Pi rather than real Pi, as
+        the system operates within the Pi Testnet environment."
       </span>
     </div>
 
     <mat-stepper orientation="vertical" [linear]="true" #stepper>
-      <mat-step [stepControl]="_basicInfoFormGroup">
-        <form [formGroup]="_basicInfoFormGroup">
+      <mat-step
+        [completed]="isMemberVerified"
+        [editable]="!isMemberVerified"
+        [stepControl]="basicInfoFormGroup"
+      >
+        <form [formGroup]="basicInfoFormGroup">
           <ng-template matStepLabel>Basic Information</ng-template>
+
           <mat-form-field class="mat-form-field-class">
             <mat-label>First Name</mat-label>
             <input
               matInput
               aria-label="First Name"
               placeholder="Your First Name"
-              formControlName="first"
+              formControlName="firstNameCtrl"
               #firstName
+              autocomplete="new-password"
             />
             <mat-error
               [input]="firstName"
-              [group]="_basicInfoFormGroup"
+              [group]="basicInfoFormGroup"
               [appFieldError]="ErrorSets['RequiredText']"
             >
             </mat-error>
           </mat-form-field>
+
           <mat-form-field class="mat-form-field-class">
             <mat-label>Last Name</mat-label>
             <input
               matInput
               aria-label="Last Name"
               placeholder="Your Last Name"
-              formControlName="last"
+              formControlName="lastNameCtrl"
               #lastName
+              autocomplete="new-password"
             />
             <mat-error
               [input]="lastName"
-              [group]="_basicInfoFormGroup"
+              [group]="basicInfoFormGroup"
               [appFieldError]="ErrorSets['RequiredText']"
             >
             </mat-error>
           </mat-form-field>
 
           <mat-form-field class="mat-form-field-class">
-            <mat-label>Country</mat-label>
-            <select matNativeControl required>
-              <option value="volvo">Volvo</option>
-            </select>
-          </mat-form-field>
-
-          <mat-form-field class="mat-form-field-class">
-            <mat-label>City</mat-label>
-            <select matNativeControl required>
-              <option value="volvo">Volvo</option>
-            </select>
-          </mat-form-field>
-
-          <mat-form-field class="mat-form-field-class">
             <mat-label>Your Primary Language</mat-label>
-            <select matNativeControl required>
-              <option value="volvo">English</option>
-            </select>
+            <input
+              #langInput
+              type="text"
+              aria-label="Language"
+              placeholder="Language"
+              matInput
+              formControlName="languageCtrl"
+              [matAutocomplete]="auto"
+              autocomplete="new-password"
+              #lang
+            />
+            <mat-error
+              [input]="lang"
+              [group]="basicInfoFormGroup"
+              [appFieldError]="{
+                error: 'invalid',
+                message: 'Invalid input. Please enter a valid language.'
+              }"
+            >
+            </mat-error>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option
+                class="auto-option-list"
+                *ngFor="let option of filteredLanguageOptions | async"
+                [value]="option"
+              >
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
 
           <div class="membership-registration-age-greater-than18-container">
@@ -86,16 +106,32 @@
               color="accent"
               checked="true"
               class="membership-registration-checkbox"
+              formControlName="ageCtrl"
             ></mat-checkbox>
+            <mat-error
+              class="age-greather-than18-error-container"
+              *ngIf="
+                basicInfoFormGroup.controls['ageCtrl'].hasError('required') &&
+                basicInfoFormGroup.controls['ageCtrl'].touched
+              "
+            >
+              <span>
+                While our platform is suitable for users of all ages, currently,
+                we only allow individuals who are 18 years of age or older to
+                access our services.</span
+              >
+            </mat-error>
           </div>
 
           <div class="membership-registration-button-container">
             <button
-              id="btnNextBasicInfo"
               mat-raised-button
+              type="button"
               color="accent"
               class="button mat-body-1 button-Next"
               matStepperNext
+              [disabled]="basicInfoFormGroup.invalid"
+              (click)="defineBasicInfo()"
             >
               Next
             </button>
@@ -103,8 +139,12 @@
         </form>
       </mat-step>
 
-      <mat-step [stepControl]="_emailOrPhoneFormGroup">
-        <form [formGroup]="_emailOrPhoneFormGroup">
+      <mat-step
+        [completed]="isMemberVerified"
+        [editable]="!isMemberVerified"
+        [stepControl]="emailOrPhoneFormGroup"
+      >
+        <form [formGroup]="emailOrPhoneFormGroup">
           <ng-template matStepLabel>Fill out your Email</ng-template>
 
           <mat-form-field class="mat-form-field-class">
@@ -113,12 +153,12 @@
               matInput
               aria-label="Email Address"
               placeholder="Email"
-              formControlName="email"
+              formControlName="emailCtrl"
               #email
             />
             <mat-error
               [input]="email"
-              [group]="_emailOrPhoneFormGroup"
+              [group]="emailOrPhoneFormGroup"
               appFieldError="invalid"
             >
             </mat-error>
@@ -126,8 +166,8 @@
 
           <div class="membership-registration-button-container">
             <button
-              id="btnBackEmail"
               mat-raised-button
+              type="button"
               color="accent"
               class="button mat-body-1 button-Back"
               matStepperPrevious
@@ -135,11 +175,13 @@
               Back
             </button>
             <button
-              id="btnNextEmail"
               mat-raised-button
+              type="button"
               color="accent"
               class="button mat-body-1 button-Next"
               matStepperNext
+              [disabled]="emailOrPhoneFormGroup.invalid"
+              (click)="defineUserEmailOrPhone()"
             >
               Next
             </button>
@@ -147,8 +189,12 @@
         </form>
       </mat-step>
 
-      <mat-step [stepControl]="_codeVerificationFormGroup">
-        <form [formGroup]="_codeVerificationFormGroup">
+      <mat-step
+        [completed]="isMemberVerified"
+        [editable]="!isMemberVerified"
+        [stepControl]="codeVerificationFormGroup"
+      >
+        <form [formGroup]="codeVerificationFormGroup">
           <ng-template matStepLabel>Verification</ng-template>
           <mat-form-field class="mat-form-field-class">
             <mat-label>Six Digit Code</mat-label>
@@ -163,7 +209,7 @@
             />
             <mat-error
               [input]="code"
-              [group]="_codeVerificationFormGroup"
+              [group]="codeVerificationFormGroup"
               [appFieldError]="ErrorSets['RequiredText']"
             >
             </mat-error>
@@ -171,8 +217,8 @@
 
           <div class="membership-registration-button-container">
             <button
-              id="btnBackEmail"
               mat-raised-button
+              type="button"
               color="accent"
               class="button mat-body-1 button-Back"
               matStepperPrevious
@@ -180,11 +226,13 @@
               Back
             </button>
             <button
-              id="btnNextEmail"
               mat-raised-button
+              type="button"
               color="accent"
               class="button mat-body-1 button-Next"
               matStepperNext
+              [disabled]="codeVerificationFormGroup.invalid"
+              (click)="verifyMemberEmail()"
             >
               Next
             </button>
@@ -192,18 +240,28 @@
         </form>
       </mat-step>
 
-      <mat-step [stepControl]="_membershipPaymentWithPi">
-        <form [formGroup]="_membershipPaymentWithPi">
-          <ng-template matStepLabel>Choose Membership Options</ng-template>
-          <app-membership-options></app-membership-options>
+      <mat-step
+        [completed]="isMemberRegistered"
+        [editable]="!isMemberRegistered"
+        [stepControl]="membershipPaymentWithPi"
+      >
+        <form [formGroup]="membershipPaymentWithPi">
+          <ng-template matStepLabel>Select Your Membership Plan</ng-template>
+
+          <app-membership-options
+            (formValidity)="handleFormValidity($event)"
+            (selectedOptionValue)="handleSelectedOption($event)"
+          ></app-membership-options>
 
           <div class="membership-registration-button-container">
             <button
-              id="btnNextEmail"
               mat-raised-button
+              type="button"
               color="accent"
               class="button mat-body-1 button-Next"
               matStepperNext
+              [disabled]="!isFormValid"
+              (click)="defineMembershipPlan()"
             >
               Next
             </button>
@@ -211,17 +269,58 @@
         </form>
       </mat-step>
 
-      <mat-step>
+      <mat-step
+        [completed]="isMemberRegistered"
+        [editable]="!isMemberRegistered"
+        [stepControl]="membershipPaymentWithPi"
+      >
         <ng-template matStepLabel>Review and Submit</ng-template>
-        <p>
+        <p class="reveiew-first-para">
           Before initiating any payment action, please ensure that you have the
           necessary Test Pi coins.
         </p>
 
+        <div *ngIf="userObj" class="review-name-row">
+          <label class="review-text">Name</label>
+          <label class="review-lbl-name">{{ userObj.name.first }} </label>
+        </div>
+        <div class="review-membership-row">
+          <label class="review-text1">
+            <span>Membership</span>
+            <br />
+          </label>
+          <label class="review-lbl-membership-type">{{
+            userObj.membership_Type
+          }}</label>
+        </div>
+        <div class="review-language">
+          <label class="review-language1">
+            <span>Language</span>
+            <br />
+          </label>
+          <label class="review-lbl-language">{{ userObj.language }}</label>
+        </div>
+        <div class="review-email-row">
+          <span class="review-email">Email</span>
+          <label class="review-lbl-email">{{ userObj.email }}</label>
+        </div>
+        <div class="review-mobile-row">
+          <label class="review-text6">Mobile</label>
+          <label class="review-lbl-mobile">{{
+            userObj.mobile ? userObj.mobile : "--"
+          }}</label>
+        </div>
+        <div class="review-payment-row">
+          <label class="review-text8">Payment</label>
+          <label class="review-lbl-payment-amount"
+            >{{ selectedOption.premium }} &#8508;</label
+          >
+        </div>
+
         <div class="membership-registration-button-container">
           <button
-            id="btnBackEmail"
             mat-raised-button
+            type="button"
             color="accent"
             class="button mat-body-1 button-Back"
             matStepperPrevious
@@ -229,39 +328,42 @@
             Back
           </button>
           <button
-            id="btnNextEmail"
             mat-raised-button
+            type="button"
             color="accent"
             class="button mat-body-1 button-Next"
             matStepperNext
+            (click)="registerMember()"
           >
-            Next
+            Register
           </button>
         </div>
       </mat-step>
 
       <mat-step>
         <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
 
-        <div class="membership-registration-button-container">
+        <div class="done-congrats-row">
+          <label class="done-lbl-congrats mat-title">Congratulations!</label>
+        </div>
+        <p class="done-first-para Content-2">
+          Congratulations on becoming a registered member of the StreamVault
+          video community.
+        </p>
+        <p class="done-first-para Content-2">
+          To access and enjoy various features, please explore the provided
+          links below:
+        </p>
+        <div class="done-button-container">
           <button
-            id="btnBackEmail"
-            mat-raised-button
-            color="accent"
-            class="button mat-body-1 button-Back"
-            matStepperPrevious
+            mat-button
+            class="button mat-body-1 done-button-member-home"
+            (click)="goToHome()"
           >
-            Back
+            Home
           </button>
-          <button
-            id="btnNextEmail"
-            mat-raised-button
-            color="accent"
-            class="button mat-body-1 button-Next"
-            matStepperNext
-          >
-            Next
+          <button mat-button class="button mat-body-1 done-button-stream">
+            Stream
           </button>
         </div>
       </mat-step>

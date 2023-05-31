@@ -16,7 +16,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { NotificationService } from './services/notification.service';
 import { NotificationType } from './shared/enums';
 import { Pi_Authentication } from './shared/pi-auth-payments';
-import { RegistrationDataService } from './services/registration.service';
+//import { RegistrationDataService } from './services/registration.service';
 import { Role } from './models/enums';
 import { Router } from '@angular/router';
 import { TokenStorageService } from './services/token-storage.service';
@@ -52,8 +52,7 @@ export class AppComponent implements OnInit {
     private _dialog: MatDialog,
     private _authService: AuthDataService,
     private _tokenStorageService: TokenStorageService,
-    private _notificationService: NotificationService,
-    private _regService: RegistrationDataService
+    private _notificationService: NotificationService //private _regService: RegistrationDataService
   ) {
     _iconRegistry.addSvgIcon(
       'streamvault',
@@ -127,19 +126,19 @@ export class AppComponent implements OnInit {
   }
 
   connect(): void {
-    this.isBusy = true;
-    Pi_Authentication(
-      this._authService,
-      this._tokenStorageService,
-      this._regService,
-      this._notificationService
-    )
-      .then((result) => {
-        this.isBusy = false;
-      })
-      .catch((error) => {
-        this.isBusy = false;
-      });
+    // this.isBusy = true;
+    // Pi_Authentication(
+    //   this._authService,
+    //   this._tokenStorageService
+    //   //this._regService
+    //   //this._notificationService
+    // )
+    //   .then((result) => {
+    //     this.isBusy = false;
+    //   })
+    //   .catch((error) => {
+    //     this.isBusy = false;
+    //   });
   }
 
   signOut = () => {

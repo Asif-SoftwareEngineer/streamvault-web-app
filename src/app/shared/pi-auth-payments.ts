@@ -7,7 +7,6 @@ import { EventEmitter } from '@angular/core';
 import { IUser } from '../models/user';
 import { NotificationService } from '../services/notification.service';
 import { NotificationType } from './enums';
-import { RegistrationDataService } from '../services/registration.service';
 import { Role } from '../models/enums';
 import { TokenStorageService } from '../services/token-storage.service';
 import axios from 'axios';
@@ -109,7 +108,7 @@ const updateNotificationService = (
 export const Pi_Authentication = async (
   authService: AuthDataService,
   tokenStorageService: TokenStorageService,
-  regService: RegistrationDataService,
+  //regService: RegistrationDataService,
   notificationService: NotificationService
 ): Promise<{ isConnected: boolean }> => {
   const scopes = ['username', 'payments'];
@@ -135,15 +134,14 @@ export const Pi_Authentication = async (
         authService.setIsAuthenticated(true);
 
         try {
-          const registeredUser = await firstValueFrom(
-            regService.getUser(
-              piAuth!.accessToken,
-              piAuth!.user.uid,
-              piAuth!.user.username
-            )
-          );
-
-          regService.setRegisteredUserSubject(registeredUser!);
+          //const registeredUser = await firstValueFrom(
+          //regService.getUser(
+          //piAuth!.accessToken,
+          //piAuth!.user.uid,
+          //piAuth!.user.username
+          //)
+          //);
+          //regService.setRegisteredUserSubject(registeredUser!);
         } catch (error) {
           console.log('signing user is not a registered user of stream vault!');
         }

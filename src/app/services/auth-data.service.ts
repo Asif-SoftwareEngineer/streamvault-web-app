@@ -2,7 +2,6 @@ import { BehaviorSubject, Observable, lastValueFrom, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
-import { RegistrationDataService } from './registration.service';
 import { Role } from '../models/enums';
 import { TokenStorageService } from './token-storage.service';
 import { environment } from 'src/environments/environment';
@@ -21,7 +20,7 @@ export class AuthDataService {
 
   constructor(
     private http: HttpClient,
-    private _regService: RegistrationDataService,
+    //private _regService: RegistrationDataService,
     private _tokenStorageService: TokenStorageService
   ) {}
 
@@ -52,13 +51,13 @@ export class AuthDataService {
       await lastValueFrom(this.http.post<any>(url, apiConfig.httpOptions));
     }
 
-    this._regService.setRegisteredUserSubject({
-      name: { first: '', last: '' },
-      email: '',
-      country: '',
-      role: Role.None,
-      isProfileDisabled: false,
-    });
+    // this._regService.setRegisteredUserSubject({
+    //   name: { first: '', last: '' },
+    //   email: '',
+    //   country: '',
+    //   role: Role.None,
+    //   isProfileDisabled: false,
+    // });
     this.setIsAuthenticated(false);
   };
 }

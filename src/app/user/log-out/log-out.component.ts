@@ -68,8 +68,8 @@ export class LogOutComponent implements OnInit {
     Pi_Authentication(
       this._authService,
       this._tokenStorageService,
-      this._regService,
-      this._notificationService
+      this._regService
+      //this._notificationService
     )
       .then((result) => {
         this._isBusy = false;

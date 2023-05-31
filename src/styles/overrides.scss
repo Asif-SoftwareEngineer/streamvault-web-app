@@ -5,8 +5,9 @@
   }
 
   .mat-vertical-stepper-header {
-    padding-top: 12px !important;
-    padding-bottom: 12px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    padding-left: var(--dl-space-space-halfunit) !important;
     border-radius: 6px;
   }
 }

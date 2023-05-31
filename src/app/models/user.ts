@@ -9,12 +9,12 @@ export interface IUser {
   pichain_username?: string;
   userId?: string;
   name: IName;
-  email: string;
-  country: string;
-  city?: string;
+  email?: string;
+  mobile?: string;
+  language: string;
+  age18Above: boolean;
   role: Role;
   registration_date?: Date;
-  membership_date?: Date;
   membership_Type?: string;
   membership_renewal_date?: Date;
   picture?: string;
@@ -26,6 +26,5 @@ export interface IUser {
 
 export interface IName {
   first: string;
-  //middle?: string;
   last: string;
 }

@@ -26,6 +26,15 @@
   );
 }
 
+form mat-error {
+  line-height: 1.3;
+  text-align: justify;
+  letter-spacing: 0.018rem;
+  margin-top: 2px;
+  font-family: "Montserrat";
+  font-weight: 600;
+}
+
 .membership-registration-title {
   color: var(--dl-color-accent-100);
 }
@@ -67,6 +76,7 @@
 
 .membership-registration-text {
   color: var(--dl-color-accent-900);
+  text-align: justify;
   width: 100%;
 }
 
@@ -86,6 +96,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .membership-registration-text01 {
   color: var(--dl-color-accent-900);
@@ -105,22 +116,89 @@
   margin-right: auto;
 }
 
-.membership-registration-register-button-container {
+/* Review and Submit Classes */
+
+.review-name-row {
   flex: 0 0 auto;
   width: 100%;
-  height: var(--dl-size-size-medium);
+  height: 100px;
   display: flex;
-  margin-top: var(--dl-space-space-twounits);
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
-.membership-registration-register-button {
-  color: var(--dl-color-accent-100);
-  width: 376px;
-  height: var(--dl-size-size-small);
-  align-self: center;
-  text-align: center;
+.review-membership-row {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
+.review-language {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.review-email-row {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.review-mobile-row {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.review-location-row {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.review-payment-row {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+//-----------------------------------------------
+
+/* Done Classes*/
+
+.done-congrats-row {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.done-button-container {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  //align-items: center;
+  height: auto;
+  justify-content: left;
+  flex-wrap: wrap;
+}
+
+//-----------------------------
 .membership-registration-col-mob-view-only {
   flex: 1;
   width: 100%;
@@ -203,13 +281,6 @@
 //     margin: auto;
 //   }
 
-//   .membership-registration-register-button-container {
-//     width: 100%;
-//     margin-top: var(--dl-space-space-twounits);
-//     align-items: flex-start;
-//     border-radius: var(--dl-radius-radius-radius4);
-//     justify-content: center;
-//   }
 //   .membership-registration-col-mob-view-only {
 //     flex: 1;
 //     width: 100%;
@@ -312,6 +383,7 @@
 //     justify-content: center;
 //   }
 // }
+
 @media (max-width: 479px) {
   .membership-registration-container {
     border-width: 0px;
@@ -357,15 +429,18 @@
     border-radius: var(--dl-radius-radius-radius6);
   }
 
+  .auto-option-list {
+    font-size: 12px;
+    font-family: "Montserrat";
+    height: var(--dl-space-space-twounits);
+  }
+
   .age-CheckBox-container {
     display: flex;
     margin-top: var(--dl-space-space-unit);
     height: var(--dl-size-size-xsmall);
-    //padding: var(--dl-space-space-halfunit);
-    //padding: var(--dl-space-space-unit);
     width: 100%;
     justify-content: space-between;
-    //flex-wrap: wrap;
   }
 
   .membership-registration-button-container {
@@ -395,6 +470,11 @@
     align-items: center;
     justify-content: space-between;
   }
+
+  .age-greather-than18-error-container {
+    margin-top: var(--dl-space-space-unit);
+  }
+
   .membership-registration-text01 {
     color: var(--dl-color-accent-900);
     margin-top: 0px;
@@ -420,10 +500,159 @@
 
   /*
   Membership Option Classes
-
   */
 
-  /* ---------------- */
+  //-----------------------------------
+
+  /*
+  Review and Submit Classes
+  */
+  .reveiew-first-para {
+    width: 100%;
+    height: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .review-name-row {
+    height: var(--dl-size-size-small);
+    padding-right: var(--dl-space-space-halfunit);
+    justify-content: space-between;
+  }
+  .review-text {
+    color: var(--dl-color-accent-900);
+  }
+  .review-lbl-name {
+    color: var(--dl-color-accent-900);
+  }
+  .review-membership-row {
+    height: var(--dl-size-size-small);
+    padding-right: var(--dl-space-space-halfunit);
+    justify-content: space-between;
+  }
+  .review-text1 {
+    color: var(--dl-color-accent-900);
+  }
+  .review-lbl-membership-type {
+    color: var(--dl-color-accent-900);
+  }
+  .review-language {
+    height: var(--dl-size-size-small);
+    padding-right: var(--dl-space-space-halfunit);
+    justify-content: space-between;
+  }
+  .review-language1 {
+    color: var(--dl-color-accent-900);
+  }
+  .review-lbl-language {
+    color: var(--dl-color-accent-900);
+  }
+  .review-email-row {
+    height: var(--dl-size-size-small);
+    padding-right: var(--dl-space-space-halfunit);
+    justify-content: space-between;
+  }
+  .review-email {
+    color: var(--dl-color-accent-900);
+  }
+  .review-lbl-email {
+    color: var(--dl-color-accent-900);
+  }
+  .review-mobile-row {
+    height: var(--dl-size-size-small);
+    padding-right: var(--dl-space-space-halfunit);
+    justify-content: space-between;
+  }
+  .review-text6 {
+    color: var(--dl-color-accent-900);
+  }
+  .review-lbl-mobile {
+    color: var(--dl-color-accent-900);
+  }
+  .review-location-row {
+    height: var(--dl-size-size-small);
+    padding-right: var(--dl-space-space-halfunit);
+    justify-content: space-between;
+  }
+  .review-text7 {
+    color: var(--dl-color-accent-900);
+  }
+  .review-lbl-location {
+    color: var(--dl-color-accent-900);
+  }
+
+  .review-payment-row {
+    height: var(--dl-size-size-small);
+    padding-right: var(--dl-space-space-halfunit);
+    justify-content: space-between;
+  }
+  .review-text8 {
+    color: var(--dl-color-accent-900);
+  }
+  .review-lbl-payment-amount {
+    color: var(--dl-color-accent-900);
+  }
+
+  //------------------------------------------------//
+
+  /* Done Classes */
+
+  .done-first-para {
+    width: 100%;
+    height: auto;
+    margin-top: var(--dl-space-space-halfunit);
+    margin-bottom: var(--dl-space-space-halfunit);
+    margin-left: -15px;
+    line-height: 1.3;
+    text-align: justify;
+  }
+
+  .done-congrats-row {
+    height: auto;
+    padding-right: var(--dl-space-space-halfunit);
+    justify-content: center;
+    margin-left: -10px;
+  }
+  .done-lbl-congrats {
+    margin-top: var(--dl-space-space-unit);
+    font-weight: bolder;
+    color: var(--dl-color-primary-900);
+    letter-spacing: 1.5px;
+  }
+
+  .done-button-container {
+    width: 80%;
+    height: auto;
+    margin-top: var(--dl-space-space-halfunit);
+    margin-bottom: var(--dl-space-space-halfunit);
+    padding: var(--dl-space-space-halfunit);
+    margin-left: 10px;
+    justify-content: left !important;
+    flex-wrap: wrap;
+  }
+
+  .done-button-member-home {
+    width: 100%;
+    height: var(--dl-size-size-xsmall);
+    color: var(--dl-color-primary-900) !important;
+    border: 1px solid;
+    border-color: var(--dl-color-primary-700);
+    margin-bottom: var(--dl-space-space-halfunit);
+  }
+
+  .done-button-stream {
+    width: 100%;
+    height: var(--dl-size-size-xsmall);
+    color: var(--dl-color-primary-900) !important;
+    border: 1px solid;
+    border-color: var(--dl-color-primary-700);
+    margin-top: var(--dl-space-space-halfunit);
+    margin-bottom: var(--dl-space-space-halfunit);
+  }
+
+  //--------------------------
 
   .membership-registration-col-mob-view-only {
     display: none;

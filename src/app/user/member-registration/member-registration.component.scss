@@ -98,6 +98,32 @@ form mat-error {
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
+.membership-registration-agree-tos-container {
+  flex: 0 0 auto;
+  width: 100%;
+  height: var(--dl-size-size-medium-1);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.full-screen-dialog {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tosAndPV-links-text {
+  color: var(--dl-color-primary-500);
+  font-weight: 600;
+  font-size: smaller;
+}
+
 .membership-registration-text01 {
   color: var(--dl-color-accent-900);
   margin-left: auto;
@@ -108,9 +134,23 @@ form mat-error {
   height: var(--dl-size-size-small);
   margin-left: auto;
   margin-right: auto;
+
+  .membership-registration-agree-checkbox {
+    width: var(--dl-size-size-small);
+    height: var(--dl-size-size-small);
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .membership-registration-text02 {
+  color: var(--dl-color-accent-900);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.membership-registration-text03 {
+  width: 80%;
   color: var(--dl-color-accent-900);
   margin-left: auto;
   margin-right: auto;
@@ -464,7 +504,15 @@ form mat-error {
   }
 
   .membership-registration-age-greater-than18-container {
-    padding: var(--dl-space-space-unit);
+    padding: var(--dl-space-space-halfunit);
+    width: 100%;
+    height: var(--dl-size-size-smmall);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .membership-registration-agree-tos-container {
+    padding: var(--dl-space-space-halfunit);
     width: 100%;
     height: var(--dl-size-size-smmall);
     align-items: center;
@@ -489,6 +537,12 @@ form mat-error {
     margin-right: var(--dl-space-space-unit);
   }
 
+  .membership-registration-agree-checkbox {
+    width: auto;
+    height: auto;
+    margin-right: var(--dl-space-space-unit);
+  }
+
   .membership-registration-text02 {
     color: var(--dl-color-accent-900);
     text-align: justify;
@@ -496,6 +550,15 @@ form mat-error {
     line-height: 1.5;
     text-transform: none;
     text-decoration: none;
+  }
+
+  .membership-registration-text03 {
+    color: var(--dl-color-accent-900);
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    margin-bottom: 0px;
   }
 
   /*

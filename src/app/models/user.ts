@@ -22,6 +22,7 @@ export interface IUser {
   watchList?: string[];
   settings?: ISetting;
   channels?: IChannel[];
+  agreeToTerms: boolean;
 }
 
 export interface IName {

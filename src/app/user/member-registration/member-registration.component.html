@@ -20,7 +20,12 @@
       </span>
     </div>
 
-    <mat-stepper orientation="vertical" [linear]="true" #stepper>
+    <mat-stepper
+      orientation="vertical"
+      [linear]="true"
+      #stepper
+      (selectionChange)="onStepChange($event)"
+    >
       <mat-step
         [completed]="isMemberVerified"
         [editable]="!isMemberVerified"
@@ -41,6 +46,7 @@
             />
             <mat-error
               [input]="firstName"
+              fieldLabel="First Name"
               [group]="basicInfoFormGroup"
               [appFieldError]="ErrorSets['RequiredText']"
             >
@@ -59,6 +65,7 @@
             />
             <mat-error
               [input]="lastName"
+              fieldLabel="Last Name"
               [group]="basicInfoFormGroup"
               [appFieldError]="ErrorSets['RequiredText']"
             >
@@ -68,7 +75,6 @@
           <mat-form-field class="mat-form-field-class">
             <mat-label>Your Primary Language</mat-label>
             <input
-              #langInput
               type="text"
               aria-label="Language"
               placeholder="Language"
@@ -83,7 +89,7 @@
               [group]="basicInfoFormGroup"
               [appFieldError]="{
                 error: 'invalid',
-                message: 'Invalid input. Please enter a valid language.'
+                message: 'Please select a valid language.'
               }"
             >
             </mat-error>
@@ -123,6 +129,45 @@
             </mat-error>
           </div>
 
+          <div class="membership-registration-agree-tos-container">
+            <span class="membership-registration-text03 Content-2">
+              I have read and agree to the
+              <a
+                class="tosAndPV-links-text"
+                (click)="openTermsOfServiceDialog()"
+              >
+                Terms of Service
+              </a>
+              and
+              <a
+                class="tosAndPV-links-text"
+                (click)="openPrivacyPolicyDialog()"
+              >
+                Privacy Policy</a
+              >
+            </span>
+            <mat-checkbox
+              color="accent"
+              checked="true"
+              class="membership-registration-agree-checkbox"
+              formControlName="agreeToTosCtrl"
+            ></mat-checkbox>
+            <mat-error
+              class="agree-error-container"
+              *ngIf="
+                basicInfoFormGroup.controls['agreeToTosCtrl'].hasError(
+                  'required'
+                ) && basicInfoFormGroup.controls['agreeToTosCtrl'].touched
+              "
+            >
+              <span>
+                By creating an account or accessing our services, you
+                acknowledge that you have read, understood, and agree to our
+                Terms of Service and Privacy Policy.</span
+              >
+            </mat-error>
+          </div>
+
           <div class="membership-registration-button-container">
             <button
               mat-raised-button
@@ -131,7 +176,7 @@
               class="button mat-body-1 button-Next"
               matStepperNext
               [disabled]="basicInfoFormGroup.invalid"
-              (click)="defineBasicInfo()"
+              (click)="prepareBasicInfo()"
             >
               Next
             </button>
@@ -142,75 +187,84 @@
       <mat-step
         [completed]="isMemberVerified"
         [editable]="!isMemberVerified"
-        [stepControl]="emailOrPhoneFormGroup"
+        [stepControl]="contactFormGroup"
       >
-        <form [formGroup]="emailOrPhoneFormGroup">
-          <ng-template matStepLabel>Fill out your Email</ng-template>
+        <form [formGroup]="contactFormGroup">
+          <ng-template matStepLabel>Fill out your Contact Details</ng-template>
 
           <mat-form-field class="mat-form-field-class">
             <mat-label>Email</mat-label>
             <input
+              type="email"
               matInput
               aria-label="Email Address"
-              placeholder="Email"
+              placeholder="Your Email"
               formControlName="emailCtrl"
               #email
             />
             <mat-error
               [input]="email"
-              [group]="emailOrPhoneFormGroup"
+              fieldLabel="Email"
+              [group]="contactFormGroup"
               appFieldError="invalid"
             >
             </mat-error>
           </mat-form-field>
 
-          <div class="membership-registration-button-container">
-            <button
-              mat-raised-button
-              type="button"
-              color="accent"
-              class="button mat-body-1 button-Back"
-              matStepperPrevious
-            >
-              Back
-            </button>
-            <button
-              mat-raised-button
-              type="button"
-              color="accent"
-              class="button mat-body-1 button-Next"
-              matStepperNext
-              [disabled]="emailOrPhoneFormGroup.invalid"
-              (click)="defineUserEmailOrPhone()"
-            >
-              Next
-            </button>
-          </div>
-        </form>
-      </mat-step>
-
-      <mat-step
-        [completed]="isMemberVerified"
-        [editable]="!isMemberVerified"
-        [stepControl]="codeVerificationFormGroup"
-      >
-        <form [formGroup]="codeVerificationFormGroup">
-          <ng-template matStepLabel>Verification</ng-template>
           <mat-form-field class="mat-form-field-class">
-            <mat-label>Six Digit Code</mat-label>
+            <mat-label>Country Code</mat-label>
             <input
+              type="text"
               matInput
-              aria-label="Verification-Code"
-              placeholder="Code"
-              formControlName="code"
-              minlength="6"
-              maxlength="6"
-              #code
+              aria-label="Country Code"
+              placeholder="United States (1) US"
+              formControlName="countryCodeCtrl"
+              [matAutocomplete]="autoCodes"
+              autocomplete="new-password"
+              #countryCode
             />
             <mat-error
-              [input]="code"
-              [group]="codeVerificationFormGroup"
-              [appFieldError]="ErrorSets['RequiredText']"
+              [input]="countryCode"
+              fieldLabel="Country Code"
+              [group]="contactFormGroup"
+              [appFieldError]="{
+                error: 'invalid',
+                message: 'Please select a valid country phone code.'
+              }"
+            >
+            </mat-error>
+            <mat-autocomplete
+              #autoCodes="matAutocomplete"
+              (optionSelected)="onOptionSelected($event)"
+              [displayWith]="displayFn"
+            >
+              <mat-option
+                class="auto-option-list"
+                *ngFor="let code of filteredCountryCodeItems | async"
+                [value]="code"
+              >
+                {{ code }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <mat-form-field class="mat-form-field-class">
+            <mat-label>Mobile Phone Number</mat-label>
+            <input
+              type="tel"
+              matInput
+              aria-label="Mobile Phone Number"
+              placeholder="Mobile Phone Number"
+              formControlName="mobilePhoneCtrl"
+              autocomplete="new-password"
+              (input)="onInputChange($event)"
+              #mobile
+            />
+            <mat-error
+              [input]="mobile"
+              fieldLabel="Mobile Number"
+              [group]="contactFormGroup"
+              [appFieldError]="ErrorSets['MobileNumberText']"
             >
             </mat-error>
           </mat-form-field>
@@ -231,8 +285,8 @@
               color="accent"
               class="button mat-body-1 button-Next"
               matStepperNext
-              [disabled]="codeVerificationFormGroup.invalid"
-              (click)="verifyMemberEmail()"
+              [disabled]="contactFormGroup.invalid"
+              (click)="prepareUserEmailOrPhone()"
             >
               Next
             </button>
@@ -240,39 +294,63 @@
         </form>
       </mat-step>
 
+      <mat-step [completed]="isMemberVerified" [editable]="!isMemberVerified">
+        <ng-template matStepLabel>Verification</ng-template>
+        <app-email-verification
+          (inputCodeValue)="getVerificationCode($event)"
+        ></app-email-verification>
+        <div class="membership-registration-button-container">
+          <button
+            mat-raised-button
+            type="button"
+            color="accent"
+            class="button mat-body-1 button-Back"
+            matStepperPrevious
+          >
+            Back
+          </button>
+          <button
+            mat-raised-button
+            type="button"
+            color="accent"
+            class="button mat-body-1 button-Next"
+            matStepperNext
+            (click)="verifyMemberEmail()"
+          >
+            Next
+          </button>
+        </div>
+      </mat-step>
+
       <mat-step
         [completed]="isMemberRegistered"
         [editable]="!isMemberRegistered"
-        [stepControl]="membershipPaymentWithPi"
       >
-        <form [formGroup]="membershipPaymentWithPi">
-          <ng-template matStepLabel>Select Your Membership Plan</ng-template>
+        <ng-template matStepLabel>Select Your Membership Plan</ng-template>
 
-          <app-membership-options
-            (formValidity)="handleFormValidity($event)"
-            (selectedOptionValue)="handleSelectedOption($event)"
-          ></app-membership-options>
+        <app-membership-options
+          (formValidity)="handleFormValidity($event)"
+          (selectedMemberPlan)="handleSelectedOption($event)"
+        ></app-membership-options>
 
-          <div class="membership-registration-button-container">
-            <button
-              mat-raised-button
-              type="button"
-              color="accent"
-              class="button mat-body-1 button-Next"
-              matStepperNext
-              [disabled]="!isFormValid"
-              (click)="defineMembershipPlan()"
-            >
-              Next
-            </button>
-          </div>
-        </form>
+        <div class="membership-registration-button-container">
+          <button
+            mat-raised-button
+            type="button"
+            color="accent"
+            class="button mat-body-1 button-Next"
+            matStepperNext
+            [disabled]="!isFormValid"
+            (click)="defineMembershipPlan()"
+          >
+            Next
+          </button>
+        </div>
       </mat-step>
 
       <mat-step
         [completed]="isMemberRegistered"
         [editable]="!isMemberRegistered"
-        [stepControl]="membershipPaymentWithPi"
       >
         <ng-template matStepLabel>Review and Submit</ng-template>
         <p class="reveiew-first-para">
@@ -313,7 +391,7 @@
         <div class="review-payment-row">
           <label class="review-text8">Payment</label>
           <label class="review-lbl-payment-amount"
-            >{{ selectedOption.premium }} &#8508;</label
+            >{{ selectedMemberPlan.premium }} &#8508;</label
           >
         </div>
 

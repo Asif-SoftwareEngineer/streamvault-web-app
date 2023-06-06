@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+
 import { IMemberPlan } from 'src/app/models/membership-plans';
 
 @Component({
@@ -12,7 +13,7 @@ export class MembershipOptionsComponent implements OnInit {
   isYearlyOptionActive = false;
 
   @Output() formValidity: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() selectedOptionValue: EventEmitter<IMemberPlan> =
+  @Output() selectedMemberPlan: EventEmitter<IMemberPlan> =
     new EventEmitter<IMemberPlan>();
 
   setOptionActive(option: string, active: boolean) {
@@ -60,15 +61,15 @@ export class MembershipOptionsComponent implements OnInit {
     if (this.isFreeOptionActive) {
       plan.planType = 'Free';
       plan.premium = 0;
-      this.selectedOptionValue.emit(plan);
+      this.selectedMemberPlan.emit(plan);
     } else if (this.isMonthlyOptionActive) {
       plan.planType = 'Monthly';
       plan.premium = 3;
-      this.selectedOptionValue.emit(plan);
+      this.selectedMemberPlan.emit(plan);
     } else if (this.isYearlyOptionActive) {
       plan.planType = 'Yearly';
       plan.premium = 29;
-      this.selectedOptionValue.emit(plan);
+      this.selectedMemberPlan.emit(plan);
     }
   }
 

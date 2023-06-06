@@ -1,3 +1,8 @@
+import {
+  mobileNumberValidator,
+  sixDigitCodeValidator,
+} from './custom-validators';
+
 import { Validators } from '@angular/forms';
 
 export const RangeTextValidation = [
@@ -11,5 +16,16 @@ export const OneCharValidation = [
   Validators.minLength(1),
   Validators.maxLength(1),
 ];
+
+export const VerificationCodeValidation = [
+  Validators.required,
+  sixDigitCodeValidator,
+];
+
+export const MobileNumberValidation = [
+  Validators.required,
+  Validators.minLength(11),
+  mobileNumberValidator,
+];
+
 export const EmailValidation = [Validators.required, Validators.email];
-export const OptionalEmailValidation = [Validators.email];

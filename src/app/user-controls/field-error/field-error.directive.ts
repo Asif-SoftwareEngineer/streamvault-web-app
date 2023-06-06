@@ -15,11 +15,15 @@ export type ValidationError =
   | 'required'
   | 'minlength'
   | 'maxlength'
-  | 'invalid';
+  | 'invalid'
+  | 'invalidCode'
+  | 'invalidMobileNumber';
 
 export const ErrorSets: { [key: string]: ValidationError[] } = {
-  RangeText: ['minlength', 'maxlength'],
   RequiredText: ['minlength', 'maxlength', 'required'],
+  RangeText: ['minlength', 'maxlength'],
+  SixDigitCodeText: ['required', 'invalidCode'],
+  MobileNumberText: ['required', 'minlength', 'invalidMobileNumber'],
 };
 
 @Directive({
@@ -61,7 +65,10 @@ export class FieldErrorDirective implements OnDestroy, OnChanges {
 
       this.controlSubscription = this.fieldControl?.valueChanges
         .pipe(
-          filter(() => this.fieldControl?.status === 'INVALID'),
+          filter(() => {
+            this.nativeElement.innerHTML = '';
+            return this.fieldControl?.status === 'INVALID';
+          }),
           tap(() => this.updateErrorMessage())
         )
         .subscribe();
@@ -97,7 +104,6 @@ export class FieldErrorDirective implements OnDestroy, OnChanges {
 
   updateErrorMessage() {
     const errorsToDisplay: string[] = [];
-
     const errors = Array.isArray(this.appFieldError)
       ? this.appFieldError
       : [this.appFieldError];
@@ -143,6 +149,13 @@ export class FieldErrorDirective implements OnDestroy, OnChanges {
         return `${label} can\'t exceed ${
           this.fieldControl?.getError(error)?.requiredLength ?? 50
         } characters`;
+      case 'invalidCode':
+        return `${label} must be a ${
+          this.fieldControl?.getError(error)?.requiredLength ?? 6
+        } digits code `;
+      case 'invalidMobileNumber':
+        return `${label} must be a valid number`;
+
       case 'invalid':
         return `A valid ${label} is required`;
     }

@@ -1,79 +1,57 @@
-<div class="email-verification-container">
-  <div class="email-verification-col-mob-view-only">
-    <div class="email-verification-message-prompt-row">
-      <span class="Field-Label">
-        Oops! It seems you&apos;re not viewing this on a mobile device. Please
-        switch to a mobile view for the best experience. Thank you!
-      </span>
-    </div>
-  </div>
-  <div class="email-verification-main-column">
-    <div class="email-verification-page-header">
-      <label class="email-verification-title Heading-3">Become Member</label>
-    </div>
-    <div class="email-verification-page-header-2">
-      <img
-        alt="image"
-        src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixid=Mnw5MTMyMXwwfDF8c2VhcmNofDF8fG1lbWJlcnxlbnwwfHx8fDE2ODEyNzg4Njc&amp;ixlib=rb-4.0.3&amp;w=200"
-        class="email-verification-image"
-      />
-      <svg viewBox="0 0 1024 1024" class="email-verification-back-icon">
-        <path d="M498 166l-346 346 346 346-76 76-422-422 422-422z"></path>
-      </svg>
-    </div>
-    <div class="email-verification-your-email-row">
-      <label class="email-verification-text">Your Email: </label>
-      <label class="email-verification-text01">youremail@email.com</label>
-    </div>
-    <div class="email-verification-email-sent-message">
-      <span class="Heading-4 email-verification-text02">
-        <span>Email Verification</span>
-        <br />
-      </span>
-      <p class="email-verification-text05">
-        <span>
-          we have sent a six-digit verification code to your email address.
-          Please check your inbox (and spam folder, if necessary) for an email
-          from us.
-        </span>
-        <br />
-      </p>
-      <p class="email-verification-text08">
-        Once you locate the email, please copy the six-digit code and paste it
-        in the designated field below. This ensures that the email address
-        provided during registration belongs to you and helps us maintain the
-        security of your account.
-      </p>
-      <p class="email-verification-text09">
-        If you haven&apos;t received the verification code within a few minutes,
-        you can request a new one by clicking on the &apos;Resend Code&apos;
-        button after two minutes (120 seconds).
-      </p>
-    </div>
-    <div class="email-verification-text-verification-code-row">
-      <input
-        type="text"
-        id="txtCode"
-        placeholder="Code"
-        name="Verification Code"
-        class="email-verification-txt-code input"
-      />
-      <label class="email-verification-lbl-time">110</label>
-      <button
-        id="btnResend"
-        type="button"
-        class="button email-verification-button"
-      >
-        Resend
-      </button>
-    </div>
-    <div class="email-verification-button-container">
-      <button id="btnNext" class="email-verification-button1 Heading-3">
-        Back
-      </button>
-      <button id="btnNext" class="email-verification-button2 Heading-3">
-        Next
-      </button>
-    </div>
-  </div>
+<div class="email-verification-code-your-email-row">
+  <label class="email-verification-code-text">Your Email: </label>
+  <label class="email-verification-code-text1">youremail@email.com</label>
 </div>
+<div class="email-verification-code-email-sent-message">
+  <p class="email-verification-code-text2">
+    <span>
+      we have sent a six-digit verification code to your email address. Please
+      check your inbox (and spam folder, if necessary) for an email from us.
+    </span>
+    <br />
+  </p>
+  <p class="email-verification-code-text5">
+    Once you locate the email, please copy the six-digit code and paste it in
+    the designated field below.
+  </p>
+  <p class="email-verification-code-text6">
+    If you haven&apos;t received the verification code within a few minutes, you
+    can request a new one by clicking on the &apos;Resend&apos; button after two
+    minutes (120 seconds).
+  </p>
+</div>
+<form [formGroup]="codeVerificationFormGroup">
+  <div class="email-verification-code-text-verification-code-row">
+    <input
+      type="text"
+      placeholder="6 digits Code"
+      formControlName="code"
+      class="email-verification-code-txt-code Content-2"
+      autocomplete="new-password"
+      maxlength="6"
+      (blur)="emitCode()"
+      #code
+    />
+    <label *ngIf="showCountdown" class="email-verification-code-lbl-time">{{
+      countdown
+    }}</label>
+    <button
+      mat-raised-button
+      type="button"
+      color="primary"
+      class="button mat-body-1 email-verification-code-resend-code-button"
+      (click)="resend()"
+      *ngIf="!showCountdown"
+    >
+      Resend
+    </button>
+  </div>
+  <mat-error
+    style="text-align: center"
+    [input]="code"
+    fieldLabel="Verification Code"
+    [group]="codeVerificationFormGroup"
+    [appFieldError]="ErrorSets['SixDigitCodeText']"
+  >
+  </mat-error>
+</form>

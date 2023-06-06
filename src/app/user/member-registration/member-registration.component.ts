@@ -1,16 +1,18 @@
 //import { BaseFormDirective } from 'src/app/common/base-form.class';
 import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   OnDestroy,
   OnInit,
   Renderer2,
   ViewChild,
+  inject,
 } from '@angular/core';
 import {
   EmailValidation,
-  OptionalEmailValidation,
+  MobileNumberValidation,
   RequiredTextValidation,
 } from '../../common/validations';
 import {
@@ -20,13 +22,34 @@ import {
   Validators,
 } from '@angular/forms';
 import { IName, IUser } from 'src/app/models/user';
+import { Inject, PLATFORM_ID } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { ErrorSets } from '../../user-controls/field-error/field-error.directive';
+import { IAccountVerification } from 'src/app/models/account-verification';
+import { IMemberPlan } from 'src/app/models/membership-plans';
+import { RegistrationDataService } from 'src/app/services/registration.service';
 import { Role } from 'src/app/models/enums';
 import { SubSink } from 'subsink';
 import { UiService } from 'src/app/common/ui.service';
-import { IMemberPlan } from 'src/app/models/membership-plans';
+import { isPlatformBrowser } from '@angular/common';
+import { MatStep, MatStepLabel, MatStepper } from '@angular/material/stepper';
+import { MatDialog } from '@angular/material/dialog';
+import { TermsOfServiceComponent } from 'src/app/terms-of-service/terms-of-service.component';
+import { PrivacyPolicyComponent } from 'src/app/privacy-policy/privacy-policy.component';
+import {
+  countryCodeValidator,
+  languageValidator,
+} from 'src/app/common/custom-validators';
+import { ICountryCode } from 'src/app/models/countryCode';
+
+import {
+  parsePhoneNumberFromString,
+  getCountryCallingCode,
+  AsYouType,
+  formatIncompletePhoneNumber,
+} from 'libphonenumber-js';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-member-registration',
@@ -34,29 +57,12 @@ import { IMemberPlan } from 'src/app/models/membership-plans';
   styleUrls: ['./member-registration.component.scss'],
 })
 export class MemberRegistrationComponent implements OnInit, OnDestroy {
-  @ViewChild('langInput', { static: false })
-  langInput!: ElementRef;
+  @ViewChild('stepper') stepper!: MatStepper;
 
   basicInfoFormGroup!: FormGroup;
-  emailOrPhoneFormGroup!: FormGroup;
+  contactFormGroup!: FormGroup;
   codeVerificationFormGroup!: FormGroup;
   membershipPaymentWithPi!: FormGroup;
-
-  constructor(
-    private _fb: FormBuilder,
-    //private authService: AuthService,
-    //private uiService: UiService,
-    private route: ActivatedRoute
-  ) {
-    this.userObj = {
-      name: { first: '', last: '' },
-      isProfileDisabled: true,
-      language: '',
-      role: Role.None,
-      age18Above: false,
-    } as IUser;
-    this.selectedOption = {} as IMemberPlan;
-  }
 
   languages: string[] = [
     'English',
@@ -104,28 +110,107 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     'Bhojpuri',
   ];
 
+  countryCodeItems: string[] = [];
+
   ErrorSets = ErrorSets;
   Role = Role;
   filteredLanguageOptions: Observable<string[]> | undefined;
+  filteredCountryCodeItems: Observable<string[]> | undefined;
   isMemberVerified = false;
   isMemberRegistered = false;
   isFormValid = false;
-  selectedOption!: IMemberPlan;
+  selectedMemberPlan!: IMemberPlan;
+  selectedCountryDialingCode: string = '';
+  selectedCountryCode: any;
+  phoneNumberParser: AsYouType;
 
   userObj!: IUser;
 
   private subs = new SubSink();
+
+  constructor(
+    private _fb: FormBuilder,
+    public dialog: MatDialog,
+    private _regService: RegistrationDataService,
+    //private authService: AuthService,
+    //private uiService: UiService,
+    private route: ActivatedRoute,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.userObj = {
+      name: { first: '', last: '' },
+      isProfileDisabled: true,
+      language: '',
+      role: Role.None,
+      age18Above: false,
+    } as IUser;
+    this.selectedMemberPlan = {} as IMemberPlan;
+    this.phoneNumberParser = new AsYouType();
+  }
+
+  onStepChange(event: any): void {
+    const selectedStep: MatStep = event.selectedStep;
+
+    if (selectedStep && selectedStep.stepControl) {
+      const stepControl: FormGroup = selectedStep.stepControl as FormGroup;
+
+      const desiredControl = stepControl.get('code');
+
+      if (desiredControl) {
+        this.scrollToBottom();
+      }
+    }
+  }
+
+  scrollToBottom(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth', // Optional: Adds smooth scrolling animation
+      });
+    }
+  }
 
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
 
   ngOnInit(): void {
+    this.getCountryCodes(); // API Call
     this.buildBasicInfoForm();
-    this.buildEmailOrPhoneForm();
-    this.buildCodeVerificationForm();
-    this.buildMembershipPaymentWithPiForm();
+    this.buildContactForm();
 
+    this.defineLanguageObservable();
+    this.defineCountryCodeObservable();
+  }
+
+  onInputChange(event: any) {
+    const inputElement = event.target as HTMLInputElement;
+    const inputValue: string = inputElement.value;
+
+    // Parse the input value to extract the country code
+    const parsedPhoneNumber = parsePhoneNumberFromString(inputValue);
+
+    if (parsedPhoneNumber) {
+      const formattedValue = formatIncompletePhoneNumber(
+        inputValue,
+        this.selectedCountryCode
+      );
+
+      inputElement.value = formattedValue;
+    }
+  }
+
+  defineCountryCodeObservable() {
+    this.filteredCountryCodeItems = this.contactFormGroup.controls[
+      'countryCodeCtrl'
+    ].valueChanges.pipe(
+      startWith(''),
+      map((value) => this.filterCountryCode(value || ''))
+    );
+  }
+
+  defineLanguageObservable() {
     this.filteredLanguageOptions = this.basicInfoFormGroup.controls[
       'languageCtrl'
     ].valueChanges.pipe(
@@ -142,22 +227,62 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
         lang.toLowerCase().includes(filterValue)
       );
     } else {
-      console.log('there is not city in array');
       return [];
     }
   }
 
-  languageValidator(control: FormControl) {
-    const inputValue = control.value;
-    if (
-      inputValue &&
-      !this.languages.some(
-        (lang) => lang.toLowerCase() === inputValue.toLowerCase()
-      )
-    ) {
-      return { invalidLanguage: true };
+  private filterCountryCode(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    if (this.countryCodeItems.length > 0) {
+      return this.countryCodeItems.filter((code) =>
+        code.toLowerCase().includes(filterValue)
+      );
+    } else {
+      return [];
     }
-    return null;
+  }
+
+  public getCountryCodes(): void {
+    this.countryCodeItems = [];
+    this._regService.getCountyCodes().subscribe(
+      (countryCodes: ICountryCode[]) => {
+        // Handle the response data here
+        countryCodes.forEach((countryCode: ICountryCode) => {
+          const countryNameWithCode: string = `${countryCode.countryName} (${countryCode.phoneCode}) ${countryCode.iso2Code}`;
+          this.countryCodeItems.push(countryNameWithCode);
+        });
+        this.defineCountryCodeObservable();
+      },
+      (error: any) => {
+        // Handle any errors that occur during the API call
+        console.error(error);
+      }
+    );
+  }
+
+  displayFn(countryCode: string) {
+    return countryCode;
+  }
+
+  onOptionSelected(event: MatAutocompleteSelectedEvent) {
+    // Access the selected option using event.option
+    const selectedOption = event.option;
+
+    // Access the value of the selected option
+    const selectedCountryCode: string = selectedOption.value;
+
+    const iso2Code: any = selectedCountryCode.substring(
+      selectedCountryCode.length - 2
+    );
+
+    // Now grab the country code from the getCountries function
+    this.selectedCountryCode = iso2Code;
+    this.selectedCountryDialingCode = `+${getCountryCallingCode(iso2Code)} `;
+
+    this.contactFormGroup.controls['mobilePhoneCtrl'].setValue(
+      this.selectedCountryDialingCode
+    );
   }
 
   handleFormValidity(isValid: boolean) {
@@ -165,7 +290,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   }
 
   handleSelectedOption(plan: IMemberPlan) {
-    this.selectedOption = plan;
+    this.selectedMemberPlan = plan;
   }
 
   buildBasicInfoForm(initialData?: IUser) {
@@ -175,32 +300,46 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
       firstNameCtrl: ['Asif', RequiredTextValidation],
       lastNameCtrl: ['Javed', RequiredTextValidation],
       languageCtrl: [
-        '',
-        [Validators.required, this.languageValidator.bind(this)],
+        'English',
+        [Validators.required, languageValidator(this.languages)],
       ],
-      ageCtrl: [false, Validators.requiredTrue],
+      ageCtrl: [true, Validators.requiredTrue],
+      agreeToTosCtrl: [true, Validators.requiredTrue],
     });
   }
 
-  buildEmailOrPhoneForm() {
-    this.emailOrPhoneFormGroup = this._fb.group({
-      emailCtrl: ['my-email@test.com', EmailValidation],
+  buildContactForm() {
+    this.contactFormGroup = this._fb.group({
+      emailCtrl: ['asif.javed.bangash@gmail.com', EmailValidation],
+      countryCodeCtrl: [
+        '',
+        [Validators.required, countryCodeValidator(this.countryCodeItems)],
+      ],
+      mobilePhoneCtrl: ['', MobileNumberValidation],
     });
   }
 
-  buildCodeVerificationForm() {
-    this.codeVerificationFormGroup = this._fb.group({
-      code: ['526314', RequiredTextValidation],
+  openTermsOfServiceDialog(): void {
+    const dialogRef = this.dialog.open(TermsOfServiceComponent, {
+      maxWidth: '100%',
+      width: '100%',
+      height: '100%',
+      panelClass: 'full-screen-dialog',
     });
   }
 
-  buildMembershipPaymentWithPiForm() {
-    this.membershipPaymentWithPi = this._fb.group({
-      option: ['526314', RequiredTextValidation],
+  openPrivacyPolicyDialog() {
+    const dialogRef = this.dialog.open(PrivacyPolicyComponent, {
+      maxWidth: '100%',
+      width: '100%',
+      height: '100%',
+      panelClass: 'full-screen-dialog',
     });
   }
 
-  defineBasicInfo() {
+  prepareBasicInfo() {
+    //console.log(this.validateMobileNumber('AU', '0426372202'));
+
     let userName: IName = {
       first: this.basicInfoFormGroup.controls['firstNameCtrl'].value,
       last: this.basicInfoFormGroup.controls['lastNameCtrl'].value,
@@ -211,32 +350,60 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     this.userObj.language =
       this.basicInfoFormGroup.controls['languageCtrl'].value;
     this.userObj.age18Above = this.basicInfoFormGroup.controls['ageCtrl'].value;
+    this.userObj.age18Above =
+      this.basicInfoFormGroup.controls['agreeToTosCtrl'].value;
+    this.userObj.agreeToTerms =
+      this.basicInfoFormGroup.controls['agreeToTosCtrl'].value;
     this.userObj.isProfileDisabled = false;
     this.userObj.role = Role.Member;
     this.userObj.registration_date = new Date();
   }
 
-  defineUserEmailOrPhone() {
+  prepareUserEmailOrPhone() {
     if (this.userObj) {
-      this.userObj.email =
-        this.emailOrPhoneFormGroup.controls['emailCtrl'].value;
+      this.userObj.email = this.contactFormGroup.controls['emailCtrl'].value;
       this.userObj.mobile = '';
+    }
+
+    if (this.userObj) {
+      let verifyingUserObj: IAccountVerification = {
+        firstName: this.userObj.name.first,
+        lastName: this.userObj.name.last,
+        email: this.userObj.email!,
+        code: '123654',
+        isVerified: false,
+      };
+
+      console.log('About to invoke the verify Email');
+
+      // this._regService.verifyEmail(verifyingUserObj).subscribe(
+      //   (response) => {
+      //     console.log(response);
+      //     if (response.status == 200) {
+      //       this.isMemberVerified = true;
+      //     }
+      //   },
+      //   (responseError) => {}
+      // );
     }
   }
 
   verifyMemberEmail() {
     console.log('This is to verify the email of the user!');
-    this.isMemberVerified = true;
   }
 
   defineMembershipPlan() {
     if (this.userObj) {
-      this.userObj.membership_Type = this.selectedOption.planType;
+      this.userObj.membership_Type = this.selectedMemberPlan.planType;
     }
   }
 
   registerMember() {
     this.isMemberRegistered = true;
+  }
+
+  getVerificationCode($event: string) {
+    console.log($event);
   }
 
   goToHome() {}

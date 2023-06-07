@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 import { IMemberPlan } from 'src/app/models/membership-plans';
 
@@ -12,12 +13,11 @@ export class MembershipOptionsComponent implements OnInit {
   isMonthlyOptionActive = false;
   isYearlyOptionActive = false;
 
-  @Output() formValidity: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() selectedMemberPlan: EventEmitter<IMemberPlan> =
-    new EventEmitter<IMemberPlan>();
+  selectedPlan: FormControl;
+  planAmount: FormControl;
 
   setOptionActive(option: string, active: boolean) {
-    switch (option) {
+    switch (option.toLowerCase()) {
       case 'f':
         {
           this.isFreeOptionActive = active;
@@ -47,33 +47,27 @@ export class MembershipOptionsComponent implements OnInit {
         break;
     }
 
-    this.formValidity.emit(
-      this.isFreeOptionActive ||
-        this.isMonthlyOptionActive ||
-        this.isYearlyOptionActive
-    );
-
-    let plan: IMemberPlan = {
-      planType: '',
-      premium: 0,
-    };
-
     if (this.isFreeOptionActive) {
-      plan.planType = 'Free';
-      plan.premium = 0;
-      this.selectedMemberPlan.emit(plan);
+      this.defineMembershipPlan('Free', 0);
     } else if (this.isMonthlyOptionActive) {
-      plan.planType = 'Monthly';
-      plan.premium = 3;
-      this.selectedMemberPlan.emit(plan);
+      this.defineMembershipPlan('Monthly', 1);
     } else if (this.isYearlyOptionActive) {
-      plan.planType = 'Yearly';
-      plan.premium = 29;
-      this.selectedMemberPlan.emit(plan);
+      this.defineMembershipPlan('Yearly', 9);
     }
   }
 
-  constructor() {}
+  constructor() {
+    this.selectedPlan = new FormControl('Free'); //Default
+    this.selectedPlan.addValidators(Validators.required);
+    this.planAmount = new FormControl(0); //Default
+
+    this.setOptionActive('f', true);
+  }
+
+  defineMembershipPlan(planType: string, amount: number) {
+    this.selectedPlan.setValue(planType);
+    this.planAmount.setValue(amount);
+  }
 
   ngOnInit(): void {}
 }

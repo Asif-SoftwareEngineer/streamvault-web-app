@@ -30,6 +30,15 @@
       autocomplete="new-password"
       #countryCode
     />
+    <button
+      mat-button
+      matSuffix
+      mat-icon-button
+      *ngIf="textValue"
+      (click)="clearText()"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
     <mat-error
       [input]="countryCode"
       fieldLabel="Country Code"

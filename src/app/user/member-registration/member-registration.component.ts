@@ -2,6 +2,7 @@
 import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   OnDestroy,
@@ -30,7 +31,7 @@ import { ErrorSets } from '../../user-controls/field-error/field-error.directive
 import { IAccountVerification } from 'src/app/models/account-verification';
 import { IMemberPlan } from 'src/app/models/membership-plans';
 import { RegistrationDataService } from 'src/app/services/registration.service';
-import { Role } from 'src/app/models/enums';
+import { PaymentMode, Role } from 'src/app/models/enums';
 import { SubSink } from 'subsink';
 import { UiService } from 'src/app/common/ui.service';
 import { isPlatformBrowser } from '@angular/common';
@@ -53,6 +54,7 @@ import {
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { CaptureContactComponent } from '../capture-contact/capture-contact.component';
 import { ContactVerificationComponent } from '../contact-verification/contact-verification.component';
+import { MembershipOptionsComponent } from '../membership-options/membership-options.component';
 
 @Component({
   selector: 'app-member-registration',
@@ -66,6 +68,9 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   @ViewChild('codeVerificationSection', { static: true })
   codeVerificationSection!: ContactVerificationComponent;
 
+  @ViewChild('membershipPlanSection', { static: true })
+  membershipPlanSection!: MembershipOptionsComponent;
+
   @ViewChild(FormGroupDirective)
   formGroupDirective!: FormGroupDirective;
   @ViewChild('stepper') stepper!: MatStepper;
@@ -74,6 +79,11 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   contactSectionGroup!: FormGroup;
   codeVerificationFormGroup!: FormGroup;
   membershipPaymentWithPi!: FormGroup;
+
+  contactSectionValidity: FormControl;
+  codeVerificationSectionValidity: FormControl;
+  membershipPlanSectionValidity: FormControl;
+  reviewInformation: FormControl;
 
   languages: string[] = [
     'English',
@@ -127,7 +137,12 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   isMemberVerified = false;
   isMemberRegistered = false;
   isMemberPlanFormValid = false;
-  selectedMemberPlan!: IMemberPlan;
+  selectedMemberPlan: IMemberPlan = {
+    planType: '',
+    amount: 0,
+    paymentMode: PaymentMode.CryptoCurrency,
+    currency: 'Pi',
+  };
 
   userObj!: IUser;
 
@@ -137,6 +152,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     public dialog: MatDialog,
     private _regService: RegistrationDataService,
+    private cdr: ChangeDetectorRef,
     //private authService: AuthService,
     //private uiService: UiService,
     private route: ActivatedRoute,
@@ -149,7 +165,11 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
       role: Role.None,
       age18Above: false,
     } as IUser;
-    this.selectedMemberPlan = {} as IMemberPlan;
+
+    this.contactSectionValidity = new FormControl(false);
+    this.codeVerificationSectionValidity = new FormControl(false);
+    this.membershipPlanSectionValidity = new FormControl(false);
+    this.reviewInformation = new FormControl(false);
   }
 
   onStepChange(event: any): void {
@@ -207,10 +227,6 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
 
   handleFormValidity(isValid: boolean) {
     this.isMemberPlanFormValid = isValid;
-  }
-
-  handleSelectedOption(plan: IMemberPlan) {
-    this.selectedMemberPlan = plan;
   }
 
   buildBasicInfoForm(initialData?: IUser) {
@@ -289,7 +305,9 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
 
       console.log('About to invoke the Mobile number verification process');
 
-      this.isMemberVerified = true;
+      this.contactSectionValidity.setValue(
+        this.contactSection.contactFormGroup.valid
+      );
 
       // this._regService.verifyEmail(verifyingUserObj).subscribe(
       //   (response) => {
@@ -310,16 +328,31 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
 
     // Call an API for mobile number verification.
     // success result : go to the next step
+
+    this.isMemberVerified = true;
+    this.codeVerificationSectionValidity.setValue(
+      this.codeVerificationSection.codeVerificationFormGroup.valid
+    );
   }
 
   defineMembershipPlan() {
     if (this.userObj) {
-      this.userObj.membership_Type = this.selectedMemberPlan.planType;
+      this.selectedMemberPlan.planType =
+        this.membershipPlanSection.selectedPlan.value;
+      this.selectedMemberPlan.amount =
+        this.membershipPlanSection.planAmount.value;
+
+      this.userObj.membership = this.selectedMemberPlan;
+
+      this.membershipPlanSectionValidity.setValue(
+        this.membershipPlanSection.selectedPlan.valid
+      );
+      this.reviewInformation.setValue(true);
     }
   }
 
   registerMember() {
-    this.isMemberRegistered = true;
+    //this.isMemberRegistered = true;
   }
 
   getVerificationCode($event: string) {

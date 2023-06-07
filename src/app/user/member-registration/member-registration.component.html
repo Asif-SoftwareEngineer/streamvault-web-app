@@ -187,7 +187,7 @@
       <mat-step
         [completed]="isMemberVerified"
         [editable]="!isMemberVerified"
-        [stepControl]="contactSection.contactFormGroup"
+        [stepControl]="contactSectionValidity"
       >
         <ng-template matStepLabel>Fill out your Contact Details</ng-template>
         <app-capture-contact #contactSection></app-capture-contact>
@@ -219,7 +219,7 @@
       <mat-step
         [completed]="isMemberVerified"
         [editable]="!isMemberVerified"
-        [stepControl]="codeVerificationSection.codeVerificationFormGroup"
+        [stepControl]="codeVerificationSectionValidity"
       >
         <ng-template matStepLabel>Verification</ng-template>
         <app-contact-verification
@@ -255,13 +255,11 @@
       <mat-step
         [completed]="isMemberRegistered"
         [editable]="!isMemberRegistered"
+        [stepControl]="membershipPlanSectionValidity"
       >
         <ng-template matStepLabel>Select Your Membership Plan</ng-template>
 
-        <app-membership-options
-          (formValidity)="handleFormValidity($event)"
-          (selectedMemberPlan)="handleSelectedOption($event)"
-        ></app-membership-options>
+        <app-membership-options #membershipPlanSection></app-membership-options>
 
         <div class="membership-registration-button-container">
           <button
@@ -270,7 +268,7 @@
             color="accent"
             class="button mat-body-1 button-Next"
             matStepperNext
-            [disabled]="!isMemberPlanFormValid"
+            [disabled]="!membershipPlanSection.selectedPlan.valid"
             (click)="defineMembershipPlan()"
           >
             Next
@@ -281,6 +279,7 @@
       <mat-step
         [completed]="isMemberRegistered"
         [editable]="!isMemberRegistered"
+        [stepControl]="reviewInformation"
       >
         <ng-template matStepLabel>Review and Submit</ng-template>
         <p class="reveiew-first-para">
@@ -290,7 +289,9 @@
 
         <div *ngIf="userObj" class="review-name-row">
           <label class="review-text">Name</label>
-          <label class="review-lbl-name">{{ userObj.name.first }} </label>
+          <label class="review-lbl-name"
+            >{{ userObj.name.first }} {{ userObj.name.last }}
+          </label>
         </div>
         <div class="review-membership-row">
           <label class="review-text1">
@@ -298,7 +299,7 @@
             <br />
           </label>
           <label class="review-lbl-membership-type">{{
-            userObj.membership_Type
+            userObj.membership?.planType
           }}</label>
         </div>
         <div class="review-language">
@@ -321,7 +322,7 @@
         <div class="review-payment-row">
           <label class="review-text8">Payment</label>
           <label class="review-lbl-payment-amount"
-            >{{ selectedMemberPlan.premium }} &#8508;</label
+            >{{ userObj.membership?.amount }} &#8508;</label
           >
         </div>
 

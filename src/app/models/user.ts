@@ -1,6 +1,7 @@
 import { MembershipType, Role } from './enums';
 
 import { IChannel } from './channel';
+import { IMemberPlan } from './membership-plans';
 import { ISetting } from './setting';
 
 export interface IUser {
@@ -15,7 +16,7 @@ export interface IUser {
   age18Above: boolean;
   role: Role;
   registration_date?: Date;
-  membership_Type?: string;
+  membership?: IMemberPlan;
   membership_renewal_date?: Date;
   picture?: string;
   isProfileDisabled: boolean;

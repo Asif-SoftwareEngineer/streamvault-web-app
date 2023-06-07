@@ -40,6 +40,14 @@ export enum LanguageType {
   German = 'german',
 }
 
+export enum PaymentMode {
+  CryptoCurrency = 'crypto',
+  Paypal = 'paypal',
+  DebitCard = 'debit-card',
+  CreditCard = 'credit-card',
+  OnlineBank = 'bank-online',
+}
+
 export enum Gender {
   Male = 'male',
   Female = 'female',

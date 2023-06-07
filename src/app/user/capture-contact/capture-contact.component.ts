@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import {
   EmailValidation,
   MobileNumberValidation,
@@ -23,6 +29,9 @@ import { countryCodeValidator } from 'src/app/common/custom-validators';
   styleUrls: ['./capture-contact.component.scss'],
 })
 export class CaptureContactComponent implements OnInit {
+  @ViewChild('mobile', { static: false })
+  inputMobile!: ElementRef<HTMLInputElement>;
+
   contactFormGroup!: FormGroup;
   countryCodeItems: string[] = [];
 
@@ -35,7 +44,8 @@ export class CaptureContactComponent implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    private _regService: RegistrationDataService
+    private _regService: RegistrationDataService,
+    private renderer: Renderer2
   ) {
     this.phoneNumberParser = new AsYouType();
   }
@@ -55,6 +65,15 @@ export class CaptureContactComponent implements OnInit {
       ],
       mobilePhoneCtrl: ['', MobileNumberValidation],
     });
+  }
+
+  get textValue() {
+    return this.contactFormGroup.controls['countryCodeCtrl'].value;
+  }
+
+  clearText() {
+    this.contactFormGroup.controls['mobilePhoneCtrl'].setValue('');
+    this.contactFormGroup.controls['countryCodeCtrl'].setValue('');
   }
 
   onInputChange(event: any) {

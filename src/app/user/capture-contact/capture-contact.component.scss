@@ -21,4 +21,13 @@
     margin-left: var(--dl-space-space-halfunit);
     height: var(--dl-size-size-xsmall);
   }
+
+  ::ng-deep .mat-icon-button.mat-icon-button {
+    margin-left: 2px;
+    margin-right: 8px;
+    margin-bottom: 5px;
+    width: 1.9em;
+    height: 1.9em;
+    background-color: var(--dl-color-primary-700);
+  }
 }

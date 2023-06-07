@@ -1,21 +1,7 @@
 //import { BaseFormDirective } from 'src/app/common/base-form.class';
 import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  Renderer2,
-  ViewChild,
-  inject,
-} from '@angular/core';
-import {
-  EmailValidation,
-  MobileNumberValidation,
-  RequiredTextValidation,
-} from '../../common/validations';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { RequiredTextValidation } from '../../common/validations';
 import {
   FormBuilder,
   FormControl,
@@ -35,23 +21,11 @@ import { PaymentMode, Role } from 'src/app/models/enums';
 import { SubSink } from 'subsink';
 import { UiService } from 'src/app/common/ui.service';
 import { isPlatformBrowser } from '@angular/common';
-import { MatStep, MatStepLabel, MatStepper } from '@angular/material/stepper';
+import { MatStep, MatStepper } from '@angular/material/stepper';
 import { MatDialog } from '@angular/material/dialog';
 import { TermsOfServiceComponent } from 'src/app/terms-of-service/terms-of-service.component';
 import { PrivacyPolicyComponent } from 'src/app/privacy-policy/privacy-policy.component';
-import {
-  countryCodeValidator,
-  languageValidator,
-} from 'src/app/common/custom-validators';
-import { ICountryCode } from 'src/app/models/countryCode';
-
-import {
-  parsePhoneNumberFromString,
-  getCountryCallingCode,
-  AsYouType,
-  formatIncompletePhoneNumber,
-} from 'libphonenumber-js';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { languageValidator } from 'src/app/common/custom-validators';
 import { CaptureContactComponent } from '../capture-contact/capture-contact.component';
 import { ContactVerificationComponent } from '../contact-verification/contact-verification.component';
 import { MembershipOptionsComponent } from '../membership-options/membership-options.component';
@@ -152,7 +126,6 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     public dialog: MatDialog,
     private _regService: RegistrationDataService,
-    private cdr: ChangeDetectorRef,
     //private authService: AuthService,
     //private uiService: UiService,
     private route: ActivatedRoute,
@@ -223,10 +196,6 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     } else {
       return [];
     }
-  }
-
-  handleFormValidity(isValid: boolean) {
-    this.isMemberPlanFormValid = isValid;
   }
 
   buildBasicInfoForm(initialData?: IUser) {

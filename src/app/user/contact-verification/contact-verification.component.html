@@ -1,45 +1,45 @@
-<div class="email-verification-code-your-email-row">
-  <label class="email-verification-code-text">Your Email: </label>
-  <label class="email-verification-code-text1">youremail@email.com</label>
+<div class="contact-verification-code-your-contact-row">
+  <label class="contact-verification-code-text">Your Email: </label>
+  <label class="contact-verification-code-text1">youremail@email.com</label>
 </div>
-<div class="email-verification-code-email-sent-message">
-  <p class="email-verification-code-text2">
+<div class="contact-verification-code-contact-sent-message">
+  <p class="contact-verification-code-text2">
     <span>
       we have sent a six-digit verification code to your email address. Please
       check your inbox (and spam folder, if necessary) for an email from us.
     </span>
     <br />
   </p>
-  <p class="email-verification-code-text5">
+  <p class="contact-verification-code-text5">
     Once you locate the email, please copy the six-digit code and paste it in
     the designated field below.
   </p>
-  <p class="email-verification-code-text6">
+  <p class="contact-verification-code-text6">
     If you haven&apos;t received the verification code within a few minutes, you
     can request a new one by clicking on the &apos;Resend&apos; button after two
     minutes (120 seconds).
   </p>
 </div>
 <form [formGroup]="codeVerificationFormGroup">
-  <div class="email-verification-code-text-verification-code-row">
+  <div class="contact-verification-code-text-verification-code-row">
     <input
       type="text"
       placeholder="6 digits Code"
       formControlName="code"
-      class="email-verification-code-txt-code Content-2"
+      class="contact-verification-code-txt-code Content-2"
       autocomplete="new-password"
       maxlength="6"
       (blur)="emitCode()"
       #code
     />
-    <label *ngIf="showCountdown" class="email-verification-code-lbl-time">{{
+    <label *ngIf="showCountdown" class="contact-verification-code-lbl-time">{{
       countdown
     }}</label>
     <button
       mat-raised-button
       type="button"
       color="primary"
-      class="button mat-body-1 email-verification-code-resend-code-button"
+      class="button mat-body-1 contact-verification-code-resend-code-button"
       (click)="resend()"
       *ngIf="!showCountdown"
     >

@@ -1,0 +1,24 @@
+.auto-option-list {
+  font-size: 12px;
+  font-family: "Montserrat";
+  height: var(--dl-space-space-twounits);
+}
+
+@media (max-width: 479px) {
+  .auto-option-list {
+    font-size: 12px;
+    font-family: "Montserrat";
+    height: var(--dl-space-space-twounits);
+  }
+
+  .button-Back {
+    width: 30%;
+    height: var(--dl-size-size-xsmall);
+  }
+
+  .button-Next {
+    width: 30%;
+    margin-left: var(--dl-space-space-halfunit);
+    height: var(--dl-size-size-xsmall);
+  }
+}

@@ -187,118 +187,11 @@
       <mat-step
         [completed]="isMemberVerified"
         [editable]="!isMemberVerified"
-        [stepControl]="contactFormGroup"
+        [stepControl]="contactSection.contactFormGroup"
       >
-        <form [formGroup]="contactFormGroup">
-          <ng-template matStepLabel>Fill out your Contact Details</ng-template>
+        <ng-template matStepLabel>Fill out your Contact Details</ng-template>
+        <app-capture-contact #contactSection></app-capture-contact>
 
-          <mat-form-field class="mat-form-field-class">
-            <mat-label>Email</mat-label>
-            <input
-              type="email"
-              matInput
-              aria-label="Email Address"
-              placeholder="Your Email"
-              formControlName="emailCtrl"
-              #email
-            />
-            <mat-error
-              [input]="email"
-              fieldLabel="Email"
-              [group]="contactFormGroup"
-              appFieldError="invalid"
-            >
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="mat-form-field-class">
-            <mat-label>Country Code</mat-label>
-            <input
-              type="text"
-              matInput
-              aria-label="Country Code"
-              placeholder="United States (1) US"
-              formControlName="countryCodeCtrl"
-              [matAutocomplete]="autoCodes"
-              autocomplete="new-password"
-              #countryCode
-            />
-            <mat-error
-              [input]="countryCode"
-              fieldLabel="Country Code"
-              [group]="contactFormGroup"
-              [appFieldError]="{
-                error: 'invalid',
-                message: 'Please select a valid country phone code.'
-              }"
-            >
-            </mat-error>
-            <mat-autocomplete
-              #autoCodes="matAutocomplete"
-              (optionSelected)="onOptionSelected($event)"
-              [displayWith]="displayFn"
-            >
-              <mat-option
-                class="auto-option-list"
-                *ngFor="let code of filteredCountryCodeItems | async"
-                [value]="code"
-              >
-                {{ code }}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-
-          <mat-form-field class="mat-form-field-class">
-            <mat-label>Mobile Phone Number</mat-label>
-            <input
-              type="tel"
-              matInput
-              aria-label="Mobile Phone Number"
-              placeholder="Mobile Phone Number"
-              formControlName="mobilePhoneCtrl"
-              autocomplete="new-password"
-              (input)="onInputChange($event)"
-              #mobile
-            />
-            <mat-error
-              [input]="mobile"
-              fieldLabel="Mobile Number"
-              [group]="contactFormGroup"
-              [appFieldError]="ErrorSets['MobileNumberText']"
-            >
-            </mat-error>
-          </mat-form-field>
-
-          <div class="membership-registration-button-container">
-            <button
-              mat-raised-button
-              type="button"
-              color="accent"
-              class="button mat-body-1 button-Back"
-              matStepperPrevious
-            >
-              Back
-            </button>
-            <button
-              mat-raised-button
-              type="button"
-              color="accent"
-              class="button mat-body-1 button-Next"
-              matStepperNext
-              [disabled]="contactFormGroup.invalid"
-              (click)="prepareUserEmailOrPhone()"
-            >
-              Next
-            </button>
-          </div>
-        </form>
-      </mat-step>
-
-      <mat-step [completed]="isMemberVerified" [editable]="!isMemberVerified">
-        <ng-template matStepLabel>Verification</ng-template>
-        <app-email-verification
-          (inputCodeValue)="getVerificationCode($event)"
-        ></app-email-verification>
         <div class="membership-registration-button-container">
           <button
             mat-raised-button
@@ -315,7 +208,44 @@
             color="accent"
             class="button mat-body-1 button-Next"
             matStepperNext
-            (click)="verifyMemberEmail()"
+            (click)="prepareContactSection()"
+            [disabled]="!contactSection.contactFormGroup.valid"
+          >
+            Next
+          </button>
+        </div>
+      </mat-step>
+
+      <mat-step
+        [completed]="isMemberVerified"
+        [editable]="!isMemberVerified"
+        [stepControl]="codeVerificationSection.codeVerificationFormGroup"
+      >
+        <ng-template matStepLabel>Verification</ng-template>
+        <app-contact-verification
+          #codeVerificationSection
+        ></app-contact-verification>
+
+        <div class="membership-registration-button-container">
+          <button
+            mat-raised-button
+            type="button"
+            color="accent"
+            class="button mat-body-1 button-Back"
+            matStepperPrevious
+          >
+            Back
+          </button>
+          <button
+            mat-raised-button
+            type="button"
+            color="accent"
+            class="button mat-body-1 button-Next"
+            matStepperNext
+            [disabled]="
+              !codeVerificationSection.codeVerificationFormGroup.valid
+            "
+            (click)="verifyMemberMobileNumber()"
           >
             Next
           </button>
@@ -340,7 +270,7 @@
             color="accent"
             class="button mat-body-1 button-Next"
             matStepperNext
-            [disabled]="!isFormValid"
+            [disabled]="!isMemberPlanFormValid"
             (click)="defineMembershipPlan()"
           >
             Next

@@ -1,0 +1,78 @@
+<form [formGroup]="contactFormGroup">
+  <mat-form-field class="mat-form-field-class">
+    <mat-label>Email</mat-label>
+    <input
+      type="email"
+      matInput
+      aria-label="Email Address"
+      placeholder="Your Email"
+      formControlName="emailCtrl"
+      #email
+    />
+    <mat-error
+      [input]="email"
+      fieldLabel="Email"
+      [group]="contactFormGroup"
+      appFieldError="invalid"
+    >
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="mat-form-field-class">
+    <mat-label>Country Code</mat-label>
+    <input
+      type="text"
+      matInput
+      aria-label="Country Code"
+      placeholder="United States (1) US"
+      formControlName="countryCodeCtrl"
+      [matAutocomplete]="autoCodes"
+      autocomplete="new-password"
+      #countryCode
+    />
+    <mat-error
+      [input]="countryCode"
+      fieldLabel="Country Code"
+      [group]="contactFormGroup"
+      [appFieldError]="{
+        error: 'invalid',
+        message: 'Please select a valid country phone code.'
+      }"
+    >
+    </mat-error>
+    <mat-autocomplete
+      #autoCodes="matAutocomplete"
+      (optionSelected)="onOptionSelected($event)"
+    >
+      <mat-option
+        class="auto-option-list"
+        *ngFor="let code of filteredCountryCodeItems | async"
+        [value]="code"
+      >
+        {{ code }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="mat-form-field-class">
+    <mat-label>Mobile Phone Number</mat-label>
+    <input
+      type="tel"
+      matInput
+      aria-label="Mobile Phone Number"
+      placeholder="Mobile Phone Number"
+      formControlName="mobilePhoneCtrl"
+      autocomplete="new-password"
+      (input)="onInputChange($event)"
+      (keydown)="onKeyDown($event)"
+      #mobile
+    />
+    <mat-error
+      [input]="mobile"
+      fieldLabel="Mobile Number"
+      [group]="contactFormGroup"
+      [appFieldError]="ErrorSets['MobileNumberText']"
+    >
+    </mat-error>
+  </mat-form-field>
+</form>

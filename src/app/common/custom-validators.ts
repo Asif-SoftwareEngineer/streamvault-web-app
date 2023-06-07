@@ -51,21 +51,24 @@ export function mobileNumberValidator(
 ): ValidationErrors | null {
   let inputValue = control.value;
 
-  // trigger mobile number validation check if it is at least 10 characters
+  const countryCodeCharacters = inputValue.substring(
+    //Check the format of a country code whic is '+61 '
+    0,
+    inputValue.indexOf(' ') + 1
+  );
 
-  inputValue = inputValue.replace(/\s/g, '').trim();
+  const startsWithPlus = countryCodeCharacters.startsWith('+');
+  const endsWithSpace = countryCodeCharacters.endsWith(' ');
 
-  if (inputValue.length > 10) {
-    const phoneNumber = parsePhoneNumberFromString(inputValue);
+  if (!startsWithPlus || !endsWithSpace) {
+    return { invalidMobileNumber: true }; // The input is not a valid mobile number
+  }
 
-    if (phoneNumber && phoneNumber.isValid()) {
-      return null; // The input is a valid mobile number
-    } else {
-      console.log('invalid mobile');
+  const phoneNumber = parsePhoneNumberFromString(inputValue);
 
-      return { invalidMobileNumber: true }; // The input is not a valid mobile number
-    }
+  if (phoneNumber && phoneNumber.isValid()) {
+    return null; // The input is a valid mobile number
   } else {
-    return null;
+    return { invalidMobileNumber: true }; // The input is not a valid mobile number
   }
 }

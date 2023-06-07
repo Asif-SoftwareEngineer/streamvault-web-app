@@ -24,7 +24,8 @@ export const VerificationCodeValidation = [
 
 export const MobileNumberValidation = [
   Validators.required,
-  Validators.minLength(11),
+  Validators.minLength(12),
+  Validators.maxLength(19),
   mobileNumberValidator,
 ];
 

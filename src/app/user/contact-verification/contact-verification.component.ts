@@ -21,12 +21,12 @@ import { ErrorSets } from 'src/app/user-controls/field-error/field-error.directi
 import { sixDigitCodeValidator } from 'src/app/common/custom-validators';
 
 @Component({
-  selector: 'app-email-verification',
-  templateUrl: './email-verification.component.html',
-  styleUrls: ['./email-verification.component.scss'],
+  selector: 'app-contact-verification',
+  templateUrl: './contact-verification.component.html',
+  styleUrls: ['./contact-verification.component.scss'],
 })
-export class EmailVerificationComponent implements OnInit, OnDestroy {
-  @Output() inputCodeValue: EventEmitter<string> = new EventEmitter<string>();
+export class ContactVerificationComponent implements OnInit, OnDestroy {
+  @Output() throwCodeValue: EventEmitter<string> = new EventEmitter<string>();
 
   countdown: number = 10;
   showCountdown: boolean = true;
@@ -56,7 +56,7 @@ export class EmailVerificationComponent implements OnInit, OnDestroy {
   }
 
   emitCode() {
-    this.inputCodeValue.emit(
+    this.throwCodeValue.emit(
       this.codeVerificationFormGroup.controls['code'].value
     );
   }

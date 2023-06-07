@@ -1,5 +1,6 @@
+import { CaptureContactComponent } from './capture-contact/capture-contact.component';
 import { CommonModule } from '@angular/common';
-import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { ContactVerificationComponent } from './contact-verification/contact-verification.component';
 import { FieldErrorModule } from '../user-controls/field-error/field-error.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LogOutComponent } from './log-out/log-out.component';
@@ -26,9 +27,10 @@ import { UserRoutingModule } from './user-routing.module';
     MemberHomeComponent,
     UserHomeComponent,
     ManagementComponent,
-    EmailVerificationComponent,
+    ContactVerificationComponent,
     MembershipOptionsComponent,
     NameInputComponent,
+    CaptureContactComponent,
   ],
   imports: [
     CommonModule,

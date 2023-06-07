@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 
-import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { ContactVerificationComponent } from './contact-verification/contact-verification.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { MemberHomeComponent } from './member-home/member-home.component';
 import { MemberRegistrationComponent } from './member-registration/member-registration.component';
@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'user-home', component: UserHomeComponent },
   { path: 'registerOld', component: RegisterComponent },
   { path: 'register-member', component: MemberRegistrationComponent },
-  { path: 'verification-email', component: EmailVerificationComponent },
+  { path: 'verification-email', component: ContactVerificationComponent },
   { path: 'membership-options', component: MembershipOptionsComponent },
   { path: 'member-home', component: MemberHomeComponent },
   { path: 'profile', component: MyProfileComponent },

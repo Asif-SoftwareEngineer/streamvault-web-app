@@ -23,7 +23,12 @@ export const ErrorSets: { [key: string]: ValidationError[] } = {
   RequiredText: ['minlength', 'maxlength', 'required'],
   RangeText: ['minlength', 'maxlength'],
   SixDigitCodeText: ['required', 'invalidCode'],
-  MobileNumberText: ['required', 'minlength', 'invalidMobileNumber'],
+  MobileNumberText: [
+    'required',
+    'minlength',
+    'maxlength',
+    'invalidMobileNumber',
+  ],
 };
 
 @Directive({

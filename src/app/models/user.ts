@@ -11,7 +11,7 @@ export interface IUser {
   userId?: string;
   name: IName;
   email?: string;
-  mobile?: string;
+  mobile: string;
   language: string;
   age18Above: boolean;
   role: Role;

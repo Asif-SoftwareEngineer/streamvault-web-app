@@ -102,7 +102,7 @@ form mat-error {
 .membership-registration-agree-tos-container {
   flex: 0 0 auto;
   width: 100%;
-  height: var(--dl-size-size-medium-1);
+  height: auto;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -517,6 +517,10 @@ form mat-error {
     height: var(--dl-size-size-medium-1);
     align-items: center;
     justify-content: space-between;
+  }
+
+  .agree-error-container {
+    height: auto;
   }
 
   .age-greather-than18-error-container {

@@ -104,7 +104,15 @@
             </mat-autocomplete>
           </mat-form-field>
 
-          <div class="membership-registration-age-greater-than18-container">
+          <div
+            class="membership-registration-age-greater-than18-container"
+            [style.min-height]="
+              basicInfoFormGroup.controls['ageCtrl'].hasError('required') &&
+              basicInfoFormGroup.controls['ageCtrl'].touched
+                ? '120px'
+                : '72px'
+            "
+          >
             <span class="membership-registration-text01 Content-2">
               Age greater than 18
             </span>
@@ -160,11 +168,7 @@
                 ) && basicInfoFormGroup.controls['agreeToTosCtrl'].touched
               "
             >
-              <span>
-                By creating an account or accessing our services, you
-                acknowledge that you have read, understood, and agree to our
-                Terms of Service and Privacy Policy.</span
-              >
+              <span> Selection required</span>
             </mat-error>
           </div>
 
@@ -174,7 +178,6 @@
               type="button"
               color="accent"
               class="button mat-body-1 button-Next"
-              matStepperNext
               [disabled]="basicInfoFormGroup.invalid"
               (click)="prepareBasicInfo()"
             >
@@ -198,7 +201,7 @@
             type="button"
             color="accent"
             class="button mat-body-1 button-Back"
-            matStepperPrevious
+            (click)="goBackStep()"
           >
             Back
           </button>
@@ -207,7 +210,6 @@
             type="button"
             color="accent"
             class="button mat-body-1 button-Next"
-            matStepperNext
             (click)="prepareContactSection()"
             [disabled]="!contactSection.contactFormGroup.valid"
           >
@@ -232,7 +234,7 @@
             type="button"
             color="accent"
             class="button mat-body-1 button-Back"
-            matStepperPrevious
+            (click)="goBackStep()"
           >
             Back
           </button>
@@ -241,11 +243,10 @@
             type="button"
             color="accent"
             class="button mat-body-1 button-Next"
-            matStepperNext
             [disabled]="
               !codeVerificationSection.codeVerificationFormGroup.valid
             "
-            (click)="verifyMemberMobileNumber()"
+            (click)="verifyMobileNumber()"
           >
             Next
           </button>
@@ -255,7 +256,6 @@
       <mat-step
         [completed]="isMemberRegistered"
         [editable]="!isMemberRegistered"
-        [stepControl]="membershipPlanSectionValidity"
       >
         <ng-template matStepLabel>Select Your Membership Plan</ng-template>
 
@@ -267,7 +267,6 @@
             type="button"
             color="accent"
             class="button mat-body-1 button-Next"
-            matStepperNext
             [disabled]="!membershipPlanSection.selectedPlan.valid"
             (click)="defineMembershipPlan()"
           >
@@ -279,7 +278,7 @@
       <mat-step
         [completed]="isMemberRegistered"
         [editable]="!isMemberRegistered"
-        [stepControl]="reviewInformation"
+        [stepControl]="reviewInformationSectionValidity"
       >
         <ng-template matStepLabel>Review and Submit</ng-template>
         <p class="reveiew-first-para">
@@ -332,7 +331,7 @@
             type="button"
             color="accent"
             class="button mat-body-1 button-Back"
-            matStepperPrevious
+            (click)="goBackStep()"
           >
             Back
           </button>
@@ -341,7 +340,6 @@
             type="button"
             color="accent"
             class="button mat-body-1 button-Next"
-            matStepperNext
             (click)="registerMember()"
           >
             Register

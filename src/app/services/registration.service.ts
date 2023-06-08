@@ -70,7 +70,7 @@ export class RegistrationDataService {
 
   constructor(private http: HttpClient) {}
 
-  verifyEmail(verifyingUser: IAccountVerification): Observable<any> {
+  verifyMobileNumber(verifyingUser: IAccountVerification): Observable<any> {
     return this.http.post<any>(
       `${apiConfig.baseUrl}user/verifyEmail`,
       verifyingUser,
@@ -86,6 +86,11 @@ export class RegistrationDataService {
   verifyCode(email: string, code: string): Observable<any> {
     const url = `${apiConfig.baseUrl}user/verifyCode?email=${email}&code=${code}`;
     return this.http.get<any>(url);
+  }
+
+  registerAsMember(membershipData: IUser): Observable<any> {
+    const url = `${apiConfig.baseUrl}user/member`;
+    return this.http.post<any>(url, membershipData, apiConfig.httpOptions);
   }
 
   //   getUser(

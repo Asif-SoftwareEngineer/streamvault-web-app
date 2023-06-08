@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  Input,
   OnInit,
   Renderer2,
   ViewChild,
@@ -33,7 +34,7 @@ export class CaptureContactComponent implements OnInit {
   inputMobile!: ElementRef<HTMLInputElement>;
 
   contactFormGroup!: FormGroup;
-  countryCodeItems: string[] = [];
+ countryCodeItems: string[] = [];
 
   ErrorSets = ErrorSets;
   filteredCountryCodeItems: Observable<string[]> | undefined;

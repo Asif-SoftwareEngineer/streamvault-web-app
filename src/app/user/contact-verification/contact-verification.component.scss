@@ -112,6 +112,7 @@
     width: 100%;
     text-align: justify;
     line-height: 1.5;
+    padding-top: var(--dl-space-space-unit);
     padding-bottom: var(--dl-space-space-halfunit);
   }
   .contact-verification-code-text5 {
@@ -162,10 +163,13 @@
     border-radius: var(--dl-radius-radius-radius6);
   }
   .contact-verification-code-resend-code-button {
-    height: var(--dl-size-size-xsmall);
+    background-color: var(--dl-color-primary-500) !important;
+    height: var(--dl-size-size-small);
     margin-left: var(--dl-space-space-halfunit);
-    //padding-top: var(--dl-space-space-halfunit);
     margin-right: var(--dl-space-space-halfunit);
-    //padding-bottom: var(--dl-space-space-halfunit);
+  }
+
+  .mobileNumberText {
+    color: var(--dl-color-primary-500);
   }
 }

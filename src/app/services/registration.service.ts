@@ -35,47 +35,18 @@ export class RegistrationDataService {
   //     isProfileDisabled: false,
   //   };
 
-  //   private _user = new BehaviorSubject<IUser>(this._userWithInitialValues);
-
-  //   private registrations = [
-  //     {
-  //       pi_uid: 1,
-  //       streamvault_username: 'rego_username1',
-  //       email: 'usrrego101@gmail.com',
-  //       country: 'Australia',
-  //       city: 'Melbourne',
-  //     },
-  //     {
-  //       pi_uid: 2,
-  //       streamvault_username: 'rego_username2',
-  //       email: 'usrrego102@gmail.com',
-  //       country: 'Australia',
-  //       city: 'Melbourne',
-  //     },
-  //     {
-  //       pi_uid: 3,
-  //       streamvault_username: 'rego_username3',
-  //       email: 'usrrego103@gmail.com',
-  //       country: 'Australia',
-  //       city: 'Melbourne',
-  //     },
-  //     {
-  //       pi_uid: 4,
-  //       streamvault_username: 'rego_username4',
-  //       email: 'usrrego104@gmail.com',
-  //       country: 'Australia',
-  //       city: 'Melbourne',
-  //     },
-  //   ];
-
   constructor(private http: HttpClient) {}
 
-  verifyMobileNumber(verifyingUser: IAccountVerification): Observable<any> {
-    return this.http.post<any>(
-      `${apiConfig.baseUrl}user/verifyEmail`,
-      verifyingUser,
-      apiConfig.httpOptions
-    );
+  generateVerificationCode(
+    verifyingUser: IAccountVerification
+  ): Observable<any> {
+    const url = `${apiConfig.baseUrl}user/generateVerificationCode`;
+    return this.http.post<any>(url, verifyingUser, apiConfig.httpOptions);
+  }
+
+  verifyMobileNumber(mobile: string, code: string): Observable<any> {
+    const url = `${apiConfig.baseUrl}user/verifyMobileNumber`;
+    return this.http.post<any>(url, { mobile, code }, apiConfig.httpOptions);
   }
 
   getCountyCodes(): Observable<ICountryCode[]> {
@@ -83,13 +54,8 @@ export class RegistrationDataService {
     return this.http.get<ICountryCode[]>(url);
   }
 
-  verifyCode(email: string, code: string): Observable<any> {
-    const url = `${apiConfig.baseUrl}user/verifyCode?email=${email}&code=${code}`;
-    return this.http.get<any>(url);
-  }
-
   registerAsMember(membershipData: IUser): Observable<any> {
-    const url = `${apiConfig.baseUrl}user/member`;
+    const url = `${apiConfig.baseUrl}user/registerMember`;
     return this.http.post<any>(url, membershipData, apiConfig.httpOptions);
   }
 

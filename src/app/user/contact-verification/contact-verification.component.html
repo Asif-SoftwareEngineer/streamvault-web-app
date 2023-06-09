@@ -1,17 +1,19 @@
-<div class="contact-verification-code-your-contact-row">
+<!-- <div class="contact-verification-code-your-contact-row">
   <label class="contact-verification-code-text">Your Email: </label>
   <label class="contact-verification-code-text1">youremail@email.com</label>
-</div>
+</div> -->
 <div class="contact-verification-code-contact-sent-message">
   <p class="contact-verification-code-text2">
+    <span>Hi {{ firstName }},</span><br /><br />
     <span>
-      we have sent a six-digit verification code to your email address. Please
-      check your inbox (and spam folder, if necessary) for an email from us.
+      we have sent a six-digit verification code to your mobile number
+      <span class="mobileNumberText">[{{ mobile }}]</span>. Please check your
+      mobile for an incoming sms.
     </span>
     <br />
   </p>
   <p class="contact-verification-code-text5">
-    Once you locate the email, please copy the six-digit code and paste it in
+    Once you locate the message, please copy the six-digit code and paste it in
     the designated field below.
   </p>
   <p class="contact-verification-code-text6">
@@ -30,6 +32,7 @@
       autocomplete="new-password"
       maxlength="6"
       (blur)="emitCode()"
+      (keydown)="onKeyDown($event)"
       #code
     />
     <label *ngIf="showCountdown" class="contact-verification-code-lbl-time">{{
@@ -38,8 +41,7 @@
     <button
       mat-raised-button
       type="button"
-      color="primary"
-      class="button mat-body-1 contact-verification-code-resend-code-button"
+      class="button mat-body-2 contact-verification-code-resend-code-button"
       (click)="resend()"
       *ngIf="!showCountdown"
     >

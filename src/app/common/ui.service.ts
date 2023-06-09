@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core'
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog'
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar'
-import { Observable } from 'rxjs'
+import { Injectable } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
-import { SimpleDialogComponent } from './simple-dialog.component'
+import { SimpleDialogComponent } from './simple-dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -11,14 +11,23 @@ import { SimpleDialogComponent } from './simple-dialog.component'
 export class UiService {
   constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {}
 
-  showToast(message: string, action = 'Close', config?: MatSnackBarConfig) {
+  showToast(
+    message: string,
+    displayTime = 4000,
+    action = 'Close',
+    config?: MatSnackBarConfig
+  ) {
+    console.log(message);
     this.snackBar.open(
       message,
       action,
       config || {
-        duration: 7000,
+        duration: displayTime, // Duration in milliseconds
+        horizontalPosition: 'center', // Snackbar's horizontal position
+        verticalPosition: 'bottom', // Snackbar's vertical position
+        panelClass: ['error-snackbar'],
       }
-    )
+    );
   }
 
   showDialog(
@@ -34,8 +43,8 @@ export class UiService {
         width: '300px',
         data: { title, content, okText, cancelText },
       }
-    )
+    );
 
-    return dialogRef.afterClosed()
+    return dialogRef.afterClosed();
   }
 }

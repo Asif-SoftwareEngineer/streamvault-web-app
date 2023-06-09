@@ -520,11 +520,11 @@ form mat-error {
   }
 
   .agree-error-container {
-    height: auto;
+    margin-top: var(--dl-space-space-halfunit);
   }
 
   .age-greather-than18-error-container {
-    margin-top: var(--dl-space-space-unit);
+    margin-top: var(--dl-space-space-halfunit);
   }
 
   .membership-registration-text01 {

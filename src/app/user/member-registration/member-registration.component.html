@@ -144,14 +144,14 @@
                 class="tosAndPV-links-text"
                 (click)="openTermsOfServiceDialog()"
               >
-                Terms of Service
+                <small>Terms of Service</small>
               </a>
               and
               <a
                 class="tosAndPV-links-text"
                 (click)="openPrivacyPolicyDialog()"
               >
-                Privacy Policy</a
+                <small>Privacy Policy</small></a
               >
             </span>
             <mat-checkbox
@@ -226,6 +226,10 @@
         <ng-template matStepLabel>Verification</ng-template>
         <app-contact-verification
           #codeVerificationSection
+          [firstName]="userObj.name.first"
+          [lastName]="userObj.name.last"
+          [email]="userObj.email!"
+          [mobile]="userObj.mobile"
         ></app-contact-verification>
 
         <div class="membership-registration-button-container">
@@ -246,7 +250,7 @@
             [disabled]="
               !codeVerificationSection.codeVerificationFormGroup.valid
             "
-            (click)="verifyMobileNumber()"
+            (click)="verifyMobile()"
           >
             Next
           </button>
@@ -256,6 +260,7 @@
       <mat-step
         [completed]="isMemberRegistered"
         [editable]="!isMemberRegistered"
+        [stepControl]="membershipPlanSectionValidity"
       >
         <ng-template matStepLabel>Select Your Membership Plan</ng-template>
 

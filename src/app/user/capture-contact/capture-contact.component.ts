@@ -34,7 +34,7 @@ export class CaptureContactComponent implements OnInit {
   inputMobile!: ElementRef<HTMLInputElement>;
 
   contactFormGroup!: FormGroup;
- countryCodeItems: string[] = [];
+  countryCodeItems: string[] = [];
 
   ErrorSets = ErrorSets;
   filteredCountryCodeItems: Observable<string[]> | undefined;
@@ -164,7 +164,7 @@ export class CaptureContactComponent implements OnInit {
     this.selectedCountryDialingCode = `+${getCountryCallingCode(iso2Code)} `;
 
     this.contactFormGroup.controls['mobilePhoneCtrl'].setValue(
-      this.selectedCountryDialingCode
+      `${this.selectedCountryDialingCode}25 632 5698`
     );
   }
 }

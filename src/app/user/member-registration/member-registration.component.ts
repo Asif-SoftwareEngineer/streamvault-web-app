@@ -36,6 +36,8 @@ import {
 import { CaptureContactComponent } from '../capture-contact/capture-contact.component';
 import { ContactVerificationComponent } from '../contact-verification/contact-verification.component';
 import { MembershipOptionsComponent } from '../membership-options/membership-options.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { InterComponentDataService } from 'src/app/services/inter-comp-data.service';
 
 @Component({
   selector: 'app-member-registration',
@@ -65,6 +67,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
 
   contactSectionValidity: FormControl;
   codeVerificationSectionValidity: FormControl;
+  membershipPlanSectionValidity: FormControl;
   reviewInformationSectionValidity: FormControl;
 
   languages: string[] = [
@@ -127,13 +130,17 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   };
 
   userObj!: IUser;
+  email: string = '';
+  mobile: string = '';
 
   private subs = new SubSink();
 
   constructor(
-    private _fb: FormBuilder,
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private _regService: RegistrationDataService,
+    private regService: RegistrationDataService,
+    private interCompService: InterComponentDataService,
     //private authService: AuthService,
     private uiService: UiService,
     private route: ActivatedRoute,
@@ -149,7 +156,11 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
 
     this.contactSectionValidity = new FormControl(false);
     this.codeVerificationSectionValidity = new FormControl(false);
+    this.membershipPlanSectionValidity = new FormControl(false);
     this.reviewInformationSectionValidity = new FormControl(false);
+
+    this.contactSectionValidity.setErrors({ customError: true });
+    this.codeVerificationSectionValidity.setErrors({ customError: true });
   }
 
   onStepChange(event: any): void {
@@ -181,7 +192,6 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.buildBasicInfoForm();
-    //this.buildContactForm();
     this.defineLanguageObservable();
   }
 
@@ -209,7 +219,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   buildBasicInfoForm(initialData?: IUser) {
     //const user = initialData;
 
-    this.basicInfoFormGroup = this._fb.group({
+    this.basicInfoFormGroup = this.fb.group({
       firstNameCtrl: ['Asif', RequiredTextValidation],
       lastNameCtrl: ['Javed', RequiredTextValidation],
       languageCtrl: [
@@ -220,16 +230,6 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
       agreeToTosCtrl: [true, Validators.requiredTrue],
     });
   }
-
-  buildContactForm() {
-    this.contactFormGroup = this._fb.group({
-      emailCtrl: ['asif.javed.bangash@gmail.com', EmailValidation],
-      countryCodeCtrl: ['', [Validators.required]],
-      mobilePhoneCtrl: ['', MobileNumberValidation],
-    });
-  }
-
-  //, countryCodeValidator(this.countryCodeItems)
 
   openTermsOfServiceDialog(): void {
     const dialogRef = this.dialog.open(TermsOfServiceComponent, {
@@ -283,8 +283,6 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     this.userObj.mobile =
       this.contactSection.contactFormGroup.controls['mobilePhoneCtrl'].value;
 
-    // Prepare th Data Transfer Object
-
     if (this.userObj) {
       let verifyingUserObj: IAccountVerification = {
         firstName: this.userObj.name.first,
@@ -295,26 +293,25 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
         isVerified: false,
       };
 
-      this._regService.verifyMobileNumber(verifyingUserObj).subscribe({
+      this.regService.generateVerificationCode(verifyingUserObj).subscribe({
         next: (response) => {
           if (response.status == 200) {
-            this.isMemberVerified = true;
+            this.interCompService.messageSentToMobile(true);
             this.contactSectionValidity.setErrors(null);
+            this.uiService.showToast(response.message);
             this.stepper.next();
           }
         },
         error: (responseError) => {
-          this.isMemberVerified = false;
           this.contactSectionValidity.setErrors({ customError: true });
-          this.uiService.showToast(
-            'System failed to send verification code to your specified mobile number, Please ensure you gave us a valid mobile number.'
-          );
+          this.interCompService.messageSentToMobile(false);
+          this.uiService.showToast(responseError.error.message);
         },
       });
     }
   }
 
-  verifyMobileNumber() {
+  verifyMobile() {
     this.isMemberVerified = false;
     this.codeVerificationSectionValidity.setErrors({ customError: true });
 
@@ -322,55 +319,61 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
       this.codeVerificationSection.codeVerificationFormGroup.controls['code']
         .value;
 
-    this._regService
-      .verifyCode(this.userObj.email!, verificationCode)
-      .subscribe(
-        (response) => {
+    this.regService
+      .verifyMobileNumber(this.userObj.mobile, verificationCode)
+      .subscribe({
+        next: (response) => {
           if (response.status === 200) {
             this.isMemberVerified = true;
             this.codeVerificationSectionValidity.setErrors(null);
+            this.uiService.showToast(response.message);
             this.stepper.next();
           }
         },
-        (responseError) => {
-          console.log(responseError);
+        error: (responseError) => {
           this.isMemberVerified = false;
-          this.codeVerificationSectionValidity.setErrors({ customError: true });
-          this.uiService.showToast(
-            'System failed to send verification code to your specified mobile number. Please ensure you provided a valid mobile number.'
-          );
-        }
-      );
+          this.codeVerificationSectionValidity.setErrors({
+            customError: true,
+          });
+          this.uiService.showToast(responseError.error.message);
+        },
+      });
   }
 
   defineMembershipPlan() {
+    this.isMemberRegistered = false;
+    this.membershipPlanSectionValidity.setErrors({ customError: true });
+
     this.selectedMemberPlan.planType =
       this.membershipPlanSection.selectedPlan.value;
     this.selectedMemberPlan.amount =
       this.membershipPlanSection.planAmount.value;
 
     this.userObj.membership = this.selectedMemberPlan;
-    this.stepper.next();
+    if (this.userObj.membership.planType) {
+      this.membershipPlanSectionValidity.setErrors(null);
+      this.stepper.next();
+    }
   }
 
   registerMember() {
     this.isMemberRegistered = false;
     this.reviewInformationSectionValidity.setErrors({ customError: true });
-    this._regService.registerAsMember(this.userObj).subscribe({
+
+    this.regService.registerAsMember(this.userObj).subscribe({
       next: (response) => {
         if (response.status === 200) {
+          this.uiService.showToast(response.message);
           this.isMemberRegistered = true;
           this.reviewInformationSectionValidity.setErrors(null);
+          this.uiService.showToast(response.message);
           this.stepper.next();
         }
       },
       error: (responseError) => {
         this.isMemberRegistered = false;
         this.reviewInformationSectionValidity.setErrors({ customError: true });
-        console.log(responseError);
-        // this.uiService.showToast(
-        //   'System failed to send verification code to your specified mobile number. Please ensure you provided a valid mobile number.'
-        // );
+        this.uiService.showToast(responseError.error.message);
       },
     });
   }

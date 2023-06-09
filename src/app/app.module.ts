@@ -17,6 +17,7 @@ import { StudioModule } from './studio/studio.module';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { UserModule } from './user/user.module';
 import { ValidationModule } from './validation/validation.module';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,6 @@ import { ValidationModule } from './validation/validation.module';
     EarningsModule,
     ValidationModule,
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

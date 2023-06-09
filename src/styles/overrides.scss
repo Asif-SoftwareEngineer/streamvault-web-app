@@ -11,6 +11,49 @@
     padding-left: var(--dl-space-space-halfunit) !important;
     border-radius: 6px;
   }
+
+  .my-snackbar {
+    background-color: #ff4081; /* Custom background color */
+    color: #ffffff; /* Custom text color */
+    font-size: 14px; /* Custom font size */
+    /* Add more custom styles as needed */
+  }
+
+  /* Customizing the close button */
+  .mat-snack-bar-action {
+    margin-top: var(
+      --dl-space-space-unit
+    ) !important; /* Custom color for the close button */
+  }
+
+  /* Customizing the message text */
+  .mat-simple-snackbar {
+    color: #ffffff !important; /* Custom color for the message text */
+    font-size: 14px !important; /* Custom font size for the message text */
+    flex-wrap: wrap;
+  }
+
+  .mat-simple-snackbar button {
+    margin-top: var(--dl-space-space-unit) !important;
+    background-color: var(--dl-color-primary-500) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: var(--dl-size-size-medium-1) !important;
+  }
+
+  /* Customizing the container */
+  .mat-snack-bar-container {
+    background-color: var(
+      --dl-color-accent-500
+    ) !important; /* Custom background color for the container */
+    flex-wrap: wrap !important;
+    max-width: 92% !important;
+    min-height: var(--dl-size-size-medium) !important;
+    height: auto !important;
+    margin-bottom: var(--dl-space-space-unit) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 }
 
 @media (max-width: 379px) {

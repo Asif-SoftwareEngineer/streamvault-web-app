@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
 
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { SimpleDialogComponent } from './simple-dialog.component';
 
 @Injectable({
@@ -13,11 +13,10 @@ export class UiService {
 
   showToast(
     message: string,
-    displayTime = 4000,
+    displayTime = 3000,
     action = 'Close',
     config?: MatSnackBarConfig
   ) {
-    console.log(message);
     this.snackBar.open(
       message,
       action,

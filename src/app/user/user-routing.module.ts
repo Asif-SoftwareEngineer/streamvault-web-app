@@ -11,12 +11,15 @@ import { RegisterComponent } from './register/register.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 
 const routes: Routes = [
+  { path: 'register-member', component: MemberRegistrationComponent },
+  { path: 'member-home', component: MemberHomeComponent },
+
   { path: 'user-home', component: UserHomeComponent },
   { path: 'registerOld', component: RegisterComponent },
-  { path: 'register-member', component: MemberRegistrationComponent },
-  { path: 'verification-email', component: ContactVerificationComponent },
-  { path: 'membership-options', component: MembershipOptionsComponent },
-  { path: 'member-home', component: MemberHomeComponent },
+
+  // { path: 'verification-email', component: ContactVerificationComponent },
+  // { path: 'membership-options', component: MembershipOptionsComponent },
+
   { path: 'profile', component: MyProfileComponent },
   { path: 'logout', component: LogOutComponent },
 ];

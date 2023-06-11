@@ -16,7 +16,7 @@ import {
 import { IName, IUser } from 'src/app/models/user';
 import { Inject, PLATFORM_ID } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorSets } from '../../user-controls/field-error/field-error.directive';
 import { IAccountVerification } from 'src/app/models/account-verification';
 import { IMemberPlan } from 'src/app/models/membership-plans';
@@ -144,6 +144,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     //private authService: AuthService,
     private uiService: UiService,
     private route: ActivatedRoute,
+    private _router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.userObj = {
@@ -226,8 +227,8 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
         'English',
         [Validators.required, languageValidator(this.languages)],
       ],
-      ageCtrl: [true, Validators.requiredTrue],
-      agreeToTosCtrl: [true, Validators.requiredTrue],
+      ageCtrl: [false, Validators.requiredTrue],
+      agreeToTosCtrl: [false, Validators.requiredTrue],
     });
   }
 
@@ -319,25 +320,28 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
       this.codeVerificationSection.codeVerificationFormGroup.controls['code']
         .value;
 
-    this.regService
-      .verifyMobileNumber(this.userObj.mobile, verificationCode)
-      .subscribe({
-        next: (response) => {
-          if (response.status === 200) {
-            this.isMemberVerified = true;
-            this.codeVerificationSectionValidity.setErrors(null);
-            this.uiService.showToast(response.message);
-            this.stepper.next();
-          }
-        },
-        error: (responseError) => {
-          this.isMemberVerified = false;
-          this.codeVerificationSectionValidity.setErrors({
-            customError: true,
-          });
-          this.uiService.showToast(responseError.error.message);
-        },
-      });
+    if (this.isValidUserObject()) {
+      // Proceed to the next step in code execution
+      this.regService
+        .verifyMobileNumber(this.userObj.mobile, verificationCode)
+        .subscribe({
+          next: (response) => {
+            if (response.status === 200) {
+              this.isMemberVerified = true;
+              this.codeVerificationSectionValidity.setErrors(null);
+              this.uiService.showToast(response.message);
+              this.stepper.next();
+            }
+          },
+          error: (responseError) => {
+            this.isMemberVerified = false;
+            this.codeVerificationSectionValidity.setErrors({
+              customError: true,
+            });
+            this.uiService.showToast(responseError.error.message);
+          },
+        });
+    }
   }
 
   defineMembershipPlan() {
@@ -352,7 +356,9 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     this.userObj.membership = this.selectedMemberPlan;
     if (this.userObj.membership.planType) {
       this.membershipPlanSectionValidity.setErrors(null);
-      this.stepper.next();
+      if (this.isValidUserObject()) {
+        this.stepper.next();
+      }
     }
   }
 
@@ -360,27 +366,56 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     this.isMemberRegistered = false;
     this.reviewInformationSectionValidity.setErrors({ customError: true });
 
-    this.regService.registerAsMember(this.userObj).subscribe({
-      next: (response) => {
-        if (response.status === 200) {
-          this.uiService.showToast(response.message);
-          this.isMemberRegistered = true;
-          this.reviewInformationSectionValidity.setErrors(null);
-          this.uiService.showToast(response.message);
-          this.stepper.next();
-        }
-      },
-      error: (responseError) => {
-        this.isMemberRegistered = false;
-        this.reviewInformationSectionValidity.setErrors({ customError: true });
-        this.uiService.showToast(responseError.error.message);
-      },
-    });
+    if (this.isValidUserObject()) {
+      this.regService.registerAsMember(this.userObj).subscribe({
+        next: (response) => {
+          if (response.status === 200) {
+            this.isMemberRegistered = true;
+            this.reviewInformationSectionValidity.setErrors(null);
+            this.uiService.showToast(response.message);
+            this.stepper.next();
+          }
+        },
+        error: (responseError) => {
+          this.isMemberRegistered = false;
+          this.reviewInformationSectionValidity.setErrors({
+            customError: true,
+          });
+          this.uiService.showToast(responseError.error.message);
+        },
+      });
+    }
   }
 
   goBackStep() {
     this.stepper.previous();
   }
 
-  goToHome() {}
+  isValidUserObject(): boolean {
+    if (
+      this.userObj.name.first &&
+      this.userObj.name.last &&
+      this.userObj.email &&
+      this.userObj.mobile &&
+      this.userObj.language &&
+      this.userObj.age18Above &&
+      this.userObj.agreeToTerms
+    ) {
+      return true;
+    } else {
+      this.uiService.showToast(
+        'Please ensure that you provide basic information.',
+        5000
+      );
+      return false;
+    }
+  }
+
+  goToHome() {
+    this._router.navigateByUrl('/user/member-home');
+  }
+
+  goToStream() {
+    this._router.navigateByUrl('/user/user-home');
+  }
 }

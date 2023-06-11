@@ -5,7 +5,6 @@ import { IMemberPlan } from './membership-plans';
 import { ISetting } from './setting';
 
 export interface IUser {
-  accessCode?: string;
   pichain_uid?: string;
   pichain_username?: string;
   userId?: string;

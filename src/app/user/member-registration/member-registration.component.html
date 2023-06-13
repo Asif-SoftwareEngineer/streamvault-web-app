@@ -193,6 +193,7 @@
         [stepControl]="contactSectionValidity"
       >
         <ng-template matStepLabel>Fill out your Contact Details</ng-template>
+        <!-- Add this code where you want to show the busy icon -->
         <app-capture-contact #contactSection></app-capture-contact>
 
         <div class="membership-registration-button-container">
@@ -202,6 +203,7 @@
             color="accent"
             class="button mat-body-1 button-Back"
             (click)="goBackStep()"
+            [disabled]="isSendingMessage"
           >
             Back
           </button>
@@ -211,7 +213,9 @@
             color="accent"
             class="button mat-body-1 button-Next"
             (click)="prepareContactSection()"
-            [disabled]="!contactSection.contactFormGroup.valid"
+            [disabled]="
+              isSendingMessage || !contactSection.contactFormGroup.valid
+            "
           >
             Next
           </button>
@@ -225,6 +229,7 @@
       >
         <ng-template matStepLabel>Verification</ng-template>
         <app-contact-verification
+          (resendClicked)="handleResendClick()"
           #codeVerificationSection
           [firstName]="userObj.name.first"
           [lastName]="userObj.name.last"
@@ -238,7 +243,7 @@
             type="button"
             color="accent"
             class="button mat-body-1 button-Back"
-            (click)="goBackStep()"
+            (click)="goBackStepCodeVerification()"
           >
             Back
           </button>
@@ -337,6 +342,7 @@
             color="accent"
             class="button mat-body-1 button-Back"
             (click)="goBackStep()"
+            [disabled]="isRegistering"
           >
             Back
           </button>
@@ -346,6 +352,7 @@
             color="accent"
             class="button mat-body-1 button-Next"
             (click)="registerMember()"
+            [disabled]="isRegistering"
           >
             Register
           </button>
@@ -374,13 +381,27 @@
           >
             Home
           </button>
-          <button mat-button class="button mat-body-1 done-button-stream"
-            (click)="goToStream()">
+          <button
+            mat-button
+            class="button mat-body-1 done-button-stream"
+            (click)="goToStream()"
+          >
             Stream
           </button>
         </div>
       </mat-step>
     </mat-stepper>
+
+    <div
+      class="overlay"
+      [ngClass]="{ 'overlay-disabled': isSendingMessage || isRegistering }"
+      *ngIf="isSendingMessage || isRegistering"
+    >
+      <mat-spinner
+        *ngIf="isSendingMessage || isRegistering"
+        class="center-spinner"
+      ></mat-spinner>
+    </div>
   </div>
 
   <div class="membership-registration-col-mob-view-only">

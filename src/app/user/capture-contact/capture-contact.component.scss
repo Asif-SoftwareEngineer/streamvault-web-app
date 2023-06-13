@@ -11,6 +11,11 @@
     height: var(--dl-space-space-twounits);
   }
 
+  .button-disabled {
+    background-color: grey;
+    color: white;
+  }
+
   .button-Back {
     width: 30%;
     height: var(--dl-size-size-xsmall);

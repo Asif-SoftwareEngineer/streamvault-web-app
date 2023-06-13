@@ -44,9 +44,9 @@ export class RegistrationDataService {
     return this.http.post<any>(url, verifyingUser, apiConfig.httpOptions);
   }
 
-  verifyMobileNumber(mobile: string, code: string): Observable<any> {
+  verifyMobileNumber(verifyingUser: IAccountVerification): Observable<any> {
     const url = `${apiConfig.baseUrl}user/verifyMobileNumber`;
-    return this.http.post<any>(url, { mobile, code }, apiConfig.httpOptions);
+    return this.http.post<any>(url, verifyingUser, apiConfig.httpOptions);
   }
 
   getCountyCodes(): Observable<ICountryCode[]> {
@@ -55,7 +55,12 @@ export class RegistrationDataService {
   }
 
   registerAsMember(membershipData: IUser): Observable<any> {
-    const url = `${apiConfig.baseUrl}user/registerMember`;
+    const url = `${apiConfig.baseUrl}user/registerAsMember`;
+    return this.http.post<any>(url, membershipData, apiConfig.httpOptions);
+  }
+
+  checkRegisteringUser(membershipData: IUser): Observable<any> {
+    const url = `${apiConfig.baseUrl}user/checkRegisteringUser`;
     return this.http.post<any>(url, membershipData, apiConfig.httpOptions);
   }
 

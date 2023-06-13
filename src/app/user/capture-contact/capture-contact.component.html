@@ -34,8 +34,9 @@
       mat-button
       matSuffix
       mat-icon-button
-      *ngIf="textValue"
+      *ngIf="!contactFormGroup.get('clearButton')?.disabled && textValue"
       (click)="clearText()"
+      [disabled]="contactFormGroup.get('clearButton')?.disabled"
     >
       <mat-icon>clear</mat-icon>
     </button>

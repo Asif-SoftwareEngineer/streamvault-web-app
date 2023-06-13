@@ -10,7 +10,12 @@ import {
   EmailValidation,
   MobileNumberValidation,
 } from 'src/app/common/validations';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import parsePhoneNumberFromString, {
   AsYouType,
@@ -65,6 +70,7 @@ export class CaptureContactComponent implements OnInit {
         [Validators.required, countryCodeValidator(this.countryCodeItems)],
       ],
       mobilePhoneCtrl: ['', MobileNumberValidation],
+      clearButton: new FormControl({ disabled: false }),
     });
   }
 

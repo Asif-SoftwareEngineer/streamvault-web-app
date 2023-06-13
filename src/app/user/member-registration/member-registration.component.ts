@@ -59,7 +59,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   @ViewChild('stepper') stepper!: MatStepper;
 
   basicInfoFormGroup!: FormGroup;
-  contactFormGroup!: FormGroup;
+  // contactFormGroup!: FormGroup;
 
   contactSectionGroup!: FormGroup;
   codeVerificationFormGroup!: FormGroup;
@@ -132,8 +132,10 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   userObj!: IUser;
   email: string = '';
   mobile: string = '';
+  isSendingMessage: boolean = false;
 
   private subs = new SubSink();
+  isRegistering: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -149,7 +151,6 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   ) {
     this.userObj = {
       name: { first: '', last: '' },
-      isProfileDisabled: true,
       language: '',
       role: Role.None,
       age18Above: false,
@@ -266,9 +267,8 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
       this.basicInfoFormGroup.controls['agreeToTosCtrl'].value;
     this.userObj.agreeToTerms =
       this.basicInfoFormGroup.controls['agreeToTosCtrl'].value;
-    this.userObj.isProfileDisabled = false;
     this.userObj.role = Role.Member;
-    this.userObj.registration_date = new Date();
+    this.userObj.registrationDate = new Date();
 
     if (this.basicInfoFormGroup.valid) {
       this.stepper.next();
@@ -284,32 +284,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     this.userObj.mobile =
       this.contactSection.contactFormGroup.controls['mobilePhoneCtrl'].value;
 
-    if (this.userObj) {
-      let verifyingUserObj: IAccountVerification = {
-        firstName: this.userObj.name.first,
-        lastName: this.userObj.name.last,
-        email: this.userObj.email!,
-        mobile: this.userObj.mobile,
-        code: '',
-        isVerified: false,
-      };
-
-      this.regService.generateVerificationCode(verifyingUserObj).subscribe({
-        next: (response) => {
-          if (response.status == 200) {
-            this.interCompService.messageSentToMobile(true);
-            this.contactSectionValidity.setErrors(null);
-            this.uiService.showToast(response.message);
-            this.stepper.next();
-          }
-        },
-        error: (responseError) => {
-          this.contactSectionValidity.setErrors({ customError: true });
-          this.interCompService.messageSentToMobile(false);
-          this.uiService.showToast(responseError.error.message);
-        },
-      });
-    }
+    this.handleResendClick();
   }
 
   verifyMobile() {
@@ -320,10 +295,18 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
       this.codeVerificationSection.codeVerificationFormGroup.controls['code']
         .value;
 
+    let verifyingUserObj = {
+      firstName: this.userObj.name.first,
+      lastName: this.userObj.name.last,
+      email: this.userObj.email!,
+      mobile: this.userObj.mobile,
+      code: verificationCode,
+    };
+
     if (this.isValidUserObject()) {
       // Proceed to the next step in code execution
       this.regService
-        .verifyMobileNumber(this.userObj.mobile, verificationCode)
+        .verifyMobileNumber(verifyingUserObj as IAccountVerification)
         .subscribe({
           next: (response) => {
             if (response.status === 200) {
@@ -334,13 +317,84 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
             }
           },
           error: (responseError) => {
+            console.log(JSON.stringify(responseError));
             this.isMemberVerified = false;
             this.codeVerificationSectionValidity.setErrors({
               customError: true,
             });
-            this.uiService.showToast(responseError.error.message);
+            this.uiService.showToast(responseError.error.errorMessage);
           },
         });
+    }
+  }
+
+  handleResendClick() {
+    if (this.userObj) {
+      let verifyingUserObj = {
+        firstName: this.userObj.name.first,
+        lastName: this.userObj.name.last,
+        email: this.userObj.email!,
+        mobile: this.userObj.mobile,
+      };
+
+      this.isSendingMessage = true;
+      this.contactSection.contactFormGroup.disable();
+
+      // Simulate delay of 6 seconds
+      // setTimeout(() => {
+      //   // Simulated delay completed
+
+      //   this.isSendingMessage = false;
+      //   this.contactSection.contactFormGroup.enable();
+      //   this.interCompService.messageSentToMobile(true);
+      //   this.contactSectionValidity.setErrors(null);
+      //   this.uiService.showToast('Email sent successfully', 1000);
+      //   this.stepper.next();
+      //   // Show a success message
+
+      //   // Navigate to another mat step
+      //   // You can use Angular Router to navigate to the desired step
+      //   // Example: this.router.navigate(['/step2']);
+      // }, 2000); // Delay of 6 seconds
+
+      this.regService.checkRegisteringUser(this.userObj).subscribe({
+        next: (response) => {
+          if (response.RegStatus === 'MembershipExpired') {
+            this.uiService.showToast(response.message);
+          } else if (response.RegStatus === 'MembershipActive') {
+            this.uiService.showToast(response.message);
+          } else if (response.RegStatus === 'unRegistered') {
+            this.regService
+              .generateVerificationCode(
+                verifyingUserObj as IAccountVerification
+              )
+              .subscribe({
+                next: (response) => {
+                  console.log(JSON.stringify(response));
+                  if (response.status === 200) {
+                    this.isSendingMessage = false;
+                    this.contactSection.contactFormGroup.enable();
+                    this.interCompService.messageSentToMobile(true);
+                    this.contactSectionValidity.setErrors(null);
+                    this.uiService.showToast(response.message, 2000);
+                    this.stepper.next();
+                  }
+                },
+                error: (responseError) => {
+                  this.isSendingMessage = false;
+                  this.contactSection.contactFormGroup.enable();
+                  this.contactSectionValidity.setErrors({ customError: true });
+                  this.interCompService.messageSentToMobile(false);
+                  this.uiService.showToast(responseError.error.message, 2000);
+                },
+              });
+          }
+        },
+        error: (responseError) => {
+          this.isSendingMessage = false;
+          this.contactSection.contactFormGroup.enable();
+        },
+      });
     }
   }
 
@@ -365,11 +419,17 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   registerMember() {
     this.isMemberRegistered = false;
     this.reviewInformationSectionValidity.setErrors({ customError: true });
+    this.isRegistering = true;
 
     if (this.isValidUserObject()) {
+      // Call user Authentication with Pi Network
+
+      // After succesful authentication, call the payment api (with the payload of userObj)
+
       this.regService.registerAsMember(this.userObj).subscribe({
         next: (response) => {
           if (response.status === 200) {
+            this.isRegistering = false;
             this.isMemberRegistered = true;
             this.reviewInformationSectionValidity.setErrors(null);
             this.uiService.showToast(response.message);
@@ -378,6 +438,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
         },
         error: (responseError) => {
           this.isMemberRegistered = false;
+          this.isRegistering = false;
           this.reviewInformationSectionValidity.setErrors({
             customError: true,
           });
@@ -388,6 +449,15 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   }
 
   goBackStep() {
+    this.stepper.previous();
+  }
+
+  goBackStepCodeVerification() {
+    let codeCtrl =
+      this.codeVerificationSection.codeVerificationFormGroup.controls['code'];
+
+    codeCtrl.setValue('');
+
     this.stepper.previous();
   }
 

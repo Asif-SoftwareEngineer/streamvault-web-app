@@ -13,7 +13,7 @@ export class UiService {
 
   showToast(
     message: string,
-    displayTime = 3000,
+    displayTime = 2500,
     action = 'Close',
     config?: MatSnackBarConfig
   ) {

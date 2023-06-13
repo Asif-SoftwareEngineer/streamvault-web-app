@@ -5,24 +5,29 @@ import { IMemberPlan } from './membership-plans';
 import { ISetting } from './setting';
 
 export interface IUser {
-  pichain_uid?: string;
-  pichain_username?: string;
+  piUserId?: string;
+  piUserName?: string;
   userId?: string;
+
+  userName: string;
   name: IName;
-  email?: string;
+  email: string;
   mobile: string;
   language: string;
   age18Above: boolean;
+  agreeToTerms: boolean;
+  country?: string;
+  city?: string;
   role: Role;
-  registration_date?: Date;
-  membership?: IMemberPlan;
-  membership_renewal_date?: Date;
+  registrationDate: Date;
+  membership: IMemberPlan;
+  membershipRenewalDate?: Date;
   picture?: string;
   isProfileDisabled: boolean;
+  isMembershipExpired: boolean;
   watchList?: string[];
   settings?: ISetting;
   channels?: IChannel[];
-  agreeToTerms: boolean;
 }
 
 export interface IName {

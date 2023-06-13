@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
 import { IMemberPlan } from 'src/app/models/membership-plans';
+import { MembershipType } from 'src/app/models/enums';
 
 @Component({
   selector: 'app-membership-options',
@@ -48,16 +49,16 @@ export class MembershipOptionsComponent implements OnInit {
     }
 
     if (this.isFreeOptionActive) {
-      this.defineMembershipPlan('Free', 0);
+      this.defineMembershipPlan(MembershipType.Free, 0);
     } else if (this.isMonthlyOptionActive) {
-      this.defineMembershipPlan('Monthly', 1);
+      this.defineMembershipPlan(MembershipType.Monthly, 1);
     } else if (this.isYearlyOptionActive) {
-      this.defineMembershipPlan('Yearly', 9);
+      this.defineMembershipPlan(MembershipType.Annually, 9);
     }
   }
 
   constructor() {
-    this.selectedPlan = new FormControl('Free'); //Default
+    this.selectedPlan = new FormControl('free'); //Default
     this.selectedPlan.addValidators(Validators.required);
     this.planAmount = new FormControl(0); //Default
 

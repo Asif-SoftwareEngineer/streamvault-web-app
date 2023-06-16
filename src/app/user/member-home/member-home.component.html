@@ -4,7 +4,7 @@
       <label class="member-home-title Content-3">Your Channels</label>
     </div>
     <div class="member-home-channel-info-row">
-      <div class="member-home-channel-content-row">
+      <div *ngIf="!noChannels" class="member-home-channel-content-row">
         <mat-expansion-panel style="width: 100%">
           <mat-expansion-panel-header>
             <mat-panel-title class="channelTitle">Channel Name</mat-panel-title>
@@ -52,22 +52,57 @@
           </table>
         </mat-expansion-panel>
       </div>
+
+      <div *ngIf="noChannels" class="member-home-no-channels-row">
+        <p class="Content-3 channel-create-label">
+          In order to upload a video, it is necessary to first create a channel.
+          Once the channel is created, you can begin adding videos.
+        </p>
+        <button
+          mat-raised-button
+          type="button"
+          color="accent"
+          class="button mat-body-1 button-create-channel"
+          (click)="createChannel()"
+        >
+          Create Channel
+        </button>
+      </div>
     </div>
 
     <div class="member-home-your-ads-header-row">
       <label class="Content-3 member-home-title1">Your Advertisements</label>
     </div>
-    <div class="member-home-your-ad-content-row">
-      <label class="Content-2 member-home-ad-label">
-        Cake now on 20% discount
-      </label>
-      <div class="member-home-container1">
-        <label class="member-home-lbl-view-count">25K</label>
-        <svg viewBox="0 0 1024 1024" class="member-home-icon">
-          <path
-            d="M512 384q52 0 90 38t38 90-38 90-90 38-90-38-38-90 38-90 90-38zM512 726q88 0 151-63t63-151-63-151-151-63-151 63-63 151 63 151 151 63zM512 192q158 0 286 88t184 232q-56 144-184 232t-286 88-286-88-184-232q56-144 184-232t286-88z"
-          ></path>
-        </svg>
+    <div class="member-home-channel-info-row">
+      <div *ngIf="!noAds" class="member-home-your-ad-content-row">
+        <label class="Content-2 member-home-ad-label">
+          Cake now on 20% discount
+        </label>
+        <div class="member-home-container1">
+          <label class="member-home-lbl-view-count">25K</label>
+          <svg viewBox="0 0 1024 1024" class="member-home-icon">
+            <path
+              d="M512 384q52 0 90 38t38 90-38 90-90 38-90-38-38-90 38-90 90-38zM512 726q88 0 151-63t63-151-63-151-151-63-151 63-63 151 63 151 151 63zM512 192q158 0 286 88t184 232q-56 144-184 232t-286 88-286-88-184-232q56-144 184-232t286-88z"
+            ></path>
+          </svg>
+        </div>
+      </div>
+
+      <div *ngIf="noAds" class="member-home-no-channels-row">
+        <p class="Content-3 channel-create-label">
+          The functionality to create a business advertisement will be
+          accessible in the near future.
+        </p>
+        <button
+          mat-raised-button
+          type="button"
+          color="accent"
+          class="button mat-body-1 button-create-channel"
+          (click)="createAd()"
+          [disabled]="true"
+        >
+          Create Ad
+        </button>
       </div>
     </div>
   </div>

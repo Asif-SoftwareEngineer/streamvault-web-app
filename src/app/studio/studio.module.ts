@@ -3,6 +3,7 @@ import { ChannelEditComponent } from './channel/channel-edit.component';
 import { ChannelInfoComponent } from './channel/channel-info.component';
 import { ChannelNewComponent } from './channel/channel-new.component';
 import { CommonModule } from '@angular/common';
+import { FieldErrorModule } from '../user-controls/field-error/field-error.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '../material.module';
 import { NgModule } from '@angular/core';
@@ -36,6 +37,7 @@ import { VideoInfoComponent } from './video/video-info/video-info.component';
     ReactiveFormsModule,
     FlexLayoutModule,
     SharedModule,
+    FieldErrorModule,
   ],
 })
 export class StudioModule {}

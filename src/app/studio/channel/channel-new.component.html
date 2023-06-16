@@ -7,8 +7,9 @@
       </span>
     </div>
   </div>
+
   <div class="new-channel-main-column">
-    <div class="mat-title page-Title-Header">
+    <div class="Content-3 page-Title-Header">
       <label>New Channel</label>
     </div>
     <div class="new-channel-channel-logo">
@@ -22,50 +23,132 @@
         </div>
       </div>
     </div>
-    <div class="new-channel-container3">
-      <div class="new-channel-channel-logo-container">
-        <svg viewBox="0 0 1024 1024" class="new-channel-icon2">
-          <path
-            d="M512 726q88 0 151-63t63-151-63-151-151-63-151 63-63 151 63 151 151 63zM384 86h256l78 84h136q34 0 59 26t25 60v512q0 34-25 60t-59 26h-684q-34 0-59-26t-25-60v-512q0-34 25-60t59-26h136zM376 512q0-56 40-96t96-40 96 40 40 96-40 96-96 40-96-40-40-96z"
-          ></path>
-        </svg>
+    <form
+      [formGroup]="newChannelFormGroup"
+   >
+      <div class="new-channel-container3">
+        <div class="new-channel-channel-thumbnail-container">
+          <svg viewBox="0 0 1024 1024" class="new-channel-icon2">
+            <path
+              d="M512 726q88 0 151-63t63-151-63-151-151-63-151 63-63 151 63 151 151 63zM384 86h256l78 84h136q34 0 59 26t25 60v512q0 34-25 60t-59 26h-684q-34 0-59-26t-25-60v-512q0-34 25-60t59-26h136zM376 512q0-56 40-96t96-40 96 40 40 96-40 96-96 40-96-40-40-96z"
+            ></path>
+          </svg>
+        </div>
+        <span class="new-channel-text1">Provide a new thumbnail image</span>
       </div>
-      <span class="new-channel-text1">Provide a new thumbnail image</span>
-    </div>
-    <div class="new-channel-channel-name-row">
-      <mat-form-field>
-        <mat-label>Channel Name</mat-label>
-        <input
-          matInput
-          placeholder="Channel Name"
-          class="new-channel-channel-name"
-        />
-      </mat-form-field>
-    </div>
-    <div class="new-channel-containerHandle">
-      <mat-form-field>
-        <mat-label>Handle</mat-label>
-        <input matInput placeholder="Handle" class="new-channel-textHandle" />
-      </mat-form-field>
-    </div>
-    <div class="new-channel-containerDescription">
-      <mat-form-field>
-        <mat-label>Description</mat-label>
-        <textarea
-          class="new-channel-textarea"
-          matInput
-          placeholder="Description"
-        ></textarea>
-      </mat-form-field>
-    </div>
-    <div class="new-channel-button-container">
-      <button
-        mat-raised-button
-        color="accent"
-        class="button new-channel-button"
-      >
-        Done
-      </button>
+      <div class="new-channel-channel-name-row">
+        <mat-form-field class="mat-form-field-class">
+          <mat-label>Channel Name</mat-label>
+          <input
+            matInput
+            aria-label="Channel Name"
+            placeholder="Your Channel Name"
+            formControlName="channelNameCtrl"
+            #channelName
+            autocomplete="new-password"
+          />
+          <mat-error
+            [input]="channelName"
+            fieldLabel="Channel Name"
+            [group]="newChannelFormGroup"
+            [appFieldError]="ErrorSets['RequiredText']"
+          >
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="new-channel-containerHandle">
+        <mat-form-field class="mat-form-field-class">
+          <mat-label>Handle</mat-label>
+          <input
+            matInput
+            placeholder="Handle"
+            formControlName="handleCtrl"
+            class="new-channel-textHandle"
+            #handle
+            readonly=""
+          />
+        </mat-form-field>
+        <!-- <mat-error
+          [input]="handle"
+          fieldLabel="Handle"
+          [group]="newChannelFormGroup"
+          [appFieldError]="ErrorSets['RequiredText']"
+        >
+        </mat-error> -->
+      </div>
+
+      <div class="new-channel-containerCategory">
+        <mat-form-field
+          class="mat-form-field-class"
+          appearance="fill"
+          style="height: auto"
+        >
+          <mat-label>Categories</mat-label>
+          <mat-chip-list #chipList aria-label="Category selection">
+            <mat-chip
+              *ngFor="let category of categories"
+              (removed)="remove(category)"
+            >
+              {{ category }}
+              <button matChipRemove>
+                <mat-icon style="color: red">cancel</mat-icon>
+              </button>
+            </mat-chip>
+            <input
+              style="height: auto"
+              placeholder="New Category..."
+              #categoryInput
+              [formControl]="categoryCtrl"
+              [matAutocomplete]="auto"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="add($event)"
+            />
+          </mat-chip-list>
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            (optionSelected)="selected($event)"
+          >
+            <mat-option
+              class="auto-option-list"
+              *ngFor="let category of filteredCategories | async"
+              [value]="category"
+            >
+              {{ category }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+      <div class="new-channel-containerDescription">
+        <mat-form-field class="mat-form-field-class">
+          <mat-label>Description</mat-label>
+          <textarea
+            class="new-channel-textarea"
+            matInput
+            rows="10"
+            placeholder="Description"
+          ></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="new-channel-button-container">
+        <button
+          mat-raised-button
+          color="accent"
+          class="button Content-2 new-channel-button"
+        >
+          Done
+        </button>
+      </div>
+    </form>
+    <div
+      class="overlay"
+      [ngClass]="{ 'overlay-disabled': isCreating }"
+      *ngIf="isCreating"
+    >
+      <mat-spinner *ngIf="isCreating" class="center-spinner"></mat-spinner>
     </div>
   </div>
 </div>

@@ -1,0 +1,12 @@
+.info-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90vw;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  line-height: 1.5;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}

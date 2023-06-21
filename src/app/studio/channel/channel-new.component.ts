@@ -1,9 +1,18 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
+import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { map, startWith } from 'rxjs/operators';
 
+import { ChannelLogoComponent } from 'src/app/shared/overlay/channel-logo/channel-logo.component';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { ErrorSets } from 'src/app/user-controls/field-error/field-error.directive';
 import { FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -14,6 +23,7 @@ import { RequiredTextValidation } from 'src/app/common/validations';
   selector: 'app-channel-new',
   templateUrl: './channel-new.component.html',
   styleUrls: ['./channel-new.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ChannelNewComponent implements OnInit {
   newChannelFormGroup!: FormGroup;
@@ -75,13 +85,58 @@ export class ChannelNewComponent implements OnInit {
 
   @ViewChild('categoryInput') categoryInput!: ElementRef<HTMLInputElement>;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private overlay: Overlay) {
     this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
       startWith(null),
       map((category: string | null) =>
         category ? this._filter(category) : this.allCategories.slice()
       )
     );
+  }
+
+  openInfoPopup(event: MouseEvent): void {
+    const anchorElement = event.target as HTMLElement;
+
+    // Create an overlay config with the anchor element
+    const overlayConfig = this.getOverlayConfig(anchorElement);
+
+    // Create an overlay reference
+    const overlayRef = this.overlay.create(overlayConfig);
+
+    // Create a portal and attach it to the overlay
+    const infoPopupPortal = new ComponentPortal(ChannelLogoComponent);
+    overlayRef.attach(infoPopupPortal);
+
+    //Close the overlay when the backdrop is clicked
+    overlayRef.backdropClick().subscribe(() => {
+      overlayRef.dispose();
+    });
+  }
+
+  private getOverlayConfig(anchorElement: HTMLElement): OverlayConfig {
+    const positionStrategy = this.overlay
+      .position()
+      .flexibleConnectedTo(anchorElement)
+      .withPositions([
+        {
+          originX: 'start',
+          originY: 'bottom',
+          overlayX: 'start',
+          overlayY: 'bottom',
+          offsetX: -160, // Adjust the offset as per your needs
+          offsetY: 140,
+        },
+      ]);
+
+    const overlayConfig = new OverlayConfig({
+      positionStrategy,
+      hasBackdrop: true,
+      backdropClass: 'info-popup-backdrop',
+      scrollStrategy: this.overlay.scrollStrategies.block(),
+      panelClass: 'info-popup-panel',
+    });
+
+    return overlayConfig;
   }
 
   add(event: MatChipInputEvent): void {

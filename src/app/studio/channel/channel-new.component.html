@@ -12,29 +12,46 @@
     <div class="Content-3 page-Title-Header">
       <label>New Channel</label>
     </div>
+
     <div class="new-channel-channel-logo">
-      <div class="new-channel-container1">
-        <div class="new-channel-container2">
+      <div class="new-channel-channel-logo-main-container">
+        <div class="new-channel-container1"></div>
+        <div class="new-channel-logo-browse-container">
           <svg viewBox="0 0 1024 1024" class="new-channel-icon">
             <path
               d="M512 726q88 0 151-63t63-151-63-151-151-63-151 63-63 151 63 151 151 63zM384 86h256l78 84h136q34 0 59 26t25 60v512q0 34-25 60t-59 26h-684q-34 0-59-26t-25-60v-512q0-34 25-60t59-26h136zM376 512q0-56 40-96t96-40 96 40 40 96-40 96-96 40-96-40-40-96z"
             ></path>
           </svg>
         </div>
+        <div class="new-channel-logo-info-container">
+          <svg
+            (click)="openInfoPopup($event)"
+            viewBox="0 0 1024 1024"
+            class="new-channel-logo-info-icon"
+          >
+            <path
+              d="M554 384v-86h-84v86h84zM554 726v-256h-84v256h84zM512 86q176 0 301 125t125 301-125 301-301 125-301-125-125-301 125-301 301-125z"
+            ></path>
+          </svg>
+        </div>
       </div>
     </div>
-    <form
-      [formGroup]="newChannelFormGroup"
-   >
-      <div class="new-channel-container3">
+
+    <form [formGroup]="newChannelFormGroup" style="flex: 1; width: 95%">
+      <div class="new-channel-container2">
         <div class="new-channel-channel-thumbnail-container">
-          <svg viewBox="0 0 1024 1024" class="new-channel-icon2">
+          <svg viewBox="0 0 1024 1024" class="new-channel-icon4">
             <path
               d="M512 726q88 0 151-63t63-151-63-151-151-63-151 63-63 151 63 151 151 63zM384 86h256l78 84h136q34 0 59 26t25 60v512q0 34-25 60t-59 26h-684q-34 0-59-26t-25-60v-512q0-34 25-60t59-26h136zM376 512q0-56 40-96t96-40 96 40 40 96-40 96-96 40-96-40-40-96z"
             ></path>
           </svg>
         </div>
         <span class="new-channel-text1">Provide a new thumbnail image</span>
+        <svg viewBox="0 0 1024 1024" class="new-channel-thumbnail-info-icon">
+          <path
+            d="M554 384v-86h-84v86h84zM554 726v-256h-84v256h84zM512 86q176 0 301 125t125 301-125 301-301 125-301-125-125-301 125-301 301-125z"
+          ></path>
+        </svg>
       </div>
       <div class="new-channel-channel-name-row">
         <mat-form-field class="mat-form-field-class">
@@ -62,6 +79,7 @@
           <mat-label>Handle</mat-label>
           <input
             matInput
+            aria-label="=Handle"
             placeholder="Handle"
             formControlName="handleCtrl"
             class="new-channel-textHandle"
@@ -128,6 +146,8 @@
             class="new-channel-textarea"
             matInput
             rows="10"
+            formControlName="descriptionCtrl"
+            #description
             placeholder="Description"
           ></textarea>
         </mat-form-field>

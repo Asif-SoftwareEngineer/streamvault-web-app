@@ -11,7 +11,8 @@ import { Observable, of } from 'rxjs';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { map, startWith } from 'rxjs/operators';
 
-import { ChannelLogoComponent } from 'src/app/shared/overlay/channel-logo/channel-logo.component';
+import { ChannelPopInfoComponent } from 'src/app/shared/overlay/channel-popInfo/channel-popInfo.component';
+import { ChannelbannerImageUploadComponent } from 'src/app/shared/overlay/channel-bannerImage-upload/channel-bannerImage-upload.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ErrorSets } from 'src/app/user-controls/field-error/field-error.directive';
 import { FormGroup } from '@angular/forms';
@@ -80,6 +81,7 @@ export class ChannelNewComponent implements OnInit {
       channelNameCtrl: ['', RequiredTextValidation],
       handleCtrl: [''],
       categoryCtrl: '',
+      descriptionCtrl: '',
     });
   }
 
@@ -94,18 +96,30 @@ export class ChannelNewComponent implements OnInit {
     );
   }
 
-  openInfoPopup(event: MouseEvent): void {
+  showInfoPopup(event: MouseEvent, popType: string): void {
     const anchorElement = event.target as HTMLElement;
 
     // Create an overlay config with the anchor element
-    const overlayConfig = this.getOverlayConfig(anchorElement);
+    const overlayConfig = this.getOverlayConfigForPopups(
+      anchorElement,
+      popType
+    );
 
     // Create an overlay reference
     const overlayRef = this.overlay.create(overlayConfig);
 
     // Create a portal and attach it to the overlay
-    const infoPopupPortal = new ComponentPortal(ChannelLogoComponent);
-    overlayRef.attach(infoPopupPortal);
+    const infoPopupPortal = new ComponentPortal(ChannelPopInfoComponent);
+    const overlayComponentRef = overlayRef.attach(infoPopupPortal);
+
+    if (popType === 'banner') {
+      overlayComponentRef.instance.logoInfo = true;
+    } else if (popType === 'thumb') {
+      overlayComponentRef.instance.thumbInfo = true;
+    } else {
+      overlayComponentRef.instance.thumbInfo = false;
+      overlayComponentRef.instance.thumbInfo = false;
+    }
 
     //Close the overlay when the backdrop is clicked
     overlayRef.backdropClick().subscribe(() => {
@@ -113,30 +127,26 @@ export class ChannelNewComponent implements OnInit {
     });
   }
 
-  private getOverlayConfig(anchorElement: HTMLElement): OverlayConfig {
-    const positionStrategy = this.overlay
-      .position()
-      .flexibleConnectedTo(anchorElement)
-      .withPositions([
-        {
-          originX: 'start',
-          originY: 'bottom',
-          overlayX: 'start',
-          overlayY: 'bottom',
-          offsetX: -160, // Adjust the offset as per your needs
-          offsetY: 140,
-        },
-      ]);
+  showBannerImageUploadOverlay(event: MouseEvent, popType: string): void {
+    //const anchorElement = event.target as HTMLElement;
 
-    const overlayConfig = new OverlayConfig({
-      positionStrategy,
-      hasBackdrop: true,
-      backdropClass: 'info-popup-backdrop',
-      scrollStrategy: this.overlay.scrollStrategies.block(),
-      panelClass: 'info-popup-panel',
+    // Create an overlay config with the anchor element
+    const overlayConfig = this.getOverlayConfigForBannerUpload();
+
+    // Create an overlay reference
+    const overlayRef = this.overlay.create(overlayConfig);
+
+    // Create a portal and attach it to the overlay
+
+    const overlayPortal = new ComponentPortal(
+      ChannelbannerImageUploadComponent
+    );
+    overlayRef.attach(overlayPortal);
+
+    //Close the overlay when the backdrop is clicked
+    overlayRef.backdropClick().subscribe(() => {
+      overlayRef.dispose();
     });
-
-    return overlayConfig;
   }
 
   add(event: MatChipInputEvent): void {
@@ -200,5 +210,95 @@ export class ChannelNewComponent implements OnInit {
     return this.allCategoriesOriginal.filter((category) =>
       category.toLowerCase().includes(filterValue)
     );
+  }
+
+  private getOverlayConfigForBannerUpload(): OverlayConfig {
+    const positionStrategy = this.overlay
+      .position()
+      .global()
+      .centerHorizontally()
+      .centerVertically();
+
+    const overlayConfig = new OverlayConfig({
+      positionStrategy,
+      minWidth: '90vw',
+      hasBackdrop: true,
+      backdropClass: 'popup-backdrop',
+      scrollStrategy: this.overlay.scrollStrategies.block(),
+    });
+
+    return overlayConfig;
+  }
+
+  // let positionStrategy: any;
+
+  // positionStrategy = this.overlay
+  //   .position()
+  //   .flexibleConnectedTo(anchorElement)
+  //   .withPositions([
+  //     {
+  //       originX: 'center',
+  //       originY: 'top',
+  //       overlayX: 'center',
+  //       overlayY: 'center',
+  //       //offsetX: -170, // Adjust the offset as per your needs
+  //       //offsetY: 10,
+  //     },
+  //   ]);
+
+  // const overlayConfig = new OverlayConfig({
+  //   positionStrategy,
+  //   minWidth: '90vw', // Adjust the width as per your needs
+  //   maxWidth: '100vw',
+  //   minHeight: '40vw',
+  //   maxHeight: '50vw',
+  //   hasBackdrop: true,
+  //   backdropClass: 'popup-backdrop',
+  //   scrollStrategy: this.overlay.scrollStrategies.block(),
+  // });
+
+  private getOverlayConfigForPopups(
+    anchorElement: HTMLElement,
+    popType: string
+  ): OverlayConfig {
+    let positionStrategy: any;
+    if (popType === 'banner') {
+      positionStrategy = this.overlay
+        .position()
+        .flexibleConnectedTo(anchorElement)
+        .withPositions([
+          {
+            originX: 'start',
+            originY: 'bottom',
+            overlayX: 'start',
+            overlayY: 'bottom',
+            //offsetX: -170, // Adjust the offset as per your needs
+            //offsetY: 200,
+          },
+        ]);
+    } else if (popType === 'thumb') {
+      positionStrategy = this.overlay
+        .position()
+        .flexibleConnectedTo(anchorElement)
+        .withPositions([
+          {
+            originX: 'start',
+            originY: 'bottom',
+            overlayX: 'center',
+            overlayY: 'bottom',
+            offsetX: 30, // Adjust the offset as per your needs
+            //offsetY: 200,
+          },
+        ]);
+    }
+
+    const overlayConfig = new OverlayConfig({
+      positionStrategy,
+      hasBackdrop: true,
+      backdropClass: 'popup-backdrop',
+      scrollStrategy: this.overlay.scrollStrategies.block(),
+    });
+
+    return overlayConfig;
   }
 }

@@ -296,13 +296,13 @@
           necessary Test Pi coins.
         </p>
 
-        <div *ngIf="userObj.membership" class="review-name-row">
+        <div class="review-name-row">
           <label class="review-text">Name</label>
           <label class="review-lbl-name"
             >{{ userObj.name.first }} {{ userObj.name.last }}
           </label>
         </div>
-        <div class="review-membership-row">
+        <div *ngIf="userObj.membership" class="review-membership-row">
           <label class="review-text1">
             <span>Membership</span>
             <br />
@@ -328,7 +328,7 @@
             userObj.mobile ? userObj.mobile : "--"
           }}</label>
         </div>
-        <div class="review-payment-row">
+        <div *ngIf="userObj.membership" class="review-payment-row">
           <label class="review-text8">Payment</label>
           <label class="review-lbl-payment-amount"
             >{{ userObj.membership.amount }} &#8508;</label

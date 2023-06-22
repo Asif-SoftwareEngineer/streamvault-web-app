@@ -1,0 +1,26 @@
+.info-popup {
+  position: absolute;
+  top: calc(100% + 4px);
+  width: 90vw;
+  transform: translate(-93.5%);
+  background-color: white;
+  padding: var(--dl-space-space-halfunit);
+  line-height: 1.3;
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: var(--dl-color-primary-700);
+  color: var(--dl-color-accent-900);
+}
+
+ul {
+  margin-left: var(--dl-space-space-twounits);
+}
+
+li {
+  margin-bottom: var(--dl-space-space-halfunit);
+}
+
+p {
+  text-align: justify;
+}
+

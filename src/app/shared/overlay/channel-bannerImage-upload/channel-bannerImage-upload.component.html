@@ -1,0 +1,50 @@
+<div class="upload-popup banner-image-upload-container">
+  <div class="banner-image-upload-container2">
+    <span class="banner-image-upload-txt-intro">
+      This image will appear across the top of your channel. Use an image that’s
+      at least 2048 x 1152 pixels and 6MB or less.
+    </span>
+  </div>
+  <div class="banner-image-upload-container-file-upload">
+    <button
+      mat-raised-button
+      color="accent"
+      class="button body-1 banner-image-upload-btn-choose"
+    >
+      Choose
+    </button>
+
+    <span class="banner-image-upload-txt-file-name">file name</span>
+  </div>
+  <div class="banner-image-upload-container-progress"></div>
+  <div
+    *ngIf="isFileSelected"
+    class="banner-image-upload-container-banner-image"
+  >
+    <img
+      src="https://play.teleporthq.io/static/svg/default-img.svg"
+      alt="image"
+      class="banner-image-upload-banner-image"
+    />
+  </div>
+
+  <div
+    *ngIf="!isFileSelected"
+    class="banner-image-upload-container-banner-no-image"
+  >
+    <span class="banner-image-upload-banner-no-image-text"
+      >No Banner Image</span
+    >
+  </div>
+
+  <div class="banner-image-upload-container-buttonDone">
+    <button
+      mat-raised-button
+      color="accent"
+      class="banner-image-upload-btn-Done"
+    >
+      Done
+    </button>
+  </div>
+</div>
+<!-- <div class="upload-popup">Hello, HOw are you , Channel Banner</div> -->

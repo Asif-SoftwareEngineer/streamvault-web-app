@@ -6,14 +6,16 @@ import { NgModule } from '@angular/core';
 import { NotificationComponent } from './notification/notification-component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { VideoPlayerComponent } from '../studio/video-player/video-player.component';
-import { ChannelLogoComponent } from './overlay/channel-logo/channel-logo.component';
+import { ChannelPopInfoComponent } from './overlay/channel-popInfo/channel-popInfo.component';
+import { ChannelbannerImageUploadComponent } from './overlay/channel-bannerImage-upload/channel-bannerImage-upload.component';
 
 @NgModule({
   declarations: [
     NotificationComponent,
     FileUploadComponent,
     VideoPlayerComponent,
-    ChannelLogoComponent,
+    ChannelPopInfoComponent,
+    ChannelbannerImageUploadComponent,
   ],
   imports: [
     CommonModule,
@@ -21,6 +23,11 @@ import { ChannelLogoComponent } from './overlay/channel-logo/channel-logo.compon
     FlexLayoutModule,
     MaterialModule,
   ],
-  exports: [NotificationComponent, FileUploadComponent, VideoPlayerComponent],
+  exports: [
+    NotificationComponent,
+    FileUploadComponent,
+    VideoPlayerComponent,
+    ChannelbannerImageUploadComponent,
+  ],
 })
 export class SharedModule {}

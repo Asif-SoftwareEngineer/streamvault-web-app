@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class ChannelPopInfoComponent {
   @Input() logoInfo: boolean = false;
-  @Input() thumbInfo: boolean = false;
+  @Input() profileInfo: boolean = false;
 
   constructor() {}
 }

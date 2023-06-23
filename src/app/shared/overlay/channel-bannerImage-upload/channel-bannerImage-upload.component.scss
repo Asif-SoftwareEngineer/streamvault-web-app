@@ -94,7 +94,8 @@
   }
   .banner-image-upload-btn-choose {
     width: auto;
-    height: var(--dl-size-size-small);
+    height: var(--dl-size-size-xsmall);
+    line-height: 32px !important;
   }
   .banner-image-upload-txt-file-name {
     color: var(--dl-color-accent-900);
@@ -105,10 +106,15 @@
     border-width: 0px;
   }
   .banner-image-upload-container-banner-image {
+    max-width: 970px;
+    max-height: 250px;
+    overflow: hidden;
     height: var(--dl-size-size-medium);
     padding: var(--dl-space-space-halfunit);
     border-width: 0px;
+    position: relative;
   }
+
   .banner-image-upload-container-banner-no-image {
     height: var(--dl-size-size-medium);
     padding: var(--dl-space-space-halfunit);
@@ -118,8 +124,12 @@
   }
   .banner-image-upload-banner-image {
     width: 100%;
-    height: 90%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
   }
+
   .banner-image-upload-banner-no-image-text {
     font-weight: bolder;
   }
@@ -131,6 +141,7 @@
   }
   .banner-image-upload-btn-Done {
     width: auto;
-    height: var(--dl-size-size-small);
+    height: var(--dl-size-size-xsmall);
+    line-height: 32px !important;
   }
 }

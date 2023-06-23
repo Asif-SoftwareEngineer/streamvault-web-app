@@ -1,6 +1,7 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import {
   Component,
+  ComponentRef,
   ElementRef,
   OnInit,
   ViewChild,
@@ -19,6 +20,7 @@ import { FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { RequiredTextValidation } from 'src/app/common/validations';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-channel-new',
@@ -35,6 +37,8 @@ export class ChannelNewComponent implements OnInit {
   categoryCtrl = new FormControl('');
   filteredCategories: Observable<string[]>;
   categories: string[] = [];
+
+  bannerImageUrl: string = '';
 
   allCategoriesOriginal: string[] = [
     'Science and Technology',
@@ -114,11 +118,11 @@ export class ChannelNewComponent implements OnInit {
 
     if (popType === 'banner') {
       overlayComponentRef.instance.logoInfo = true;
-    } else if (popType === 'thumb') {
-      overlayComponentRef.instance.thumbInfo = true;
+    } else if (popType === 'profile') {
+      overlayComponentRef.instance.profileInfo = true;
     } else {
-      overlayComponentRef.instance.thumbInfo = false;
-      overlayComponentRef.instance.thumbInfo = false;
+      overlayComponentRef.instance.profileInfo = false;
+      overlayComponentRef.instance.profileInfo = false;
     }
 
     //Close the overlay when the backdrop is clicked
@@ -141,12 +145,30 @@ export class ChannelNewComponent implements OnInit {
     const overlayPortal = new ComponentPortal(
       ChannelbannerImageUploadComponent
     );
-    overlayRef.attach(overlayPortal);
+    //overlayRef.attach(overlayPortal);
+
+    //bannerUploadOverlayComp: ComponentRef<ChannelbannerImageUploadComponent>;
+
+    const bannerUploadOverlayCompInstance =
+      overlayRef.attach(overlayPortal).instance; // Attach the portal to the overlay
+
+    // Access the event emitter of the child component
+    bannerUploadOverlayCompInstance.imageUrlEmitter.subscribe(
+      (imageUrl: string) => {
+        this.handleImageUrl(imageUrl);
+      }
+    );
 
     //Close the overlay when the backdrop is clicked
     overlayRef.backdropClick().subscribe(() => {
       overlayRef.dispose();
     });
+  }
+
+  // Function to handle the emitted imageUrl from the child component
+  handleImageUrl(imageUrl: string) {
+    const apiConfig = environment.api;
+    this.bannerImageUrl = `${apiConfig.serverUrl}${imageUrl}`;
   }
 
   add(event: MatChipInputEvent): void {
@@ -230,33 +252,6 @@ export class ChannelNewComponent implements OnInit {
     return overlayConfig;
   }
 
-  // let positionStrategy: any;
-
-  // positionStrategy = this.overlay
-  //   .position()
-  //   .flexibleConnectedTo(anchorElement)
-  //   .withPositions([
-  //     {
-  //       originX: 'center',
-  //       originY: 'top',
-  //       overlayX: 'center',
-  //       overlayY: 'center',
-  //       //offsetX: -170, // Adjust the offset as per your needs
-  //       //offsetY: 10,
-  //     },
-  //   ]);
-
-  // const overlayConfig = new OverlayConfig({
-  //   positionStrategy,
-  //   minWidth: '90vw', // Adjust the width as per your needs
-  //   maxWidth: '100vw',
-  //   minHeight: '40vw',
-  //   maxHeight: '50vw',
-  //   hasBackdrop: true,
-  //   backdropClass: 'popup-backdrop',
-  //   scrollStrategy: this.overlay.scrollStrategies.block(),
-  // });
-
   private getOverlayConfigForPopups(
     anchorElement: HTMLElement,
     popType: string
@@ -276,7 +271,7 @@ export class ChannelNewComponent implements OnInit {
             //offsetY: 200,
           },
         ]);
-    } else if (popType === 'thumb') {
+    } else if (popType === 'profile') {
       positionStrategy = this.overlay
         .position()
         .flexibleConnectedTo(anchorElement)

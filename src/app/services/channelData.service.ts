@@ -67,4 +67,6 @@ export class ChannelDataService {
     const url = `${apiConfig.baseUrl}channels/add/${userId}`;
     return this.http.post<any>(url, channelData, apiConfig.httpOptions);
   }
+
+
 }

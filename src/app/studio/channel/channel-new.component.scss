@@ -74,7 +74,7 @@
   justify-content: center;
   position: relative;
 }
-.new-channel-icon {
+.new-channel-banner-icon {
   width: 24px;
   height: 24px;
 }
@@ -108,7 +108,7 @@
   align-items: center;
   justify-content: flex-start;
 }
-.new-channel-channel-thumbnail-container {
+.new-channel-channel-profile-container {
   flex: 0 0 auto;
   width: 100%;
   height: 100px;
@@ -120,7 +120,7 @@
   width: 24px;
   height: 24px;
 }
-.new-channel-thumbnail-info-icon {
+.new-channel-profile-info-icon {
   width: 24px;
   height: 24px;
 }
@@ -262,6 +262,45 @@
     background-color: var(--dl-color-accent-500);
     margin-top: var(--dl-space-space-halfunit);
   }
+
+  .new-channel-channel-banner-image-container {
+    width: 95%;
+    height: 250px;
+    align-items: center;
+    border-color: var(--dl-color-primary-700);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius6);
+    justify-content: flex-start;
+    margin-top: var(--dl-space-space-halfunit);
+    position: relative;
+  }
+
+  .new-channel-channel-banner-image-container img {
+    width: 100%; /* Set the width of the image to 100% of the container */
+    height: 100%; /* Set the height of the image to 100% of the container */
+    border-radius: var(--dl-radius-radius-radius6);
+    object-fit: cover; /* Scale the image to fit inside the container */
+  }
+
+  .new-channel-banner-edit-icon-container {
+    position: absolute;
+    top: 10px; /* Adjust the margin from the top */
+    right: 10px; /* Adjust the margin from the right */
+    z-index: 100; /* Ensure the div is positioned above the image */
+  }
+
+  .new-channel-banner-edit-icon {
+    width: var(--dl-size-size-smaller);
+    height: var(--dl-size-size-smaller);
+    fill: var(--dl-color-primary-700);
+    border: 1px solid; /* Set the border properties */
+    border-color: var(--dl-color-primary-700);
+    border-radius: 50%; /* Make the border circular */
+    padding: 4px; /* Adjust the padding for spacing */
+    background-color: #ffffff; /* Add a background color for visibility */
+  }
+
   .new-channel-container1 {
     width: 40%;
     height: 72px;
@@ -278,8 +317,8 @@
     border-width: 1px;
     border-radius: var(--dl-radius-radius-radius6);
   }
-  .new-channel-icon {
-    fill: #d9d9d9;
+  .new-channel-banner-icon {
+    fill: white;
     width: var(--dl-size-size-small);
     height: var(--dl-size-size-small);
   }
@@ -306,14 +345,14 @@
 
   .new-channel-banner-info-icon {
     margin-right: var(--dl-space-space-halfunit);
-    fill: #d9d9d9;
+    fill: white !important;
   }
 
   .new-channel-container2 {
     height: var(--dl-size-size-medium);
     justify-content: center;
   }
-  .new-channel-channel-thumbnail-container {
+  .new-channel-channel-profile-container {
     width: var(--dl-size-size-small);
     height: var(--dl-size-size-small);
     margin: var(--dl-space-space-halfunit);
@@ -334,7 +373,7 @@
   .new-channel-text1 {
     color: var(--dl-color-accent-900);
   }
-  .new-channel-thumbnail-info-icon {
+  .new-channel-profile-info-icon {
     fill: var(--dl-color-accent-900);
     margin-left: var(--dl-space-space-halfunit);
   }

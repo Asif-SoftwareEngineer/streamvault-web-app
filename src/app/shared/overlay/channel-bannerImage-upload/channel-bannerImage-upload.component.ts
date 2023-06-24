@@ -19,6 +19,7 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
 export class ChannelbannerImageUploadComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
   @Output() imageUrlEmitter: EventEmitter<string> = new EventEmitter<string>();
+  @Output() closeOverlay: EventEmitter<void> = new EventEmitter<void>();
 
   // Function to emit the imageUrl
   emitUploadedImageUrl(imageUrl: string) {
@@ -110,6 +111,10 @@ export class ChannelbannerImageUploadComponent implements OnInit {
     if (this.uploadSubscription) {
       this.uploadSubscription.unsubscribe();
     }
+  }
+
+  closeBannerUploadOverlay() {
+    this.closeOverlay.emit();
   }
 
   resetFileInput() {

@@ -21,6 +21,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { RequiredTextValidation } from 'src/app/common/validations';
 import { environment } from 'src/environments/environment';
+import { overLayType } from 'src/app/models/enums';
 
 @Component({
   selector: 'app-channel-new',
@@ -90,6 +91,7 @@ export class ChannelNewComponent implements OnInit {
   }
 
   @ViewChild('categoryInput') categoryInput!: ElementRef<HTMLInputElement>;
+  private overlayRef!: OverlayRef;
 
   constructor(private fb: FormBuilder, private overlay: Overlay) {
     this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
@@ -100,45 +102,43 @@ export class ChannelNewComponent implements OnInit {
     );
   }
 
-  showInfoPopup(event: MouseEvent, popType: string): void {
+  showInfoPopup(event: MouseEvent, popupType: string): void {
     const anchorElement = event.target as HTMLElement;
 
     // Create an overlay config with the anchor element
     const overlayConfig = this.getOverlayConfigForPopups(
       anchorElement,
-      popType
+      popupType
     );
 
     // Create an overlay reference
-    const overlayRef = this.overlay.create(overlayConfig);
+    this.overlayRef = this.overlay.create(overlayConfig);
 
     // Create a portal and attach it to the overlay
     const infoPopupPortal = new ComponentPortal(ChannelPopInfoComponent);
-    const overlayComponentRef = overlayRef.attach(infoPopupPortal);
+    const overlayComponentRef = this.overlayRef.attach(infoPopupPortal);
 
-    if (popType === 'banner') {
-      overlayComponentRef.instance.logoInfo = true;
-    } else if (popType === 'profile') {
-      overlayComponentRef.instance.profileInfo = true;
-    } else {
-      overlayComponentRef.instance.profileInfo = false;
-      overlayComponentRef.instance.profileInfo = false;
+    if (popupType === overLayType.ChannelBanner) {
+      overlayComponentRef.instance.popupOverLayType = overLayType.ChannelBanner;
+    } else if (popupType === overLayType.ChannelProfile) {
+      overlayComponentRef.instance.popupOverLayType =
+        overLayType.ChannelProfile;
     }
 
     //Close the overlay when the backdrop is clicked
-    overlayRef.backdropClick().subscribe(() => {
-      overlayRef.dispose();
+    this.overlayRef.backdropClick().subscribe(() => {
+      this.closePopup();
     });
   }
 
-  showBannerImageUploadOverlay(event: MouseEvent, popType: string): void {
+  showBannerImageUploadOverlay(event: MouseEvent, popupType: string): void {
     //const anchorElement = event.target as HTMLElement;
 
     // Create an overlay config with the anchor element
     const overlayConfig = this.getOverlayConfigForBannerUpload();
 
     // Create an overlay reference
-    const overlayRef = this.overlay.create(overlayConfig);
+    this.overlayRef = this.overlay.create(overlayConfig);
 
     // Create a portal and attach it to the overlay
 
@@ -150,7 +150,7 @@ export class ChannelNewComponent implements OnInit {
     //bannerUploadOverlayComp: ComponentRef<ChannelbannerImageUploadComponent>;
 
     const bannerUploadOverlayCompInstance =
-      overlayRef.attach(overlayPortal).instance; // Attach the portal to the overlay
+      this.overlayRef.attach(overlayPortal).instance; // Attach the portal to the overlay
 
     // Access the event emitter of the child component
     bannerUploadOverlayCompInstance.imageUrlEmitter.subscribe(
@@ -159,9 +159,16 @@ export class ChannelNewComponent implements OnInit {
       }
     );
 
+    bannerUploadOverlayCompInstance.imageUrlEmitter.subscribe(() => {});
+
+    // Subscribe to the closeOverlay event emitted from the InfoPopupComponent
+    bannerUploadOverlayCompInstance.closeOverlay.subscribe(() => {
+      this.closePopup();
+    });
+
     //Close the overlay when the backdrop is clicked
-    overlayRef.backdropClick().subscribe(() => {
-      overlayRef.dispose();
+    this.overlayRef.backdropClick().subscribe(() => {
+      this.closePopup();
     });
   }
 
@@ -169,6 +176,13 @@ export class ChannelNewComponent implements OnInit {
   handleImageUrl(imageUrl: string) {
     const apiConfig = environment.api;
     this.bannerImageUrl = `${apiConfig.serverUrl}${imageUrl}`;
+  }
+
+  closePopup(): void {
+    if (this.overlayRef) {
+      console.log('close triggered');
+      this.overlayRef.dispose();
+    }
   }
 
   add(event: MatChipInputEvent): void {
@@ -191,18 +205,6 @@ export class ChannelNewComponent implements OnInit {
     if (index >= 0) {
       this.categories.splice(index, 1);
     }
-
-    // Item removed - needs to be added back for subsequent selection
-    // const indexToRemove: number = this.allCategoriesOriginal.indexOf(category);
-    // if (indexToRemove !== -1) {
-    //   console.log(category);
-    //   this.allCategories.push(category);
-    //   this.allCategories = this.allCategories
-    //     .slice()
-    //     .sort((a, b) => a.localeCompare(b));
-
-    //   this.filteredCategories = of(this.allCategories);
-    // }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
@@ -211,16 +213,6 @@ export class ChannelNewComponent implements OnInit {
     const indexToRemove: number = this.allCategories.indexOf(
       event.option.viewValue
     );
-
-    // filtered Categories - observing the changes within all Categories array.
-    // if (indexToRemove !== -1) {
-    //   this.allCategories.splice(indexToRemove, 1);
-    //   this.allCategories = this.allCategories
-    //     .slice()
-    //     .sort((a, b) => a.localeCompare(b));
-
-    //   this.filteredCategories = of(this.allCategories);
-    // }
 
     this.categoryInput.nativeElement.value = '';
     this.categoryCtrl.setValue(null);
@@ -257,7 +249,7 @@ export class ChannelNewComponent implements OnInit {
     popType: string
   ): OverlayConfig {
     let positionStrategy: any;
-    if (popType === 'banner') {
+    if (popType === overLayType.ChannelBanner) {
       positionStrategy = this.overlay
         .position()
         .flexibleConnectedTo(anchorElement)
@@ -271,7 +263,7 @@ export class ChannelNewComponent implements OnInit {
             //offsetY: 200,
           },
         ]);
-    } else if (popType === 'profile') {
+    } else if (popType === overLayType.ChannelProfile) {
       positionStrategy = this.overlay
         .position()
         .flexibleConnectedTo(anchorElement)

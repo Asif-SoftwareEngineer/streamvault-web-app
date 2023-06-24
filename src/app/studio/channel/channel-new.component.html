@@ -21,7 +21,7 @@
         <div class="new-channel-container1"></div>
         <div class="new-channel-banner-browse-container">
           <svg
-            (click)="showBannerImageUploadOverlay($event, 'banner')"
+            (click)="showBannerImageUploadOverlay($event, 'chBanner')"
             viewBox="0 0 1024 1024"
             class="new-channel-banner-icon"
           >
@@ -32,7 +32,7 @@
         </div>
         <div class="new-channel-banner-info-container">
           <svg
-            (click)="showInfoPopup($event, 'banner')"
+            (click)="showInfoPopup($event, 'chBanner')"
             viewBox="0 0 1024 1024"
             class="new-channel-banner-info-icon"
           >
@@ -50,7 +50,7 @@
 
         <div class="new-channel-banner-edit-icon-container">
           <svg
-            (click)="showBannerImageUploadOverlay($event, 'banner')"
+            (click)="showBannerImageUploadOverlay($event, 'chBanner')"
             viewBox="0 0 1024 1024"
             class="new-channel-banner-edit-icon"
           >
@@ -85,7 +85,7 @@
         </div>
         <span class="new-channel-text1">Provide a new profile image</span>
         <mat-icon
-          (click)="showInfoPopup($event, 'profile')"
+          (click)="showInfoPopup($event, 'chProfile')"
           class="new-channel-profile-info-icon"
         >
           info
@@ -125,13 +125,6 @@
             readonly=""
           />
         </mat-form-field>
-        <!-- <mat-error
-          [input]="handle"
-          fieldLabel="Handle"
-          [group]="newChannelFormGroup"
-          [appFieldError]="ErrorSets['RequiredText']"
-        >
-        </mat-error> -->
       </div>
 
       <div class="new-channel-containerCategory">

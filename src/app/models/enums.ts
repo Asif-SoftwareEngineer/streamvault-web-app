@@ -59,10 +59,16 @@ export enum MembershipType {
   Annually = 'yearly',
 }
 
-export enum overLayType {
-  ChannelProfile = 'chProfile',
-  ChannelBanner = 'chBanner',
-  VideoThumbnail = 'vidThumbnail',
-  UserProfile = 'userProfile',
-  None = 'na',
+export enum OverLayType {
+  Profile = 'Profile',
+  Banner = 'Banner',
+  VideoThumbnail = 'VidThumbnail',
+  UserProfile = 'UserProfile',
+  None = 'NA',
+}
+
+export enum ImageType {
+  Banner = 'banner',
+  Profile = 'profile',
+  Thumbnail = 'thumbnail',
 }

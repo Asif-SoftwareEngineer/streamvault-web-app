@@ -31,7 +31,7 @@
   align-items: center;
   justify-content: flex-start;
 }
-.channel-info-logo {
+.channel-profile-picture {
   width: 100px;
   object-fit: cover;
 }
@@ -63,6 +63,32 @@
   width: 24px;
   height: 24px;
 }
+
+.vid-upload-prompt-container {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.channel-create-video-button-container {
+  flex: 0 0 auto;
+  width: 100%;
+  height: var(--dl-size-size-medium);
+  display: flex;
+  margin-top: var(--dl-space-space-twounits);
+  align-items: center;
+  justify-content: center;
+}
+.channel-create-video-button {
+  color: var(--dl-color-accent-100);
+  width: 376px;
+  height: var(--dl-size-size-small);
+  align-self: center;
+  text-align: center;
+}
+
 .channel-info-analytics-container {
   flex: 0 0 auto;
   width: 100%;
@@ -251,18 +277,45 @@
     );
   }
 
+  .centered-span {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+  }
+
   .channel-info-channel-infor-top-row {
     height: auto;
     align-self: center;
   }
-  .channel-info-logo {
+
+  .channel-profile-picture-container {
     width: var(--dl-size-size-medium);
     height: var(--dl-size-size-medium);
-    padding: var(--dl-space-space-unit);
-    align-self: center;
+    overflow: hidden;
+    margin: var(--dl-space-space-halfunit);
+    align-items: center;
+    border-color: var(--dl-color-primary-700);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius6);
+    justify-content: center;
+    position: relative;
+    margin-left: var(--dl-space-space-halfunit);
   }
+
+  .channel-profile-picture-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   .channel-info-channel-key-details {
     padding: var(--dl-space-space-unit);
+    flex-wrap: wrap;
+    width: 60%;
   }
   .channel-info-lbl-channel-name {
     color: var(--dl-color-accent-900);
@@ -287,6 +340,35 @@
     flex-direction: column;
     justify-content: flex-start;
   }
+
+  .vid-upload-prompt-container {
+    height: auto;
+    padding: var(--dl-space-space-unit);
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    line-height: 1.3;
+  }
+
+  .vid-upload-prompt-container p {
+    width: 90%;
+    text-align: justify;
+    font-size: 14px;
+  }
+
+  .channel-create-video-button-container {
+    flex: 0 0 auto;
+    position: relative;
+    height: var(--dl-size-size-medium-1);
+    margin-top: var(--dl-space-space-unit);
+    align-items: center;
+    justify-content: center;
+  }
+  .channel-create-video-button {
+    width: var(--dl-size-size-xlarge);
+    height: var(--dl-size-size-small);
+  }
+
   .channel-info-container2 {
     width: 100%;
     justify-content: space-between;

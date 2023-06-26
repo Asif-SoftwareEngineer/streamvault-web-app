@@ -38,7 +38,7 @@
             >people</mat-icon
           >
           <span>Subscribers:</span>
-          {{ channel.subscribers?.length ? channel.subscribers?.length : "0" }}
+          {{ channel.followers?.length ? channel.followers?.length : "0" }}
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
           <mat-icon
@@ -51,7 +51,7 @@
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
           <mat-icon color="primary" matTooltip="Tags">label</mat-icon>
-          <span>Tags:</span><code> {{ channel.tags }}</code>
+          <span>Tags:</span><code> {{ channel.category }}</code>
         </div>
       </mat-card-content>
     </div>

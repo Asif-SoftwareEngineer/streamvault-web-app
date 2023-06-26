@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'home', component: StudioHomeComponent },
   { path: 'new-channel', component: ChannelNewComponent },
   { path: 'edit-channel', component: ChannelEditComponent },
-  { path: 'channel-info', component: ChannelInfoComponent },
+  { path: 'channel-info/:channelId', component: ChannelInfoComponent },
   { path: 'channel', component: ChannelComponent },
 
   { path: 'upload-video', component: UploadComponent },

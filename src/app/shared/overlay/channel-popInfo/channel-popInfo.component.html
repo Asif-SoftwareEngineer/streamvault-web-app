@@ -1,13 +1,16 @@
 <div
-  *ngIf="popupOverLayType === OverlayType.ChannelBanner"
+  *ngIf="popupOverLayType === overlayType.Banner"
   class="Content-1 info-popup"
 >
   <p>To set the channel banner image, please follow these guidelines:</p>
   <br />
   <ul>
-    <li>Supported formats: JPEG, PNG</li>
-    <li>Recommended dimensions: 970 x 250 pixels</li>
-    <li>Maximum file size: 5MB or less</li>
+    <li><span>Supported formats:</span> JPEG, PNG, JPG</li>
+    <li>
+      <span>Recommended dimensions:</span> Between [970 x 250 pixels] and [1600
+      x 400 pixels]
+    </li>
+    <li><span>Maximum file size:</span> 6MB or less</li>
   </ul>
   <br />
 
@@ -19,15 +22,21 @@
   <p></p>
 </div>
 
-<div *ngIf="popupOverLayType === OverlayType.ChannelProfile" class="Content-1 info-popup">
+<div
+  *ngIf="popupOverLayType === overlayType.Profile"
+  class="Content-1 info-popup"
+>
   <p>
     To set the profile picture for your channel, please follow these guidelines:
   </p>
   <br />
   <ul>
-    <li>Supported formats: JPEG, PNG, GIF(no animation)</li>
-    <li>Recommended dimensions: 200 x 200 pixels</li>
-    <li>Maximum file size: 3MB</li>
+    <li><span>Supported formats:</span> JPEG, PNG, GIF(no animation)</li>
+    <li>
+      <span>Recommended dimensions:</span> Between [200 x 200 pixels] and [400 x
+      400 pixels]
+    </li>
+    <li><span>Maximum file size:</span> 3MB</li>
   </ul>
   <br />
 

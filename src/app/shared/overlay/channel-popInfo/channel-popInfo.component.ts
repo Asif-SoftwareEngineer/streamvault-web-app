@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { overLayType } from 'src/app/models/enums';
+import { OverLayType } from 'src/app/models/enums';
 
 @Component({
   selector: 'app-channel-popInfo',
@@ -8,11 +8,11 @@ import { overLayType } from 'src/app/models/enums';
   styleUrls: ['./channel-popInfo.component.scss'],
 })
 export class ChannelPopInfoComponent {
-  protected OverlayType = overLayType;
+  protected overlayType = OverLayType;
 
-  @Input() popupOverLayType: overLayType = overLayType.ChannelBanner;
+  @Input() popupOverLayType: OverLayType = OverLayType.Banner;
 
   constructor() {
-    this.popupOverLayType = overLayType.ChannelBanner;
+    this.popupOverLayType = OverLayType.Banner;
   }
 }

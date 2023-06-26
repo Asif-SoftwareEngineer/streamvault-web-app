@@ -8,20 +8,23 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
+import { ImageType, OverLayType } from 'src/app/models/enums';
 import { Observable, of } from 'rxjs';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { map, startWith } from 'rxjs/operators';
+import { catchError, map, startWith } from 'rxjs/operators';
 
+import { ChannelDataService } from 'src/app/services/channelData.service';
+import { ChannelImageUploadComponent } from 'src/app/shared/overlay/channel-bannerImage-upload/channel-Image-upload.component';
 import { ChannelPopInfoComponent } from 'src/app/shared/overlay/channel-popInfo/channel-popInfo.component';
-import { ChannelbannerImageUploadComponent } from 'src/app/shared/overlay/channel-bannerImage-upload/channel-bannerImage-upload.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ErrorSets } from 'src/app/user-controls/field-error/field-error.directive';
 import { FormGroup } from '@angular/forms';
+import { IChannel } from 'src/app/models/channel';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { RequiredTextValidation } from 'src/app/common/validations';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { overLayType } from 'src/app/models/enums';
 
 @Component({
   selector: 'app-channel-new',
@@ -30,16 +33,25 @@ import { overLayType } from 'src/app/models/enums';
   encapsulation: ViewEncapsulation.None,
 })
 export class ChannelNewComponent implements OnInit {
-  newChannelFormGroup!: FormGroup;
-  ErrorSets = ErrorSets;
-  isCreating = false;
+  //#region Declaration
 
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  categoryCtrl = new FormControl('');
-  filteredCategories: Observable<string[]>;
-  categories: string[] = [];
+  protected imageType = ImageType;
+  protected overlayType = OverLayType;
 
-  bannerImageUrl: string = '';
+  protected newChannelFormGroup!: FormGroup;
+  protected ErrorSets = ErrorSets;
+
+  protected isCreating = false;
+
+  protected separatorKeysCodes: number[] = [ENTER, COMMA];
+  protected filteredCategories: Observable<string[]> | undefined;
+  protected categories: string[] = [];
+
+  protected serverUrl: string = '';
+
+  protected bannerImageUrl: string =
+    'channel/banner/hayaasif-file-1687696435583.JPG';
+  protected profileImageUrl: string = 'channel/banner/profile-pic.png';
 
   allCategoriesOriginal: string[] = [
     'Science and Technology',
@@ -76,8 +88,23 @@ export class ChannelNewComponent implements OnInit {
   ];
 
   allCategories: string[] = [];
+  @ViewChild('categoryInput') categoryInput!: ElementRef<HTMLInputElement>;
+  private overlayRef!: OverlayRef;
+
+  //#endregion
+
+  constructor(
+    private fb: FormBuilder,
+    private overlay: Overlay,
+    private channelService: ChannelDataService,
+    private router: Router
+  ) {}
+
+  // #region Events
 
   ngOnInit(): void {
+    this.serverUrl = environment.api.serverUrl;
+
     this.allCategories = this.allCategoriesOriginal
       .slice()
       .sort((a, b) => a.localeCompare(b));
@@ -88,13 +115,10 @@ export class ChannelNewComponent implements OnInit {
       categoryCtrl: '',
       descriptionCtrl: '',
     });
-  }
 
-  @ViewChild('categoryInput') categoryInput!: ElementRef<HTMLInputElement>;
-  private overlayRef!: OverlayRef;
-
-  constructor(private fb: FormBuilder, private overlay: Overlay) {
-    this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
+    this.filteredCategories = this.newChannelFormGroup.controls[
+      'categoryCtrl'
+    ].valueChanges.pipe(
       startWith(null),
       map((category: string | null) =>
         category ? this._filter(category) : this.allCategories.slice()
@@ -102,7 +126,74 @@ export class ChannelNewComponent implements OnInit {
     );
   }
 
-  showInfoPopup(event: MouseEvent, popupType: string): void {
+  handleBannerImageUrl(bannerImageUrl: string) {
+    const apiConfig = environment.api;
+    this.bannerImageUrl = bannerImageUrl;
+  }
+
+  handleProfileImageUrl(profileImageUrl: string) {
+    const apiConfig = environment.api;
+    this.profileImageUrl = profileImageUrl;
+  }
+
+  closePopup(): void {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+    }
+  }
+
+  protected saveNewChannel() {
+    try {
+      const formControls = this.newChannelFormGroup.controls;
+
+      if (this.newChannelFormGroup.valid) {
+        //check at least one channel category should exist
+
+        if (this.categories.length === 0) {
+          this.categories.push('General');
+        }
+
+        const newChannelObj: IChannel = {
+          userId: 'asifj',
+          channelId: 'new-channel',
+          name: formControls['channelNameCtrl'].value,
+          description: formControls['descriptionCtrl'].value,
+          category: this.categories.join(','),
+          handle: formControls['handleCtrl'].value,
+          profileImageUrl: this.profileImageUrl,
+          bannerImageUrl: this.bannerImageUrl,
+        };
+
+        this.channelService
+          .addChannel(newChannelObj, '648b46adfd79ae08df75fd8c')
+          .subscribe({
+            next: (response) => {
+              console.log(response);
+              if (response.status === 200) {
+                this.router.navigate([
+                  'studio/channel-info',
+                  '617239f3306478b096129ecf',
+                  //response.channelAdded.channelId,
+                ]);
+              }
+            },
+            error: (responseError) => {
+              console.log(responseError);
+            },
+          });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //#endregion
+
+  //#region [Methods]
+
+  //#region --> [Overlay Methods]
+
+  showInfoPopup(event: MouseEvent, popupType: OverLayType): void {
     const anchorElement = event.target as HTMLElement;
 
     // Create an overlay config with the anchor element
@@ -116,13 +207,13 @@ export class ChannelNewComponent implements OnInit {
 
     // Create a portal and attach it to the overlay
     const infoPopupPortal = new ComponentPortal(ChannelPopInfoComponent);
-    const overlayComponentRef = this.overlayRef.attach(infoPopupPortal);
+    const popUpInfoOverlayInstance =
+      this.overlayRef.attach(infoPopupPortal).instance;
 
-    if (popupType === overLayType.ChannelBanner) {
-      overlayComponentRef.instance.popupOverLayType = overLayType.ChannelBanner;
-    } else if (popupType === overLayType.ChannelProfile) {
-      overlayComponentRef.instance.popupOverLayType =
-        overLayType.ChannelProfile;
+    if (popupType === OverLayType.Banner) {
+      popUpInfoOverlayInstance.popupOverLayType = OverLayType.Banner;
+    } else if (popupType === OverLayType.Profile) {
+      popUpInfoOverlayInstance.popupOverLayType = OverLayType.Profile;
     }
 
     //Close the overlay when the backdrop is clicked
@@ -131,38 +222,42 @@ export class ChannelNewComponent implements OnInit {
     });
   }
 
-  showBannerImageUploadOverlay(event: MouseEvent, popupType: string): void {
+  showImageUploadOverlay(event: MouseEvent, imageType: string): void {
     //const anchorElement = event.target as HTMLElement;
 
     // Create an overlay config with the anchor element
-    const overlayConfig = this.getOverlayConfigForBannerUpload();
+    const overlayConfig = this.getOverlayConfigForImageUpload(imageType);
 
     // Create an overlay reference
     this.overlayRef = this.overlay.create(overlayConfig);
 
     // Create a portal and attach it to the overlay
+    const overlayPortal = new ComponentPortal(ChannelImageUploadComponent);
 
-    const overlayPortal = new ComponentPortal(
-      ChannelbannerImageUploadComponent
-    );
-    //overlayRef.attach(overlayPortal);
-
-    //bannerUploadOverlayComp: ComponentRef<ChannelbannerImageUploadComponent>;
-
-    const bannerUploadOverlayCompInstance =
+    const bannerUploadOverlayInstance =
       this.overlayRef.attach(overlayPortal).instance; // Attach the portal to the overlay
 
+    if (imageType === ImageType.Banner) {
+      bannerUploadOverlayInstance.targetImageType = ImageType.Banner;
+    } else if (imageType === ImageType.Profile) {
+      bannerUploadOverlayInstance.targetImageType = ImageType.Profile;
+    }
+
     // Access the event emitter of the child component
-    bannerUploadOverlayCompInstance.imageUrlEmitter.subscribe(
+    bannerUploadOverlayInstance.composedBannerImageUrl.subscribe(
       (imageUrl: string) => {
-        this.handleImageUrl(imageUrl);
+        this.handleBannerImageUrl(imageUrl);
       }
     );
 
-    bannerUploadOverlayCompInstance.imageUrlEmitter.subscribe(() => {});
+    bannerUploadOverlayInstance.composedProfileImageUrl.subscribe(
+      (imageUrl: string) => {
+        this.handleProfileImageUrl(imageUrl);
+      }
+    );
 
     // Subscribe to the closeOverlay event emitted from the InfoPopupComponent
-    bannerUploadOverlayCompInstance.closeOverlay.subscribe(() => {
+    bannerUploadOverlayInstance.closeOverlay.subscribe(() => {
       this.closePopup();
     });
 
@@ -172,61 +267,7 @@ export class ChannelNewComponent implements OnInit {
     });
   }
 
-  // Function to handle the emitted imageUrl from the child component
-  handleImageUrl(imageUrl: string) {
-    const apiConfig = environment.api;
-    this.bannerImageUrl = `${apiConfig.serverUrl}${imageUrl}`;
-  }
-
-  closePopup(): void {
-    if (this.overlayRef) {
-      console.log('close triggered');
-      this.overlayRef.dispose();
-    }
-  }
-
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-    // Add our category
-
-    if (value) {
-      this.categories.push(value);
-    }
-
-    // Clear the input value
-    event.chipInput!.clear();
-
-    this.categoryCtrl.setValue(null);
-  }
-
-  remove(category: string): void {
-    const index = this.categories.indexOf(category);
-
-    if (index >= 0) {
-      this.categories.splice(index, 1);
-    }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.categories.push(event.option.viewValue);
-
-    const indexToRemove: number = this.allCategories.indexOf(
-      event.option.viewValue
-    );
-
-    this.categoryInput.nativeElement.value = '';
-    this.categoryCtrl.setValue(null);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    console.log(filterValue);
-    return this.allCategoriesOriginal.filter((category) =>
-      category.toLowerCase().includes(filterValue)
-    );
-  }
-
-  private getOverlayConfigForBannerUpload(): OverlayConfig {
+  private getOverlayConfigForImageUpload(imageType: string): OverlayConfig {
     const positionStrategy = this.overlay
       .position()
       .global()
@@ -246,10 +287,10 @@ export class ChannelNewComponent implements OnInit {
 
   private getOverlayConfigForPopups(
     anchorElement: HTMLElement,
-    popType: string
+    popUpType: OverLayType
   ): OverlayConfig {
     let positionStrategy: any;
-    if (popType === overLayType.ChannelBanner) {
+    if (popUpType === OverLayType.Banner) {
       positionStrategy = this.overlay
         .position()
         .flexibleConnectedTo(anchorElement)
@@ -263,7 +304,7 @@ export class ChannelNewComponent implements OnInit {
             //offsetY: 200,
           },
         ]);
-    } else if (popType === overLayType.ChannelProfile) {
+    } else if (popUpType === OverLayType.Profile) {
       positionStrategy = this.overlay
         .position()
         .flexibleConnectedTo(anchorElement)
@@ -271,9 +312,9 @@ export class ChannelNewComponent implements OnInit {
           {
             originX: 'start',
             originY: 'bottom',
-            overlayX: 'center',
+            overlayX: 'start',
             overlayY: 'bottom',
-            offsetX: 30, // Adjust the offset as per your needs
+            offsetX: 10, // Adjust the offset as per your needs
             //offsetY: 200,
           },
         ]);
@@ -288,4 +329,84 @@ export class ChannelNewComponent implements OnInit {
 
     return overlayConfig;
   }
+
+  //#endregion --|
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+    // Add our category
+
+    if (value) {
+      this.categories.push(value);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+
+    this.newChannelFormGroup.controls['categoryCtrl'].setValue(null);
+  }
+
+  remove(category: string): void {
+    const index = this.categories.indexOf(category);
+
+    if (index >= 0) {
+      this.categories.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.categories.push(event.option.viewValue);
+
+    const indexToRemove: number = this.allCategories.indexOf(
+      event.option.viewValue
+    );
+
+    this.categoryInput.nativeElement.value = '';
+    this.newChannelFormGroup.controls['categoryCtrl'].setValue(null);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.allCategoriesOriginal.filter((category) =>
+      category.toLowerCase().includes(filterValue)
+    );
+  }
+
+  protected generateChannelHandle(channelName: string) {
+    if (this.newChannelFormGroup.controls['channelNameCtrl'].valid) {
+      const words = channelName.split(' ');
+
+      let handle = '@';
+
+      if (words.length > 0) {
+        const firstWord = words[0].slice(0, 7);
+        handle += firstWord;
+
+        if (words.length > 1) {
+          const secondWord = words[1].slice(0, 6);
+          handle += secondWord;
+
+          if (words.length > 2) {
+            const thirdWord = words[2].slice(0, 6);
+            handle += thirdWord;
+          }
+        }
+      }
+
+      const currentDateTime = new Date();
+      const hour = currentDateTime.getHours();
+      const minute = currentDateTime.getMinutes();
+      const year = currentDateTime.getFullYear().toString().slice(-2);
+
+      handle += hour.toString().padStart(2, '0');
+      handle += minute.toString().padStart(2, '0');
+      handle += year;
+
+      this.newChannelFormGroup.controls['handleCtrl'].setValue(handle);
+    } else {
+      this.newChannelFormGroup.controls['handleCtrl'].setValue('');
+    }
+  }
+
+  //#endregion
 }

@@ -20,72 +20,76 @@
       >
         <div class="new-channel-container1"></div>
         <div class="new-channel-banner-browse-container">
-          <svg
-            (click)="showBannerImageUploadOverlay($event, 'chBanner')"
-            viewBox="0 0 1024 1024"
+          <mat-icon
+            (click)="showImageUploadOverlay($event, imageType.Banner)"
             class="new-channel-banner-icon"
           >
-            <path
-              d="M512 726q88 0 151-63t63-151-63-151-151-63-151 63-63 151 63 151 151 63zM384 86h256l78 84h136q34 0 59 26t25 60v512q0 34-25 60t-59 26h-684q-34 0-59-26t-25-60v-512q0-34 25-60t59-26h136zM376 512q0-56 40-96t96-40 96 40 40 96-40 96-96 40-96-40-40-96z"
-            ></path>
-          </svg>
+            photo_camera
+          </mat-icon>
         </div>
         <div class="new-channel-banner-info-container">
-          <svg
-            (click)="showInfoPopup($event, 'chBanner')"
-            viewBox="0 0 1024 1024"
+          <mat-icon
+            (click)="showInfoPopup($event, overlayType.Banner)"
             class="new-channel-banner-info-icon"
           >
-            <path
-              d="M554 384v-86h-84v86h84zM554 726v-256h-84v256h84zM512 86q176 0 301 125t125 301-125 301-301 125-301-125-125-301 125-301 301-125z"
-            ></path>
-          </svg>
+            info_outline
+          </mat-icon>
         </div>
       </div>
       <div
         *ngIf="bannerImageUrl.length > 0"
         class="new-channel-channel-banner-image-container"
       >
-        <img [src]="bannerImageUrl" alt="Image" />
+        <img [src]="serverUrl + bannerImageUrl" alt="Banner" />
 
         <div class="new-channel-banner-edit-icon-container">
-          <svg
-            (click)="showBannerImageUploadOverlay($event, 'chBanner')"
-            viewBox="0 0 1024 1024"
+          <mat-icon
+            (click)="showImageUploadOverlay($event, imageType.Profile)"
             class="new-channel-banner-edit-icon"
           >
-            <path
-              d="M512 726q88 0 151-63t63-151-63-151-151-63-151 63-63 151 63 151 151 63zM384 86h256l78 84h136q34 0 59 26t25 60v512q0 34-25 60t-59 26h-684q-34 0-59-26t-25-60v-512q0-34 25-60t59-26h136zM376 512q0-56 40-96t96-40 96 40 40 96-40 96-96 40-96-40-40-96z"
-            ></path>
-          </svg>
+            edit
+          </mat-icon>
         </div>
-
-        <!-- <div class="new-channel-banner-edit-icon-container">
-          <svg
-            (click)="showBannerImageUploadOverlay($event, 'banner')"
-            viewBox="0 0 24 24"
-            class="new-channel-banner-edit-icon"
-          >
-          <path
-          d="M512 726q88 0 151-63t63-151-63-151-151-63-151 63-63 151 63 151 151 63zM384 86h256l78 84h136q34 0 59 26t25 60v512q0 34-25 60t-59 26h-684q-34 0-59-26t-25-60v-512q0-34 25-60t59-26h136zM376 512q0-56 40-96t96-40 96 40 40 96-40 96-96 40-96-40-40-96z"
-        ></path>
-          </svg>
-        </div> -->
       </div>
     </div>
 
     <form [formGroup]="newChannelFormGroup" style="flex: 1; width: 95%">
       <div class="new-channel-container2">
-        <div class="new-channel-channel-profile-container">
-          <svg viewBox="0 0 1024 1024" class="new-channel-icon4">
-            <path
-              d="M512 726q88 0 151-63t63-151-63-151-151-63-151 63-63 151 63 151 151 63zM384 86h256l78 84h136q34 0 59 26t25 60v512q0 34-25 60t-59 26h-684q-34 0-59-26t-25-60v-512q0-34 25-60t59-26h136zM376 512q0-56 40-96t96-40 96 40 40 96-40 96-96 40-96-40-40-96z"
-            ></path>
-          </svg>
+        <div
+          *ngIf="profileImageUrl.length === 0"
+          class="new-channel-channel-profile-container"
+        >
+          <mat-icon
+            (click)="showImageUploadOverlay($event, imageType.Profile)"
+            class="new-channel-banner-icon"
+          >
+            photo_camera
+          </mat-icon>
         </div>
-        <span class="new-channel-text1">Provide a new profile image</span>
+
+        <div
+          *ngIf="profileImageUrl.length > 0"
+          class="new-channel-profile-picture-container"
+        >
+          <img
+            [src]="serverUrl + profileImageUrl"
+            alt="Profile Picture"
+            class="channel-profile-picture"
+          />
+
+          <mat-icon
+            (click)="showImageUploadOverlay($event, imageType.Profile)"
+            class="new-channel-profile-picture-edit-icon"
+          >
+            edit
+          </mat-icon>
+        </div>
+
+        <span class="new-channel-text1">
+          &nbsp;&nbsp; Provide profile image for channel</span
+        >
         <mat-icon
-          (click)="showInfoPopup($event, 'chProfile')"
+          (click)="showInfoPopup($event, overlayType.Profile)"
           class="new-channel-profile-info-icon"
         >
           info
@@ -101,6 +105,7 @@
             formControlName="channelNameCtrl"
             #channelName
             autocomplete="new-password"
+            (blur)="generateChannelHandle(channelName.value)"
           />
           <mat-error
             [input]="channelName"
@@ -113,16 +118,13 @@
       </div>
 
       <div class="new-channel-containerHandle">
-        <mat-form-field class="mat-form-field-class">
-          <mat-label>Handle</mat-label>
+        <mat-form-field appearance="outline" class="mat-form-field-class">
           <input
             matInput
-            aria-label="=Handle"
             placeholder="Handle"
             formControlName="handleCtrl"
             class="new-channel-textHandle"
-            #handle
-            readonly=""
+            [readonly]="true"
           />
         </mat-form-field>
       </div>
@@ -148,7 +150,7 @@
               style="height: auto"
               placeholder="New Category..."
               #categoryInput
-              [formControl]="categoryCtrl"
+              formControlName="categoryCtrl"
               [matAutocomplete]="auto"
               [matChipInputFor]="chipList"
               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -189,6 +191,7 @@
           mat-raised-button
           color="accent"
           class="button Content-2 new-channel-button"
+          (click)="saveNewChannel()"
         >
           Done
         </button>

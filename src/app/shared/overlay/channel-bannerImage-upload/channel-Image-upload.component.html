@@ -1,10 +1,26 @@
 <div class="upload-popup banner-image-upload-container">
-  <div class="banner-image-upload-container2">
+  <div
+    *ngIf="targetImageType === imageType.Banner"
+    class="banner-image-upload-container2"
+  >
     <span class="banner-image-upload-txt-intro">
-      This image will appear across the top of your channel. Use an image that’s
-      at least 970 x 250 pixels and 6MB or less.
+      This image will appear across the top of your channel.<br /><br />
+      Please ensure that the image dimensions are between 970 x 250 pixels and
+      1600 x 400 pixels. The file size should be 6MB or less.
     </span>
   </div>
+
+  <div
+    *ngIf="targetImageType === imageType.Profile"
+    class="banner-image-upload-container2"
+  >
+    <span class="banner-image-upload-txt-intro">
+      This image will appear as the profile picture for your channel.<br /><br />
+      Please ensure that the image dimensions are between 200 x 200 pixels and
+      400 x 400 pixels. The file size should be 3MB or less.
+    </span>
+  </div>
+
   <div class="banner-image-upload-container-file-upload">
     <input
       type="file"
@@ -44,8 +60,15 @@
     *ngIf="!selectedFile"
     class="banner-image-upload-container-banner-no-image"
   >
-    <span class="banner-image-upload-banner-no-image-text"
+    <span
+      *ngIf="targetImageType === imageType.Banner"
+      class="banner-image-upload-banner-no-image-text"
       >No Banner Image</span
+    >
+    <span
+      *ngIf="targetImageType === imageType.Profile"
+      class="banner-image-upload-banner-no-image-text"
+      >No Profile Picture</span
     >
   </div>
 

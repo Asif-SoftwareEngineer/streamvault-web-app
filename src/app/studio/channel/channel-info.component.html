@@ -1,18 +1,26 @@
 <div class="channel-info-container">
-  <div class="channel-info-main-column">
+  <div *ngIf="channel" class="channel-info-main-column">
     <div class="channel-info-channel-infor-top-row">
-      <img
-        alt="image"
-        src="https://play.teleporthq.io/static/svg/default-img.svg"
-        class="channel-info-logo"
-      />
+      <div class="channel-profile-picture-container">
+        <img
+          alt="profile"
+          [src]="serverUrl + channel.profileImageUrl"
+          class="channel-profile-picture"
+        />
+      </div>
+
       <div class="channel-info-channel-key-details">
         <span class="Heading-4 channel-info-lbl-channel-name">
-          Channel Name
+          {{ channel.name }}
+        </span>
+        <span style="width: 100%" class="Content-2">
+          {{ channel.handle }}
         </span>
         <div class="channel-info-container1">
           <div class="channel-info-total-followers-container">
-            <span class="Content-2 channel-info-text">25</span>
+            <span class="Content-2 channel-info-text">{{
+              channel.followers!.length
+            }}</span>
 
             <span class="Content-2 channel-info-text01">Followers</span>
             <br />
@@ -25,7 +33,41 @@
         ></path>
       </svg>
     </div>
-    <div class="channel-info-analytics-container">
+
+    <div
+      *ngIf="channel.videos!.length === 0"
+      class="vid-upload-prompt-container"
+    >
+      <p>
+        To fully utilize the app and engage with the community, we encourage you
+        to create or upload a video on this platfrom.
+      </p>
+      <p>
+        Creating a video allows you to share your thoughts, ideas, or
+        experiences with others. You can provide valuable insights, entertain,
+        or educate the audience. It's a great way to connect and make an impact!
+      </p>
+      <p>
+        If you're ready to get started, click
+        <strong><a href="/create-video">here</a></strong> to navigate to the
+        video creation page.
+      </p>
+
+      <div class="channel-create-video-button-container">
+        <button
+          mat-raised-button
+          color="accent"
+          class="button Content-2 channel-create-video-button"
+        >
+          Create Video
+        </button>
+      </div>
+    </div>
+
+    <div
+      *ngIf="channel.videos!.length"
+      class="channel-info-analytics-container"
+    >
       <div class="channel-info-container2">
         <span class="mat-title channel-info-text04">Channel Analytics</span>
         <span class="Content-2 channel-info-text05">Last 30 days</span>
@@ -45,7 +87,11 @@
         </div>
       </div>
     </div>
-    <div class="channel-info-vid-info-container">
+
+    <div
+      *ngIf="channel.videos!.length > 0"
+      class="channel-info-vid-info-container"
+    >
       <div class="channel-info-vid-title-logo-container">
         <img
           alt="image"
@@ -92,6 +138,11 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="!channel" class="channel-info-main-column">
+    <span class="Heading-4 centered-span">No Channel found</span>
+  </div>
+
   <div class="channel-info-col-mob-view-only">
     <div class="channel-info-message-prompt-row">
       <span class="mat-title mob-view-prompt-text">

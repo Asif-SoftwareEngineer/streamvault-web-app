@@ -1,7 +1,7 @@
 import { CaptureContactComponent } from './capture-contact/capture-contact.component';
 import { CommonModule } from '@angular/common';
 import { ContactVerificationComponent } from './contact-verification/contact-verification.component';
-import { FieldErrorModule } from '../user-controls/field-error/field-error.module';
+import { FieldErrorModule } from '../shared/directives/field-error/field-error.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LogOutComponent } from './log-out/log-out.component';
 import { ManagementComponent } from './management/management.component';
@@ -10,7 +10,6 @@ import { MemberHomeComponent } from './member-home/member-home.component';
 import { MemberRegistrationComponent } from './member-registration/member-registration.component';
 import { MembershipOptionsComponent } from './membership-options/membership-options.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
-import { NameInputComponent } from './name-input/name-input.component';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
@@ -29,7 +28,6 @@ import { UserRoutingModule } from './user-routing.module';
     ManagementComponent,
     ContactVerificationComponent,
     MembershipOptionsComponent,
-    NameInputComponent,
     CaptureContactComponent,
   ],
   imports: [

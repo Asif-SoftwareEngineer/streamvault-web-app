@@ -23,7 +23,7 @@ import parsePhoneNumberFromString, {
   getCountryCallingCode,
 } from 'libphonenumber-js';
 
-import { ErrorSets } from 'src/app/user-controls/field-error/field-error.directive';
+import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
 import { ICountryCode } from 'src/app/models/countryCode';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { RegistrationDataService } from 'src/app/services/registration.service';

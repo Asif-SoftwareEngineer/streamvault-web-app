@@ -43,6 +43,8 @@ export class ChannelDataService {
   }
 
   addChannel(channelData: IChannel, userId: string): Observable<any> {
+    console.log('This is the channel Name: ' + channelData.name);
+
     const url = `${apiConfig.baseUrl}channels/addChannel/${userId}`;
     return this.http.post<any>(url, channelData, apiConfig.httpOptions).pipe(
       map((response) => {

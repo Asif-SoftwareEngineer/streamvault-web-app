@@ -19,7 +19,7 @@ import {
   VerificationCodeValidation,
 } from 'src/app/common/validations';
 
-import { ErrorSets } from 'src/app/user-controls/field-error/field-error.directive';
+import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
 import { IAccountVerification } from 'src/app/models/account-verification';
 import { InterComponentDataService } from 'src/app/services/inter-comp-data.service';
 import { RegistrationDataService } from 'src/app/services/registration.service';

@@ -7,6 +7,7 @@ import { MaterialModule } from '../material.module';
 import { NgModule } from '@angular/core';
 import { NotificationComponent } from './notification/notification-component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TrimWhieSpaceDirective } from './directives/trim-white-space/trim-whie-space.directive';
 import { VideoPlayerComponent } from '../studio/video-player/video-player.component';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { VideoPlayerComponent } from '../studio/video-player/video-player.compon
     VideoPlayerComponent,
     ChannelPopInfoComponent,
     ChannelImageUploadComponent,
+    TrimWhieSpaceDirective,
   ],
   imports: [
     CommonModule,
@@ -24,6 +26,7 @@ import { VideoPlayerComponent } from '../studio/video-player/video-player.compon
     MaterialModule,
   ],
   exports: [
+    TrimWhieSpaceDirective,
     NotificationComponent,
     FileUploadComponent,
     VideoPlayerComponent,

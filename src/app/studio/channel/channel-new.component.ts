@@ -11,19 +11,20 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { ImageType, OverLayType } from 'src/app/models/enums';
 import { Observable, of } from 'rxjs';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { catchError, map, startWith } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 
 import { ChannelDataService } from 'src/app/services/channelData.service';
 import { ChannelImageUploadComponent } from 'src/app/shared/overlay/channel-bannerImage-upload/channel-Image-upload.component';
 import { ChannelPopInfoComponent } from 'src/app/shared/overlay/channel-popInfo/channel-popInfo.component';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ErrorSets } from 'src/app/user-controls/field-error/field-error.directive';
+import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
 import { FormGroup } from '@angular/forms';
 import { IChannel } from 'src/app/models/channel';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { RequiredTextValidation } from 'src/app/common/validations';
 import { Router } from '@angular/router';
+import { UiService } from 'src/app/common/ui.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -97,6 +98,7 @@ export class ChannelNewComponent implements OnInit {
     private fb: FormBuilder,
     private overlay: Overlay,
     private channelService: ChannelDataService,
+    private uiService: UiService,
     private router: Router
   ) {}
 
@@ -153,36 +155,53 @@ export class ChannelNewComponent implements OnInit {
           this.categories.push('General');
         }
 
-        const newChannelObj: IChannel = {
-          userId: 'asifj',
-          channelId: 'new-channel',
-          name: formControls['channelNameCtrl'].value,
-          description: formControls['descriptionCtrl'].value,
-          category: this.categories.join(','),
-          handle: formControls['handleCtrl'].value,
-          profileImageUrl: this.profileImageUrl,
-          bannerImageUrl: this.bannerImageUrl,
-        };
+        this.isCreating = true;
+        this.newChannelFormGroup.disable();
 
-        this.channelService
-          .addChannel(newChannelObj, '648b46adfd79ae08df75fd8c')
-          .subscribe({
-            next: (response) => {
-              console.log(response);
-              if (response.status === 200) {
-                this.router.navigate([
-                  'studio/channel-info',
-                  '617239f3306478b096129ecf',
-                  //response.channelAdded.channelId,
-                ]);
-              }
-            },
-            error: (responseError) => {
-              console.log(responseError);
-            },
-          });
+        setTimeout(() => {
+          const newChannelObj: IChannel = {
+            userId: 'asifj',
+            channelId: 'new-channel',
+            name: formControls['channelNameCtrl'].value.trim(),
+            description: formControls['descriptionCtrl'].value.trim(),
+            category: this.categories.join(','),
+            handle: formControls['handleCtrl'].value,
+            profileImageUrl: this.profileImageUrl,
+            bannerImageUrl: this.bannerImageUrl,
+          };
+
+          this.channelService
+            .addChannel(newChannelObj, '648b46adfd79ae08df75fd8c')
+            .subscribe({
+              next: (response) => {
+                if (response.status === 200) {
+                  this.isCreating = false;
+                  this.newChannelFormGroup.enable();
+                  this.uiService.showToast(response.message, 800);
+                  setTimeout(() => {
+                    this.router.navigate([
+                      'studio/channel-info',
+                      '617239f3306478b096129ecf',
+                      //response.channelAdded.channelId,
+                    ]);
+                  }, 1000);
+                }
+              },
+              error: (responseError) => {
+                console.log(responseError.error.errorMessage);
+                this.uiService.showToast(
+                  responseError.error.errorMessage,
+                  2000
+                );
+                this.isCreating = false;
+                this.newChannelFormGroup.enable();
+              },
+            });
+        }, 5000);
       }
     } catch (error) {
+      this.isCreating = false;
+      this.newChannelFormGroup.enable();
       console.log(error);
     }
   }

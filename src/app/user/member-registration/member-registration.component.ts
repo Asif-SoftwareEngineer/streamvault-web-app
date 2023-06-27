@@ -17,7 +17,7 @@ import { IName, IUser } from 'src/app/models/user';
 import { Inject, PLATFORM_ID } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { ErrorSets } from '../../user-controls/field-error/field-error.directive';
+import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
 import { IAccountVerification } from 'src/app/models/account-verification';
 import { IMemberPlan } from 'src/app/models/membership-plans';
 import { RegistrationDataService } from 'src/app/services/registration.service';

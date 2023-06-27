@@ -49,8 +49,8 @@
       </p>
       <p>
         If you're ready to get started, click
-        <strong><a routerLink="studio/videos/">here</a></strong> to navigate to
-        the video creation page.
+        <strong><a [routerLink]="'/studio/pload-vid-details'">here</a></strong>
+        to navigate to the video creation page.
       </p>
 
       <div class="channel-create-video-button-container">
@@ -58,6 +58,7 @@
           mat-raised-button
           color="accent"
           class="button Content-2 channel-create-video-button"
+          [routerLink]="'/studio/upload-vid-details'"
         >
           Create Video
         </button>

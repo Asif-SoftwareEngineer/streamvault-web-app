@@ -162,8 +162,12 @@ export class ChannelNewComponent implements OnInit {
           const newChannelObj: IChannel = {
             userId: 'asifj',
             channelId: 'new-channel',
-            name: formControls['channelNameCtrl'].value.trim(),
-            description: formControls['descriptionCtrl'].value.trim(),
+            name: formControls['channelNameCtrl'].value
+              .trim()
+              .replace(/\s+/g, ' '),
+            description: formControls['descriptionCtrl'].value
+              .trim()
+              .replace(/\s+/g, ' '),
             category: this.categories.join(','),
             handle: formControls['handleCtrl'].value,
             profileImageUrl: this.profileImageUrl,
@@ -393,6 +397,8 @@ export class ChannelNewComponent implements OnInit {
 
   protected generateChannelHandle(channelName: string) {
     if (this.newChannelFormGroup.controls['channelNameCtrl'].valid) {
+      channelName = channelName.trim().replace(/\s+/g, ' ');
+
       const words = channelName.split(' ');
 
       let handle = '@';

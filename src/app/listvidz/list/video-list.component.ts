@@ -4,7 +4,7 @@ import { IVideoView } from 'src/app/models/video';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
-import { VideoDataService } from 'src/app/services/videosData.service';
+import { VideoDataService } from 'src/app/services/videos-data.service';
 import { VideoStreamingService } from 'src/app/services/videoStreaming.service';
 
 @Component({

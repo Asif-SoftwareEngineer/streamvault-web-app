@@ -11,7 +11,7 @@ import {
   appMinLengthValidator,
 } from 'src/app/shared/customValidators';
 
-import { ChannelDataService } from 'src/app/services/channelData.service';
+import { ChannelDataService } from 'src/app/services/channel-data.service';
 import { IChannel } from 'src/app/models/channel';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';

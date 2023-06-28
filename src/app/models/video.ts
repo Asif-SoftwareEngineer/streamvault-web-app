@@ -5,13 +5,17 @@ export interface IVideo {
   title: string;
   description: string;
   category: string;
-  tags?: string[];
   likes?: string[];
   dislikes?: string[];
   comments?: string[];
-  filePath: string;
   duration?: number;
-  url?: string;
+  videoPathUrl?: string;
+  thumbnailImageUrl?: string;
+  audience: string;
+  visibilty: string;
+  commentsPreference: string;
+  language: string;
+  location: string;
 }
 
 export interface IVideoView {

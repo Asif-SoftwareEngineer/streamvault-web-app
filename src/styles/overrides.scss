@@ -5,6 +5,11 @@
     height: var(--dl-size-size-medium-1);
   }
 
+  .mat-vertical-content {
+    padding-top: var(--dl-space-space-halfunit) !important;
+    padding-bottom: var(--dl-space-space-halfunit) !important;
+  }
+
   .mat-vertical-stepper-header {
     padding-top: 10px !important;
     padding-bottom: 10px !important;

@@ -54,8 +54,6 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   @ViewChild('membershipPlanSection', { static: true })
   membershipPlanSection!: MembershipOptionsComponent;
 
-  @ViewChild(FormGroupDirective)
-  formGroupDirective!: FormGroupDirective;
   @ViewChild('stepper') stepper!: MatStepper;
 
   basicInfoFormGroup!: FormGroup;
@@ -276,6 +274,10 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   }
 
   prepareContactSection() {
+    console.log(this.userObj);
+
+    return;
+
     this.isMemberVerified = false;
     this.contactSectionValidity.setErrors({ customError: true });
 
@@ -339,23 +341,6 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
 
       this.isSendingMessage = true;
       this.contactSection.contactFormGroup.disable();
-
-      // Simulate delay of 6 seconds
-      // setTimeout(() => {
-      //   // Simulated delay completed
-
-      //   this.isSendingMessage = false;
-      //   this.contactSection.contactFormGroup.enable();
-      //   this.interCompService.messageSentToMobile(true);
-      //   this.contactSectionValidity.setErrors(null);
-      //   this.uiService.showToast('Email sent successfully', 1000);
-      //   this.stepper.next();
-      //   // Show a success message
-
-      //   // Navigate to another mat step
-      //   // You can use Angular Router to navigate to the desired step
-      //   // Example: this.router.navigate(['/step2']);
-      // }, 2000); // Delay of 6 seconds
 
       this.regService.checkRegisteringUser(this.userObj).subscribe({
         next: (response) => {

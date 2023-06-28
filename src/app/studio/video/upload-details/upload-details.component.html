@@ -5,106 +5,213 @@
     </div>
 
     <div class="video-upload-details-main-content-row">
-      <!-- <button
-        mat-raised-button
-        (click)="isLinear = !isLinear"
-        id="toggle-linear"
-      >
-        {{ !isLinear ? "Enable linear mode" : "Disable linear mode" }}
-      </button> -->
       <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
-        <mat-step [stepControl]="firstFormGroup">
-          <form [formGroup]="firstFormGroup">
+        <mat-step [stepControl]="basicDetailsFormGroup">
+          <form [formGroup]="basicDetailsFormGroup">
             <ng-template matStepLabel>Basic Details</ng-template>
 
             <mat-form-field class="mat-form-field-class">
               <mat-label>Title</mat-label>
               <input
                 matInput
-                placeholder="Video title"
-                formControlName="firstCtrl"
+                aria-label="Video Title"
+                placeholder="Video Title"
+                formControlName="videoTitleCtrl"
+                autocomplete="new-password"
                 required
+                #title
               />
+              <mat-error
+                [input]="title"
+                fieldLabel="Video Title"
+                [group]="basicDetailsFormGroup"
+                [appFieldError]="ErrorSets['RequiredText']"
+              >
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field class="mat-form-field-class">
               <mat-label>Description</mat-label>
               <input
                 matInput
+                aria-label="Add description to your video"
                 placeholder="Add Description"
-                formControlName="firstCtrl"
+                formControlName="descriptionCtrl"
                 required
               />
             </mat-form-field>
 
             <mat-form-field class="mat-form-field-class">
-              <mat-label>Choose Language</mat-label>
+              <mat-label>Language</mat-label>
               <input
-                matInput
+                type="text"
+                aria-label="Specify the Language used in video"
                 placeholder="Language"
-                formControlName="firstCtrl"
-                required
+                matInput
+                formControlName="languageCtrl"
+                [matAutocomplete]="autoLangs"
+                autocomplete="new-password"
+                #lang
               />
+              <mat-error
+                [input]="lang"
+                [group]="basicDetailsFormGroup"
+                [appFieldError]="{
+                  error: 'invalid',
+                  message: 'Please select a valid language.'
+                }"
+              >
+              </mat-error>
+              <mat-autocomplete #autoLangs="matAutocomplete">
+                <mat-option
+                  class="auto-option-list"
+                  *ngFor="let option of filteredLanguageOptions | async"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-autocomplete>
             </mat-form-field>
 
             <mat-form-field class="mat-form-field-class">
               <mat-label>Location</mat-label>
               <input
                 matInput
+                aria-label="Specifiy location to which this video belongs to"
                 placeholder="Your Location"
-                formControlName="firstCtrl"
+                formControlName="locationCtrl"
+                [matAutocomplete]="autoLocations"
+                autocomplete="new-password"
+                (input)="onInputChange($event)"
                 required
+                #location
+                [disabled]="isLocationSearching"
               />
+              <mat-error
+                [input]="location"
+                [group]="basicDetailsFormGroup"
+                [appFieldError]="{
+                  error: 'invalid',
+                  message: 'Please select location.'
+                }"
+              >
+              </mat-error>
+              <mat-autocomplete #autoLocations="matAutocomplete">
+                <mat-option
+                  class="auto-option-list"
+                  *ngFor="let option of filteredLocationOptions | async"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-autocomplete>
             </mat-form-field>
 
-            <!-- <div>
-              <button mat-button matStepperNext>Next</button>
-            </div> -->
+            <div class="video-upload-button-container">
+              <button
+                mat-raised-button
+                type="button"
+                color="accent"
+                class="button mat-body-1 button-Next"
+                [disabled]="basicDetailsFormGroup.invalid"
+                (click)="prepareBasicDetails()"
+              >
+                Next
+              </button>
+            </div>
           </form>
         </mat-step>
 
-        <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Choose thumbnail</ng-template>
-            <mat-form-field class="mat-form-field-class">
-              <mat-label>Address</mat-label>
+        <mat-step [stepControl]="thumbnailFormGroup">
+          <form [formGroup]="thumbnailFormGroup">
+            <ng-template matStepLabel>Choose Thumbnail</ng-template>
+            <mat-form-field appearance="outline" class="mat-form-field-class">
               <input
                 matInput
-                formControlName="secondCtrl"
-                placeholder="Ex. 1 Main St, New York, NY"
-                required
+                aria-label="Viideo Thumbnail"
+                placeholder="Thumbnail"
+                formControlName="thumbnailImageCtrl"
+                class="new-channel-textHandle"
+                [readonly]="true"
               />
             </mat-form-field>
+            <div class="video-upload-button-container">
+              <button
+                mat-raised-button
+                type="button"
+                color="accent"
+                class="button mat-body-1 button-Next"
+                [disabled]="basicDetailsFormGroup.invalid"
+                (click)="prepareBasicDetails()"
+              >
+                Next
+              </button>
+            </div>
           </form>
         </mat-step>
 
-        <mat-step [stepControl]="thirdFormGroup">
-          <form [formGroup]="thirdFormGroup">
+        <mat-step [stepControl]="audienceFormGroup">
+          <form [formGroup]="audienceFormGroup">
             <ng-template matStepLabel>Audience</ng-template>
-            <mat-form-field class="mat-form-field-class">
-              <mat-label>Address</mat-label>
-              <input
-                matInput
-                formControlName="thirdCtrl"
-                placeholder="Ex. 1 Main St, New York, NY"
-                required
-              />
-            </mat-form-field>
+
+            <mat-radio-group
+              aria-label="Select Audience"
+              formControlName="audienceOption"
+            >
+              <mat-radio-button value="okForKids"
+                >Suitable for Kids</mat-radio-button
+              >
+              <mat-radio-button value="notOkForKids"
+                >Not recommended for Kids</mat-radio-button
+              >
+            </mat-radio-group>
+            {{ audienceOption }}
+            <mat-error *ngIf="audienceOptionErrors?.['required']"
+              >Please select an option</mat-error
+            >
+            <div class="video-upload-button-container">
+              <button
+                mat-raised-button
+                type="button"
+                color="accent"
+                class="button mat-body-1 button-Next"
+                [disabled]="basicDetailsFormGroup.invalid"
+                (click)="defineAudience()"
+              >
+                Next
+              </button>
+            </div>
           </form>
         </mat-step>
 
-        <mat-step [stepControl]="fourthFormGroup">
-          <form [formGroup]="fourthFormGroup">
+        <mat-step [stepControl]="visibilityFormGroup">
+          <form [formGroup]="visibilityFormGroup">
             <ng-template matStepLabel>Visibility</ng-template>
-            <mat-form-field class="mat-form-field-class">
-              <mat-label>Address</mat-label>
-              <input
-                matInput
-                formControlName="fourthCtrl"
-                placeholder="Ex. 1 Main St, New York, NY"
-                required
-              />
-            </mat-form-field>
+
+            <mat-radio-group
+              aria-label="Select an option"
+              formControlName="visibilityOption"
+            >
+              <mat-radio-button value="public">Public</mat-radio-button>
+              <mat-radio-button value="unlisted">Unlisted</mat-radio-button>
+              <mat-radio-button value="private">Private</mat-radio-button>
+            </mat-radio-group>
+            {{ visibilityOption }}
+            <mat-error *ngIf="visibilityOptionErrors?.['required']"
+              >Please select an option</mat-error
+            >
+            <div class="video-upload-button-container">
+              <button
+                mat-raised-button
+                type="button"
+                color="accent"
+                class="button mat-body-1 button-Next"
+                [disabled]="basicDetailsFormGroup.invalid"
+                (click)="defineVisibility()"
+              >
+                Next
+              </button>
+            </div>
           </form>
         </mat-step>
 
@@ -127,6 +234,7 @@
         mat-raised-button
         color="accent"
         class="button Content-2 video-upload-button"
+        (click)="printTheObject()"
       >
         Upload
       </button>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { ChannelDataService } from 'src/app/services/channelData.service';
+import { ChannelDataService } from 'src/app/services/channel-data.service';
 import { IChannel } from 'src/app/models/channel';
 import { environment } from 'src/environments/environment';
 

@@ -13,7 +13,7 @@ import { Observable, of } from 'rxjs';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { map, startWith } from 'rxjs/operators';
 
-import { ChannelDataService } from 'src/app/services/channelData.service';
+import { ChannelDataService } from 'src/app/services/channel-data.service';
 import { ChannelImageUploadComponent } from 'src/app/shared/overlay/channel-bannerImage-upload/channel-Image-upload.component';
 import { ChannelPopInfoComponent } from 'src/app/shared/overlay/channel-popInfo/channel-popInfo.component';
 import { ComponentPortal } from '@angular/cdk/portal';

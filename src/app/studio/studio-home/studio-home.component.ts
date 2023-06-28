@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ChannelDataService } from 'src/app/services/channelData.service';
+import { ChannelDataService } from 'src/app/services/channel-data.service';
 import { IChannel } from 'src/app/models/channel';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
-import { VideoDataService } from 'src/app/services/videosData.service';
+import { VideoDataService } from 'src/app/services/videos-data.service';
 import { environment } from 'src/environments/environment';
 
 const apiConfig = environment.api;

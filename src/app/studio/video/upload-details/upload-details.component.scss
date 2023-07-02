@@ -6,6 +6,7 @@
   margin-top: var(--dl-space-space-halfunit);
   margin-bottom: var(--dl-space-space-halfunit);
   border-radius: 6px;
+  font-family: "Montserrat";
 }
 
 .mat-mdc-form-field {
@@ -129,6 +130,13 @@
     );
   }
 
+  .step-content-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90vw; /* Set the desired height */
+  }
+
   .auto-option-list {
     font-size: 12px;
     font-family: "Montserrat";
@@ -166,7 +174,14 @@
     flex-wrap: wrap;
   }
 
+  .video-upload-thumbnail {
+    width: 100%;
+    align-self: flex-start;
+    border-width: 0px;
+  }
+
   .button-Back {
+    line-height: 32px !important;
     width: 30%;
     height: var(--dl-size-size-xsmall);
   }
@@ -175,6 +190,7 @@
     width: 30%;
     margin-left: var(--dl-space-space-halfunit);
     height: var(--dl-size-size-xsmall);
+    line-height: 32px !important;
   }
 
   .video-upload-button {

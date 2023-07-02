@@ -14,7 +14,7 @@ import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { map, startWith } from 'rxjs/operators';
 
 import { ChannelDataService } from 'src/app/services/channel-data.service';
-import { ChannelImageUploadComponent } from 'src/app/shared/overlay/channel-bannerImage-upload/channel-Image-upload.component';
+import { ChannelImageUploadComponent } from 'src/app/shared/overlay/channel-Image-upload/channel-Image-upload.component';
 import { ChannelPopInfoComponent } from 'src/app/shared/overlay/channel-popInfo/channel-popInfo.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
@@ -26,6 +26,8 @@ import { RequiredTextValidation } from 'src/app/common/validations';
 import { Router } from '@angular/router';
 import { UiService } from 'src/app/common/ui.service';
 import { environment } from 'src/environments/environment';
+import { ImageUploadService } from 'src/app/services/image-upload-service';
+import { IUploadImageUrlType } from 'src/app/models/upload';
 
 @Component({
   selector: 'app-channel-new',
@@ -49,10 +51,8 @@ export class ChannelNewComponent implements OnInit {
   protected categories: string[] = [];
 
   protected serverUrl: string = '';
-
-  protected bannerImageUrl: string =
-    'channel/banner/hayaasif-file-1687696435583.JPG';
-  protected profileImageUrl: string = 'channel/banner/profile-pic.png';
+  protected bannerImageUrl: string = '';
+  protected profileImageUrl: string = '';
 
   allCategoriesOriginal: string[] = [
     'Science and Technology',
@@ -91,6 +91,7 @@ export class ChannelNewComponent implements OnInit {
   allCategories: string[] = [];
   @ViewChild('categoryInput') categoryInput!: ElementRef<HTMLInputElement>;
   private overlayRef!: OverlayRef;
+  protected imageUrlType: IUploadImageUrlType | null = null;
 
   //#endregion
 
@@ -99,7 +100,8 @@ export class ChannelNewComponent implements OnInit {
     private overlay: Overlay,
     private channelService: ChannelDataService,
     private uiService: UiService,
-    private router: Router
+    private router: Router,
+    private imageUploadService: ImageUploadService
   ) {}
 
   // #region Events
@@ -126,16 +128,21 @@ export class ChannelNewComponent implements OnInit {
         category ? this._filter(category) : this.allCategories.slice()
       )
     );
+
+    this.imageUploadService.imageUrl$.subscribe(
+      (uploadImageUrlType: IUploadImageUrlType | null) => {
+        this.imageUrlType = uploadImageUrlType;
+        if (this.imageUrlType?.imageType === ImageType.Banner) {
+          this.bannerImageUrl = this.imageUrlType?.imageUrl;
+        } else if (this.imageUrlType?.imageType === ImageType.Profile) {
+          this.profileImageUrl = this.imageUrlType?.imageUrl;
+        }
+      }
+    );
   }
 
-  handleBannerImageUrl(bannerImageUrl: string) {
-    const apiConfig = environment.api;
-    this.bannerImageUrl = bannerImageUrl;
-  }
-
-  handleProfileImageUrl(profileImageUrl: string) {
-    const apiConfig = environment.api;
-    this.profileImageUrl = profileImageUrl;
+  uploadImage($event: MouseEvent, imageType: string) {
+    this.imageUploadService.showImageUploadOverlay($event, imageType);
   }
 
   closePopup(): void {
@@ -185,14 +192,13 @@ export class ChannelNewComponent implements OnInit {
                   setTimeout(() => {
                     this.router.navigate([
                       'studio/channel-info',
-                      '617239f3306478b096129ecf',
-                      //response.channelAdded.channelId,
+                      //'617239f3306478b096129ecf',
+                      response.channelAdded.channelId,
                     ]);
                   }, 1000);
                 }
               },
               error: (responseError) => {
-                console.log(responseError.error.errorMessage);
                 this.uiService.showToast(
                   responseError.error.errorMessage,
                   2000
@@ -206,7 +212,6 @@ export class ChannelNewComponent implements OnInit {
     } catch (error) {
       this.isCreating = false;
       this.newChannelFormGroup.enable();
-      console.log(error);
     }
   }
 
@@ -243,69 +248,6 @@ export class ChannelNewComponent implements OnInit {
     this.overlayRef.backdropClick().subscribe(() => {
       this.closePopup();
     });
-  }
-
-  showImageUploadOverlay(event: MouseEvent, imageType: string): void {
-    //const anchorElement = event.target as HTMLElement;
-
-    // Create an overlay config with the anchor element
-    const overlayConfig = this.getOverlayConfigForImageUpload(imageType);
-
-    // Create an overlay reference
-    this.overlayRef = this.overlay.create(overlayConfig);
-
-    // Create a portal and attach it to the overlay
-    const overlayPortal = new ComponentPortal(ChannelImageUploadComponent);
-
-    const bannerUploadOverlayInstance =
-      this.overlayRef.attach(overlayPortal).instance; // Attach the portal to the overlay
-
-    if (imageType === ImageType.Banner) {
-      bannerUploadOverlayInstance.targetImageType = ImageType.Banner;
-    } else if (imageType === ImageType.Profile) {
-      bannerUploadOverlayInstance.targetImageType = ImageType.Profile;
-    }
-
-    // Access the event emitter of the child component
-    bannerUploadOverlayInstance.composedBannerImageUrl.subscribe(
-      (imageUrl: string) => {
-        this.handleBannerImageUrl(imageUrl);
-      }
-    );
-
-    bannerUploadOverlayInstance.composedProfileImageUrl.subscribe(
-      (imageUrl: string) => {
-        this.handleProfileImageUrl(imageUrl);
-      }
-    );
-
-    // Subscribe to the closeOverlay event emitted from the InfoPopupComponent
-    bannerUploadOverlayInstance.closeOverlay.subscribe(() => {
-      this.closePopup();
-    });
-
-    //Close the overlay when the backdrop is clicked
-    this.overlayRef.backdropClick().subscribe(() => {
-      this.closePopup();
-    });
-  }
-
-  private getOverlayConfigForImageUpload(imageType: string): OverlayConfig {
-    const positionStrategy = this.overlay
-      .position()
-      .global()
-      .centerHorizontally()
-      .centerVertically();
-
-    const overlayConfig = new OverlayConfig({
-      positionStrategy,
-      minWidth: '90vw',
-      hasBackdrop: true,
-      backdropClass: 'popup-backdrop',
-      scrollStrategy: this.overlay.scrollStrategies.block(),
-    });
-
-    return overlayConfig;
   }
 
   private getOverlayConfigForPopups(

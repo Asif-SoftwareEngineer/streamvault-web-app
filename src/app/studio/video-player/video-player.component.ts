@@ -12,7 +12,7 @@ import { IVideoView } from 'src/app/models/video';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { VideoDataService } from 'src/app/services/videos-data.service';
-import { VideoStreamingService } from 'src/app/services/videoStreaming.service';
+import { VideoStreamingService } from 'src/app/services/video-streaming.service';
 import { v4 as uuidv4 } from 'uuid';
 
 export enum Thumb {

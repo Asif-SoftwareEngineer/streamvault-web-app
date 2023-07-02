@@ -73,11 +73,54 @@
               </mat-autocomplete>
             </mat-form-field>
 
+            <div class="video-upload-containerCategory">
+              <mat-form-field
+                class="mat-form-field-class"
+                appearance="fill"
+                style="height: auto"
+              >
+                <mat-label>Categories</mat-label>
+                <mat-chip-list #chipList aria-label="Category selection">
+                  <mat-chip
+                    *ngFor="let category of categories"
+                    (removed)="remove(category)"
+                  >
+                    {{ category }}
+                    <button matChipRemove>
+                      <mat-icon style="color: red">cancel</mat-icon>
+                    </button>
+                  </mat-chip>
+                  <input
+                    style="height: auto"
+                    placeholder="New Category..."
+                    #categoryInput
+                    formControlName="categoryCtrl"
+                    [matAutocomplete]="auto"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (matChipInputTokenEnd)="add($event)"
+                  />
+                </mat-chip-list>
+                <mat-autocomplete
+                  #auto="matAutocomplete"
+                  (optionSelected)="selected($event)"
+                >
+                  <mat-option
+                    class="auto-option-list"
+                    *ngFor="let category of filteredCategories | async"
+                    [value]="category"
+                  >
+                    {{ category }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+
             <mat-form-field class="mat-form-field-class">
               <mat-label>Location</mat-label>
               <input
                 matInput
-                aria-label="Specifiy location to which this video belongs to"
+                aria-label="Specify location to which this video belongs to"
                 placeholder="Your Location"
                 formControlName="locationCtrl"
                 [matAutocomplete]="autoLocations"
@@ -85,7 +128,6 @@
                 (input)="onInputChange($event)"
                 required
                 #location
-                [disabled]="isLocationSearching"
               />
               <mat-error
                 [input]="location"
@@ -112,7 +154,7 @@
                 mat-raised-button
                 type="button"
                 color="accent"
-                class="button mat-body-1 button-Next"
+                class="button Content-1 button-Next"
                 [disabled]="basicDetailsFormGroup.invalid"
                 (click)="prepareBasicDetails()"
               >
@@ -123,26 +165,47 @@
         </mat-step>
 
         <mat-step [stepControl]="thumbnailFormGroup">
-          <form [formGroup]="thumbnailFormGroup">
+          <form [formGroup]="thumbnailFormGroup" class="step-content-layout">
             <ng-template matStepLabel>Choose Thumbnail</ng-template>
             <mat-form-field appearance="outline" class="mat-form-field-class">
+              <mat-label>Thumbnail Image</mat-label>
               <input
                 matInput
-                aria-label="Viideo Thumbnail"
-                placeholder="Thumbnail"
+                placeholder="Select Thumbnail Image"
                 formControlName="thumbnailImageCtrl"
-                class="new-channel-textHandle"
+                class="video-upload-thumbnail"
                 [readonly]="true"
               />
+              <button
+                mat-button
+                matSuffix
+                mat-icon-button
+                mat-raised-button
+                type="button"
+                color="accent"
+                (click)="uploadImage($event, imageType.Thumbnail)"
+              >
+                <mat-icon>file_open</mat-icon>
+              </button>
+              <mat-error
+                *ngIf="
+                  thumbnailFormGroup.controls['thumbnailImageCtrl'].hasError(
+                    'required'
+                  )
+                "
+              >
+                Select image file for video thumbnail
+              </mat-error>
             </mat-form-field>
+
             <div class="video-upload-button-container">
               <button
                 mat-raised-button
                 type="button"
                 color="accent"
-                class="button mat-body-1 button-Next"
-                [disabled]="basicDetailsFormGroup.invalid"
-                (click)="prepareBasicDetails()"
+                class="button Content-1 button-Next"
+                [disabled]="thumbnailFormGroup.invalid"
+                matStepperNext
               >
                 Next
               </button>
@@ -151,31 +214,41 @@
         </mat-step>
 
         <mat-step [stepControl]="audienceFormGroup">
-          <form [formGroup]="audienceFormGroup">
+          <form [formGroup]="audienceFormGroup" class="step-content-layout">
             <ng-template matStepLabel>Audience</ng-template>
-
-            <mat-radio-group
-              aria-label="Select Audience"
-              formControlName="audienceOption"
-            >
-              <mat-radio-button value="okForKids"
-                >Suitable for Kids</mat-radio-button
+            <div>
+              <mat-radio-group
+                aria-label="Select Audience"
+                formControlName="audienceOption"
               >
-              <mat-radio-button value="notOkForKids"
-                >Not recommended for Kids</mat-radio-button
+                <mat-radio-button value="okForKids"
+                  >Suitable for Kids</mat-radio-button
+                >
+                <mat-radio-button value="notOkForKids"
+                  >Not recommended for Kids</mat-radio-button
+                >
+              </mat-radio-group>
+              <mat-error *ngIf="audienceOptionErrors?.['required']"
+                >Please select an option</mat-error
               >
-            </mat-radio-group>
-            {{ audienceOption }}
-            <mat-error *ngIf="audienceOptionErrors?.['required']"
-              >Please select an option</mat-error
-            >
+            </div>
             <div class="video-upload-button-container">
               <button
                 mat-raised-button
                 type="button"
                 color="accent"
-                class="button mat-body-1 button-Next"
-                [disabled]="basicDetailsFormGroup.invalid"
+                class="button Content-1 button-Back"
+                matStepperPrevious
+              >
+                Back
+              </button>
+
+              <button
+                mat-raised-button
+                type="button"
+                color="accent"
+                class="button Content-1 button-Next"
+                [disabled]="audienceFormGroup.invalid"
                 (click)="defineAudience()"
               >
                 Next
@@ -185,28 +258,37 @@
         </mat-step>
 
         <mat-step [stepControl]="visibilityFormGroup">
-          <form [formGroup]="visibilityFormGroup">
+          <form [formGroup]="visibilityFormGroup" class="step-content-layout">
             <ng-template matStepLabel>Visibility</ng-template>
-
-            <mat-radio-group
-              aria-label="Select an option"
-              formControlName="visibilityOption"
-            >
-              <mat-radio-button value="public">Public</mat-radio-button>
-              <mat-radio-button value="unlisted">Unlisted</mat-radio-button>
-              <mat-radio-button value="private">Private</mat-radio-button>
-            </mat-radio-group>
-            {{ visibilityOption }}
-            <mat-error *ngIf="visibilityOptionErrors?.['required']"
-              >Please select an option</mat-error
-            >
+            <div>
+              <mat-radio-group
+                aria-label="Select an option"
+                formControlName="visibilityOption"
+              >
+                <mat-radio-button value="public">Public</mat-radio-button>
+                <mat-radio-button value="unlisted">Unlisted</mat-radio-button>
+                <mat-radio-button value="private">Private</mat-radio-button>
+              </mat-radio-group>
+              <mat-error *ngIf="visibilityOptionErrors?.['required']"
+                >Please select an option</mat-error
+              >
+            </div>
             <div class="video-upload-button-container">
               <button
                 mat-raised-button
                 type="button"
                 color="accent"
-                class="button mat-body-1 button-Next"
-                [disabled]="basicDetailsFormGroup.invalid"
+                class="button Content-1 button-Back"
+                matStepperPrevious
+              >
+                Back
+              </button>
+              <button
+                mat-raised-button
+                type="button"
+                color="accent"
+                class="button Content-1 button-Next"
+                [disabled]="visibilityFormGroup.invalid"
                 (click)="defineVisibility()"
               >
                 Next
@@ -215,29 +297,47 @@
           </form>
         </mat-step>
 
-        <!-- <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </div> -->
         <mat-step>
-          <ng-template matStepLabel>Done</ng-template>
-          <p>You are now done.</p>
-          <!-- <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
-          </div> -->
+          <form class="step-content-layout">
+            <ng-template matStepLabel class="step-content-layout"
+              >Upload Video</ng-template
+            >
+            <div>
+              <p class="Content-2" style="text-align: justify">
+                After you submit your video, it will go through a validation
+                process before it is published online. During this process, the
+                content of your video will be reviewed to ensure it meets the
+                StreamVault community guidelines.
+              </p>
+              <p class="Content-2" style="text-align: justify">
+                Once your video has been verified and found to be in compliance
+                with the guidelines, it will be made public and available for
+                viewing by the wider audience.
+              </p>
+            </div>
+            <div class="video-upload-button-container">
+              <button
+                mat-raised-button
+                type="button"
+                color="accent"
+                class="button Content-1 button-Back"
+                matStepperPrevious
+              >
+                Back
+              </button>
+              <button
+                mat-raised-button
+                type="button"
+                color="accent"
+                class="button Content-1 button-Next"
+                (click)="printTheObject()"
+              >
+                Upload
+              </button>
+            </div>
+          </form>
         </mat-step>
       </mat-stepper>
-    </div>
-    <div class="video-upload-button-container">
-      <button
-        mat-raised-button
-        color="accent"
-        class="button Content-2 video-upload-button"
-        (click)="printTheObject()"
-      >
-        Upload
-      </button>
     </div>
   </div>
 

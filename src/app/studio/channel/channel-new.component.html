@@ -21,7 +21,7 @@
         <div class="new-channel-container1"></div>
         <div class="new-channel-banner-browse-container">
           <mat-icon
-            (click)="showImageUploadOverlay($event, imageType.Banner)"
+            (click)="uploadImage($event, imageType.Banner)"
             class="new-channel-banner-icon"
           >
             photo_camera
@@ -44,7 +44,7 @@
 
         <div class="new-channel-banner-edit-icon-container">
           <mat-icon
-            (click)="showImageUploadOverlay($event, imageType.Banner)"
+            (click)="uploadImage($event, imageType.Banner)"
             class="new-channel-banner-edit-icon"
           >
             edit
@@ -60,7 +60,7 @@
           class="new-channel-channel-profile-container"
         >
           <mat-icon
-            (click)="showImageUploadOverlay($event, imageType.Profile)"
+            (click)="uploadImage($event, imageType.Profile)"
             class="new-channel-banner-icon"
           >
             photo_camera
@@ -78,7 +78,7 @@
           />
 
           <mat-icon
-            (click)="showImageUploadOverlay($event, imageType.Profile)"
+            (click)="uploadImage($event, imageType.Profile)"
             class="new-channel-profile-picture-edit-icon"
           >
             edit

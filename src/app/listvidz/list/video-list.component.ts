@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { VideoDataService } from 'src/app/services/videos-data.service';
-import { VideoStreamingService } from 'src/app/services/videoStreaming.service';
+import { VideoStreamingService } from 'src/app/services/video-streaming.service';
 
 @Component({
   selector: 'app-video-list',

@@ -1,4 +1,4 @@
-import { ChannelImageUploadComponent } from './overlay/channel-bannerImage-upload/channel-Image-upload.component';
+import { ChannelImageUploadComponent } from './overlay/channel-Image-upload/channel-Image-upload.component';
 import { ChannelPopInfoComponent } from './overlay/channel-popInfo/channel-popInfo.component';
 import { CommonModule } from '@angular/common';
 import { FileUploadComponent } from './file-upload/file-upload.component';

@@ -12,6 +12,7 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import {
   Observable,
   Subject,
+  auditTime,
   debounceTime,
   distinctUntilChanged,
   map,
@@ -21,16 +22,25 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
+import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 
+import { ChannelImageUploadComponent } from 'src/app/shared/overlay/channel-Image-upload/channel-Image-upload.component';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
+import { IUploadImageUrlType } from 'src/app/models/upload';
 import { IVideo } from 'src/app/models/video';
+import { ImageUploadService } from 'src/app/services/image-upload-service';
 import { LocationDataService } from 'src/app/services/location-data.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { OverlayRef } from '@angular/cdk/overlay';
 import { RequiredTextValidation } from 'src/app/common/validations';
 import { environment } from 'src/environments/environment';
+import { UiService } from 'src/app/common/ui.service';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { languageValidator } from 'src/app/common/custom-validators';
 
 @Component({
   selector: 'app-upload-details',
@@ -39,15 +49,14 @@ import { environment } from 'src/environments/environment';
   standalone: false,
 })
 export class UploadDetailsComponent implements OnInit {
+  //#region "Declaration"
+
   protected imageType = ImageType;
   protected overlayType = OverLayType;
-  protected newChannelFormGroup!: FormGroup;
   protected ErrorSets = ErrorSets;
   protected isCreating = false;
   protected serverUrl: string = '';
-  protected thumbnailImageUrl: string =
-    'channel/banner/hayaasif-file-1687696435583.JPG';
-  protected isLocationSearching: boolean = false;
+  protected thumbnailImageUrl: string = '';
 
   protected videoObj: IVideo = {
     videoId: '',
@@ -69,9 +78,11 @@ export class UploadDetailsComponent implements OnInit {
     location: '',
   };
 
-  // Create a subject to manage the subscription
   private destroy$ = new Subject<void>();
 
+  protected separatorKeysCodes: number[] = [ENTER, COMMA];
+  protected filteredCategories: Observable<string[]> | undefined;
+  protected categories: string[] = [];
   allCategoriesOriginal: string[] = [
     'Science and Technology',
     'Education and Learning',
@@ -110,12 +121,11 @@ export class UploadDetailsComponent implements OnInit {
   @ViewChild('stepper') stepper!: MatStepper;
   @ViewChild('categoryInput') categoryInput!: ElementRef<HTMLInputElement>;
 
-  private overlayRef!: OverlayRef;
   protected basicDetailsFormGroup!: FormGroup;
   protected thumbnailFormGroup!: FormGroup;
   protected audienceFormGroup!: FormGroup;
   protected visibilityFormGroup!: FormGroup;
-  protected doneGroup!: FormGroup;
+  //protected uploadVideoGroup!: FormGroup;
   protected isLinear = false;
   private languages: string[] = [
     'English',
@@ -168,28 +178,32 @@ export class UploadDetailsComponent implements OnInit {
   protected filteredLocationOptions: Observable<string[]> | undefined;
   userInputSubject = new Subject<string>();
 
+  imageUrlType: IUploadImageUrlType | null = null;
+
+  //#endregion
+
   constructor(
     private formBuilder: FormBuilder,
+    private imageUploadService: ImageUploadService,
+    private uiService: UiService,
     private locationService: LocationDataService
   ) {
     this.filteredLocationOptions = this.userInputSubject.pipe(
-      debounceTime(800),
+      auditTime(800),
       distinctUntilChanged(),
       switchMap((userInput) => {
         if (userInput.trim() !== '' || userInput.length > 0) {
-          this.isLocationSearching = true;
           return this.locationService.getCitiesCountriesList(userInput);
         } else {
-          this.isLocationSearching = false;
           return of([]); // Return an empty array if the input is empty
         }
       }),
       takeUntil(this.destroy$), // Unsubscribe when the component is destroyed
-      tap(() => {
-        this.isLocationSearching = false;
-      })
+      tap(() => {})
     );
   }
+
+  //#region "Events"
 
   ngOnInit(): void {
     this.serverUrl = environment.api.serverUrl;
@@ -198,12 +212,13 @@ export class UploadDetailsComponent implements OnInit {
     this.basicDetailsFormGroup = this.formBuilder.group({
       videoTitleCtrl: ['', RequiredTextValidation],
       descriptionCtrl: [''],
+      languageCtrl: ['', languageValidator(this.languages)],
+      categoryCtrl: '',
       locationCtrl: [''],
-      languageCtrl: ['', RequiredTextValidation],
     });
 
     this.thumbnailFormGroup = this.formBuilder.group({
-      thumbnailImageCtrl: ['asdfasdf', RequiredTextValidation],
+      thumbnailImageCtrl: ['abc.jpg', Validators.required],
     });
 
     this.audienceFormGroup = this.formBuilder.group({
@@ -214,7 +229,27 @@ export class UploadDetailsComponent implements OnInit {
       visibilityOption: ['', Validators.required],
     });
 
+    this.filteredCategories = this.basicDetailsFormGroup.controls[
+      'categoryCtrl'
+    ].valueChanges.pipe(
+      startWith(null),
+      map((category: string | null) =>
+        category ? this._filter(category) : this.allCategories.slice()
+      )
+    );
+
     this.defineLanguageObservable();
+
+    this.imageUploadService.imageUrl$.subscribe(
+      (uploadImageUrlType: IUploadImageUrlType | null) => {
+        this.imageUrlType = uploadImageUrlType;
+        if (this.imageUrlType?.imageUrl) {
+          this.thumbnailFormGroup
+            .get('thumbnailImageCtrl')
+            ?.setValue(this.imageUrlType?.imageUrl);
+        }
+      }
+    );
   }
   // Unsubscribe when the component is destroyed
   ngOnDestroy() {
@@ -226,6 +261,8 @@ export class UploadDetailsComponent implements OnInit {
     const userInput = (event.target as HTMLInputElement).value;
     this.userInputSubject.next(userInput);
   }
+
+  //#endregion ---
 
   //#region "Methods"
 
@@ -264,6 +301,10 @@ export class UploadDetailsComponent implements OnInit {
     }
   }
 
+  uploadImage($event: MouseEvent, imageType: string) {
+    this.imageUploadService.showImageUploadOverlay($event, imageType);
+  }
+
   defineAudience() {
     this.videoObj.audience =
       this.audienceFormGroup.controls['audienceOption'].value;
@@ -282,12 +323,24 @@ export class UploadDetailsComponent implements OnInit {
   }
 
   printTheObject() {
+    if (!this.videoObj.channelId) {
+      this.uiService.showToast(
+        'You need to associate a video with an existing channel.',
+        2000
+      );
+      return;
+    }
+
+    this.videoObj.videoId = 'new-vid';
+    this.videoObj.commentsPreference = 'blocked';
+
     console.log(JSON.stringify(this.videoObj));
   }
 
   get audienceOption() {
     return this.audienceFormGroup.get('audienceOption')?.value;
   }
+
   get audienceOptionErrors() {
     return this.audienceFormGroup.get('audienceOption')?.errors;
   }
@@ -298,16 +351,45 @@ export class UploadDetailsComponent implements OnInit {
     return this.visibilityFormGroup.get('visibilityOption')?.errors;
   }
 
-  handleThumbnailImageUrl(thumbnailImageUrl: string) {
-    this.thumbnailImageUrl = thumbnailImageUrl;
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+    // Add our category
+
+    if (value) {
+      this.categories.push(value);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+
+    this.basicDetailsFormGroup.controls['categoryCtrl'].setValue(null);
   }
 
-  closePopup(): void {
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
+  remove(category: string): void {
+    const index = this.categories.indexOf(category);
+
+    if (index >= 0) {
+      this.categories.splice(index, 1);
     }
   }
 
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.categories.push(event.option.viewValue);
+
+    const indexToRemove: number = this.allCategories.indexOf(
+      event.option.viewValue
+    );
+
+    this.categoryInput.nativeElement.value = '';
+    this.basicDetailsFormGroup.controls['categoryCtrl'].setValue(null);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.allCategoriesOriginal.filter((category) =>
+      category.toLowerCase().includes(filterValue)
+    );
+  }
+
   //#endregion
-  // Getters for easy access in the template
 }

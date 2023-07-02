@@ -21,27 +21,6 @@
     </span>
   </div>
 
-  <div class="banner-image-upload-container-file-upload">
-    <input
-      type="file"
-      #fileInput
-      style="display: none"
-      (change)="onFileSelected($event)"
-      accept="image/*"
-    />
-    <button
-      mat-raised-button
-      color="accent"
-      (click)="chooseImageFile()"
-      class="button banner-image-upload-btn-choose"
-    >
-      Choose
-    </button>
-
-    <span *ngIf="selectedFile" class="banner-image-upload-txt-file-name">{{
-      imageFileName
-    }}</span>
-  </div>
   <div *ngIf="isUploading" class="banner-image-upload-container-progress">
     <mat-progress-bar
       mode="determinate"
@@ -60,7 +39,7 @@
     *ngIf="!selectedFile"
     class="banner-image-upload-container-banner-no-image"
   >
-    <span
+    <!-- <span
       *ngIf="targetImageType === imageType.Banner"
       class="banner-image-upload-banner-no-image-text"
       >No Banner Image</span
@@ -69,17 +48,38 @@
       *ngIf="targetImageType === imageType.Profile"
       class="banner-image-upload-banner-no-image-text"
       >No Profile Picture</span
+    > -->
+    <!-- <div class="banner-image-upload-container-file-upload"> -->
+    <input
+      type="file"
+      #fileInput
+      style="display: none"
+      (change)="onFileSelected($event)"
+      accept="image/*"
+    />
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="chooseImageFile()"
+      class="button banner-image-upload-btn-choose"
     >
+      <mat-icon>file_open</mat-icon>
+    </button>
+
+    <span *ngIf="selectedFile" class="banner-image-upload-txt-file-name">{{
+      imageFileName
+    }}</span>
+    <!-- </div> -->
   </div>
 
   <div class="banner-image-upload-container-buttonDone">
     <button
       mat-raised-button
       color="accent"
-      class="button banner-image-upload-btn-Done"
+      class="button Content-1 banner-image-upload-btn-Done"
       (click)="closeBannerUploadOverlay()"
     >
-      Done
+      Ok
     </button>
   </div>
 </div>

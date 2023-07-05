@@ -1,0 +1,59 @@
+<div class="video-list-upload-container">
+  <div class="video-list-upload-main-page-column">
+    <div class="Content-3 page-Title-Header">
+      <label>Select Video</label>
+    </div>
+    <div class="video-list-upload-main-video-container-row">
+      <div
+        *ngFor="let video of videoFiles"
+        class="video-list-upload-video-images-container-col"
+      >
+        <div
+          (click)="navigateToPreUploadVideoPage(video.url)"
+          class="video-list-upload-uploadable-video-image-container"
+        >
+          <img
+            [src]="video.thumbnail"
+            alt="Video Thumbnail"
+            class="video-list-upload-vid-image"
+          />
+        </div>
+      </div>
+    </div>
+    <!-- <div class="upload-container-progress">
+      <mat-progress-bar
+        mode="determinate"
+        [value]="uploadProgress"
+      ></mat-progress-bar>
+    </div> -->
+    <div class="video-list-upload-select-files-container-row">
+      <input
+        style="display: none"
+        class="file-input"
+        multiple
+        type="file"
+        accept="video/*"
+        (change)="onFilesChanged($event)"
+        #fileInput
+      />
+      <button
+        mat-raised-button
+        type="button"
+        color="accent"
+        class="button Content-3 video-list-upload-select-files-button"
+        (click)="fileInput.click()"
+      >
+        Select Files
+        <mat-icon>cloud_upload</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="video-list-upload-col-mob-view-only">
+    <div class="video-list-upload-message-prompt-row">
+      <span class="Field-Label">
+        Oops! It seems you&apos;re not viewing this on a mobile device. Please
+        switch to a mobile view for the best experience. Thank you!
+      </span>
+    </div>
+  </div>
+</div>

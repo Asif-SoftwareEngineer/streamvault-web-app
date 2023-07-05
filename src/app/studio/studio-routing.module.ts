@@ -5,11 +5,12 @@ import { ChannelEditComponent } from './channel/channel-edit.component';
 import { ChannelInfoComponent } from './channel/channel-info.component';
 import { ChannelNewComponent } from './channel/channel-new.component';
 import { NgModule } from '@angular/core';
+import { PreUploadComponent } from './video/upload/pre-upload/pre-upload.component';
 import { StudioHomeComponent } from './studio-home/studio-home.component';
-import { UploadComponent } from './video/upload/upload.component';
-import { UploadDetailsComponent } from './video/upload-details/upload-details.component';
+import { UploadDetailsComponent } from './video/upload/upload-details/upload-details.component';
 import { VideoEditComponent } from './video/video-edit/video-edit.component';
 import { VideoInfoComponent } from './video/video-info/video-info.component';
+import { VideoListComponent } from './video/upload/video-list/video-list.component';
 import { VideoPlayerComponent } from './video-player/video-player.component';
 
 const routes: Routes = [
@@ -20,8 +21,9 @@ const routes: Routes = [
   { path: 'channel-info/:channelId', component: ChannelInfoComponent },
   { path: 'channel', component: ChannelComponent },
 
-  { path: 'upload-video', component: UploadComponent },
+  { path: 'pre-upload-video', component: PreUploadComponent },
   { path: 'upload-vid-details', component: UploadDetailsComponent },
+  { path: 'list-upload-videos', component: VideoListComponent },
   { path: 'edit-video', component: VideoEditComponent },
   { path: 'video-info', component: VideoInfoComponent },
   { path: 'player', component: VideoPlayerComponent },

@@ -1,11 +1,20 @@
 <div class="video-upload-container">
   <div class="video-upload-main-column">
     <div class="video-upload-back-row">
-      <svg viewBox="0 0 1024 1024" class="video-upload-back-icon">
+      <svg
+        viewBox="0 0 1024 1024"
+        class="video-upload-back-icon"
+        routerLink="../list-upload-videos"
+      >
         <path d="M498 166l-346 346 346 346-76 76-422-422 422-422z"></path>
       </svg>
     </div>
-    <div class="video-upload-player-container"></div>
+    <div class="video-upload-player-container">
+      <video class="video-upload-player" controls autoplay>
+        <source [src]="videoUrl" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
     <div class="video-upload-button-container">
       <button
         mat-raised-button

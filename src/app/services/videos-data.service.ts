@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, map, of } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Video, VideoView } from '../models/video';
 
 import { Injectable } from '@angular/core';
@@ -12,6 +12,16 @@ const apiConfig = environment.api;
 })
 export class VideoDataService {
   constructor(private http: HttpClient) {}
+
+  private videoUrlSubject = new BehaviorSubject<string>('');
+
+  setVideoUrl(url: string) {
+    this.videoUrlSubject.next(url);
+  }
+
+  getVideoUrl() {
+    return this.videoUrlSubject.asObservable();
+  }
 
   getAllVideos(watchingUserId: string): Observable<VideoView[]> {
     const url = `${apiConfig.baseUrl}video/${watchingUserId}`;

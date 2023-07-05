@@ -7,15 +7,16 @@ import { FieldErrorModule } from '../shared/directives/field-error/field-error.m
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '../material.module';
 import { NgModule } from '@angular/core';
+import { PreUploadComponent } from './video/upload/pre-upload/pre-upload.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { StudioHomeComponent } from './studio-home/studio-home.component';
 import { StudioRoutingModule } from './studio-routing.module';
-import { UploadComponent } from './video/upload/upload.component';
-import { UploadDetailsComponent } from './video/upload-details/upload-details.component';
+import { UploadDetailsComponent } from './video/upload/upload-details/upload-details.component';
 import { VideoApprovalsComponent } from './video/video-approvals/video-approvals.component';
 import { VideoEditComponent } from './video/video-edit/video-edit.component';
 import { VideoInfoComponent } from './video/video-info/video-info.component';
+import { VideoListComponent } from './video/upload/video-list/video-list.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { VideoInfoComponent } from './video/video-info/video-info.component';
     VideoInfoComponent,
     VideoApprovalsComponent,
     UploadDetailsComponent,
-    UploadComponent,
+    PreUploadComponent,
+    VideoListComponent,
   ],
   imports: [
     CommonModule,

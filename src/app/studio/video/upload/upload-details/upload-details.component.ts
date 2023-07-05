@@ -41,6 +41,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { languageValidator } from 'src/app/common/custom-validators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-upload-details',
@@ -57,6 +58,7 @@ export class UploadDetailsComponent implements OnInit {
   protected isCreating = false;
   protected serverUrl: string = '';
   protected thumbnailImageUrl: string = '';
+  protected videoUrl: string = '';
 
   protected videoObj: Video = {
     videoId: '',
@@ -186,7 +188,8 @@ export class UploadDetailsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private imageUploadService: ImageUploadService,
     private uiService: UiService,
-    private locationService: LocationDataService
+    private locationService: LocationDataService,
+    private route: ActivatedRoute
   ) {
     this.filteredLocationOptions = this.userInputSubject.pipe(
       auditTime(800),
@@ -250,6 +253,11 @@ export class UploadDetailsComponent implements OnInit {
         }
       }
     );
+
+    this.route.paramMap.subscribe((params) => {
+      this.videoUrl = params.get('videoUrl')!;
+      console.log(this.videoUrl);
+    });
   }
   // Unsubscribe when the component is destroyed
   ngOnDestroy() {

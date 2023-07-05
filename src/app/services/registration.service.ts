@@ -10,11 +10,11 @@ import {
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { MembershipType, Role } from '../models/enums';
 
+import { CountryCode } from '../models/countryCode';
 import { IAccountVerification } from '../models/account-verification';
-import { ICountryCode } from '../models/countryCode';
 import { IUser } from '../models/user';
-import { IVideo } from '../models/video';
 import { Injectable } from '@angular/core';
+import { Video } from '../models/video';
 import { environment } from 'src/environments/environment';
 
 const apiConfig = environment.api;
@@ -49,9 +49,9 @@ export class RegistrationDataService {
     return this.http.post<any>(url, verifyingUser, apiConfig.httpOptions);
   }
 
-  getCountyCodes(): Observable<ICountryCode[]> {
+  getCountyCodes(): Observable<CountryCode[]> {
     const url = `${apiConfig.baseUrl}location/countryCodes`;
-    return this.http.get<ICountryCode[]>(url);
+    return this.http.get<CountryCode[]>(url);
   }
 
   registerAsMember(membershipData: IUser): Observable<any> {

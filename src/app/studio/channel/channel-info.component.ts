@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
+import { Channel } from 'src/app/models/channel';
 import { ChannelDataService } from 'src/app/services/channel-data.service';
-import { IChannel } from 'src/app/models/channel';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ChannelInfoComponent implements OnInit {
   protected channelId: string = '';
-  protected channel!: IChannel;
+  protected channel!: Channel;
   protected serverUrl: string = '';
 
   constructor(
@@ -31,7 +31,7 @@ export class ChannelInfoComponent implements OnInit {
 
       this.channelService.getChannel(userId, this.channelId).subscribe({
         next: (response) => {
-          this.channel = response.channel as IChannel;
+          this.channel = response.channel as Channel;
           //console.log(this.channel);
           // Handle the successful response here
         },

@@ -1,4 +1,4 @@
-export interface IRegisteredUser {
+export interface RegisteredUser {
   accessCode: string;
   pi_uid: string;
   pi_username: string;

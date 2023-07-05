@@ -2,7 +2,7 @@ import * as PiModel from 'src/app/models/pi-model';
 
 import { Component, OnInit } from '@angular/core';
 import {
-  INotification,
+  Notification,
   NotificationService,
 } from 'src/app/services/notification.service';
 
@@ -32,7 +32,7 @@ export class LogOutComponent implements OnInit {
   counter = 3;
   timer: any;
 
-  _notification: INotification = {
+  _notification: Notification = {
     message: '',
     type: 'none',
     timestamp: new Date(),

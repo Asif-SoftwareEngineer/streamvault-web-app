@@ -2,7 +2,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { NotificationType } from '../shared/enums';
 
-export interface INotification {
+export interface Notification {
   message: string;
   type: 'error' | 'success' | 'warn' | 'none';
   timestamp: Date;
@@ -12,7 +12,7 @@ export interface INotification {
   providedIn: 'root',
 })
 export class NotificationService {
-  private _notification = new BehaviorSubject<INotification>({
+  private _notification = new BehaviorSubject<Notification>({
     message: '',
     type: NotificationType.None,
     timestamp: new Date(),
@@ -20,7 +20,7 @@ export class NotificationService {
 
   public notification$ = this._notification.asObservable();
 
-  addNotification(notification: INotification) {
+  addNotification(notification: Notification) {
     this._notification.next(notification);
     setTimeout(() => {
       this._notification.next({

@@ -27,8 +27,8 @@ import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ChannelImageUploadComponent } from 'src/app/shared/overlay/channel-Image-upload/channel-Image-upload.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
-import { IUploadImageUrlType } from 'src/app/models/upload';
-import { IVideo } from 'src/app/models/video';
+import { UploadImageUrlType } from 'src/app/models/upload';
+import { Video } from 'src/app/models/video';
 import { ImageUploadService } from 'src/app/services/image-upload-service';
 import { LocationDataService } from 'src/app/services/location-data.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -58,7 +58,7 @@ export class UploadDetailsComponent implements OnInit {
   protected serverUrl: string = '';
   protected thumbnailImageUrl: string = '';
 
-  protected videoObj: IVideo = {
+  protected videoObj: Video = {
     videoId: '',
     userId: '',
     channelId: '',
@@ -178,7 +178,7 @@ export class UploadDetailsComponent implements OnInit {
   protected filteredLocationOptions: Observable<string[]> | undefined;
   userInputSubject = new Subject<string>();
 
-  imageUrlType: IUploadImageUrlType | null = null;
+  imageUrlType: UploadImageUrlType | null = null;
 
   //#endregion
 
@@ -241,7 +241,7 @@ export class UploadDetailsComponent implements OnInit {
     this.defineLanguageObservable();
 
     this.imageUploadService.imageUrl$.subscribe(
-      (uploadImageUrlType: IUploadImageUrlType | null) => {
+      (uploadImageUrlType: UploadImageUrlType | null) => {
         this.imageUrlType = uploadImageUrlType;
         if (this.imageUrlType?.imageUrl) {
           this.thumbnailFormGroup

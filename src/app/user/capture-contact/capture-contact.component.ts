@@ -23,8 +23,8 @@ import parsePhoneNumberFromString, {
   getCountryCallingCode,
 } from 'libphonenumber-js';
 
+import { CountryCode } from 'src/app/models/countryCode';
 import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
-import { ICountryCode } from 'src/app/models/countryCode';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { RegistrationDataService } from 'src/app/services/registration.service';
 import { countryCodeValidator } from 'src/app/common/custom-validators';
@@ -139,9 +139,9 @@ export class CaptureContactComponent implements OnInit {
   public getCountryCodes(): void {
     this.countryCodeItems = [];
     this._regService.getCountyCodes().subscribe(
-      (countryCodes: ICountryCode[]) => {
+      (countryCodes: CountryCode[]) => {
         // Handle the response data here
-        countryCodes.forEach((countryCode: ICountryCode) => {
+        countryCodes.forEach((countryCode: CountryCode) => {
           const countryNameWithCode: string = `${countryCode.countryName} (${countryCode.phoneCode}) ${countryCode.iso2Code}`;
           this.countryCodeItems.push(countryNameWithCode);
           this.defineCountryCodeObservable();

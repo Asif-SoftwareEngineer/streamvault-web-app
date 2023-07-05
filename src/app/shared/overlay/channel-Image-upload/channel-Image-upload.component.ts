@@ -11,8 +11,8 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 
 import { FileUploadService } from 'src/app/services/file-upload.service';
-import { IUploadImageUrlType } from 'src/app/models/upload';
 import { ImageType } from 'src/app/models/enums';
+import { UploadImageUrlType } from 'src/app/models/upload';
 
 @Component({
   selector: 'app-channel-Image-upload',
@@ -23,8 +23,8 @@ export class ChannelImageUploadComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
   protected imageType = ImageType;
   @Input() targetImageType: ImageType = ImageType.Banner;
-  @Output() imageUrl: EventEmitter<IUploadImageUrlType> =
-    new EventEmitter<IUploadImageUrlType>();
+  @Output() imageUrl: EventEmitter<UploadImageUrlType> =
+    new EventEmitter<UploadImageUrlType>();
 
   @Output() composedBannerImageUrl: EventEmitter<string> =
     new EventEmitter<string>();
@@ -131,7 +131,7 @@ export class ChannelImageUploadComponent implements OnInit {
               setTimeout(() => {
                 this.isUploading = false;
                 const imageUrl = event.body?.imageUrl.toString();
-                const uploadImageUrlTypeObj: IUploadImageUrlType = {
+                const uploadImageUrlTypeObj: UploadImageUrlType = {
                   imageUrl: imageUrl,
                   imageType: this.targetImageType,
                 };

@@ -2,7 +2,6 @@ import { BehaviorSubject, Observable, lastValueFrom, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
-import { Role } from '../models/enums';
 import { TokenStorageService } from './token-storage.service';
 import { environment } from 'src/environments/environment';
 

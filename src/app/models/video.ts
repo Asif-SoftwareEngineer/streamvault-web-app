@@ -1,4 +1,4 @@
-export interface IVideo {
+export interface Video {
   videoId: string;
   userId: string;
   channelId: string;
@@ -18,7 +18,7 @@ export interface IVideo {
   location: string;
 }
 
-export interface IVideoView {
+export interface VideoView {
   videoId: string;
   userId: string;
   channelId: string;
@@ -31,10 +31,10 @@ export interface IVideoView {
   likes: number;
   dislikes: number;
   comments: string;
-  yourReaction: IReacion;
+  yourReaction: Reacion;
 }
 
-export interface IReacion {
+export interface Reacion {
   reactionType: string;
   reactingUserId: string;
 }

@@ -3,7 +3,7 @@ import {} from '@angular/core';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
-  INotification,
+  Notification,
   NotificationService,
 } from 'src/app/services/notification.service';
 import {
@@ -11,8 +11,8 @@ import {
   appMinLengthValidator,
 } from 'src/app/shared/customValidators';
 
+import { Channel } from 'src/app/models/channel';
 import { ChannelDataService } from 'src/app/services/channel-data.service';
-import { IChannel } from 'src/app/models/channel';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
@@ -27,7 +27,7 @@ export class ChannelComponent implements OnInit, AfterViewInit {
   @ViewChild('cancelButton') cancelButton: HTMLButtonElement | null = null;
 
   _channelForm: FormGroup = this.fb.group({});
-  _notification: INotification = {
+  _notification: Notification = {
     message: '',
     type: 'none',
     timestamp: new Date(),

@@ -1,11 +1,11 @@
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ImageType, OverLayType } from '../models/enums';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 
 import { ChannelImageUploadComponent } from '../shared/overlay/channel-Image-upload/channel-Image-upload.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
-import { IUploadImageUrlType } from '../models/upload';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { UploadImageUrlType } from '../models/upload';
 
 @Injectable({
   providedIn: 'root',
@@ -16,16 +16,16 @@ export class ImageUploadService {
   protected thumbnailImageUrl: string =
     'channel/banner/hayaasif-file-1687696435583.JPG';
   private overlayRef!: OverlayRef;
-  private imageUrlSubject: BehaviorSubject<IUploadImageUrlType | null> =
-    new BehaviorSubject<IUploadImageUrlType | null>(null);
+  private imageUrlSubject: BehaviorSubject<UploadImageUrlType | null> =
+    new BehaviorSubject<UploadImageUrlType | null>(null);
 
   // Getter for the imageUrl subject
-  get imageUrl$(): Observable<IUploadImageUrlType | null> {
+  get imageUrl$(): Observable<UploadImageUrlType | null> {
     return this.imageUrlSubject.asObservable();
   }
 
   // Method to update the imageUrl value
-  updateImageUrl(imageUrlType: IUploadImageUrlType): void {
+  updateImageUrl(imageUrlType: UploadImageUrlType): void {
     this.imageUrlSubject.next(imageUrlType);
   }
 
@@ -60,7 +60,7 @@ export class ImageUploadService {
 
     // Access the event emitter of the child component
     imageUploadOverlayInstance.imageUrl.subscribe(
-      (uploadImageUrlType: IUploadImageUrlType) => {
+      (uploadImageUrlType: UploadImageUrlType) => {
         this.updateImageUrl(uploadImageUrlType);
       }
     );

@@ -3,7 +3,7 @@ import * as PiModel from 'src/app/models/pi-model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
-  INotification,
+  Notification,
   NotificationService,
 } from 'src/app/services/notification.service';
 
@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
   _isAuthenticated: boolean = false;
   _windowRef = window as unknown as CustomWindow;
   _isBusy: boolean = false;
-  _notification: INotification = {
+  _notification: Notification = {
     message: '',
     type: 'none',
     timestamp: new Date(),

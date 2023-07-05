@@ -1,6 +1,6 @@
-import { IVideo } from './video';
+import { Video } from './video';
 
-export interface IChannel {
+export interface Channel {
   userId: string;
   channelId: string;
   profileImageUrl?: string;
@@ -9,6 +9,6 @@ export interface IChannel {
   description: string;
   category: string;
   handle: string;
-  videos?: IVideo[];
+  videos?: Video[];
   followers?: string[];
 }

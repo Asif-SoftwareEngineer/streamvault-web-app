@@ -1,4 +1,4 @@
-export interface IMemberPlan {
+export interface MemberPlan {
   planType: string;
   amount: number;
   paymentMode: string;

@@ -1,6 +1,6 @@
 import { ImageType } from './enums';
 
-export interface IUploadImageUrlType {
+export interface UploadImageUrlType {
   imageUrl: string;
   imageType: ImageType;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  INotification,
+  Notification,
   NotificationService,
 } from 'src/app/services/notification.service';
 import { Observable, startWith } from 'rxjs';
@@ -43,7 +43,7 @@ import { NotificationType } from '../enums';
   ],
 })
 export class NotificationComponent implements OnInit {
-  notification$: Observable<INotification> | undefined;
+  notification$: Observable<Notification> | undefined;
 
   constructor(private _notificationService: NotificationService) {
     this._notificationService.clearNotification();

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IVideo, IVideoView } from '../models/video';
 import { Observable, map, of } from 'rxjs';
+import { Video, VideoView } from '../models/video';
 
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -13,9 +13,9 @@ const apiConfig = environment.api;
 export class VideoDataService {
   constructor(private http: HttpClient) {}
 
-  getAllVideos(watchingUserId: string): Observable<IVideoView[]> {
+  getAllVideos(watchingUserId: string): Observable<VideoView[]> {
     const url = `${apiConfig.baseUrl}video/${watchingUserId}`;
-    return this.http.get<{ videosList: IVideoView[] }>(url).pipe(
+    return this.http.get<{ videosList: VideoView[] }>(url).pipe(
       map((response) => {
         console.log(response);
         return response.videosList;
@@ -23,7 +23,7 @@ export class VideoDataService {
     );
   }
 
-  addVideo(videoData: IVideo): Observable<any> {
+  addVideo(videoData: Video): Observable<any> {
     const url = `${apiConfig.baseUrl}video/add/${videoData.userId}/${videoData.channelId}`;
     return this.http.post<any>(url, videoData, apiConfig.httpOptions);
   }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
-import { IMemberPlan } from 'src/app/models/membership-plans';
+import { MemberPlan } from 'src/app/models/membership-plans';
 import { MembershipType } from 'src/app/models/enums';
 
 @Component({

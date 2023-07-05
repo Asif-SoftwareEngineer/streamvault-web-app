@@ -53,149 +53,155 @@
       </div>
     </div>
 
-    <form [formGroup]="newChannelFormGroup" style="flex: 1; width: 95%">
-      <div class="new-channel-container2">
-        <div
-          *ngIf="profileImageUrl.length === 0"
-          class="new-channel-channel-profile-container"
-        >
-          <mat-icon
-            (click)="uploadImage($event, imageType.Profile)"
-            class="new-channel-banner-icon"
+    <form [formGroup]="newChannelFormGroup">
+      <div>
+        <div class="new-channel-thumbnail-container">
+          <div
+            *ngIf="profileImageUrl.length === 0"
+            class="new-channel-channel-profileBrowse-container"
           >
-            photo_camera
-          </mat-icon>
-        </div>
-
-        <div
-          *ngIf="profileImageUrl.length > 0"
-          class="new-channel-profile-picture-container"
-        >
-          <img
-            [src]="serverUrl + profileImageUrl"
-            alt="Profile Picture"
-            class="channel-profile-picture"
-          />
-
-          <mat-icon
-            (click)="uploadImage($event, imageType.Profile)"
-            class="new-channel-profile-picture-edit-icon"
-          >
-            edit
-          </mat-icon>
-        </div>
-
-        <span class="new-channel-text1">
-          &nbsp;&nbsp; Provide profile image for channel</span
-        >
-        <mat-icon
-          (click)="showInfoPopup($event, overlayType.Profile)"
-          class="new-channel-profile-info-icon"
-        >
-          info
-        </mat-icon>
-      </div>
-      <div class="new-channel-channel-name-row">
-        <mat-form-field class="mat-form-field-class">
-          <mat-label>Channel Name</mat-label>
-          <input
-            matInput
-            aria-label="Channel Name"
-            placeholder="Your Channel Name"
-            formControlName="channelNameCtrl"
-            #channelName
-            autocomplete="new-password"
-            (blur)="generateChannelHandle(channelName.value)"
-          />
-          <mat-error
-            [input]="channelName"
-            fieldLabel="Channel Name"
-            [group]="newChannelFormGroup"
-            [appFieldError]="ErrorSets['RequiredText']"
-          >
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="new-channel-containerHandle">
-        <mat-form-field appearance="outline" class="mat-form-field-class">
-          <input
-            matInput
-            placeholder="Handle"
-            formControlName="handleCtrl"
-            class="new-channel-textHandle"
-            [readonly]="true"
-          />
-        </mat-form-field>
-      </div>
-
-      <div class="new-channel-containerCategory">
-        <mat-form-field
-          class="mat-form-field-class"
-          appearance="fill"
-          style="height: auto"
-        >
-          <mat-label>Categories</mat-label>
-          <mat-chip-list #chipList aria-label="Category selection">
-            <mat-chip
-              *ngFor="let category of categories"
-              (removed)="remove(category)"
+            <mat-icon
+              (click)="uploadImage($event, imageType.Profile)"
+              class="new-channel-banner-icon"
             >
-              {{ category }}
-              <button matChipRemove>
-                <mat-icon style="color: red">cancel</mat-icon>
-              </button>
-            </mat-chip>
-            <input
-              style="height: auto"
-              placeholder="New Category..."
-              #categoryInput
-              formControlName="categoryCtrl"
-              [matAutocomplete]="auto"
-              [matChipInputFor]="chipList"
-              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-              (matChipInputTokenEnd)="add($event)"
+              photo_camera
+            </mat-icon>
+          </div>
+
+          <div
+            *ngIf="profileImageUrl.length > 0"
+            class="new-channel-profile-picture-container"
+          >
+            <img
+              [src]="serverUrl + profileImageUrl"
+              alt="Profile Picture"
+              class="channel-profile-picture"
             />
-          </mat-chip-list>
-          <mat-autocomplete
-            #auto="matAutocomplete"
-            (optionSelected)="selected($event)"
-          >
-            <mat-option
-              class="auto-option-list"
-              *ngFor="let category of filteredCategories | async"
-              [value]="category"
+
+            <mat-icon
+              (click)="uploadImage($event, imageType.Profile)"
+              class="new-channel-profile-picture-edit-icon"
             >
-              {{ category }}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </div>
+              edit
+            </mat-icon>
+          </div>
 
-      <div class="new-channel-containerDescription">
-        <mat-form-field class="mat-form-field-class">
-          <mat-label>Description</mat-label>
-          <textarea
-            class="new-channel-textarea"
-            matInput
-            rows="10"
-            formControlName="descriptionCtrl"
-            #description
-            placeholder="Description"
-          ></textarea>
-        </mat-form-field>
-      </div>
+          <div style="display: flex; justify-content: space-between">
+            <span class="new-channel-text-profile-image"
+              >Provide Channel's Profile image</span
+            >
+            <div style="width: 24px">
+              <mat-icon
+                (click)="showInfoPopup($event, overlayType.Profile)"
+                class="new-channel-profile-info-icon"
+              >
+                info
+              </mat-icon>
+            </div>
+          </div>
+        </div>
+        <div class="new-channel-channel-name-row">
+          <mat-form-field class="mat-form-field-class">
+            <mat-label>Channel Name</mat-label>
+            <input
+              matInput
+              aria-label="Channel Name"
+              placeholder="Your Channel Name"
+              formControlName="channelNameCtrl"
+              #channelName
+              autocomplete="new-password"
+              (blur)="generateChannelHandle(channelName.value)"
+            />
+            <mat-error
+              [input]="channelName"
+              fieldLabel="Channel Name"
+              [group]="newChannelFormGroup"
+              [appFieldError]="ErrorSets['RequiredText']"
+            >
+            </mat-error>
+          </mat-form-field>
+        </div>
 
-      <div class="new-channel-button-container">
-        <button
-          mat-raised-button
-          color="accent"
-          class="button Content-2 new-channel-button"
-          (click)="saveNewChannel()"
-          [disabled]="isCreating"
-        >
-          Done
-        </button>
+        <div class="new-channel-containerHandle">
+          <mat-form-field appearance="outline" class="mat-form-field-class">
+            <input
+              matInput
+              placeholder="Handle"
+              formControlName="handleCtrl"
+              class="new-channel-textHandle"
+              [readonly]="true"
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="new-channel-containerCategory">
+          <mat-form-field
+            class="mat-form-field-class"
+            appearance="fill"
+            style="height: auto"
+          >
+            <mat-label>Categories</mat-label>
+            <mat-chip-list #chipList aria-label="Category selection">
+              <mat-chip
+                *ngFor="let category of categories"
+                (removed)="remove(category)"
+              >
+                {{ category }}
+                <button matChipRemove>
+                  <mat-icon style="color: red">cancel</mat-icon>
+                </button>
+              </mat-chip>
+              <input
+                style="height: auto"
+                placeholder="New Category..."
+                #categoryInput
+                formControlName="categoryCtrl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="add($event)"
+              />
+            </mat-chip-list>
+            <mat-autocomplete
+              #auto="matAutocomplete"
+              (optionSelected)="selected($event)"
+            >
+              <mat-option
+                class="auto-option-list"
+                *ngFor="let category of filteredCategories | async"
+                [value]="category"
+              >
+                {{ category }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+        <div class="new-channel-containerDescription">
+          <mat-form-field class="mat-form-field-class">
+            <mat-label>Description</mat-label>
+            <textarea
+              class="new-channel-textarea"
+              matInput
+              rows="10"
+              formControlName="descriptionCtrl"
+              #description
+              placeholder="Description"
+            ></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="new-channel-button-container">
+          <button
+            mat-raised-button
+            color="accent"
+            class="button Content-2 new-channel-button"
+            (click)="saveNewChannel()"
+            [disabled]="isCreating"
+          >
+            Done
+          </button>
+        </div>
       </div>
     </form>
   </div>

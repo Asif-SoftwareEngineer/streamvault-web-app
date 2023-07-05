@@ -1,8 +1,7 @@
-import { MembershipType, Role } from './enums';
-
-import { IChannel } from './channel';
-import { IMemberPlan } from './membership-plans';
-import { ISetting } from './setting';
+import { Channel } from './channel';
+import { MemberPlan } from './membership-plans';
+import { Role } from './enums';
+import { Setting } from './setting';
 
 export interface IUser {
   piUserId?: string;
@@ -16,18 +15,18 @@ export interface IUser {
   language: string;
   age18Above: boolean;
   agreeToTerms: boolean;
-  country?: string;
-  city?: string;
   role: Role;
   registrationDate: Date;
-  membership: IMemberPlan;
+  membership: MemberPlan;
   membershipRenewalDate?: Date;
-  picture?: string;
   isProfileDisabled: boolean;
   isMembershipExpired: boolean;
+  picture?: string;
+  country?: string;
+  city?: string;
   watchList?: string[];
-  settings?: ISetting;
-  channels?: IChannel[];
+  settings?: Setting;
+  channels?: Channel[];
 }
 
 export interface IName {

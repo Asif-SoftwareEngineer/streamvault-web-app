@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Channel } from 'src/app/models/channel';
 import { ChannelDataService } from 'src/app/services/channel-data.service';
-import { IChannel } from 'src/app/models/channel';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { VideoDataService } from 'src/app/services/videos-data.service';
@@ -15,7 +15,7 @@ const apiConfig = environment.api;
   styleUrls: ['./studio-home.component.scss'],
 })
 export class StudioHomeComponent implements OnInit {
-  public _channels$!: Observable<IChannel[]>;
+  public _channels$!: Observable<Channel[]>;
 
   //public videos$!: Observable<any>;
 

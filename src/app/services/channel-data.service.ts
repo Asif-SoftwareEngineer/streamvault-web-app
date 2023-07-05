@@ -1,8 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, map, of, throwError } from 'rxjs';
 
-import { IChannel } from '../models/channel';
-import { IUser } from '../models/user';
+import { Channel } from '../models/channel';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -14,9 +13,9 @@ const apiConfig = environment.api;
 export class ChannelDataService {
   constructor(private http: HttpClient) {}
 
-  getChannelsByUserId(userId: string): Observable<IChannel[]> {
+  getChannelsByUserId(userId: string): Observable<Channel[]> {
     const url = `${apiConfig.baseUrl}channels/${userId}`;
-    return this.http.get<{ channels: IChannel[] }>(url).pipe(
+    return this.http.get<{ channels: Channel[] }>(url).pipe(
       map((response) => {
         return response.channels;
       })
@@ -42,8 +41,8 @@ export class ChannelDataService {
     );
   }
 
-  addChannel(channelData: IChannel, userId: string): Observable<any> {
-    const url = `${apiConfig.baseUrl}channels/addChannel/${userId}`;
+  addChannel(channelData: Channel, userId: string): Observable<any> {
+    const url = `${apiConfig.baseUrl}channels/add/${userId}`;
     return this.http.post<any>(url, channelData, apiConfig.httpOptions).pipe(
       map((response) => {
         return {

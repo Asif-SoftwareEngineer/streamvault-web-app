@@ -19,7 +19,7 @@ import { Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
 import { IAccountVerification } from 'src/app/models/account-verification';
-import { IMemberPlan } from 'src/app/models/membership-plans';
+import { MemberPlan } from 'src/app/models/membership-plans';
 import { RegistrationDataService } from 'src/app/services/registration.service';
 import { PaymentMode, Role } from 'src/app/models/enums';
 import { SubSink } from 'subsink';
@@ -120,7 +120,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   isMemberVerified = false;
   isMemberRegistered = false;
   isMemberPlanFormValid = false;
-  selectedMemberPlan: IMemberPlan = {
+  selectedMemberPlan: MemberPlan = {
     planType: '',
     amount: 0,
     paymentMode: PaymentMode.CryptoCurrency,

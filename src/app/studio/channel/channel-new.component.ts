@@ -13,21 +13,21 @@ import { Observable, of } from 'rxjs';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { map, startWith } from 'rxjs/operators';
 
+import { Channel } from 'src/app/models/channel';
 import { ChannelDataService } from 'src/app/services/channel-data.service';
 import { ChannelImageUploadComponent } from 'src/app/shared/overlay/channel-Image-upload/channel-Image-upload.component';
 import { ChannelPopInfoComponent } from 'src/app/shared/overlay/channel-popInfo/channel-popInfo.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
 import { FormGroup } from '@angular/forms';
-import { IChannel } from 'src/app/models/channel';
+import { ImageUploadService } from 'src/app/services/image-upload-service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { RequiredTextValidation } from 'src/app/common/validations';
 import { Router } from '@angular/router';
 import { UiService } from 'src/app/common/ui.service';
+import { UploadImageUrlType } from 'src/app/models/upload';
 import { environment } from 'src/environments/environment';
-import { ImageUploadService } from 'src/app/services/image-upload-service';
-import { IUploadImageUrlType } from 'src/app/models/upload';
 
 @Component({
   selector: 'app-channel-new',
@@ -91,7 +91,7 @@ export class ChannelNewComponent implements OnInit {
   allCategories: string[] = [];
   @ViewChild('categoryInput') categoryInput!: ElementRef<HTMLInputElement>;
   private overlayRef!: OverlayRef;
-  protected imageUrlType: IUploadImageUrlType | null = null;
+  protected imageUrlType: UploadImageUrlType | null = null;
 
   //#endregion
 
@@ -130,7 +130,7 @@ export class ChannelNewComponent implements OnInit {
     );
 
     this.imageUploadService.imageUrl$.subscribe(
-      (uploadImageUrlType: IUploadImageUrlType | null) => {
+      (uploadImageUrlType: UploadImageUrlType | null) => {
         this.imageUrlType = uploadImageUrlType;
         if (this.imageUrlType?.imageType === ImageType.Banner) {
           this.bannerImageUrl = this.imageUrlType?.imageUrl;
@@ -166,7 +166,7 @@ export class ChannelNewComponent implements OnInit {
         this.newChannelFormGroup.disable();
 
         setTimeout(() => {
-          const newChannelObj: IChannel = {
+          const newChannelObj: Channel = {
             userId: 'asifj',
             channelId: 'new-channel',
             name: formControls['channelNameCtrl'].value

@@ -1,3 +1,4 @@
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
@@ -24,24 +25,24 @@ import {
 } from 'rxjs';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 
+import { ActivatedRoute } from '@angular/router';
 import { ChannelImageUploadComponent } from 'src/app/shared/overlay/channel-Image-upload/channel-Image-upload.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
-import { UploadImageUrlType } from 'src/app/models/upload';
-import { Video } from 'src/app/models/video';
 import { ImageUploadService } from 'src/app/services/image-upload-service';
 import { LocationDataService } from 'src/app/services/location-data.service';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RequiredTextValidation } from 'src/app/common/validations';
-import { environment } from 'src/environments/environment';
 import { UiService } from 'src/app/common/ui.service';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { UploadImageUrlType } from 'src/app/models/upload';
+import { Video } from 'src/app/models/video';
+import { VideoDataService } from 'src/app/services/videos-data.service';
+import { environment } from 'src/environments/environment';
 import { languageValidator } from 'src/app/common/custom-validators';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-upload-details',
@@ -57,8 +58,6 @@ export class UploadDetailsComponent implements OnInit {
   protected ErrorSets = ErrorSets;
   protected isCreating = false;
   protected serverUrl: string = '';
-  protected thumbnailImageUrl: string = '';
-  protected videoUrl: string = '';
 
   protected videoObj: Video = {
     videoId: '',
@@ -70,11 +69,11 @@ export class UploadDetailsComponent implements OnInit {
     likes: [],
     dislikes: [],
     comments: [],
-    duration: undefined,
+    duration: 0,
     videoPathUrl: '',
     thumbnailImageUrl: '',
     audience: '',
-    visibilty: '',
+    visibility: '',
     commentsPreference: '',
     language: '',
     location: '',
@@ -189,7 +188,8 @@ export class UploadDetailsComponent implements OnInit {
     private imageUploadService: ImageUploadService,
     private uiService: UiService,
     private locationService: LocationDataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private videoService: VideoDataService
   ) {
     this.filteredLocationOptions = this.userInputSubject.pipe(
       auditTime(800),
@@ -221,7 +221,7 @@ export class UploadDetailsComponent implements OnInit {
     });
 
     this.thumbnailFormGroup = this.formBuilder.group({
-      thumbnailImageCtrl: ['abc.jpg', Validators.required],
+      thumbnailImageCtrl: ['', Validators.required],
     });
 
     this.audienceFormGroup = this.formBuilder.group({
@@ -250,13 +250,23 @@ export class UploadDetailsComponent implements OnInit {
           this.thumbnailFormGroup
             .get('thumbnailImageCtrl')
             ?.setValue(this.imageUrlType?.imageUrl);
+          this.videoObj.thumbnailImageUrl = this.imageUrlType?.imageUrl;
         }
       }
     );
 
-    this.route.paramMap.subscribe((params) => {
-      this.videoUrl = params.get('videoUrl')!;
-      console.log(this.videoUrl);
+    this.videoService.getThumbnailHostUrl().subscribe((thumbnailHostUrl) => {
+      this.videoObj.thumbnailImageUrl =
+        'video/thumbnails/64a7040ef4be255f935aece0.png';
+      this.thumbnailFormGroup.controls['thumbnailImageCtrl'].setValue(
+        this.videoObj.thumbnailImageUrl
+      );
+      console.log(this.videoObj.thumbnailImageUrl);
+    });
+
+    this.videoService.getVideoHostUrl().subscribe((videoHostUrl) => {
+      this.videoObj.videoPathUrl = videoHostUrl;
+      console.log(this.videoObj.videoPathUrl);
     });
   }
   // Unsubscribe when the component is destroyed
@@ -323,7 +333,7 @@ export class UploadDetailsComponent implements OnInit {
   }
 
   defineVisibility() {
-    this.videoObj.visibilty =
+    this.videoObj.visibility =
       this.visibilityFormGroup.controls['visibilityOption'].value;
     if (this.visibilityFormGroup.valid) {
       this.stepper.next();

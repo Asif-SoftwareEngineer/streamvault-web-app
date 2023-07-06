@@ -72,3 +72,19 @@ export enum ImageType {
   Profile = 'profile',
   Thumbnail = 'thumbnail',
 }
+
+export enum VideoUploadStatus {
+  Pending = 'pending',
+  Uploading = 'uploading',
+  Completed = 'completed',
+  Failed = 'failed',
+}
+
+export enum VideoPublishStage {
+  Uploaded = 'uploaded',
+  InformationAdded = 'informationAdded',
+  UnderReview = 'underReview',
+  Approved = 'approved',
+  Rejected = 'rejected',
+  Published = 'published',
+}

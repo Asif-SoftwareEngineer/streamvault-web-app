@@ -185,14 +185,13 @@ export class ChannelNewComponent implements OnInit {
             .addChannel(newChannelObj, '648b46adfd79ae08df75fd8c')
             .subscribe({
               next: (response) => {
-                if (response.status === 200) {
+                if (response.status === 201) {
                   this.isCreating = false;
                   this.newChannelFormGroup.enable();
                   this.uiService.showToast(response.message, 800);
                   setTimeout(() => {
                     this.router.navigate([
                       'studio/channel-info',
-                      //'617239f3306478b096129ecf',
                       response.channelAdded.channelId,
                     ]);
                   }, 1000);

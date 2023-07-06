@@ -40,7 +40,7 @@ export class VideoListComponent {
                 // Perform additional logic or actions here
               })
               .catch(() => {
-                // console.log('Image URL is invalid');
+                //Load a default video thumbnail
               });
           });
         };
@@ -50,8 +50,9 @@ export class VideoListComponent {
     }
   }
 
-  navigateToPreUploadVideoPage(videoUrl: string) {
-    this.videoService.setVideoUrl(videoUrl);
+  navigateToPreUploadVideoPage(videoUrl: string, videoThumbnail: string) {
+    this.videoService.setThumbnailBase64(videoThumbnail);
+    this.videoService.setVideoBase64(videoUrl);
     // You can navigate to the video page using the video URL
     this.router.navigateByUrl('studio/pre-upload-video');
   }

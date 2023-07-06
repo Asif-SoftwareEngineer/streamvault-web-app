@@ -10,6 +10,7 @@ import { NgModule } from '@angular/core';
 import { PreUploadComponent } from './video/upload/pre-upload/pre-upload.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { SimpleDialogComponent } from '../common/simple-dialog.component';
 import { StudioHomeComponent } from './studio-home/studio-home.component';
 import { StudioRoutingModule } from './studio-routing.module';
 import { UploadDetailsComponent } from './video/upload/upload-details/upload-details.component';
@@ -41,5 +42,6 @@ import { VideoListComponent } from './video/upload/video-list/video-list.compone
     SharedModule,
     FieldErrorModule,
   ],
+  entryComponents: [SimpleDialogComponent],
 })
 export class StudioModule {}

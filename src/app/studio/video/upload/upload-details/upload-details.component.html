@@ -197,6 +197,16 @@
               </mat-error>
             </mat-form-field>
 
+            <div
+              *ngIf="videoObj.thumbnailImageUrl"
+              class="thumbnail-image-container"
+            >
+              <img
+                [src]="serverUrl + videoObj.thumbnailImageUrl"
+                alt="Thumbnail"
+                class="thumbnail-image"
+              />
+            </div>
             <div class="video-upload-button-container">
               <button
                 mat-raised-button

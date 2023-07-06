@@ -12,7 +12,7 @@ export interface Video {
   videoPathUrl?: string;
   thumbnailImageUrl?: string;
   audience: string;
-  visibilty: string;
+  visibility: string;
   commentsPreference: string;
   language: string;
   location: string;

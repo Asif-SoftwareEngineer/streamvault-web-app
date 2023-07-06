@@ -1,5 +1,5 @@
+import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Video, VideoView } from '../models/video';
 
 import { Injectable } from '@angular/core';
@@ -13,15 +13,47 @@ const apiConfig = environment.api;
 export class VideoDataService {
   constructor(private http: HttpClient) {}
 
-  private videoUrlSubject = new BehaviorSubject<string>('');
+  private videoSubjectBase64 = new BehaviorSubject<string>('');
+  private videoThumbnailSubjectBase64 = new BehaviorSubject<string>('');
 
-  setVideoUrl(url: string) {
-    this.videoUrlSubject.next(url);
+  private thumbnailHostUrl = new BehaviorSubject<string>('');
+  private videoHostUrl = new BehaviorSubject<string>('');
+
+  //#region - Behavior Subject - Setters and Getters
+
+  setVideoBase64(url: string) {
+    this.videoSubjectBase64.next(url);
   }
 
-  getVideoUrl() {
-    return this.videoUrlSubject.asObservable();
+  getVideoBase64() {
+    return this.videoSubjectBase64.asObservable();
   }
+
+  setThumbnailBase64(url: string) {
+    this.videoThumbnailSubjectBase64.next(url);
+  }
+
+  getThumbnailBase64() {
+    return this.videoThumbnailSubjectBase64.asObservable();
+  }
+
+  setThumbnailHostUrl(url: string) {
+    this.thumbnailHostUrl.next(url);
+  }
+
+  getThumbnailHostUrl() {
+    return this.thumbnailHostUrl.asObservable();
+  }
+
+  setVideoHostUrl(url: string) {
+    this.videoHostUrl.next(url);
+  }
+
+  getVideoHostUrl() {
+    return this.videoHostUrl.asObservable();
+  }
+
+  //#endregion
 
   getAllVideos(watchingUserId: string): Observable<VideoView[]> {
     const url = `${apiConfig.baseUrl}video/${watchingUserId}`;
@@ -36,6 +68,33 @@ export class VideoDataService {
   addVideo(videoData: Video): Observable<any> {
     const url = `${apiConfig.baseUrl}video/add/${videoData.userId}/${videoData.channelId}`;
     return this.http.post<any>(url, videoData, apiConfig.httpOptions);
+  }
+
+  uploadVideo(
+    userId: string,
+    channelId: string,
+    thumbnail: string,
+    video: string
+  ): Observable<boolean> {
+    const url = `${apiConfig.baseUrl}video/uploadVideo/${userId}/${channelId}`;
+    const body = {
+      thumbnail,
+      video,
+    };
+    return this.http.post(url, body).pipe(
+      map((response: any) => {
+        // Check if the upload was successful based on the response
+        if (response.status === 201) {
+          const savedVidObj = response.video as Video;
+          this.setThumbnailHostUrl(savedVidObj.thumbnailImageUrl!);
+          this.setVideoHostUrl(savedVidObj.videoPathUrl!);
+        }
+        return response && response.status === 201;
+      }),
+      catchError((error: any) => {
+        throw error;
+      })
+    );
   }
 
   addReactionToVideo(

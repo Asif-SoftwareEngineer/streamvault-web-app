@@ -91,9 +91,9 @@ export class ChannelImageUploadComponent implements OnInit {
     } else if (this.targetImageType === ImageType.Thumbnail) {
       if (
         img.width >= 970 &&
-        img.width <= 1600 &&
-        img.height >= 250 &&
-        img.height <= 400
+        img.width <= 5000 &&
+        img.height >= 700 &&
+        img.height <= 3759
       ) {
         return true;
       } else {
@@ -136,7 +136,7 @@ export class ChannelImageUploadComponent implements OnInit {
                   imageType: this.targetImageType,
                 };
                 this.imageUrl.emit(uploadImageUrlTypeObj);
-                // to be removed
+
                 if (this.targetImageType === ImageType.Banner) {
                   this.composedBannerImageUrl.emit(imageUrl);
                 } else if (this.targetImageType === ImageType.Profile) {

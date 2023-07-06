@@ -413,7 +413,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
 
       this.regService.registerAsMember(this.userObj).subscribe({
         next: (response) => {
-          if (response.status === 200) {
+          if (response.status === 201) {
             this.isRegistering = false;
             this.isMemberRegistered = true;
             this.reviewInformationSectionValidity.setErrors(null);

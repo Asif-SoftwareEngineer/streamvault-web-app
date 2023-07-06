@@ -32,6 +32,7 @@ export class UiService {
   showDialog(
     title: string,
     content: string,
+    content2: string,
     okText = 'OK',
     cancelText?: string,
     customConfig?: MatDialogConfig
@@ -39,8 +40,8 @@ export class UiService {
     const dialogRef = this.dialog.open(
       SimpleDialogComponent,
       customConfig || {
-        width: '300px',
-        data: { title, content, okText, cancelText },
+        width: '400px',
+        data: { title, content, content2, okText, cancelText },
       }
     );
 

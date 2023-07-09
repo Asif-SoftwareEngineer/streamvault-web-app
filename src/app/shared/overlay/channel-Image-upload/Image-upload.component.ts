@@ -15,21 +15,18 @@ import { ImageType } from 'src/app/models/enums';
 import { UploadImageUrlType } from 'src/app/models/upload';
 
 @Component({
-  selector: 'app-channel-Image-upload',
-  templateUrl: './channel-Image-upload.component.html',
-  styleUrls: ['./channel-Image-upload.component.scss'],
+  selector: 'app-Image-upload',
+  templateUrl: './Image-upload.component.html',
+  styleUrls: ['./Image-upload.component.scss'],
 })
-export class ChannelImageUploadComponent implements OnInit {
+export class ImageUploadComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
   protected imageType = ImageType;
   @Input() targetImageType: ImageType = ImageType.Banner;
+  @Input() fileNameIdentifier: string = '';
   @Output() imageUrl: EventEmitter<UploadImageUrlType> =
     new EventEmitter<UploadImageUrlType>();
 
-  @Output() composedBannerImageUrl: EventEmitter<string> =
-    new EventEmitter<string>();
-  @Output() composedProfileImageUrl: EventEmitter<string> =
-    new EventEmitter<string>();
   @Output() closeOverlay: EventEmitter<void> = new EventEmitter<void>();
 
   private uploadSubscription: Subscription | undefined;
@@ -51,7 +48,11 @@ export class ChannelImageUploadComponent implements OnInit {
         img.onload = () => {
           if (this.validateImageType(img) === true) {
             this.selectedFile = e.target.result;
-            this.uploadImage(file);
+            this.uploadImage(
+              file,
+              this.targetImageType,
+              this.fileNameIdentifier
+            );
           }
         };
         // The img.src assignment should be here
@@ -64,15 +65,15 @@ export class ChannelImageUploadComponent implements OnInit {
   validateImageType(img: HTMLImageElement): boolean {
     if (this.targetImageType === ImageType.Banner) {
       if (
-        img.width >= 970 &&
+        img.width >= 450 &&
         img.width <= 1600 &&
         img.height >= 250 &&
-        img.height <= 400
+        img.height <= 1250
       ) {
         return true;
       } else {
         alert(
-          'Please select an image with dimensions between 970x250px and 1600x400px.'
+          'Please select an image with dimensions between 450x250px and 1600x1250px.'
         );
       }
     } else if (this.targetImageType === ImageType.Profile) {
@@ -93,12 +94,12 @@ export class ChannelImageUploadComponent implements OnInit {
         img.width >= 970 &&
         img.width <= 5000 &&
         img.height >= 700 &&
-        img.height <= 3759
+        img.height <= 3750
       ) {
         return true;
       } else {
         alert(
-          'Please select an image with dimensions between 970x250px and 1600x400px.'
+          'Please select an image with dimensions between 970x250px and 1600x1250px.'
         );
       }
     }
@@ -110,7 +111,7 @@ export class ChannelImageUploadComponent implements OnInit {
     this.fileInput.nativeElement.click();
   }
 
-  private uploadImage(imageFile: File) {
+  private uploadImage(imageFile: File, imageType: ImageType, fileName: string) {
     if (!this.selectedFile) return;
 
     if (this.selectedFile) {
@@ -119,7 +120,7 @@ export class ChannelImageUploadComponent implements OnInit {
       this.isUploading = true;
 
       this.uploadSubscription = this.fileUploadService
-        .uploadImage(imageFile, 'asifj', this.targetImageType)
+        .uploadImage(imageFile, imageType, fileName)
         .subscribe({
           next: (event: any) => {
             if (event.type === HttpEventType.UploadProgress) {
@@ -137,11 +138,9 @@ export class ChannelImageUploadComponent implements OnInit {
                 };
                 this.imageUrl.emit(uploadImageUrlTypeObj);
 
-                if (this.targetImageType === ImageType.Banner) {
-                  this.composedBannerImageUrl.emit(imageUrl);
-                } else if (this.targetImageType === ImageType.Profile) {
-                  this.composedProfileImageUrl.emit(imageUrl);
-                }
+                // if (this.targetImageType === ImageType.Banner) {
+                // } else if (this.targetImageType === ImageType.Profile) {
+                // }
               }, 1500);
             }
           },

@@ -2,8 +2,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ImageType, OverLayType } from '../models/enums';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 
-import { ChannelImageUploadComponent } from '../shared/overlay/channel-Image-upload/channel-Image-upload.component';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { ImageUploadComponent } from '../shared/overlay/channel-Image-upload/Image-upload.component';
 import { Injectable } from '@angular/core';
 import { UploadImageUrlType } from '../models/upload';
 
@@ -31,7 +31,11 @@ export class ImageUploadService {
 
   constructor(private overlay: Overlay) {}
 
-  showImageUploadOverlay(event: MouseEvent, strImageType: string): void {
+  showImageUploadOverlay(
+    event: MouseEvent,
+    strImageType: string,
+    fileNameIdentifier: string
+  ): void {
     const validImageTypes = [
       ImageType.Banner,
       ImageType.Thumbnail,
@@ -45,7 +49,7 @@ export class ImageUploadService {
     this.overlayRef = this.overlay.create(overlayConfig);
 
     // Create a portal and attach it to the overlay
-    const overlayPortal = new ComponentPortal(ChannelImageUploadComponent);
+    const overlayPortal = new ComponentPortal(ImageUploadComponent);
 
     const imageUploadOverlayInstance =
       this.overlayRef.attach(overlayPortal).instance; // Attach the portal to the overlay
@@ -53,6 +57,7 @@ export class ImageUploadService {
     if (validImageTypes.includes(strImageType as ImageType)) {
       // Perform your logic here
       imageUploadOverlayInstance.targetImageType = strImageType as ImageType;
+      imageUploadOverlayInstance.fileNameIdentifier = fileNameIdentifier;
     } else {
       console.log('Invalid Image type provided.');
       return;

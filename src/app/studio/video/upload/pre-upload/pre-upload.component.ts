@@ -1,6 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
+import { FileUploadService } from 'src/app/services/file-upload.service';
 import { Subscription } from 'rxjs';
 import { UiService } from 'src/app/common/ui.service';
 import { VideoDataService } from 'src/app/services/videos-data.service';
@@ -15,12 +16,14 @@ export class PreUploadComponent implements OnInit, OnDestroy {
   private videoThumbnailSubscription: Subscription | undefined;
   protected videoUrl: string = '';
   protected thumbnail: string = '';
+  private identifier: string = '';
 
   constructor(
     private uiService: UiService,
     private route: ActivatedRoute,
     private router: Router,
-    private videoService: VideoDataService
+    private videoService: VideoDataService,
+    private fileUploadService: FileUploadService
   ) {}
 
   ngOnInit() {
@@ -60,29 +63,45 @@ export class PreUploadComponent implements OnInit, OnDestroy {
         if (result) {
           // User clicked on "Yes" button
           // Execute your functionality here
-          console.log('user has clicked the yes button');
+
           if (this.videoUrl && this.thumbnail) {
-            this.videoService
-              .uploadVideo(
-                '648b46adfd79ae08df75fd8c',
-                '4bdcab987658f89c5a61242c',
-                this.thumbnail,
-                this.videoUrl
-              )
-              .subscribe({
-                next: (success) => {
-                  if (success === true) {
-                    this.router.navigateByUrl('studio/upload-vid-details');
-                  }
-                  // Handle the success scenario
-                },
-                error: (error) => {
-                  if (error.status === 404) {
-                    this.uiService.showToast(error.error.errorMessage, 2000);
-                  }
-                  console.error('Error uploading video:', error);
-                  // Handle the error scenario
-                },
+            //grab the identifier
+            this.fileUploadService
+              .generateObjectId()
+              .subscribe((identifier) => {
+                this.identifier = identifier.objectId;
+
+                this.videoService
+                  .uploadVideo(
+                    '648b46adfd79ae08df75fd8c',
+                    '4bdcab987658f89c5a61242c',
+                    this.thumbnail,
+                    this.videoUrl,
+                    this.identifier
+                  )
+                  .subscribe({
+                    next: (success) => {
+                      if (success === true) {
+                        this.router.navigate(
+                          ['studio/upload-vid-details', this.identifier],
+                          {
+                            queryParams: { from: 'pre-upload-video' },
+                          }
+                        );
+                      }
+                      // Handle the success scenario
+                    },
+                    error: (error) => {
+                      if (error.status === 404) {
+                        this.uiService.showToast(
+                          error.error.errorMessage,
+                          2000
+                        );
+                      }
+                      console.error('Error uploading video:', error);
+                      // Handle the error scenario
+                    },
+                  });
               });
           }
         } else {

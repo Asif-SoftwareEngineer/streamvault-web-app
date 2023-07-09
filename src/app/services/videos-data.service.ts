@@ -65,8 +65,14 @@ export class VideoDataService {
     );
   }
 
-  addVideo(videoData: Video): Observable<any> {
-    const url = `${apiConfig.baseUrl}video/add/${videoData.userId}/${videoData.channelId}`;
+  getVideoById(videoId: string): Observable<Video> {
+    const url = `${apiConfig.baseUrl}video/${videoId}`;
+    console.log(url);
+    return this.http.get<Video>(url);
+  }
+
+  addVideoDocument(videoData: Video): Observable<any> {
+    const url = `${apiConfig.baseUrl}video/addVideoDocument`;
     return this.http.post<any>(url, videoData, apiConfig.httpOptions);
   }
 
@@ -74,9 +80,11 @@ export class VideoDataService {
     userId: string,
     channelId: string,
     thumbnail: string,
-    video: string
+    video: string,
+    fileNameIdentifier: string
   ): Observable<boolean> {
-    const url = `${apiConfig.baseUrl}video/uploadVideo/${userId}/${channelId}`;
+    console.log(fileNameIdentifier);
+    const url = `${apiConfig.baseUrl}video/uploadVideo/${userId}/${channelId}/${fileNameIdentifier}`;
     const body = {
       thumbnail,
       video,

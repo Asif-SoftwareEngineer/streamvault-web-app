@@ -1,49 +1,69 @@
 <div class="video-info-container">
-  <div class="video-info-main-column">
-    <div class="video-info-vid-container"></div>
+  <div *ngIf="videoObj" class="video-info-main-column">
+    <div class="video-info-vid-container">
+      <div
+        *ngIf="videoObj.thumbnailImageUrl"
+        class="video-info-image-container"
+      >
+        <img
+          [src]="serverUrl + videoObj.thumbnailImageUrl"
+          alt="Video Thumbnail"
+        />
+      </div>
+    </div>
     <div class="video-info-title-container">
-      <label class="mat-title video-info-title-label">Video Title</label>
+      <label class="Content-3 video-info-title-label">{{
+        videoObj.title
+      }}</label>
     </div>
     <div class="video-info-container1">
       <label class="Content-2 video-info-labels"> Published Date </label>
       <label class="Content-2 video-info-published-val">21-April-2023</label>
     </div>
+    <div class="video-info-container1">
+      <label class="Content-2 video-info-labels"> Status </label>
+      <label class="Content-2 video-info-published-val">{{ status }}</label>
+    </div>
     <div class="video-info-container2">
       <label class="Content-2 video-info-labels">Visibility</label>
-      <label class="Content-2 video-info-visibility-val">Public</label>
+      <label class="Content-2 video-info-visibility-val">{{
+        videoObj.visibility
+      }}</label>
     </div>
     <div class="video-info-restrictions-container">
       <label class="Content-2 video-info-labels"> Restrictions </label>
-      <label class="Content-2 video-info-restrictions-val">None</label>
+      <label class="Content-2 video-info-restrictions-val">{{
+        videoObj.audience === "notOkForKids" ? "Yes" : "No"
+      }}</label>
     </div>
     <div class="video-info-analytics-container">
-      <label class="mat-title video-info-analytics-label">Analytics</label>
+      <label class="Content-3 video-info-analytics-label">Analytics</label>
     </div>
     <div class="video-info-container3">
       <label class="Content-2 video-info-labels">Views</label>
-      <label class="Content-2 video-info-views-val">25K</label>
+      <label class="Content-2 video-info-views-val">--</label>
     </div>
     <div class="video-info-watch-time-container">
       <label class="Content-2 video-info-labels">
         Watch Time <small>(Hours)</small>
       </label>
-      <label class="Content-2 video-info-watch-val">hours</label>
+      <label class="Content-2 video-info-watch-val">--</label>
     </div>
     <div class="video-info-separator"></div>
     <div class="video-info-latest-comment-container">
-      <label class="mat-title video-info-latest-comments">
+      <label class="Content-3 video-info-latest-comments">
         Latest Comments
       </label>
     </div>
     <div class="video-info-latest-comment-top-container">
-      <div class="video-info-commenter-logo-container">
+      <div class="video-info-commenter-logo-container" style="display: none">
         <img
           alt="image"
           src="https://play.teleporthq.io/static/svg/default-img.svg"
           class="video-info-commenter-logo"
         />
       </div>
-      <div class="video-info-commenter-info-column">
+      <div class="video-info-commenter-info-column" style="display: none">
         <div class="video-info-commenter-name-container">
           <label class="mat-caption video-info-text">User Name</label>
           <label class="mat-caption video-info-text1">1 month ago</label>
@@ -61,6 +81,9 @@
             PageMaker including versions of Lorem Ipsum.
           </label>
         </div>
+      </div>
+      <div class="video-info-commenter-no-comments-container">
+        <span>No Comments Found </span>
       </div>
     </div>
     <!-- <div class="video-info-container4">

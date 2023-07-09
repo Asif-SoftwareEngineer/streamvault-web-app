@@ -78,6 +78,7 @@ export enum VideoUploadStatus {
   Uploading = 'uploading',
   Completed = 'completed',
   Failed = 'failed',
+  None = 'none',
 }
 
 export enum VideoPublishStage {
@@ -87,4 +88,5 @@ export enum VideoPublishStage {
   Approved = 'approved',
   Rejected = 'rejected',
   Published = 'published',
+  None = 'none',
 }

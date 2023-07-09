@@ -16,7 +16,7 @@
 :host {
   display: contents;
 }
-// .banner-image-upload-container {
+// .image-upload-container {
 //   display: flex;
 //   overflow: auto;
 //   align-items: center;
@@ -24,7 +24,7 @@
 //   justify-content: flex-start;
 // }
 
-.banner-image-upload-container2 {
+.image-upload-container2 {
   flex: 0 0 auto;
   width: 100%;
   height: var(--dl-size-size-medium);
@@ -32,7 +32,7 @@
   align-items: center;
   justify-content: flex-start;
 }
-.banner-image-upload-container-file-upload {
+.image-upload-container-file-upload {
   flex: 0 0 auto;
   width: 100%;
   height: var(--dl-size-size-medium-1);
@@ -40,7 +40,7 @@
   align-items: center;
   justify-content: space-between;
 }
-.banner-image-upload-container-progress {
+.image-upload-container-progress {
   flex: 0 0 auto;
   width: 100%;
   border: 2px dashed rgba(120, 120, 120, 0.4);
@@ -48,7 +48,7 @@
   display: flex;
   align-items: center;
 }
-.banner-image-upload-container-banner-image {
+.image-upload-container-image {
   flex: 0 0 auto;
   width: 100%;
   display: flex;
@@ -56,7 +56,7 @@
   justify-content: center;
 }
 
-.banner-image-upload-container-banner-no-image {
+.image-upload-container-banner-no-image {
   flex: 0 0 auto;
   width: 100%;
   display: flex;
@@ -64,11 +64,11 @@
   justify-content: center;
 }
 
-.banner-image-upload-banner-image {
+.image-upload-image {
   width: 200px;
   object-fit: cover;
 }
-.banner-image-upload-container-buttonDone {
+.image-upload-container-buttonDone {
   flex: 0 0 auto;
   width: 100%;
   height: 100px;
@@ -77,35 +77,35 @@
   justify-content: flex-end;
 }
 @media (max-width: 479px) {
-  .banner-image-upload-container2 {
+  .image-upload-container2 {
     height: auto;
     padding: var(--dl-space-space-halfunit);
     border-width: 0px;
   }
-  .banner-image-upload-txt-intro {
+  .image-upload-txt-intro {
     color: var(--dl-color-accent-900);
     width: 100%;
     text-align: justify;
   }
-  .banner-image-upload-container-file-upload {
+  .image-upload-container-file-upload {
     height: auto;
     padding: var(--dl-space-space-halfunit);
     border-width: 0px;
   }
-  .banner-image-upload-btn-choose {
+  .image-upload-btn-choose {
     width: auto;
     height: var(--dl-size-size-xsmall);
     line-height: 32px !important;
   }
-  .banner-image-upload-txt-file-name {
+  .image-upload-txt-file-name {
     color: var(--dl-color-accent-900);
   }
-  .banner-image-upload-container-progress {
+  .image-upload-container-progress {
     height: var(--dl-size-size-small);
     padding: var(--dl-space-space-halfunit);
     border-width: 0px;
   }
-  .banner-image-upload-container-banner-image {
+  .image-upload-container-image {
     max-width: 970px;
     max-height: 250px;
     overflow: hidden;
@@ -115,14 +115,14 @@
     position: relative;
   }
 
-  .banner-image-upload-container-banner-no-image {
+  .image-upload-container-banner-no-image {
     height: var(--dl-size-size-medium);
     padding: var(--dl-space-space-halfunit);
     border-width: 1px;
     border-color: var(--dl-color-primary-700);
     border-style: dotted;
   }
-  .banner-image-upload-banner-image {
+  .image-upload-image {
     width: 100%;
     height: 100%;
     max-width: 100%;
@@ -130,16 +130,16 @@
     object-fit: cover;
   }
 
-  .banner-image-upload-banner-no-image-text {
+  .image-upload-banner-no-image-text {
     font-weight: bolder;
   }
-  .banner-image-upload-container-buttonDone {
+  .image-upload-container-buttonDone {
     width: 100%;
     height: var(--dl-size-size-mediium-1);
     padding: var(--dl-space-space-halfunit);
     justify-content: flex-end;
   }
-  .banner-image-upload-btn-Done {
+  .image-upload-btn-Done {
     width: auto;
     height: var(--dl-size-size-xsmall);
     line-height: 32px !important;

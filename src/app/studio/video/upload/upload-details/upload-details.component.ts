@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
@@ -8,7 +9,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ImageType, OverLayType } from 'src/app/models/enums';
+import {
+  ImageType,
+  OverLayType,
+  VideoPublishStage,
+  VideoUploadStatus,
+} from 'src/app/models/enums';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import {
   Observable,
@@ -25,11 +31,10 @@ import {
 } from 'rxjs';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 
-import { ActivatedRoute } from '@angular/router';
-import { ChannelImageUploadComponent } from 'src/app/shared/overlay/channel-Image-upload/channel-Image-upload.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
-import { ImageUploadService } from 'src/app/services/image-upload-service';
+import { FileUploadService } from 'src/app/services/file-upload.service';
+import { ImageUploadService } from 'src/app/services/image-upload.service';
 import { LocationDataService } from 'src/app/services/location-data.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -77,6 +82,8 @@ export class UploadDetailsComponent implements OnInit {
     commentsPreference: '',
     language: '',
     location: '',
+    uploadStatus: VideoUploadStatus.None,
+    publishStage: VideoPublishStage.None,
   };
 
   private destroy$ = new Subject<void>();
@@ -174,6 +181,7 @@ export class UploadDetailsComponent implements OnInit {
     'Bhojpuri',
   ];
   private locations: string[] = [];
+  private identifier: string = '';
 
   protected filteredLanguageOptions: Observable<string[]> | undefined;
   protected filteredLocationOptions: Observable<string[]> | undefined;
@@ -189,7 +197,9 @@ export class UploadDetailsComponent implements OnInit {
     private uiService: UiService,
     private locationService: LocationDataService,
     private route: ActivatedRoute,
-    private videoService: VideoDataService
+    private videoService: VideoDataService,
+    private fileUploadService: FileUploadService,
+    private router: Router
   ) {
     this.filteredLocationOptions = this.userInputSubject.pipe(
       auditTime(800),
@@ -211,6 +221,10 @@ export class UploadDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.serverUrl = environment.api.serverUrl;
     this.isLinear = true;
+
+    this.route.paramMap.subscribe((params) => {
+      this.identifier = params.get('identifier')!;
+    });
 
     this.basicDetailsFormGroup = this.formBuilder.group({
       videoTitleCtrl: ['', RequiredTextValidation],
@@ -256,8 +270,8 @@ export class UploadDetailsComponent implements OnInit {
     );
 
     this.videoService.getThumbnailHostUrl().subscribe((thumbnailHostUrl) => {
-      this.videoObj.thumbnailImageUrl =
-        'video/thumbnails/64a7040ef4be255f935aece0.png';
+      this.videoObj.thumbnailImageUrl = thumbnailHostUrl;
+      //'video/thumbnails/64a7040ef4be255f935aece0.png';
       this.thumbnailFormGroup.controls['thumbnailImageCtrl'].setValue(
         this.videoObj.thumbnailImageUrl
       );
@@ -314,13 +328,23 @@ export class UploadDetailsComponent implements OnInit {
     this.videoObj.location = controls['locationCtrl'].value;
     this.videoObj.language = controls['languageCtrl'].value;
 
+    if (this.categories.length === 0) {
+      this.categories.push('General');
+    }
+
+    this.videoObj.category = this.categories.join(',');
+
     if (this.basicDetailsFormGroup.valid) {
       this.stepper.next();
     }
   }
 
   uploadImage($event: MouseEvent, imageType: string) {
-    this.imageUploadService.showImageUploadOverlay($event, imageType);
+    this.imageUploadService.showImageUploadOverlay(
+      $event,
+      imageType,
+      this.identifier
+    );
   }
 
   defineAudience() {
@@ -341,18 +365,58 @@ export class UploadDetailsComponent implements OnInit {
   }
 
   printTheObject() {
-    if (!this.videoObj.channelId) {
-      this.uiService.showToast(
-        'You need to associate a video with an existing channel.',
-        2000
-      );
-      return;
+    try {
+      this.videoObj.userId = '648b46adfd79ae08df75fd8c';
+      this.videoObj.channelId = '4bdcab987658f89c5a61242c';
+
+      if (!this.videoObj.channelId) {
+        this.uiService.showToast(
+          'You need to associate a video with an existing channel.',
+          2000
+        );
+        return;
+      }
+
+      if (!this.identifier) {
+        this.uiService.showToast('Invalid/missing video identifier!', 2000);
+        return;
+      }
+
+      this.videoObj.videoId = this.identifier;
+      this.videoObj.commentsPreference = 'blocked';
+
+      console.log(JSON.stringify(this.videoObj));
+
+      this.isCreating = true;
+
+      setTimeout(() => {
+        this.videoService.addVideoDocument(this.videoObj).subscribe({
+          next: (response) => {
+            // Handle the success response
+            this.isCreating = false;
+            console.log(JSON.stringify(response.updatedVideo));
+
+            this.uiService
+              .showDialog('Video Uploaded', response.message, '', 'Ok', '')
+              .subscribe((result: boolean) => {
+                if (result) {
+                  this.router.navigate([
+                    'studio/video-info',
+                    response.updatedVideo._id,
+                  ]);
+                }
+              });
+          },
+          error: (responseError) => {
+            this.uiService.showToast(responseError.error.errorMessage, 2000);
+            this.isCreating = false;
+            console.error('Error adding video document:', responseError);
+          },
+        });
+      }, 8000);
+    } catch (error) {
+      this.isCreating = false;
     }
-
-    this.videoObj.videoId = 'new-vid';
-    this.videoObj.commentsPreference = 'blocked';
-
-    console.log(JSON.stringify(this.videoObj));
   }
 
   get audienceOption() {

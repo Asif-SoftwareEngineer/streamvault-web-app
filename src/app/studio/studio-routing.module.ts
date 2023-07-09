@@ -1,5 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 
+import { AddVideoDetailsGuard } from '../shared/guards/add-video-details.guard';
 import { ChannelComponent } from './channel/channel.component';
 import { ChannelEditComponent } from './channel/channel-edit.component';
 import { ChannelInfoComponent } from './channel/channel-info.component';
@@ -21,11 +22,20 @@ const routes: Routes = [
   { path: 'channel-info/:channelId', component: ChannelInfoComponent },
   { path: 'channel', component: ChannelComponent },
 
-  { path: 'pre-upload-video', component: PreUploadComponent },
-  { path: 'upload-vid-details', component: UploadDetailsComponent },
   { path: 'list-upload-videos', component: VideoListComponent },
+  { path: 'pre-upload-video', component: PreUploadComponent },
+
+  {
+    path: 'upload-vid-details/:identifier',
+    component: UploadDetailsComponent,
+    pathMatch: 'full',
+    data: { from: 'pre-upload-video' },
+    canActivate: [AddVideoDetailsGuard], // Set the guard here
+  },
+
+  { path: 'video-info/:identifier', component: VideoInfoComponent },
   { path: 'edit-video', component: VideoEditComponent },
-  { path: 'video-info', component: VideoInfoComponent },
+
   { path: 'player', component: VideoPlayerComponent },
 ];
 

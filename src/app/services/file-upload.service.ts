@@ -18,39 +18,17 @@ const apiConfig = environment.api;
 export class FileUploadService {
   constructor(private http: HttpClient) {}
 
-  uploadVideo(
-    file: File,
-    userId: string,
-    channelId: any
-  ): Observable<HttpEvent<any>> {
-    const formData: FormData = new FormData();
-
-    formData.append('file', file);
-
-    const req = new HttpRequest(
-      'POST',
-      `${apiConfig.baseUrl}video/upload/${userId}/${channelId}`,
-      formData,
-      {
-        reportProgress: true,
-        responseType: 'json',
-      }
-    );
-
-    return this.http.request(req);
-  }
-
   uploadImage(
     file: File,
-    userId: string,
-    imageType: ImageType
+    imageType: ImageType,
+    fileNameIdentifier: string
   ): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', file); // Use the desired field name for the file
 
     const url = `${
       apiConfig.baseUrl
-    }media/uploadImage/${userId}/${imageType.toString()}`;
+    }media/uploadImage/${imageType.toString()}/${fileNameIdentifier}`;
 
     const headers = new HttpHeaders(); // Create a new HttpHeaders instance
     headers.append('Content-Type', 'multipart/form-data'); // Set the Content-Type header
@@ -62,5 +40,10 @@ export class FileUploadService {
     });
 
     return this.http.request(req);
+  }
+
+  generateObjectId(): Observable<any> {
+    const url = `${apiConfig.baseUrl}media/generateObjectId`;
+    return this.http.get<any>(url);
   }
 }

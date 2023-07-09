@@ -349,6 +349,13 @@
       </mat-stepper>
     </div>
   </div>
+  <div
+    class="overlay"
+    [ngClass]="{ 'overlay-disabled': isCreating }"
+    *ngIf="isCreating"
+  >
+    <mat-spinner *ngIf="isCreating" class="center-spinner"></mat-spinner>
+  </div>
 
   <div class="video-upload-details-col-mob-view-only">
     <div class="video-upload-details-message-prompt-row">

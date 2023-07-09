@@ -1,3 +1,5 @@
+import { VideoPublishStage, VideoUploadStatus } from './enums';
+
 export interface Video {
   videoId: string;
   userId: string;
@@ -16,6 +18,8 @@ export interface Video {
   commentsPreference: string;
   language: string;
   location: string;
+  uploadStatus: VideoUploadStatus;
+  publishStage: VideoPublishStage;
 }
 
 export interface VideoView {

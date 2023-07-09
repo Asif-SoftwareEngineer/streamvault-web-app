@@ -15,12 +15,13 @@ import { map, startWith } from 'rxjs/operators';
 
 import { Channel } from 'src/app/models/channel';
 import { ChannelDataService } from 'src/app/services/channel-data.service';
-import { ChannelImageUploadComponent } from 'src/app/shared/overlay/channel-Image-upload/channel-Image-upload.component';
 import { ChannelPopInfoComponent } from 'src/app/shared/overlay/channel-popInfo/channel-popInfo.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
+import { FileUploadService } from 'src/app/services/file-upload.service';
 import { FormGroup } from '@angular/forms';
-import { ImageUploadService } from 'src/app/services/image-upload-service';
+import { ImageUploadComponent } from 'src/app/shared/overlay/channel-Image-upload/Image-upload.component';
+import { ImageUploadService } from 'src/app/services/image-upload.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { RequiredTextValidation } from 'src/app/common/validations';
@@ -53,6 +54,8 @@ export class ChannelNewComponent implements OnInit {
   protected serverUrl: string = '';
   protected bannerImageUrl: string = '';
   protected profileImageUrl: string = '';
+
+  private fileNameIdentifier: string = '';
 
   allCategoriesOriginal: string[] = [
     'Science and Technology',
@@ -101,8 +104,13 @@ export class ChannelNewComponent implements OnInit {
     private channelService: ChannelDataService,
     private uiService: UiService,
     private router: Router,
-    private imageUploadService: ImageUploadService
-  ) {}
+    private imageUploadService: ImageUploadService,
+    private fileUploadService: FileUploadService
+  ) {
+    this.fileUploadService.generateObjectId().subscribe((id) => {
+      this.fileNameIdentifier = id;
+    });
+  }
 
   // #region Events
 
@@ -142,7 +150,11 @@ export class ChannelNewComponent implements OnInit {
   }
 
   uploadImage($event: MouseEvent, imageType: string) {
-    this.imageUploadService.showImageUploadOverlay($event, imageType);
+    this.imageUploadService.showImageUploadOverlay(
+      $event,
+      imageType,
+      this.fileNameIdentifier
+    );
   }
 
   closePopup(): void {
@@ -168,7 +180,7 @@ export class ChannelNewComponent implements OnInit {
         setTimeout(() => {
           const newChannelObj: Channel = {
             userId: 'asifj',
-            channelId: 'new-channel',
+            channelId: this.fileNameIdentifier,
             name: formControls['channelNameCtrl'].value
               .trim()
               .replace(/\s+/g, ' '),

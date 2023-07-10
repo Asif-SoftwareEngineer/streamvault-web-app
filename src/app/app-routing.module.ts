@@ -8,6 +8,7 @@ import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.com
 
 const routes: Routes = [
   { path: '', redirectTo: '/index', pathMatch: 'full' },
+  { path: 'home', redirectTo: '/index', pathMatch: 'full' },
   { path: 'index', component: HomeComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'tos', component: TermsOfServiceComponent },

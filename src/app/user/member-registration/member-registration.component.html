@@ -231,8 +231,8 @@
         <app-contact-verification
           (resendClicked)="handleResendClick()"
           #codeVerificationSection
-          [firstName]="userObj.name.first"
-          [lastName]="userObj.name.last"
+          [firstName]="userObj.firstName"
+          [lastName]="userObj.lastName"
           [email]="userObj.email!"
           [mobile]="userObj.mobile"
         ></app-contact-verification>
@@ -299,7 +299,7 @@
         <div class="review-name-row">
           <label class="review-text">Name</label>
           <label class="review-lbl-name"
-            >{{ userObj.name.first }} {{ userObj.name.last }}
+            >{{ userObj.firstName }} {{ userObj.lastName }}
           </label>
         </div>
         <div *ngIf="userObj.membership" class="review-membership-row">

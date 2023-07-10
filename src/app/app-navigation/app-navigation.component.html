@@ -1,0 +1,35 @@
+<div class="app-bar">
+  <!-- <button (click)="goHome()"><mat-icon>home</mat-icon></button> -->
+  <button
+    mat-fab
+    [color]="activeButton === 'home' ? 'primary' : 'accent'"
+    aria-label="home"
+    (click)="goHome()"
+  >
+    <mat-icon>home</mat-icon>
+  </button>
+  <button
+    mat-fab
+    [color]="activeButton === 'create' ? 'primary' : 'accent'"
+    aria-label="create video"
+    (click)="goCreate()"
+  >
+    <mat-icon>add_box</mat-icon>
+  </button>
+  <button
+    mat-fab
+    [color]="activeButton === 'profile' ? 'primary' : 'accent'"
+    aria-label="my profile"
+    (click)="goProfile()"
+  >
+    <mat-icon>person</mat-icon>
+  </button>
+  <button
+    mat-fab
+    [color]="activeButton === 'menu' ? 'primary' : 'accent'"
+    aria-label="menu"
+    (click)="goProfile()"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+</div>

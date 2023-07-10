@@ -18,6 +18,7 @@ import { StudioModule } from './studio/studio.module';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { UserModule } from './user/user.module';
 import { ValidationModule } from './validation/validation.module';
+import { AppNavigationComponent } from './app-navigation/app-navigation.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ValidationModule } from './validation/validation.module';
     PrivacyPolicyComponent,
     TermsOfServiceComponent,
     SimpleDialogComponent,
+    AppNavigationComponent,
   ],
   imports: [
     BrowserModule,

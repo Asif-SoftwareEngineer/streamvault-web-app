@@ -12,8 +12,8 @@ import { MembershipType, Role } from '../models/enums';
 
 import { CountryCode } from '../models/countryCode';
 import { IAccountVerification } from '../models/account-verification';
-import { IUser } from '../models/user';
 import { Injectable } from '@angular/core';
+import { User } from '../models/user';
 import { Video } from '../models/video';
 import { environment } from 'src/environments/environment';
 
@@ -54,12 +54,12 @@ export class RegistrationDataService {
     return this.http.get<CountryCode[]>(url);
   }
 
-  registerAsMember(membershipData: IUser): Observable<any> {
+  registerAsMember(membershipData: User): Observable<any> {
     const url = `${apiConfig.baseUrl}user/registerAsMember`;
     return this.http.post<any>(url, membershipData, apiConfig.httpOptions);
   }
 
-  checkRegisteringUser(membershipData: IUser): Observable<any> {
+  checkRegisteringUser(membershipData: User): Observable<any> {
     const url = `${apiConfig.baseUrl}user/checkRegisteringUser`;
     return this.http.post<any>(url, membershipData, apiConfig.httpOptions);
   }

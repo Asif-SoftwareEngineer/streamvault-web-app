@@ -12,7 +12,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { IName, IUser } from 'src/app/models/user';
 import { Observable, Observer, Subscription, interval } from 'rxjs';
 import {
   RequiredTextValidation,
@@ -24,6 +23,7 @@ import { IAccountVerification } from 'src/app/models/account-verification';
 import { InterComponentDataService } from 'src/app/services/inter-comp-data.service';
 import { RegistrationDataService } from 'src/app/services/registration.service';
 import { UiService } from 'src/app/common/ui.service';
+import { User } from 'src/app/models/user';
 import { sixDigitCodeValidator } from 'src/app/common/custom-validators';
 
 @Component({
@@ -42,7 +42,7 @@ export class ContactVerificationComponent implements OnInit, OnDestroy {
 
   private messageSentSubscription: Subscription;
 
-  userObj!: IUser;
+  userObj!: User;
 
   countdown: number = 20;
   showCountdown: boolean = true;

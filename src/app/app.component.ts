@@ -11,15 +11,15 @@ import { Observable, filter, map, tap } from 'rxjs';
 
 import { AuthDataService } from 'src/app/services/auth-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { IUser } from './models/user';
 import { MatIconRegistry } from '@angular/material/icon';
 import { NotificationService } from './services/notification.service';
-import { NotificationType } from './shared/enums';
 import { Pi_Authentication } from './shared/pi-auth-payments';
-//import { RegistrationDataService } from './services/registration.service';
 import { Role } from './models/enums';
 import { Router } from '@angular/router';
 import { TokenStorageService } from './services/token-storage.service';
+import { User } from './models/user';
+
+//import { RegistrationDataService } from './services/registration.service';
 
 interface CustomWindow extends Window {
   Pi: any;
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
   _isHomeRoute: boolean = false;
   private _isAuthenticated: boolean = false;
   _accessToken: string = '';
-  _regUserData$!: Observable<{ user: IUser; userType: string }>;
+  _regUserData$!: Observable<{ user: User; userType: string }>;
   _isLoggedIn: boolean = false;
   isBusy = false;
 

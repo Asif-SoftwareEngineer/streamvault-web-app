@@ -8,7 +8,6 @@ import {
 } from 'src/app/services/notification.service';
 
 import { AuthDataService } from 'src/app/services/auth-data.service';
-import { IUser } from 'src/app/models/user';
 import { NgForm } from '@angular/forms';
 import { NotificationType } from 'src/app/shared/enums';
 import { Observable } from 'rxjs';
@@ -16,6 +15,7 @@ import { Pi_Authentication } from 'src/app/shared/pi-auth-payments';
 import { Role } from 'src/app/models/enums';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { User } from 'src/app/models/user';
 
 interface CustomWindow extends Window {
   Pi: any;
@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
   @ViewChild('registerButton')
   registerButton: HTMLButtonElement | null = null;
   @ViewChild('cancelButton') cancelButton: HTMLButtonElement | null = null;
-  protected _registeredUser: IUser | null = null;
+  protected _registeredUser: User | null = null;
 
   _registrationForm: FormGroup = this._fb.group({});
   _isAuthenticated: boolean = false;

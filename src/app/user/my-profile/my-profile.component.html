@@ -1,44 +1,60 @@
 <div class="my-profile-container">
-  <div class="my-profile-main-page-column">
+  <div *ngIf="user" class="my-profile-main-page-column">
     <div class="Content-3 page-Title-Header">
       <label>Profile</label>
     </div>
-    <div class="my-profile-name-row">
+    <div class="my-profile-item-row">
       <label class="Content-2 my-profile-labels">Name</label>
-      <label class="my-profile-lbl-values">Asif Javed Bangash</label>
+      <label class="my-profile-lbl-values"
+        >{{ user.firstName }} {{ user.lastName }}</label
+      >
     </div>
-    <div class="my-profile-membership-row">
-      <label class="Content-2 my-profile-labels">
-        <span>Membership Type</span>
-        <br />
+    <div class="my-profile-item-row">
+      <label class="Content-2 my-profile-labels"> Membership Type </label>
+      <label class="my-profile-lbl-values">
+        {{ user.isMembershipExpired ? "Expired" : user.membership.planType }}
       </label>
-      <label class="my-profile-lbl-values">Annual</label>
     </div>
-    <div class="my-profile-earnings-row">
-      <label class="Content-2 my-profile-labels">Pi Earnings</label>
-      <label class="my-profile-lbl-values">0</label>
+    <div class="my-profile-item-row">
+      <label class="Content-2 my-profile-labels">Earnings</label>
+      <label class="my-profile-lbl-values">--</label>
     </div>
-    <div class="my-profile-location-row">
+    <div class="my-profile-item-row">
       <label class="Content-2 my-profile-labels">Location</label>
-      <label class="my-profile-lbl-values">Australia/Melbourne</label>
+      <label class="my-profile-lbl-values">{{ location }}</label>
     </div>
-    <div class="my-profile-account-verification-row">
-      <div class="my-profile-account-verification-title-row">
-        <label class="Content-2 my-profile-labels">
-          Account Verification
-        </label>
-      </div>
-      <div class="my-profile-email-address-row">
-        <label class="my-profile-email-address"
-          >Email Address <span class="email-update-link">(Update)</span></label
-        >
-        <span class="my-profile-lbl-emailverified-message">
-          Your email address has been verified. Be sure to keep your email
-          address updated.
-        </span>
-      </div>
+    <div class="my-profile-item-row">
+      <label class="Content-2 my-profile-labels">Language</label>
+      <label class="my-profile-lbl-values">{{ user.language }}</label>
     </div>
-    <div class="my-profile-code-row">
+    <div class="my-profile-item-row" *ngIf="user.role === 'member'">
+      <label class="Content-2 my-profile-labels">Registration Date</label>
+      <label class="my-profile-lbl-values">{{
+        user.registrationDate | date : "yyyy-MMM-dd"
+      }}</label>
+    </div>
+    <div
+      class="my-profile-item-row"
+      *ngIf="user.role === 'member' && user.membership.planType !== 'free'"
+    >
+      <label class="Content-2 my-profile-labels">Membership Renewal</label>
+      <label class="my-profile-lbl-values">{{
+        user.membershipRenewalDate | date : "yyyy-MMM-dd"
+      }}</label>
+    </div>
+    <div class="my-profile-item-row">
+      <label class="Content-2 my-profile-labels">Mobile</label>
+      <label class="my-profile-lbl-values">{{ user.mobile }}</label>
+    </div>
+    <div class="my-profile-item-row">
+      <label class="Content-2 my-profile-labels">Email</label>
+      <label class="my-profile-lbl-values">{{ user.email }}</label>
+    </div>
+    <div class="my-profile-item-row" *ngIf="user.isVerified">
+      <label class="Content-2 my-profile-labels">User Verified</label>
+      <label class="my-profile-lbl-values"><mat-icon>verified</mat-icon></label>
+    </div>
+    <div style="display: none" class="my-profile-code-row">
       <div class="my-profile-container1">
         <div class="my-profile-invitation-code-row">
           <label class="Content-2 my-profile-labels"

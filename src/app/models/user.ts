@@ -3,13 +3,10 @@ import { MemberPlan } from './membership-plans';
 import { Role } from './enums';
 import { Setting } from './setting';
 
-export interface IUser {
-  piUserId?: string;
-  piUserName?: string;
-  userId?: string;
-
+export interface User {
   userName: string;
-  name: IName;
+  firstName: string;
+  lastName: string;
   email: string;
   mobile: string;
   language: string;
@@ -19,17 +16,16 @@ export interface IUser {
   registrationDate: Date;
   membership: MemberPlan;
   membershipRenewalDate?: Date;
-  isProfileDisabled: boolean;
-  isMembershipExpired: boolean;
-  picture?: string;
+  isVerified: boolean;
+  piUserId?: string;
+  piUserName?: string;
+  userId?: string;
   country?: string;
   city?: string;
+  picture?: string;
+  isProfileDisabled: boolean;
+  isMembershipExpired: boolean;
   watchList?: string[];
   settings?: Setting;
   channels?: Channel[];
-}
-
-export interface IName {
-  first: string;
-  last: string;
 }

@@ -82,7 +82,6 @@ export class UploadDetailsComponent implements OnInit {
     commentsPreference: '',
     language: '',
     location: '',
-    uploadStatus: VideoUploadStatus.None,
     publishStage: VideoPublishStage.None,
   };
 

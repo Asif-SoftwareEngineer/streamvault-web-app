@@ -18,7 +18,6 @@ export interface Video {
   commentsPreference: string;
   language: string;
   location: string;
-  uploadStatus: VideoUploadStatus;
   publishStage: VideoPublishStage;
 }
 

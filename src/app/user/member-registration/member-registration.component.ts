@@ -13,7 +13,7 @@ import {
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
-import { IName, IUser } from 'src/app/models/user';
+import { User } from 'src/app/models/user';
 import { Inject, PLATFORM_ID } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -127,7 +127,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     currency: 'Pi',
   };
 
-  userObj!: IUser;
+  userObj!: User;
   email: string = '';
   mobile: string = '';
   isSendingMessage: boolean = false;
@@ -148,11 +148,12 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.userObj = {
-      name: { first: '', last: '' },
+      firstName: '',
+      lastName: '',
       language: '',
       role: Role.None,
       age18Above: false,
-    } as IUser;
+    } as User;
 
     this.contactSectionValidity = new FormControl(false);
     this.codeVerificationSectionValidity = new FormControl(false);
@@ -216,7 +217,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     }
   }
 
-  buildBasicInfoForm(initialData?: IUser) {
+  buildBasicInfoForm(initialData?: User) {
     //const user = initialData;
 
     this.basicInfoFormGroup = this.fb.group({
@@ -251,12 +252,11 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
 
   prepareBasicInfo() {
     this.isMemberVerified = false;
-    let userName: IName = {
-      first: this.basicInfoFormGroup.controls['firstNameCtrl'].value,
-      last: this.basicInfoFormGroup.controls['lastNameCtrl'].value,
-    };
 
-    this.userObj.name = userName;
+    this.userObj.firstName =
+      this.basicInfoFormGroup.controls['firstNameCtrl'].value;
+    this.userObj.lastName =
+      this.basicInfoFormGroup.controls['lastNameCtrl'].value;
 
     this.userObj.language =
       this.basicInfoFormGroup.controls['languageCtrl'].value;
@@ -298,8 +298,8 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
         .value;
 
     let verifyingUserObj = {
-      firstName: this.userObj.name.first,
-      lastName: this.userObj.name.last,
+      firstName: this.userObj.firstName,
+      lastName: this.userObj.lastName,
       email: this.userObj.email!,
       mobile: this.userObj.mobile,
       code: verificationCode,
@@ -333,8 +333,8 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   handleResendClick() {
     if (this.userObj) {
       let verifyingUserObj = {
-        firstName: this.userObj.name.first,
-        lastName: this.userObj.name.last,
+        firstName: this.userObj.firstName,
+        lastName: this.userObj.lastName,
         email: this.userObj.email!,
         mobile: this.userObj.mobile,
       };
@@ -448,8 +448,8 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
 
   isValidUserObject(): boolean {
     if (
-      this.userObj.name.first &&
-      this.userObj.name.last &&
+      this.userObj.firstName &&
+      this.userObj.lastName &&
       this.userObj.email &&
       this.userObj.mobile &&
       this.userObj.language &&

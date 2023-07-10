@@ -20,7 +20,7 @@ const routes: Routes = [
   // { path: 'verification-email', component: ContactVerificationComponent },
   // { path: 'membership-options', component: MembershipOptionsComponent },
 
-  { path: 'profile', component: MyProfileComponent },
+  { path: 'profile/:userId', component: MyProfileComponent },
   { path: 'logout', component: LogOutComponent },
 ];
 

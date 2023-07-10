@@ -4,11 +4,11 @@ import { firstValueFrom, lastValueFrom } from 'rxjs';
 
 import { AuthDataService } from '../services/auth-data.service';
 import { EventEmitter } from '@angular/core';
-import { IUser } from '../models/user';
 import { NotificationService } from '../services/notification.service';
 import { NotificationType } from './enums';
 import { Role } from '../models/enums';
 import { TokenStorageService } from '../services/token-storage.service';
+import { User } from '../models/user';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
 

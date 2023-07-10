@@ -1,6 +1,12 @@
 //import { BaseFormDirective } from 'src/app/common/base-form.class';
 import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   EmailValidation,
   MobileNumberValidation,
@@ -143,8 +149,8 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     private interCompService: InterComponentDataService,
     //private authService: AuthService,
     private uiService: UiService,
-    private route: ActivatedRoute,
-    private _router: Router,
+
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.userObj = {
@@ -166,6 +172,8 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
 
   onStepChange(event: any): void {
     const selectedStep: MatStep = event.selectedStep;
+
+    console.log('step changed');
 
     if (selectedStep && selectedStep.stepControl) {
       const stepControl: FormGroup = selectedStep.stepControl as FormGroup;
@@ -192,8 +200,10 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.buildBasicInfoForm();
-    this.defineLanguageObservable();
+    setTimeout(() => {
+      this.buildBasicInfoForm();
+      this.defineLanguageObservable();
+    }, 1000);
   }
 
   defineLanguageObservable() {
@@ -221,10 +231,10 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     //const user = initialData;
 
     this.basicInfoFormGroup = this.fb.group({
-      firstNameCtrl: ['Asif', RequiredTextValidation],
-      lastNameCtrl: ['Javed', RequiredTextValidation],
+      firstNameCtrl: ['', RequiredTextValidation],
+      lastNameCtrl: ['', RequiredTextValidation],
       languageCtrl: [
-        'English',
+        '',
         [Validators.required, languageValidator(this.languages)],
       ],
       ageCtrl: [false, Validators.requiredTrue],
@@ -275,8 +285,6 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
 
   prepareContactSection() {
     console.log(this.userObj);
-
-    return;
 
     this.isMemberVerified = false;
     this.contactSectionValidity.setErrors({ customError: true });
@@ -467,10 +475,10 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   }
 
   goToHome() {
-    this._router.navigateByUrl('/user/member-home');
+    this.router.navigateByUrl('/user/member-home');
   }
 
   goToStream() {
-    this._router.navigateByUrl('/user/user-home');
+    this.router.navigateByUrl('/user/user-home');
   }
 }

@@ -1,80 +1,49 @@
-.app-toolbar {
+.menu {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding-top: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+
+  padding: var(--dl-space-space-halfunit);
 }
 
-.toolbarButton {
-  width: 48px;
-  height: 48px;
+.menu a {
+  display: block;
+  margin-bottom: 10px;
+  padding-top: var(--dl-space-space-unit);
+  padding-bottom: var(--dl-space-space-unit);
+  color: var(--dl-color-accent-100);
 }
 
-.app-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
+/* Media query for mobile view */
+@media (max-width: 479px) {
+  .menu {
+    align-items: left;
+    padding: 10px;
+    font-size: larger;
+    font-weight: 400;
+    width: 60vw;
+  }
 
-a {
-  margin: 0 10px;
-}
+  .menu a {
+    width: 100%;
+    padding-left: var(--dl-space-space-unit);
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-color: var(--dl-color-primary-500);
+  }
 
-.btnColor {
-  color: red;
-}
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
 
-.textColorBrand {
-  color: var(--primary-color);
-}
-
-.separator {
-  display: flex;
-  flex-direction: row;
-  background-color: var(--primary-color);
-  margin-top: 5px;
-  padding: 1px;
-  height: 2px;
-  max-height: 2px;
-}
-
-.push-right {
-  margin-left: auto;
-}
-
-.image-cropper {
-  width: 40px;
-  height: 40px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 50%;
-  margin-top: -8px;
-}
-
-.spinner {
-  position: relative;
-}
-
-.spinner::after {
-  content: "";
-  position: absolute;
-  top: calc(50% - 0.5em);
-  left: calc(50% - 0.5em);
-  width: 1em;
-  height: 1em;
-  border-radius: 50%;
-  border: 0.2em solid #ffffff;
-  border-top-color: var(--primary-color);
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+  .social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: var(--dl-color-accent-100);
+    font-size: 20px;
+    border-bottom-style: none;
+    border-bottom-width: 0px;
   }
 }

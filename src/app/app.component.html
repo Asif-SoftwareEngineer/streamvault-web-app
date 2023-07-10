@@ -1,2 +1,38 @@
-<router-outlet></router-outlet>
-<app-app-navigation></app-app-navigation>
+<mat-sidenav-container>
+  <mat-sidenav
+    #sidenav
+    mode="over"
+    style="background-color: var(--dl-color-accent-700)"
+  >
+    <nav class="menu">
+      <a (click)="registerMember()">Register</a>
+      <a routerLink="studio/new-channel" (click)="closeNav()">Create Channel</a>
+      <a routerLink="validation/register-validator" (click)="closeNav()"
+        >Become Validator</a
+      >
+      <a routerLink="user/member-home" (click)="closeNav()">Member</a>
+
+      <!-- Social media icons -->
+      <div class="social-icons">
+        <a href="https://www.facebook.com" target="_blank"
+          ><i class="fab fa-facebook"></i
+        ></a>
+        <a href="https://www.instagram.com" target="_blank"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a href="https://www.twitter.com" target="_blank"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a href="https://www.twitter.com" target="_blank"
+          ><i class="fa-brands fa-youtube"></i
+        ></a>
+      </div>
+      <!-- Add more navigation links as needed -->
+    </nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+    <app-app-navigation (toggleSidenav)="toggleSidenav()"></app-app-navigation>
+  </mat-sidenav-content>
+</mat-sidenav-container>

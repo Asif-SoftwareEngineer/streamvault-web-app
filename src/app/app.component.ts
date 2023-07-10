@@ -1,7 +1,7 @@
 import * as PiModel from './models/pi-model';
 
 import { ActivatedRoute, NavigationEnd } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -18,6 +18,7 @@ import { Role } from './models/enums';
 import { Router } from '@angular/router';
 import { TokenStorageService } from './services/token-storage.service';
 import { User } from './models/user';
+import { MatSidenav } from '@angular/material/sidenav';
 
 //import { RegistrationDataService } from './services/registration.service';
 
@@ -31,6 +32,23 @@ interface CustomWindow extends Window {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+
+  toggleSidenav(): void {
+    this.sidenav.toggle();
+  }
+
+  registerMember() {
+    this.sidenav.close();
+    setTimeout(() => {
+      this._router.navigateByUrl('user/register-member');
+    }, 2000);
+  }
+
+  closeNav() {
+    this.sidenav.close();
+  }
+
   _title: string = 'streamvault';
   _existingAppMode: string = '';
   _isHomeRoute: boolean = false;

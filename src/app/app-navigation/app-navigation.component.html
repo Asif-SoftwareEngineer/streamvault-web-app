@@ -28,7 +28,7 @@
     mat-fab
     [color]="activeButton === 'menu' ? 'primary' : 'accent'"
     aria-label="menu"
-    (click)="goProfile()"
+    (click)="toggleSidenav.emit()"
   >
     <mat-icon>menu</mat-icon>
   </button>

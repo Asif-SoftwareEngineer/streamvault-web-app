@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 
+import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,13 +14,16 @@ import { Router } from '@angular/router';
   templateUrl: './app-navigation.component.html',
   styleUrls: ['./app-navigation.component.scss'],
 })
-export class AppNavigationComponent implements OnInit {
+export class AppNavigationComponent {
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+  @Output() toggleSidenav = new EventEmitter<void>();
+
+  // toggleSidenav() {
+  //   this.sidenav.toggle();
+  // }
   activeButton: string | null = null;
 
   constructor(private router: Router) {}
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
 
   goHome() {
     this.activeButton = 'home';

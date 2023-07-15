@@ -55,14 +55,9 @@ export class VideoDataService {
 
   //#endregion
 
-  getAllVideos(watchingUserId: string): Observable<VideoView[]> {
-    const url = `${apiConfig.baseUrl}video/${watchingUserId}`;
-    return this.http.get<{ videosList: VideoView[] }>(url).pipe(
-      map((response) => {
-        console.log(response);
-        return response.videosList;
-      })
-    );
+  getAllVideos(): Observable<VideoView[]> {
+    const url = `${apiConfig.baseUrl}videos`;
+    return this.http.get<VideoView[]>(url);
   }
 
   getVideoById(videoId: string): Observable<Video> {

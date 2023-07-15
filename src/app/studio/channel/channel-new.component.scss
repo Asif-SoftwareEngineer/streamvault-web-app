@@ -33,6 +33,7 @@
   display: none;
   align-items: center;
   flex-direction: column;
+  padding-bottom: var(--dl-size-size-small);
 }
 .new-channel-edit-channel-header {
   flex: 0 0 auto;
@@ -323,6 +324,7 @@
       rgb(189, 195, 199) 0%,
       rgb(219, 147, 137) 100%
     );
+    padding-bottom: var(--dl-size-size-small);
   }
 
   form {

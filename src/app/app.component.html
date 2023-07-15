@@ -1,16 +1,25 @@
 <mat-sidenav-container>
   <mat-sidenav
     #sidenav
+    (opened)="onSidenavOpen()"
+    (closed)="onSidenavClose()"
     mode="over"
     style="background-color: var(--dl-color-accent-700)"
   >
     <nav class="menu">
-      <a (click)="registerMember()">Register</a>
+      <a
+        *ngFor="let menuItem of navMenuItems"
+        (click)="menuItemClicked(menuItem)"
+        class="Content-2"
+      >
+        {{ menuItem.menuName }}
+      </a>
+      <!-- <a (click)="registerMember()">Register</a>
       <a routerLink="studio/new-channel" (click)="closeNav()">Create Channel</a>
       <a routerLink="validation/register-validator" (click)="closeNav()"
         >Become Validator</a
       >
-      <a routerLink="user/member-home" (click)="closeNav()">Member</a>
+      <a routerLink="user/member-home" (click)="closeNav()">Member</a> -->
 
       <!-- Social media icons -->
       <div class="social-icons">
@@ -31,8 +40,10 @@
     </nav>
   </mat-sidenav>
 
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
+  <mat-sidenav-content style="overflow-y: auto">
     <app-app-navigation (toggleSidenav)="toggleSidenav()"></app-app-navigation>
+    <div>
+      <router-outlet style="padding-bottom: 100px"></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,6 +1,13 @@
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  AfterContentChecked,
+  Component,
+  ElementRef,
+  NgZone,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -30,6 +37,7 @@ import {
   tap,
 } from 'rxjs';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
+import { Reaction, Video } from 'src/app/models/video';
 
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
@@ -44,7 +52,6 @@ import { MatInputModule } from '@angular/material/input';
 import { RequiredTextValidation } from 'src/app/common/validations';
 import { UiService } from 'src/app/common/ui.service';
 import { UploadImageUrlType } from 'src/app/models/upload';
-import { Video } from 'src/app/models/video';
 import { VideoDataService } from 'src/app/services/videos-data.service';
 import { environment } from 'src/environments/environment';
 import { languageValidator } from 'src/app/common/custom-validators';
@@ -55,7 +62,7 @@ import { languageValidator } from 'src/app/common/custom-validators';
   styleUrls: ['./upload-details.component.scss'],
   standalone: false,
 })
-export class UploadDetailsComponent implements OnInit {
+export class UploadDetailsComponent implements OnInit, AfterContentChecked {
   //#region "Declaration"
 
   protected imageType = ImageType;
@@ -71,8 +78,7 @@ export class UploadDetailsComponent implements OnInit {
     title: '',
     description: '',
     category: '',
-    likes: [],
-    dislikes: [],
+    reactions: [],
     comments: [],
     duration: 0,
     videoPathUrl: '',
@@ -179,12 +185,12 @@ export class UploadDetailsComponent implements OnInit {
     'Panjabi-Western',
     'Bhojpuri',
   ];
-  private locations: string[] = [];
   private identifier: string = '';
 
   protected filteredLanguageOptions: Observable<string[]> | undefined;
   protected filteredLocationOptions: Observable<string[]> | undefined;
   userInputSubject = new Subject<string>();
+  formInitialized: boolean = false;
 
   imageUrlType: UploadImageUrlType | null = null;
 
@@ -197,8 +203,8 @@ export class UploadDetailsComponent implements OnInit {
     private locationService: LocationDataService,
     private route: ActivatedRoute,
     private videoService: VideoDataService,
-    private fileUploadService: FileUploadService,
-    private router: Router
+    private router: Router,
+    private ngZone: NgZone
   ) {
     this.filteredLocationOptions = this.userInputSubject.pipe(
       auditTime(800),
@@ -224,27 +230,66 @@ export class UploadDetailsComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.identifier = params.get('identifier')!;
     });
+  }
 
-    this.basicDetailsFormGroup = this.formBuilder.group({
-      videoTitleCtrl: ['', RequiredTextValidation],
-      descriptionCtrl: [''],
-      languageCtrl: ['', languageValidator(this.languages)],
-      categoryCtrl: '',
-      locationCtrl: [''],
+  ngAfterContentChecked() {
+    if (!this.formInitialized) {
+      this.defineFormGroups();
+      this.defineLanguageObservable();
+      this.defineSubscribers();
+      this.formInitialized = true;
+    }
+  }
+
+  // Unsubscribe when the component is destroyed
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  onInputChange(event: Event) {
+    const userInput = (event.target as HTMLInputElement).value;
+    this.userInputSubject.next(userInput);
+  }
+
+  //#endregion ---
+
+  //#region "Methods"
+
+  defineFormGroups() {
+    this.ngZone.run(() => {
+      this.basicDetailsFormGroup = this.formBuilder.group({
+        videoTitleCtrl: ['', RequiredTextValidation],
+        descriptionCtrl: [''],
+        languageCtrl: ['', languageValidator(this.languages)],
+        categoryCtrl: '',
+        locationCtrl: [''],
+      });
+
+      this.thumbnailFormGroup = this.formBuilder.group({
+        thumbnailImageCtrl: ['', Validators.required],
+      });
+
+      this.audienceFormGroup = this.formBuilder.group({
+        audienceOption: ['', Validators.required],
+      });
+
+      this.visibilityFormGroup = this.formBuilder.group({
+        visibilityOption: ['', Validators.required],
+      });
     });
+  }
 
-    this.thumbnailFormGroup = this.formBuilder.group({
-      thumbnailImageCtrl: ['', Validators.required],
-    });
+  defineLanguageObservable() {
+    this.filteredLanguageOptions = this.basicDetailsFormGroup.controls[
+      'languageCtrl'
+    ].valueChanges.pipe(
+      startWith(''),
+      map((value) => this.filterLanguage(value || ''))
+    );
+  }
 
-    this.audienceFormGroup = this.formBuilder.group({
-      audienceOption: ['', Validators.required],
-    });
-
-    this.visibilityFormGroup = this.formBuilder.group({
-      visibilityOption: ['', Validators.required],
-    });
-
+  defineSubscribers() {
     this.filteredCategories = this.basicDetailsFormGroup.controls[
       'categoryCtrl'
     ].valueChanges.pipe(
@@ -253,8 +298,6 @@ export class UploadDetailsComponent implements OnInit {
         category ? this._filter(category) : this.allCategories.slice()
       )
     );
-
-    this.defineLanguageObservable();
 
     this.imageUploadService.imageUrl$.subscribe(
       (uploadImageUrlType: UploadImageUrlType | null) => {
@@ -281,29 +324,6 @@ export class UploadDetailsComponent implements OnInit {
       this.videoObj.videoPathUrl = videoHostUrl;
       console.log(this.videoObj.videoPathUrl);
     });
-  }
-  // Unsubscribe when the component is destroyed
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  onInputChange(event: Event) {
-    const userInput = (event.target as HTMLInputElement).value;
-    this.userInputSubject.next(userInput);
-  }
-
-  //#endregion ---
-
-  //#region "Methods"
-
-  defineLanguageObservable() {
-    this.filteredLanguageOptions = this.basicDetailsFormGroup.controls[
-      'languageCtrl'
-    ].valueChanges.pipe(
-      startWith(''),
-      map((value) => this.filterLanguage(value || ''))
-    );
   }
 
   private filterLanguage(value: string): string[] {
@@ -363,7 +383,7 @@ export class UploadDetailsComponent implements OnInit {
     }
   }
 
-  printTheObject() {
+  saveTheVideo() {
     try {
       this.videoObj.userId = '648b46adfd79ae08df75fd8c';
       this.videoObj.channelId = '4bdcab987658f89c5a61242c';
@@ -393,7 +413,7 @@ export class UploadDetailsComponent implements OnInit {
           next: (response) => {
             // Handle the success response
             this.isCreating = false;
-            console.log(JSON.stringify(response.updatedVideo));
+            this.uiService.navigationButtonSelected.next('');
 
             this.uiService
               .showDialog('Video Uploaded', response.message, '', 'Ok', '')

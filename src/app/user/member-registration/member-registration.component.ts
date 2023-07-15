@@ -1,8 +1,10 @@
 //import { BaseFormDirective } from 'src/app/common/base-form.class';
 import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
 import {
+  AfterContentChecked,
   AfterViewInit,
   Component,
+  NgZone,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -50,7 +52,9 @@ import { InterComponentDataService } from 'src/app/services/inter-comp-data.serv
   templateUrl: './member-registration.component.html',
   styleUrls: ['./member-registration.component.scss'],
 })
-export class MemberRegistrationComponent implements OnInit, OnDestroy {
+export class MemberRegistrationComponent
+  implements OnInit, OnDestroy, AfterContentChecked
+{
   @ViewChild('contactSection', { static: true })
   contactSection!: CaptureContactComponent;
 
@@ -140,6 +144,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
 
   private subs = new SubSink();
   isRegistering: boolean = false;
+  formInitialized = false;
 
   constructor(
     private fb: FormBuilder,
@@ -147,6 +152,7 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private regService: RegistrationDataService,
     private interCompService: InterComponentDataService,
+    private ngZone: NgZone,
     //private authService: AuthService,
     private uiService: UiService,
 
@@ -200,10 +206,16 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
+    // setTimeout(() => {
+    // }, 1000);
+  }
+
+  ngAfterContentChecked() {
+    if (!this.formInitialized) {
       this.buildBasicInfoForm();
       this.defineLanguageObservable();
-    }, 1000);
+      this.formInitialized = true;
+    }
   }
 
   defineLanguageObservable() {
@@ -228,17 +240,17 @@ export class MemberRegistrationComponent implements OnInit, OnDestroy {
   }
 
   buildBasicInfoForm(initialData?: User) {
-    //const user = initialData;
-
-    this.basicInfoFormGroup = this.fb.group({
-      firstNameCtrl: ['', RequiredTextValidation],
-      lastNameCtrl: ['', RequiredTextValidation],
-      languageCtrl: [
-        '',
-        [Validators.required, languageValidator(this.languages)],
-      ],
-      ageCtrl: [false, Validators.requiredTrue],
-      agreeToTosCtrl: [false, Validators.requiredTrue],
+    this.ngZone.run(() => {
+      this.basicInfoFormGroup = this.fb.group({
+        firstNameCtrl: ['', RequiredTextValidation],
+        lastNameCtrl: ['', RequiredTextValidation],
+        languageCtrl: [
+          '',
+          [Validators.required, languageValidator(this.languages)],
+        ],
+        ageCtrl: [false, Validators.requiredTrue],
+        agreeToTosCtrl: [false, Validators.requiredTrue],
+      });
     });
   }
 

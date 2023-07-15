@@ -1,24 +1,71 @@
-<div class="user-home-container">
+<!-- <div class="user-home-container">
   <div class="user-home-main-page-column">
     <div class="user-home-main-video-container-row">
-      <div class="user-home-video-container-col">
+      <div *ngFor="let video of videos" class="user-home-video-container-col">
         <div class="user-home-player"></div>
         <div class="user-home-video-info-container">
           <img
-            alt="image"
-            src="https://play.teleporthq.io/static/svg/default-img.svg"
+            alt="Video Thumbnail"
+            [src]="serverUrl + video.thumbnail"
             class="user-home-channel-logo"
           />
           <div class="user-home-container1">
             <div class="user-home-video-title-container">
               <span class="Content-2 user-home-text">
-                Video Content Platform on Pi Network, Pi Coin Earning, Crypto
+                {{ video.title }}
               </span>
             </div>
             <div class="user-home-channel-info-views-howold-container">
               <span class="Content user-home-text1">
-                StreamVault - 15K views - 1 month ago
+                {{ video.channelName }}
               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="user-home-col-mob-view-only">
+    <div class="user-home-message-prompt-row">
+      <span class="Field-Label">
+        Oops! It seems you&apos;re not viewing this on a mobile device. Please
+        switch to a mobile view for the best experience. Thank you!
+      </span>
+    </div>
+  </div>
+</div> -->
+
+<div class="user-home-container">
+  <div class="user-home-main-page-column">
+    <div
+      *ngFor="let video of videos"
+      class="user-home-main-video-container-row"
+    >
+      <div class="user-home-video-container-col">
+        <div class="user-home-player">
+          <img
+            alt="Video Thumbnail"
+            [src]="serverUrl + video.thumbnail"
+            class="user-home-video-thumbnail"
+          />
+        </div>
+        <div class="user-home-video-info-container">
+          <img
+            alt="Channel Profie"
+            [src]="serverUrl + video.channelProfileImage"
+            class="user-home-channel-logo"
+          />
+          <div class="user-home-vid-info-panel">
+            <div class="user-home-video-title-container">
+              <span class="Content-2 user-home-text">
+                {{ video.title }}
+              </span>
+            </div>
+            <div class="user-home-channel-info-views-howold-container">
+              <span class="Content user-home-text1">
+                {{ video.channelName }}
+              </span>
+              <!-- Add additional information if needed -->
             </div>
           </div>
         </div>

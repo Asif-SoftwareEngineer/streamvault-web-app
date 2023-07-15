@@ -3,15 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
+import { PrivacyPolicyComponentPage } from './privacy-policy/privacy-policy.componentPage';
+import { TermsOfServiceComponentPage } from './terms-of-service/terms-of-service.componentPage';
+
+//import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/index', pathMatch: 'full' },
   { path: 'home', redirectTo: '/index', pathMatch: 'full' },
   { path: 'index', component: HomeComponent },
-  { path: 'privacy-policy', component: PrivacyPolicyComponent },
-  { path: 'tos', component: TermsOfServiceComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponentPage },
+  { path: 'tos', component: TermsOfServiceComponentPage },
 
   {
     path: 'search',

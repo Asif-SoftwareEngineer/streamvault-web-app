@@ -1,7 +1,10 @@
 <div class="terms-of-service-container">
   <div class="terms-of-service-main-column">
     <div class="terms-of-service-content-column">
-      <div class="terms-of-service-close-button-container">
+      <div
+        *ngIf="showCloseButton"
+        class="terms-of-service-close-button-container"
+      >
         <button
           type="button"
           class="button mat-body-1 terms-of-service-close-button"
@@ -10,7 +13,7 @@
           Close
         </button>
       </div>
-      <span class="terms-of-service-text Heading-4">Terms of Service</span>
+      <span class="terms-of-service-text heading-4">Terms of Service</span>
       <span class="terms-of-service-text01 Heading-5">
         Personal Information We Collect
       </span>
@@ -146,7 +149,10 @@
       >
         streamvault.pi@gmail.com
       </a>
-      <div class="terms-of-service-close-button-container">
+      <div
+        *ngIf="showCloseButton"
+        class="terms-of-service-close-button-container"
+      >
         <button
           type="button"
           class="button mat-body-1 terms-of-service-close-button"

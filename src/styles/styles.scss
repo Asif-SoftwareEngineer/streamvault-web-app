@@ -12,12 +12,3 @@
 
 // Override typography for all Angular Material, including mat-base-typography and all components.
 @include angular-material-typography($typography);
-
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Montserrat, "Roboto", "Helvetica Neue", sans-serif;
-}

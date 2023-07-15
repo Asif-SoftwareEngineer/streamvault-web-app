@@ -182,6 +182,7 @@
       rgb(189, 195, 199) 0%,
       rgb(219, 147, 137) 100%
     );
+    padding-bottom: var(--dl-size-size-small);
   }
   .video-validation-rules-content-column {
     width: 90%;
@@ -195,7 +196,7 @@
     margin-bottom: var(--dl-space-space-unit);
     flex-direction: column;
     justify-content: flex-start;
-    background-color: var(--dl-color-accent-100);
+    background-color: white;
   }
   .video-validation-rules-rules-header-row {
     height: var(--dl-size-size-small);

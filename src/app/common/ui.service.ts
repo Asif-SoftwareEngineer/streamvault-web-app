@@ -1,14 +1,16 @@
+import { BehaviorSubject, Observable } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { SimpleDialogComponent } from './simple-dialog.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UiService {
+  navigationButtonSelected: BehaviorSubject<string> =
+    new BehaviorSubject<string>('');
   constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {}
 
   showToast(

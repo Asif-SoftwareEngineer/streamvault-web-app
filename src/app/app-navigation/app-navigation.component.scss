@@ -3,16 +3,19 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: var(--dl-color-accent-700);
+  background-color: var(--dl-color-accent-900);
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 10px;
+  padding: 5px;
+  z-index: 100;
 }
 
-// .app-bar button {
-//   padding: 8px 16px;
-//   border: none;
-//   background-color: #fff;
-//   border-radius: 4px;
-// }
+.app-bar button {
+  border-radius: 50%;
+  //background-color: var(--dl-color-accent-900);
+}
+
+.button-selected {
+  color: var(--dl-color-primary-500);
+}

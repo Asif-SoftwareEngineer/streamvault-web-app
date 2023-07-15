@@ -37,6 +37,7 @@
       *ngIf="!contactFormGroup.get('clearButton')?.disabled && textValue"
       (click)="clearText()"
       [disabled]="contactFormGroup.get('clearButton')?.disabled"
+      class="clearButton"
     >
       <mat-icon>clear</mat-icon>
     </button>

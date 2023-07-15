@@ -12,13 +12,16 @@ import { Observable, filter, map, tap } from 'rxjs';
 import { AuthDataService } from 'src/app/services/auth-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
+import { MatSidenav } from '@angular/material/sidenav';
+import { MenuItem } from './models/menu';
 import { NotificationService } from './services/notification.service';
 import { Pi_Authentication } from './shared/pi-auth-payments';
 import { Role } from './models/enums';
 import { Router } from '@angular/router';
 import { TokenStorageService } from './services/token-storage.service';
+import { UiService } from './common/ui.service';
 import { User } from './models/user';
-import { MatSidenav } from '@angular/material/sidenav';
+import { UserDataService } from './services/user-data.service';
 
 //import { RegistrationDataService } from './services/registration.service';
 
@@ -33,9 +36,25 @@ interface CustomWindow extends Window {
 })
 export class AppComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
+  activeNavigationButton: string = '';
+
+  protected navMenuItems!: MenuItem[];
+
+  onSidenavOpen() {
+    //this.isSidenavOpen = true;
+  }
+
+  onSidenavClose() {
+    if (this.activeNavigationButton === 'menu') {
+      this.uiService.navigationButtonSelected.next('sideNavClosed');
+    }
+  }
 
   toggleSidenav(): void {
     this.sidenav.toggle();
+    if (!this.sidenav.opened) {
+      console.log('closed');
+    }
   }
 
   registerMember() {
@@ -45,8 +64,16 @@ export class AppComponent implements OnInit {
     }, 2000);
   }
 
-  closeNav() {
+  menuItemClicked(menuItem: MenuItem) {
+    console.log(menuItem);
     this.sidenav.close();
+    this.uiService.navigationButtonSelected.next('routedOutside');
+    if (menuItem.menuName.toLowerCase() === 'my profile') {
+      const myProfileUrl: string = `${menuItem.url}648b46adfd79ae08df75fd8c`;
+      this._router.navigateByUrl(myProfileUrl);
+    } else {
+      this._router.navigateByUrl(menuItem.url);
+    }
   }
 
   _title: string = 'streamvault';
@@ -63,6 +90,8 @@ export class AppComponent implements OnInit {
   $appModeArr: string[] = ['Stream', 'Studio'];
 
   constructor(
+    private uiService: UiService,
+    private userService: UserDataService,
     private _iconRegistry: MatIconRegistry,
     private _sanitizer: DomSanitizer,
     private _router: Router,
@@ -88,6 +117,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const userId: string = '648b46adfd79ae08df75fd8c';
+    this.userService.getMenus(userId).subscribe((menus: MenuItem[]) => {
+      this.navMenuItems = menus;
+    });
+
     this._isLoggedIn = !!this._tokenStorageService.getPiToken();
 
     if (this._isLoggedIn) {
@@ -121,6 +155,16 @@ export class AppComponent implements OnInit {
         // Update the variable to show/hide the button
         this._isHomeRoute = path === 'index';
       });
+
+    this.uiService.navigationButtonSelected.subscribe((value) => {
+      console.log(value);
+      this.activeNavigationButton = value;
+      // if (value === 'routedOutside') {
+      //   this.uiService.navigationButtonSelected.next('');
+      // } else {
+      //   this.uiService.navigationButtonSelected.next('sideNavClosed');
+      // }
+    });
   }
 
   get isAuthenticated() {

@@ -7,11 +7,12 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './privacy-policy.component.html',
   styleUrls: ['./privacy-policy.component.scss'],
 })
-export class PrivacyPolicyComponent {
-  showCloseButton: boolean = true;
-  constructor(private dialogRef: MatDialogRef<PrivacyPolicyComponent>) {}
+export class PrivacyPolicyComponentPage {
+  showCloseButton: boolean = false;
+
+  constructor() {}
 
   closeDialog(): void {
-    this.dialogRef.close();
+    return;
   }
 }

@@ -7,13 +7,12 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './terms-of-service.component.html',
   styleUrls: ['./terms-of-service.component.scss'],
 })
-export class TermsOfServiceComponent {
+export class TermsOfServiceComponentPage {
   showCloseButton: boolean = false;
 
-  constructor(private dialogRef: MatDialogRef<TermsOfServiceComponent>) {}
+  constructor() {}
 
   closeDialog(): void {
-    this.dialogRef.close();
-    console.log('dialog was closed');
+    return;
   }
 }

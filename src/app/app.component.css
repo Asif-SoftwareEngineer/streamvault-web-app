@@ -8,7 +8,6 @@
 
 .menu a {
   display: block;
-  margin-bottom: 10px;
   padding-top: var(--dl-space-space-unit);
   padding-bottom: var(--dl-space-space-unit);
   color: var(--dl-color-accent-100);
@@ -18,7 +17,7 @@
 @media (max-width: 479px) {
   .menu {
     align-items: left;
-    padding: 10px;
+    padding: var(--dl-space-space-halfunit);
     font-size: larger;
     font-weight: 400;
     width: 60vw;
@@ -28,7 +27,8 @@
     width: 100%;
     padding-left: var(--dl-space-space-unit);
     border-bottom-style: solid;
-    border-bottom-width: 2px;
+    border-bottom-width: 1px;
+    letter-spacing: 1px;
     border-color: var(--dl-color-primary-500);
   }
 
@@ -40,10 +40,7 @@
 
   .social-icons a {
     display: inline-block;
-    margin-right: 10px;
     color: var(--dl-color-accent-100);
-    font-size: 20px;
     border-bottom-style: none;
-    border-bottom-width: 0px;
   }
 }

@@ -59,44 +59,44 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('my userId: ' + this._watchingUserId);
     }
 
-    this._videoService
-      .getVideo()
-      .pipe(take(1))
-      .subscribe((video) => {
-        this._video = video;
-        if (this._video) {
-          this._totalLikes = this._video.likes;
-          this._totalDislikes = this._video.dislikes;
+    // this._videoService
+    //   .getVideo()
+    //   .pipe(take(1))
+    //   .subscribe((video) => {
+    //     this._video = video;
+    //     if (this._video) {
+    //       this._totalLikes = this._video.likes;
+    //       this._totalDislikes = this._video.dislikes;
 
-          if (this._watchingUserId) {
-            if (
-              this._video.yourReaction.reactionType &&
-              this._video.yourReaction.reactingUserId === this._watchingUserId
-            ) {
-              this._yourReaction = this._video.yourReaction.reactionType;
-              console.log('Your Reaction' + this._yourReaction);
-            }
-          }
-          this._liked = this._totalLikes > 0 ? true : false;
-          this._disliked = this._totalDislikes > 0 ? true : false;
+    //       if (this._watchingUserId) {
+    //         if (
+    //           this._video.yourReaction.reactionType &&
+    //           this._video.yourReaction.reactingUserId === this._watchingUserId
+    //         ) {
+    //           this._yourReaction = this._video.yourReaction.reactionType;
+    //           console.log('Your Reaction' + this._yourReaction);
+    //         }
+    //       }
+    //       this._liked = this._totalLikes > 0 ? true : false;
+    //       this._disliked = this._totalDislikes > 0 ? true : false;
 
-          if (this._isAppLoggedIn == false) {
-            this._thumbup = Thumb.LikeEmpty;
-            this._thumbdown = Thumb.DislikeEmpty;
-          } else if (this._isAppLoggedIn == true) {
-            console.log('we are here');
-            console.log('your reaction' + this._yourReaction);
-            this._thumbup =
-              this._yourReaction === 'like'
-                ? Thumb.LikeFilled
-                : Thumb.LikeEmpty;
-            this._thumbdown =
-              this._yourReaction === 'dislike'
-                ? Thumb.DislikeFilled
-                : Thumb.DislikeEmpty;
-          }
-        }
-      });
+    //       if (this._isAppLoggedIn == false) {
+    //         this._thumbup = Thumb.LikeEmpty;
+    //         this._thumbdown = Thumb.DislikeEmpty;
+    //       } else if (this._isAppLoggedIn == true) {
+    //         console.log('we are here');
+    //         console.log('your reaction' + this._yourReaction);
+    //         this._thumbup =
+    //           this._yourReaction === 'like'
+    //             ? Thumb.LikeFilled
+    //             : Thumb.LikeEmpty;
+    //         this._thumbdown =
+    //           this._yourReaction === 'dislike'
+    //             ? Thumb.DislikeFilled
+    //             : Thumb.DislikeEmpty;
+    //       }
+    //     }
+    //   });
   }
 
   ngAfterViewInit(): void {

@@ -7,8 +7,7 @@ export interface Video {
   title: string;
   description: string;
   category: string;
-  likes?: string[];
-  dislikes?: string[];
+  reactions: Reaction[];
   comments?: string[];
   duration?: number;
   videoPathUrl?: string;
@@ -31,13 +30,12 @@ export interface VideoView {
   description: string;
   url: string;
   thumbnail: string;
-  likes: number;
-  dislikes: number;
+  channelProfileImage: string;
   comments: string;
-  yourReaction: Reacion;
+  reactions: Reaction[];
 }
 
-export interface Reacion {
+export interface Reaction {
   reactionType: string;
   reactingUserId: string;
 }

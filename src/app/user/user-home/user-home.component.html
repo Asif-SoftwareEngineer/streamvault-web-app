@@ -47,6 +47,7 @@
             alt="Video Thumbnail"
             [src]="serverUrl + video.thumbnail"
             class="user-home-video-thumbnail"
+            (error)="handleImageError($event)"
           />
         </div>
         <div class="user-home-video-info-container">

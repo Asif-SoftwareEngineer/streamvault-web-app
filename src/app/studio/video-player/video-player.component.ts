@@ -150,7 +150,9 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  async expressLike() {
+  /*
+
+async expressLike() {
     if (this._isAppLoggedIn && this._watchingUserId) {
       if (this._thumbup === Thumb.LikeEmpty) {
         if ((await this.addReaction('like')) == true) {
@@ -262,4 +264,6 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       return false;
     }
   }
+
+*/
 }

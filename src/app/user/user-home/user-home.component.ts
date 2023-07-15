@@ -26,4 +26,9 @@ export class UserHomeComponent implements OnInit {
       error: (responseError) => {},
     });
   }
+
+  handleImageError(event: any): void {
+    event.target.src =
+      '../../../assets/img/images/streamvault_video_thumbnail.jpg'; // Set the path to the fallback image
+  }
 }

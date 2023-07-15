@@ -182,7 +182,10 @@
   .user-home-video-thumbnail {
     width: 100%;
     height: 100%;
-    //padding: var(--dl-space-space-halfunit);
+    border-top-left-radius: var(--dl-radius-radius-radius6);
+    border-top-right-radius: var(--dl-radius-radius-radius6);
+    border-bottom-left-radius: var(--dl-radius-radius-radius6);
+    border-bottom-right-radius: var(--dl-radius-radius-radius6);
   }
 
   .user-home-channel-logo {

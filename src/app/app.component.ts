@@ -3,10 +3,10 @@ import * as PiModel from './models/pi-model';
 import { ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef,
-} from '@angular/material/dialog';
+  MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
+  MatLegacyDialog as MatDialog,
+  MatLegacyDialogRef as MatDialogRef,
+} from '@angular/material/legacy-dialog';
 import { Observable, filter, map, tap } from 'rxjs';
 
 import { AuthDataService } from 'src/app/services/auth-data.service';

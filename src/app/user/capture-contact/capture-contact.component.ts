@@ -25,7 +25,7 @@ import parsePhoneNumberFromString, {
 
 import { CountryCode } from 'src/app/models/countryCode';
 import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.directive';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete';
 import { RegistrationDataService } from 'src/app/services/registration.service';
 import { countryCodeValidator } from 'src/app/common/custom-validators';
 

@@ -44,11 +44,11 @@ import { ErrorSets } from 'src/app/shared/directives/field-error/field-error.dir
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { ImageUploadService } from 'src/app/services/image-upload.service';
 import { LocationDataService } from 'src/app/services/location-data.service';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips';
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
 import { RequiredTextValidation } from 'src/app/common/validations';
 import { UiService } from 'src/app/common/ui.service';
 import { UploadImageUrlType } from 'src/app/models/upload';

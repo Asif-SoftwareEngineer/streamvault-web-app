@@ -1,17 +1,11 @@
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AddVideoDetailsGuard implements CanActivate {
+export class AddVideoDetailsGuard  {
   constructor(private router: Router) {}
 
   canActivate(

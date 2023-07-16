@@ -23,7 +23,7 @@ import { FormGroup } from '@angular/forms';
 import { ImageUploadComponent } from 'src/app/shared/overlay/channel-Image-upload/Image-upload.component';
 import { ImageUploadService } from 'src/app/services/image-upload.service';
 import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete';
-import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { RequiredTextValidation } from 'src/app/common/validations';
 import { Router } from '@angular/router';
 import { UiService } from 'src/app/common/ui.service';

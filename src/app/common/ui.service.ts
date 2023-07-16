@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable } from 'rxjs';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from '@angular/material/legacy-snack-bar';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 import { Injectable } from '@angular/core';
 import { SimpleDialogComponent } from './simple-dialog.component';

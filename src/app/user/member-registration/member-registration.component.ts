@@ -18,7 +18,6 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  FormGroupDirective,
   Validators,
 } from '@angular/forms';
 import { User } from 'src/app/models/user';
@@ -34,7 +33,7 @@ import { SubSink } from 'subsink';
 import { UiService } from 'src/app/common/ui.service';
 import { isPlatformBrowser } from '@angular/common';
 import { MatStep, MatStepper } from '@angular/material/stepper';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { TermsOfServiceComponent } from 'src/app/terms-of-service/terms-of-service.component';
 import { PrivacyPolicyComponent } from 'src/app/privacy-policy/privacy-policy.component';
 import {
@@ -44,7 +43,7 @@ import {
 import { CaptureContactComponent } from '../capture-contact/capture-contact.component';
 import { ContactVerificationComponent } from '../contact-verification/contact-verification.component';
 import { MembershipOptionsComponent } from '../membership-options/membership-options.component';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { InterComponentDataService } from 'src/app/services/inter-comp-data.service';
 
 @Component({

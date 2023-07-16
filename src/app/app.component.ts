@@ -1,12 +1,7 @@
-import * as PiModel from './models/pi-model';
+//import * as PiModel from './models/pi-model';
 
 import { ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
-  MatLegacyDialog as MatDialog,
-  MatLegacyDialogRef as MatDialogRef,
-} from '@angular/material/legacy-dialog';
 import { Observable, filter, map, tap } from 'rxjs';
 
 import { AuthDataService } from 'src/app/services/auth-data.service';
@@ -15,19 +10,18 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MenuItem } from './models/menu';
 import { NotificationService } from './services/notification.service';
-import { Pi_Authentication } from './shared/pi-auth-payments';
-import { Role } from './models/enums';
 import { Router } from '@angular/router';
 import { TokenStorageService } from './services/token-storage.service';
 import { UiService } from './common/ui.service';
 import { User } from './models/user';
 import { UserDataService } from './services/user-data.service';
 
-//import { RegistrationDataService } from './services/registration.service';
+//import { Pi_Authentication } from './shared/pi-auth-payments';
+//import { Role } from './models/enums';
 
-interface CustomWindow extends Window {
-  Pi: any;
-}
+// interface CustomWindow extends Window {
+//   Pi: any;
+// }
 
 @Component({
   selector: 'app-root',
@@ -85,7 +79,7 @@ export class AppComponent implements OnInit {
   _isLoggedIn: boolean = false;
   isBusy = false;
 
-  _windowRef = window as unknown as CustomWindow;
+  //_windowRef = window as unknown as CustomWindow;
 
   $appModeArr: string[] = ['Stream', 'Studio'];
 
@@ -96,7 +90,6 @@ export class AppComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
-    private _dialog: MatDialog,
     private _authService: AuthDataService,
     private _tokenStorageService: TokenStorageService,
     private _notificationService: NotificationService //private _regService: RegistrationDataService

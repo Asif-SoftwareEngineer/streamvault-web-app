@@ -36,6 +36,5 @@ import { VideoListComponent } from './video/upload/video-list/video-list.compone
     SharedModule,
     FieldErrorModule,
   ],
-  entryComponents: [SimpleDialogComponent],
 })
 export class StudioModule {}

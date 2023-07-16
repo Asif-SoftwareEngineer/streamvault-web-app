@@ -47,7 +47,6 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private _videoService: VideoStreamingService,
     private _videoDataService: VideoDataService,
-    private _router: Router,
     private _tokenStorageService: TokenStorageService
   ) {}
 
@@ -135,11 +134,6 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   //   let video: any = document.getElementById('vidElement');
   //   video.currentTime = 0;
   // }
-
-  goBack() {
-    this._videoService.setVideo(null);
-    this._router.navigateByUrl('/list/home');
-  }
 
   ngOnDestroy(): void {
     var myVideo: any = document.getElementById('vidElement');

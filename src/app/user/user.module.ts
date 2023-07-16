@@ -2,7 +2,6 @@ import { CaptureContactComponent } from './capture-contact/capture-contact.compo
 import { CommonModule } from '@angular/common';
 import { ContactVerificationComponent } from './contact-verification/contact-verification.component';
 import { FieldErrorModule } from '../shared/directives/field-error/field-error.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { LogOutComponent } from './log-out/log-out.component';
 import { ManagementComponent } from './management/management.component';
 import { MaterialModule } from '../material.module';
@@ -12,7 +11,6 @@ import { MembershipOptionsComponent } from './membership-options/membership-opti
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RegisterComponent } from './register/register.component';
 import { SharedModule } from '../shared/shared.module';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { UserRoutingModule } from './user-routing.module';
@@ -20,7 +18,6 @@ import { UserRoutingModule } from './user-routing.module';
 @NgModule({
   declarations: [
     LogOutComponent,
-    RegisterComponent,
     MyProfileComponent,
     MemberRegistrationComponent,
     MemberHomeComponent,
@@ -32,7 +29,6 @@ import { UserRoutingModule } from './user-routing.module';
   ],
   imports: [
     CommonModule,
-    FlexLayoutModule,
     UserRoutingModule,
     MaterialModule,
     SharedModule,

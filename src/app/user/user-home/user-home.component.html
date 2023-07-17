@@ -42,7 +42,7 @@
       class="user-home-main-video-container-row"
     >
       <div class="user-home-video-container-col">
-        <div class="user-home-player">
+        <div class="user-home-player" (click)="playThisVideo(video)">
           <img
             alt="Video Thumbnail"
             [src]="serverUrl + video.thumbnail"

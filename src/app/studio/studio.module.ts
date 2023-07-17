@@ -15,6 +15,7 @@ import { VideoApprovalsComponent } from './video/video-approvals/video-approvals
 import { VideoEditComponent } from './video/video-edit/video-edit.component';
 import { VideoInfoComponent } from './video/video-info/video-info.component';
 import { VideoListComponent } from './video/upload/video-list/video-list.component';
+import { VideoPlayerComponent } from './video/video-player/video-player.component';
 
 @NgModule({
   declarations: [

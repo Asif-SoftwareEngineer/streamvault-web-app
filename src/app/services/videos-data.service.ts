@@ -19,9 +19,25 @@ export class VideoDataService {
   private thumbnailHostUrl = new BehaviorSubject<string>('');
   private videoHostUrl = new BehaviorSubject<string>('');
 
+  private videoSource = new BehaviorSubject<VideoView>({
+    videoId: '',
+    userId: '',
+    channelId: '',
+    userName: '',
+    channelName: '',
+    title: '',
+    description: '',
+    url: '',
+    thumbnail: '',
+    channelProfileImage: '',
+    comments: '',
+    reactions: [],
+  });
+  public video$ = this.videoSource.asObservable();
+
   //#region - Behavior Subject - Setters and Getters
 
-  setVideoBase64(url: string) {
+  setVideoBase64(url: string): void {
     this.videoSubjectBase64.next(url);
   }
 
@@ -120,5 +136,9 @@ export class VideoDataService {
   ) {
     const url = `${apiConfig.baseUrl}reactions/withdraw/${userId}/${channelId}/${videoId}/${reActingUserId}/${reactionType}`;
     return this.http.post<any>(url, apiConfig.httpOptions);
+  }
+
+  setVideo(video: VideoView) {
+    this.videoSource.next(video);
   }
 }

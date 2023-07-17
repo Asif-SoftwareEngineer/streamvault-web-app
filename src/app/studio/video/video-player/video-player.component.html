@@ -1,0 +1,69 @@
+<div class="player-container">
+  <div class="player-main-column">
+    <vg-player (onPlayerReady)="videoPlayerReady($event)" class="player">
+      <vg-overlay-play></vg-overlay-play>
+      <vg-buffering></vg-buffering>
+
+      <vg-scrub-bar>
+        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+      </vg-scrub-bar>
+      <div class="controls">
+        <vg-controls
+          vgFor="singleVideo"
+          [vgAutohide]="true"
+          [vgAutohideTime]="5"
+        >
+          <vg-play-pause class="vg-play-pause"></vg-play-pause>
+          <vg-playback-button></vg-playback-button>
+          <vg-volume></vg-volume>
+          <vg-mute></vg-mute>
+          <vg-time-display
+            vgProperty="current"
+            vgFormat="mm:ss"
+          ></vg-time-display>
+
+          <vg-scrub-bar style="pointer-events: none"></vg-scrub-bar>
+
+          <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+
+          <vg-time-display
+            vgProperty="total"
+            vgFormat="mm:ss"
+          ></vg-time-display>
+
+          <!-- <vg-track-selector></vg-track-selector> -->
+
+          <vg-fullscreen></vg-fullscreen>
+        </vg-controls>
+      </div>
+
+      <video
+        [vgMedia]="$any(media)"
+        #media
+        id="singleVideo"
+        preload="auto"
+        crossorigin
+      >
+        <source [src]="serverUrl + videoView.url" type="video/mp4" />
+        <!-- <source
+      src="http://static.videogular.com/assets/videos/videogular.ogg"
+      type="video/ogg"
+    />
+    <track
+      kind="subtitles"
+      label="English"
+      src="http://static.videogular.com/assets/subs/pale-blue-dot.vtt"
+      srclang="en"
+      default
+    />
+    <track
+      kind="subtitles"
+      label="Español"
+      src="http://static.videogular.com/assets/subs/pale-blue-dot-es.vtt"
+      srclang="es"
+    /> -->
+      </video>
+    </vg-player>
+  </div>
+</div>

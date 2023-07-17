@@ -10,6 +10,7 @@ import { UploadDetailsComponent } from './video/upload/upload-details/upload-det
 import { VideoEditComponent } from './video/video-edit/video-edit.component';
 import { VideoInfoComponent } from './video/video-info/video-info.component';
 import { VideoListComponent } from './video/upload/video-list/video-list.component';
+import { VideoPlayerComponent } from './video/video-player/video-player.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -30,6 +31,8 @@ const routes: Routes = [
 
   { path: 'video-info/:identifier', component: VideoInfoComponent },
   { path: 'edit-video', component: VideoEditComponent },
+
+  { path: 'player', component: VideoPlayerComponent },
 ];
 
 @NgModule({

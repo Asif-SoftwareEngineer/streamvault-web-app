@@ -30,7 +30,7 @@
               "src/assets",
               "src/validation-key.txt"
             ],
-            "styles": ["src/styles/styles.scss"],
+            "styles": [],
             "scripts": []
           },
           "configurations": {

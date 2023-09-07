@@ -6,16 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 export const environment = {
   production: false,
-  api: {
-    baseUrl: 'http://localhost:3000/v2/',
-    serverUrl: 'http://localhost:3000/',
-    authApiUrl: 'http://localhost:3000/v1/',
-    httpOptions: {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    },
-  },
+  api: {},
 };
 
 /*
